@@ -1,7 +1,8 @@
 /*
     POST /register - register vehicle
     GET /:carId-:plate/edit - edit vehicle
-    POST /:carId-:plate/edit - edit vehicle
+    PUT /:carId-:plate - edit vehicle
+    DELETE /:carId-:plate - edit vehicle
 */
 
 
@@ -15,13 +16,18 @@ const { processQuery } = require("../../utils/db");
     @Auth Protected
 */
 router.post("/register", auth, async (req, res) => {
-    const { plate, owner, vehicle, status, color, companies } = req.body;
-
+    const { plate, owner, vehicle, status, color, company } = req.body;
 
     if (plate && owner && vehicle && status && color) {
 
+        // Check if plate is equal or shorter than 8
+        if (plate.toString().length > 8) {
+            return res.json({ msg: "Plate Can only be 8 characters long!" });
+        }
+
         const citizen = await processQuery("SELECT vehicle_reg, rank FROM `citizens` WHERE `full_name` = ?", [owner]);
         const plate2 = await processQuery("SELECT * FROM `registered_vehicles` WHERE  `plate` = ?", [plate]);
+
         const vinNumber = () => {
             var result = '';
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -39,9 +45,9 @@ router.post("/register", auth, async (req, res) => {
         };
 
 
-        if (companies !== "") {
+        if (company !== "") {
             if (citizen[0].vehicle_reg === "true" || citizen[0].rank === "owner" || citizen[0].rank === "manager") {
-                processQuery("INSERT INTO `registered_vehicles` (`owner`, `vehicle`, `vin_number`, `in_status`, `plate`, `color`, `linked_to`, `company`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [owner, vehicle, vinNumber(17), status, plate, color, req.user.username, companies])
+                processQuery("INSERT INTO `registered_vehicles` (`owner`, `vehicle`, `vin_number`, `in_status`, `plate`, `color`, `linked_to`, `company`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [owner, vehicle, vinNumber(17), status, plate, color, req.user.username, company])
                     .then(() => {
                         return res.json({ msg: "Registered" });
                     })
@@ -50,7 +56,7 @@ router.post("/register", auth, async (req, res) => {
                 return res.json({ msg: "You're not allowed to register a vehicle for your company!" })
             }
         } else {
-            processQuery("INSERT INTO `registered_vehicles` (`owner`, `vehicle`, `vin_number`, `in_status`, `plate`, `color`, `linked_to`, `company`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [owner, vehicle, vinNumber(17), status, plate, color, req.user.username, ""])
+            processQuery("INSERT INTO `registered_vehicles` (`owner`, `vehicle`, `vin_number`, `in_status`, `plate`, `color`, `linked_to`, `company`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [owner, vehicle, vinNumber(17), status, plate, color, req.user.username, "none"])
                 .then(() => {
                     return res.json({ msg: "Registered" });
                 })
@@ -64,17 +70,65 @@ router.post("/register", auth, async (req, res) => {
 
 
 /*
-    @Route /:carId-:plate/edit
+    @Route /:carId-:plate
     @Auth Protected
 */
-router.get("/:carId-:plate/edit", auth, async (req, res) => {
+router.get("/:carId-:plate", auth, async (req, res) => {
     const vehicle = await processQuery("SELECT * FROM `registered_vehicles` WHERE `id` = ?", [req.params.carId]);
 
+    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
 
+
+    if (vehicle[0].linked_to !== req.user.username) return res.json({ msg: "You can't edit someone elses vehicle!" });
+
+    return res.json({ vehicle: vehicle });
+});
+
+/*
+    @Route /:carId-:plate
+    @Auth Protected
+*/
+router.put("/:carId-:plate", auth, async (req, res) => {
+    const { color, status, company } = req.body;
+    const carId = req.params.carId;
+
+    if (color, status, company) {
+        const vehicle = await processQuery("SELECT * FROM `registered_vehicles` WHERE `id` = ?", [carId]);
+
+        if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
+
+        if (vehicle[0].linked_to !== req.user.username) return res.json({ msg: "You can't edit someone elses vehicle!" });
+
+        processQuery("UPDATE `registered_vehicles` SET `color` = ?, `in_status` = ?, company = ? WHERE `registered_vehicles`.`id` = ?", [color, status, company, carId])
+            .then(() => {
+                return res.json({ msg: "Updated" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Please fill in all fields!" });
+    };
+});
+
+/*
+    @Route /:carId-:plate
+    @Auth Protected
+*/
+router.delete("/:carId-:plate", auth, async (req, res) => {
+    const carId = req.params.carId;
+    const vehicle = await processQuery("SELECT * FROM `registered_vehicles` WHERE `id` = ?", [carId]);
+
+    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
+
+
+    if (vehicle[0].linked_to !== req.user.username) return res.json({ msg: "You can't edit someone elses vehicle!" });
+
+    processQuery("DELETE FROM `registered_vehicles` WHERE `registered_vehicles`.`id` = ?", [carId])
+        .then(() => {
+            return res.json({ msg: "Deleted" });
+        })
+        .catch(err => console.log(err));
 });
 
 
-
-router.post("/")
 
 module.exports = router;
