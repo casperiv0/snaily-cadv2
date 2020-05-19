@@ -8,7 +8,7 @@ const { connectToDatabase } = require("./utils/db")
 // Require Routes
 // ADMIN ROUTERS
 const adminRouter = require("./routes/admin/admin");
-
+const citizenManagementRouter = require("./routes/admin/citizenManagement");
 
 const authRouter = require("./routes/authentication/auth");
 const citizenRouter = require("./routes/citizen/citizen");
@@ -32,6 +32,7 @@ app.use("/auth", authRouter);
 // Admin Routers
 app.use("/admin", adminRouter)
 
+app.use("/admin/citizen", citizenManagementRouter)
 
 app.use("/citizen", citizenRouter);
 

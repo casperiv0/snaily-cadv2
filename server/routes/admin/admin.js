@@ -1,6 +1,8 @@
 /*
     GET / - all admin data
     GET /action-logs - show all action logs
+    DELETE /delete-all-citizens
+    DELETE /manage-companies/:companyId
 */
 
 const router = require("express").Router();
@@ -80,5 +82,26 @@ router.delete("/delete-all-citizens", auth, (req, res) => {
         return res.sendStatus(403);
     };
 });
+
+
+/*
+    @Route /admin/manage-companies/:companyId
+    @Auth Protected
+*/
+router.delete("/manage-companies/:companyId", auth, async (req, res) => {
+    const companyId = req.params.companyId;
+
+    if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
+        processQuery("DELETE FROM `businesses` WHERE `id` = ?", companyId)
+            .then(() => {
+                return res.json({ msg: "Company Deleted" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        res.sendStatus(403);
+    };
+});
+
+
 
 module.exports = router;
