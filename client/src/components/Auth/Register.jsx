@@ -53,24 +53,16 @@ export default class Register extends Component {
     });
   };
 
-  handleUsername = (e) => {
+  handleChange = (e) => {
     this.setState({
-      username: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  handlePassword = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
-  };
 
-  handlePassword2 = (e) => {
-    this.setState({
-      password2: e.target.value,
-    });
-  };
-
+  componentDidMount() {
+    document.title = "Create An Account"
+  }
 
   render() {
     const { username, password, password2, email, error } = this.state;
@@ -94,8 +86,9 @@ export default class Register extends Component {
           <Input
             type='text'
             id='username'
+            name='username'
             value={username}
-            onChange={this.handleUsername}
+            onChange={this.handleChange}
           />
         </FormControl>
 
@@ -105,8 +98,9 @@ export default class Register extends Component {
           <Input
             type='password'
             id='password'
+            name='password'
             value={password}
-            onChange={this.handlePassword}
+            onChange={this.handleChange}
           />
         </FormControl>
 
@@ -118,8 +112,9 @@ export default class Register extends Component {
           <Input
             type='password'
             id='password2'
+            name='password2'
             value={password2}
-            onChange={this.handlePassword2}
+            onChange={this.handleChange}
           />
            <div style={{ marginTop: '5px' }}>
             Already have an account?{' '}

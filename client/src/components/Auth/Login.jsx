@@ -56,6 +56,10 @@ export default class Login extends Component {
   };
 
 
+  componentDidMount() {
+    document.title = "Please Login"
+  }
+
   render() {
     const { username, password, error } = this.state;
     return (

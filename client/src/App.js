@@ -23,16 +23,29 @@ class App extends Component {
     return (
       <Router>
 
-        {/* Auth Routes */}
         <div className="container">
+          <Route path="/" exact component={Home} />
+        </div>
+
+        {/* Auth Routes */}
+        <div className="center-container">
           <Route path="/auth/login" exact component={Login} />
           <Route path="/auth/register" exact component={Register} />
         </div>
 
-          <Route path="/citizen" exact component={CitizensPage} />
+        <Route path="/citizen" exact component={CitizensPage} />
       </Router>
     );
   }
+}
+
+
+const Home = () => {
+  return (
+    <div>SnailyCAD v2 | Pre-Alpha <br /> 
+      <a href="/auth/login">Login Page</a>
+    </div>
+  )
 }
 
 export default App;
