@@ -136,6 +136,7 @@ router.post("/login", async (req, res) => {
                     username: username,
                     rank: user[0].rank,
                 }, jwt_secret, { expiresIn: 9400 });
+                
 
                 return res.json({ msg: "LoggedIn", token: token });
             };

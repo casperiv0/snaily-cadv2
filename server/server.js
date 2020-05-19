@@ -6,6 +6,10 @@ const { port } = require("../config.json");
 const { connectToDatabase } = require("./utils/db")
 
 // Require Routes
+// ADMIN ROUTERS
+const adminRouter = require("./routes/admin/admin");
+
+
 const authRouter = require("./routes/authentication/auth");
 const citizenRouter = require("./routes/citizen/citizen");
 const companyRouter = require("./routes/citizen/company");
@@ -24,6 +28,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // All Routers
 app.use("/auth", authRouter);
+
+// Admin Routers
+app.use("/admin", adminRouter)
+
 
 app.use("/citizen", citizenRouter);
 

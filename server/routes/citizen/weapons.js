@@ -1,7 +1,6 @@
 /*
     POST /register - Register Weapon
     DELETE /:weaponId - delete weapon
-    PUT /:weaponId - edit weapon // Not yet implemented
 */
 
 
@@ -46,13 +45,6 @@ router.delete("/:weaponId", auth, async (req, res) => {
         })
         .catch(err => console.log(err));
 });
-
-
-/*
-    @Route /:weaponId
-*/
-
-
 
 
 module.exports = router;

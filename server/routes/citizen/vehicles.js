@@ -1,6 +1,6 @@
 /*
     POST /register - register vehicle
-    GET /:carId-:plate/edit - edit vehicle
+    GET /:carId-:plate - edit vehicle
     PUT /:carId-:plate - edit vehicle
     DELETE /:carId-:plate - edit vehicle
 */
