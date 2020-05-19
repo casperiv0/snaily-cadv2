@@ -45,18 +45,21 @@ router.post("/register", async (req, res) => {
 
                 // CAD is whitelisted and Tow too
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "true") {
-                    return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending"]);
+                    return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending"]);
                 }
 
                 // CAD is whitelisted but tow is not
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "false") {
-                    processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending"])
+                    processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending"])
                 };
 
 
                 // CAD is not whitelisted but Tow is 
                 if (cad_info[0].whitelisted === "false" && cad_info[0].tow_whitelisted === "true") {
-                    const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "accepted"])
+                    const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "accepted"])
                     const token = jwt.sign({
                         id: newUser.insertId,
                         username: username,
@@ -69,7 +72,8 @@ router.post("/register", async (req, res) => {
 
                 // none are whitelisted
                 if (cad_info[0].whitelisted === "false" && cad_info[0].tow_whitelisted === "false") {
-                    const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "accepted"])
+                    const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "accepted"])
 
                     const token = jwt.sign({
                         id: newUser.insertId,
@@ -87,7 +91,8 @@ router.post("/register", async (req, res) => {
                 processQuery("INSERT INTO `cad_info` (`owner`, `cad_name`, `AOP`, `tow_whitelisted`, `whitelisted`) VALUES (?, ?, ?, ?, ?)", [username, 'Change Me', 'Change Me', 'false', 'false']).catch(err => console.log(err));
 
                 // Create user
-                const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [username, encryptedPassword, "owner", "yes", "yes", "yes", "yes", "false", "", "accepted"])
+                const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [username, encryptedPassword, "owner", "yes", "yes", "yes", "yes", "false", "", "accepted"])
                 const token = jwt.sign({
                     id: newUser.insertId,
                     username: username,
@@ -136,7 +141,7 @@ router.post("/login", async (req, res) => {
                     username: username,
                     rank: user[0].rank,
                 }, jwt_secret, { expiresIn: 9400 });
-                
+
 
                 return res.json({ msg: "LoggedIn", token: token });
             };

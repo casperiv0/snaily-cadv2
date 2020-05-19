@@ -9,6 +9,8 @@ const { connectToDatabase } = require("./utils/db")
 // ADMIN ROUTERS
 const adminRouter = require("./routes/admin/admin");
 const citizenManagementRouter = require("./routes/admin/citizenManagement");
+const memberManagementRouter = require("./routes/admin/memberManagement");
+const editCadRouter = require("./routes/admin/editCad");
 
 const authRouter = require("./routes/authentication/auth");
 const citizenRouter = require("./routes/citizen/citizen");
@@ -30,9 +32,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRouter);
 
 // Admin Routers
-app.use("/admin", adminRouter)
-
-app.use("/admin/citizen", citizenManagementRouter)
+app.use("/admin", adminRouter);
+app.use("/admin/citizen", citizenManagementRouter);
+app.use("/admin/members", memberManagementRouter);
+app.use("/admin/edit-cad", editCadRouter);
 
 app.use("/citizen", citizenRouter);
 
