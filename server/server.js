@@ -25,6 +25,9 @@ const authRouter = require("./routes/authentication/auth");
 //global Router
 const globalRouter = require("./routes/global/global");
 
+// Dispatch Router
+const dispatchRouter = require('./routes/dispatch/dispatch');
+
 // Citizen Routers
 const citizenRouter = require("./routes/citizen/citizen");
 const companyRouter = require("./routes/citizen/company");
@@ -61,6 +64,9 @@ app.use("/admin/genders", gendersRouter);
 app.use("/admin/legal-statuses", legalStatusRouter);
 app.use("/admin/vehicles", vehiclesRouter);
 app.use("/admin/weapons", weaponsRouter);
+
+// Dispatch
+app.use("/dispatch", dispatchRouter);
 
 app.use("/global", globalRouter);
 

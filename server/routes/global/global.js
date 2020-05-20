@@ -9,7 +9,7 @@
     POST /create-911-call - create 911 call
     POST /create-tow-call
 
-    POST /add-bolo - add a bolo¨
+    POST /add-bolo - add a bolo
     DELETE /bolo/:boloId - delete a bolo
 
     POST /suspend-dmv/:citizenId - suspend a drivers license
@@ -221,5 +221,8 @@ router.put("/update-warrant/:warrantId", auth, emrAuth, async (req, res) => {
         .catch(err => console.log(err));
 
 });
+
+
+
 
 module.exports = router;
