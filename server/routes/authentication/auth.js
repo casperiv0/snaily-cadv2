@@ -120,10 +120,7 @@ router.post("/login", async (req, res) => {
     // Check if all fields are filled in
     if (username && password) {
 
-        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);
-
-        console.log(user);
-        
+        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);        
 
         // Check if user exist
         if (!user[0]) {

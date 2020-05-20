@@ -15,6 +15,9 @@ const editCadRouter = require("./routes/admin/editCad");
 // Auth Routers
 const authRouter = require("./routes/authentication/auth");
 
+//global Router
+const globalRouter = require("./routes/global/global");
+
 // Citizen Routers
 const citizenRouter = require("./routes/citizen/citizen");
 const companyRouter = require("./routes/citizen/company");
@@ -25,6 +28,9 @@ const citizenVehiclesRouter = require("./routes/citizen/vehicles");
 
 // Bleeter
 const bleeterRouter = require("./routes/bleeter/bleeter");
+
+// EMS_FD
+const ems_fdRouter = require("./routes/ems-fd/ems-fd");
 
 
 // Middleware
@@ -42,6 +48,10 @@ app.use("/admin", adminRouter);
 app.use("/admin/citizen", citizenManagementRouter);
 app.use("/admin/members", memberManagementRouter);
 app.use("/admin/edit-cad", editCadRouter);
+
+app.use("/global", globalRouter);
+
+app.use("/ems-fd", ems_fdRouter);
 
 app.use("/citizen", citizenRouter);
 
