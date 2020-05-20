@@ -1,6 +1,9 @@
 /*
     GET /911calls - shows all 911 calls
     GET /tow - shows all tow calls
+    DELETE /911calls/:callId - cancel/delete 911 call 
+    PUT /911calls/:callId - update 911 call
+
     POST /create-911-call - create 911 call
     POST /create-tow-call
 
@@ -59,6 +62,36 @@ router.post("/create-911-call", (req, res) => {
     } else {
         return res.json({ msg: "Please fill in all fields!" });
     };
+});
+
+
+/*
+    @Route /global/911calls/:callId
+    @Auth Protected
+*/
+router.delete("/911calls/:callId", auth, emrAuth, (req, res) => {
+
+    processQuery("DELETE FROM `911calls` WHERE `911calls`.`id` = ?", [req.params.callId])
+        .then(() => {
+            res.json({ msg: "Canceled" });
+        })
+        .catch(err => console.log(err));
+});
+
+/*
+    @Route /global/911calls/:callId
+    @Auth Protected
+*/
+router.put("/911calls/:callId", auth, emrAuth, (req, res) => {
+    const { status, location, description } = req.body;
+    const assigned_unit = [req.body.assigned_unit].join(" ");
+
+    processQuery("UPDATE `911calls` SET `location` = ?, `status` = ?, `assigned_unit` = ?, `description` = ? WHERE `911calls`.`id` = ?",
+        [location, status, assigned_unit, description, req.params.callId])
+        .then(() => {
+            return res.json({ msg: "Updated" });
+        })
+        .catch(err => console.log(err));
 });
 
 
@@ -148,6 +181,30 @@ router.post("/add-warrant", auth, emrAuth, (req, res) => {
     } else {
         res.json({ msg: "Please fill in all fields" });
     };
+});
+
+
+/*
+    @Route /global/update-warrant/:warrantId
+    @Auth Protected
+*/
+router.put("/update-warrant/:warrantId", auth, emrAuth, async (req, res) => {
+    const warrant = await processQuery("SELECT * FROM `warrants` WHERE `id` = ?", [req.params.warrantId]);
+
+    if (!warrant[0]) return res.json({ msg: "Warrant wasn't found!" });
+
+    if (warrant[0].status === "Active") {
+        status = "Inactive";
+    } else {
+        status = "Active";
+    };
+
+    processQuery("UPDATE `warrants` SET `status` = ? WHERE `id` = ?", [status, req.params.warrantId])
+        .then(() => {
+            return res.json({ msg: "Updated" });
+        })
+        .catch(err => console.log(err));
+
 });
 
 module.exports = router;
