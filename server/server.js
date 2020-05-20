@@ -11,6 +11,13 @@ const adminRouter = require("./routes/admin/admin");
 const citizenManagementRouter = require("./routes/admin/citizenManagement");
 const memberManagementRouter = require("./routes/admin/memberManagement");
 const editCadRouter = require("./routes/admin/editCad");
+// admin values
+const departmentsRouter = require("./routes/admin/values/departments");
+const ethnicitiesRouter = require("./routes/admin/values/ethnicities");
+const gendersRouter = require("./routes/admin/values/genders");
+const legalStatusRouter = require("./routes/admin/values/legal");
+const vehiclesRouter = require("./routes/admin/values/vehicles");
+const weaponsRouter = require("./routes/admin/values/weapons");
 
 // Auth Routers
 const authRouter = require("./routes/authentication/auth");
@@ -48,6 +55,12 @@ app.use("/admin", adminRouter);
 app.use("/admin/citizen", citizenManagementRouter);
 app.use("/admin/members", memberManagementRouter);
 app.use("/admin/edit-cad", editCadRouter);
+app.use("/admin/departments", departmentsRouter);
+app.use("/admin/ethnicities", ethnicitiesRouter);
+app.use("/admin/genders", gendersRouter);
+app.use("/admin/legal-statuses", legalStatusRouter);
+app.use("/admin/vehicles", vehiclesRouter);
+app.use("/admin/weapons", weaponsRouter);
 
 app.use("/global", globalRouter);
 

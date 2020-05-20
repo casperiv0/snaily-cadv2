@@ -1,8 +1,10 @@
 /*
     GET /911calls - shows all 911 calls
     GET /tow - shows all tow calls
+    
     DELETE /911calls/:callId - cancel/delete 911 call 
     PUT /911calls/:callId - update 911 call
+    DELETE /tow-calls/:callId - Cancel/delete tow call
 
     POST /create-911-call - create 911 call
     POST /create-tow-call
@@ -13,6 +15,7 @@
     POST /suspend-dmv/:citizenId - suspend a drivers license
 
     POST /add-warrant - add a new warrant
+    PUT /update-warrant/:warrantId - change warrant status from active => inactive or inactive => active
 */
 
 
@@ -126,6 +129,18 @@ router.post("/create-tow-call", (req, res) => {
     };
 });
 
+
+/*
+    @Route /global/tow-calls/:callId
+    @Auth Public
+*/
+router.delete("/tow-calls/:callId", (req, res) => {
+    processQuery("DELETE FROM `tow_calls` WHERE `id` = ?", [req.params.callId])
+        .then(() => {
+            return res.json({ msg: "Canceled" });
+        })
+        .catch(err => console.log(err));
+})
 
 /*
     @Route /global/add-bolo
