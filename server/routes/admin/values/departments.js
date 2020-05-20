@@ -11,14 +11,28 @@ const auth = require("../../../auth/tokenAuth");
 const { processQuery } = require("../../../utils/db");
 const adminAuth = require("../../../auth/adminAuth");
 
+
+async function officerAdminAuth(req, res, next) {
+    const user = await processQuery("SELECT rank, leo FROM `users` WHERE `id` = ?", [req.user.id]);
+
+    // Check if the user has moderator+ Permissions
+    if (user[0].rank === "moderator" || user[0].rank === "admin" || user[0].rank === "owner" || user[0].leo === "yes") {
+        // User has access
+        next();
+    } else {
+        // User doesn't have access
+        return res.sendStatus(403)
+    }
+}
+
 /*
     @Route /departments/
     @Auth Protected
 */
-router.get("/", auth, adminAuth, (req, res) => {
+router.get("/", auth, officerAdminAuth, (req, res) => {
     processQuery("SELECT * FROM `departments`")
         .then((depts) => {
-            return res.json({ departments: depts})
+            return res.json({ departments: depts })
         })
         .catch(err => console.log(err));
 });
