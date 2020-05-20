@@ -1,8 +1,6 @@
 # SnailyCAD v2
 
-<!-- A newer and more secure CAD! SnailyCAD is now a safer CAD for your community! Coming Soon -->
-
-Coming Soon
+SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 
 ## Main Info
 
@@ -15,3 +13,7 @@ Please contact me before contributing so I know! Thanks
 ### Release Date
 
 Hoping to get it out end of June, mid July
+
+<!-- ## Features
+
+- Citizen, EMS/FD, Police and Dispatch Dashboard -->

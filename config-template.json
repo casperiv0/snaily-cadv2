@@ -1,9 +1,0 @@
-{
-    "host": "localhost",
-    "databaseUser": "root",
-    "database": "snaily-cad",
-    "databasePassword": "",
-    "env": "production",
-    "port": "80",
-    "jwt_secret": "secret"
-}

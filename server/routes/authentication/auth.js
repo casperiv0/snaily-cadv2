@@ -3,7 +3,7 @@ const { processQuery } = require("../../utils/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../../auth/tokenAuth")
-const { jwt_secret } = require("../../../config.json");
+const { jwt_secret } = require("../../../config.js");
 
 /*
     @route /register
@@ -121,6 +121,9 @@ router.post("/login", async (req, res) => {
     if (username && password) {
 
         const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);
+
+        console.log(user);
+        
 
         // Check if user exist
         if (!user[0]) {

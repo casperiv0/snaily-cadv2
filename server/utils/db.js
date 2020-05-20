@@ -1,5 +1,5 @@
 const mySql = require("promise-mysql2");
-const { databaseUser, host, databasePassword, database } = require("../../config.json");
+const { databaseUser, host, databasePassword, database } = require("../../config.js");
 
 // Database options: Edit config.json
 const options = {
