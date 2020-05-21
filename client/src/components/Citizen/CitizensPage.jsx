@@ -16,6 +16,7 @@ export default class CitizensPage extends Component {
   }
 
   componentDidMount() {
+    document.title = "Citizens - See all your citizens"
     this.getCitizens();
   }
 

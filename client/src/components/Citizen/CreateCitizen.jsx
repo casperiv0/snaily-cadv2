@@ -158,7 +158,7 @@ export default class AddCitizen extends Component {
               onChange={this.handleChange}
               name='fullName'
               id='fullName'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
             />
           </div>
 
@@ -170,7 +170,7 @@ export default class AddCitizen extends Component {
               onChange={this.handleChange}
               name='birth'
               id='birth'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
             />
           </div>
 
@@ -180,7 +180,7 @@ export default class AddCitizen extends Component {
             <select
               name='ethnicity'
               value={ethnicity}
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}>
               <option defaultChecked>Select Ethnicity..</option>
               {ethnicities.map((ethnicity, index) => (
@@ -197,7 +197,7 @@ export default class AddCitizen extends Component {
             <select
               name='gender'
               id='gender'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               value={gender}
               onChange={this.handleChange}>
               <option defaultChecked>Select Gender..</option>
@@ -216,7 +216,7 @@ export default class AddCitizen extends Component {
               value={hairColor}
               name='hairColor'
               id='hairColor'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -228,7 +228,7 @@ export default class AddCitizen extends Component {
               value={eyeColor}
               name='eyeColor'
               id='eyeColor'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -240,7 +240,7 @@ export default class AddCitizen extends Component {
               value={address}
               name='address'
               id='address'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -252,7 +252,7 @@ export default class AddCitizen extends Component {
               value={height}
               name='height'
               id='height'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -264,7 +264,7 @@ export default class AddCitizen extends Component {
               value={weight}
               name='weight'
               id='weight'
-              className='form-control bg-secondary bg-secondary text-light'
+              className='form-control bg-secondary border-secondary text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -278,7 +278,7 @@ export default class AddCitizen extends Component {
               <select
                 name='dmv'
                 id='dmv'
-                className='form-control bg-secondary bg-secondary text-light'
+                className='form-control bg-secondary border-secondary text-light'
                 value={dmv}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
@@ -296,7 +296,7 @@ export default class AddCitizen extends Component {
               <select
                 name='firearmsLicense'
                 id='firearmsLicense'
-                className='form-control bg-secondary bg-secondary text-light'
+                className='form-control bg-secondary border-secondary text-light'
                 value={firearmsLicense}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
@@ -314,7 +314,7 @@ export default class AddCitizen extends Component {
               <select
                 name='pilotLicense'
                 id='pilotLicense'
-                className='form-control bg-secondary bg-secondary text-light'
+                className='form-control bg-secondary border-secondary text-light'
                 value={pilotLicense}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
@@ -332,7 +332,7 @@ export default class AddCitizen extends Component {
               <select
                 name='ccw'
                 id='ccw'
-                className='form-control bg-secondary bg-secondary text-light'
+                className='form-control bg-secondary border-secondary text-light'
                 value={ccw}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
