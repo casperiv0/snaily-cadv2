@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Partials
 import Navbar from "./components/Partials/Navbar"
@@ -7,49 +7,40 @@ import Navbar from "./components/Partials/Navbar"
 // Authentication
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import { getSession } from "./components/Auth/getSession";
 import PrivateRoute from "./components/Auth/PrivateRoute"
 
 
 // Citizen
 import CitizensPage from "./components/Citizen/CitizensPage";
+import HomePage from './components/Partials/HomePage';
 
 
 export default class Routes extends Component {
     render() {
         return (
-            <div>
+            <Router>
                 <Navbar />
 
 
-                <Router basename="/">
+                <Switch basename="/">
+                    <Route path="/" exact component={HomePage} />
                     {/* Auth Routes */}
                     <div className="login-container">
                         <Route path="/auth/login" exact component={Login} />
                         <Route path="/auth/register" exact component={Register} />
                     </div>
-                </Router>
+                </Switch>
 
 
-                <Router basename="/" className="container">
+                <Switch basename="/" className="container">
                     <PrivateRoute path="/citizen" component={CitizensPage} />
-                </Router>
+                </Switch>
 
                 {/* <Router basename="/">
                     <Route exact path="/citizen" component={CitizensPage} />
                 </Router> */}
 
-            </div>
+            </Router>
         )
     }
-}
-
-
-
-const Home = () => {
-    return (
-        <div className="container">SnailyCAD v2 | Pre-Alpha <br />
-            <a href="/auth/login">Login Page</a>
-        </div>
-    )
 }

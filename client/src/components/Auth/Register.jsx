@@ -7,9 +7,11 @@ import {
   Avatar,
   Button,
   Link,
+  CircularProgress
 } from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
+import { logIn } from './getSession';
 
 
 export default class Register extends Component {
@@ -21,6 +23,7 @@ export default class Register extends Component {
       password: '',
       password2: '',
       error: '',
+      loading: false
     };
   }
 
@@ -42,10 +45,12 @@ export default class Register extends Component {
       if (msg === 'User Created') {
         sessionStorage.setItem('message', 'Successfully Logged In!');
         sessionStorage.setItem('token', res.data.token);
+        logIn();
         return (window.location = '/citizen');
       }
 
       this.setState({
+        loading: false,
         error: msg,
       });
 
@@ -64,7 +69,7 @@ export default class Register extends Component {
   }
 
   render() {
-    const { username, password, password2, error } = this.state;
+    const { username, password, password2, error, loading } = this.state;
     return (
       <form className='login-box' onSubmit={this.onSubmit}>
         {/* avatar */}
@@ -124,9 +129,12 @@ export default class Register extends Component {
         </FormControl>
 
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-          <Button type='submit' variant='contained' color='primary'>
+          <div className="loading-wrapper">
+          <Button fullWidth disabled={loading} type='submit' variant='contained' color='primary'>
             Register
           </Button>
+          {loading ? <CircularProgress className="loader" size={24} /> : null}
+          </div>
         </FormControl>
       </form>
     );

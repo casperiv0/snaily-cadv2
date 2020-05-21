@@ -6,6 +6,7 @@
 }
 
 .login-box {
+  background-color: white;
   width: 250px;
   height: 100%;
   padding: 15px;
@@ -20,6 +21,16 @@
 .alert-box {
   width: 95%;
   margin-top: 20px;
+}
+
+
+.loader {
+  color: green;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -12px;
+  margin-left: -12px;
 }
 
 @media screen and (min-width: 350px) {

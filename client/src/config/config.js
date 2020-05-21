@@ -1,1 +1,1 @@
-export const backendURL = "http://localhost/" // this is the URL that calls the backend, please make sure this is a valid full URL (http(s)) and valid port
+export const backendURL = "http://localhost:3001" // this is the URL that calls the backend, please make sure this is a valid full URL (http(s)) and valid port
