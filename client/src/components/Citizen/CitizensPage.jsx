@@ -1,30 +1,60 @@
 import React, { Component } from 'react';
-import { logOut } from '../Auth/getSession';
-import { Link } from 'react-router-dom';
+import TopButtons from './TopButtons';
+import axios from 'axios';
+import { backendURL } from '../../config/config';
+import Cookies from 'js-cookie';
+import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
+import CitizenBox from './CitizenBox';
 
 export default class CitizensPage extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      citizens: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getCitizens();
+  }
+
+  getCitizens = () => {
+    axios({
+      url: backendURL + '/citizen',
+      method: 'GET',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      this.setState({
+        citizens: res.data.citizens,
+      });
+    });
+  };
+
   render() {
+    const { citizens } = this.state;
     return (
       <div className='container'>
-        <div className="grid">
-          <div className="row">
-          <button onClick={logOut} className='col btn btn-danger'>Logout</button>
-          <Link to="/account/edit" className='col ml-1 btn btn-primary'>Edit Account</Link>
-          </div>
+        <TopButtons />
 
-          <div className="row mt-1">
-          <Link to="/citizen/create" className='col btn btn-primary'>Create new Citizen</Link>
-          <Link to="/vehicles/register" className='col ml-1 btn btn-primary'>Register a New Vehicle</Link>
-          <Link to="/weapons/register" className='col ml-1 btn btn-primary'>Register a New Vehicle</Link>
-          </div>
-
-          <div className="row mt-1">
-          <Link to="/manage-company-employment" className='col btn btn-primary'>Manage Employment Status</Link>
-          <button className='col ml-1 btn btn-primary'>Call Tow Service</button>
-          <button className='col ml-1 btn btn-primary'>Call Emergency Services</button>
-          </div>
-        </div>
-        Citizens page
+        <ul className='list-group mt-5'>
+          {!citizens[0] ? (
+            <NoCitizensMessage />
+          ) : (
+            citizens.map((citizen, index) => {
+              return (
+                <CitizenBox
+                  id={citizen.id}
+                  key={index}
+                  index={index}
+                  fullName={citizen.full_name}
+                />
+              );
+            })
+          )}
+        </ul>
       </div>
     );
   }

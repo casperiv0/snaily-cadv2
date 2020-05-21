@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Partials
 import Navbar from "./components/Partials/Navbar"
+import HomePage from './components/Partials/HomePage';
 
 // Authentication
 import Login from './components/Auth/Login';
@@ -12,8 +13,7 @@ import PrivateRoute from "./components/Auth/PrivateRoute"
 
 // Citizen
 import CitizensPage from "./components/Citizen/CitizensPage";
-import HomePage from './components/Partials/HomePage';
-
+import CreateCitizen from "./components/Citizen/CreateCitizen";
 
 export default class Routes extends Component {
     render() {
@@ -33,12 +33,9 @@ export default class Routes extends Component {
 
 
                 <Switch basename="/" className="container">
-                    <PrivateRoute path="/citizen" component={CitizensPage} />
+                    <PrivateRoute exact path="/citizen" component={CitizensPage} />
+                    <PrivateRoute exact path="/citizen/create" component={CreateCitizen} />
                 </Switch>
-
-                {/* <Router basename="/">
-                    <Route exact path="/citizen" component={CitizensPage} />
-                </Router> */}
 
             </Router>
         )

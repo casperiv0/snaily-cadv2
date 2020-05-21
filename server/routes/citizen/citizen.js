@@ -20,7 +20,7 @@ router.get("/", auth, async (req, res) => {
 
     const citizens = await processQuery("SELECT * FROM `citizens` WHERE `linked_to` = ?", [user.username]);
 
-    return res.json(citizens);
+    return res.json({ citizens });
 });
 
 
@@ -56,7 +56,6 @@ router.post("/add", auth, async (req, res) => {
         // Create the citizen        
         const query = "INSERT INTO `citizens` ( `full_name`, `linked_to`, `birth`, `gender`, `ethnicity`, `hair_color`, `eye_color`, `address`, `height`, `weight`, `dmv`, `fire_license`, `pilot_license`,`ccw`,`business`, `rank`, `vehicle_reg`, `posts`, `citizen_picture`, `b_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        // Insert into database
         processQuery(query, [fullName, req.user.username, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw, "Not Working Anywhere", "", "true", "true", "", ""])
             .then(citizen => {
                 return res.json({ msg: "Citizen Created" });

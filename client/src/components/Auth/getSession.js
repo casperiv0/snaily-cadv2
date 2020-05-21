@@ -1,5 +1,4 @@
-import Cookies from 'js-cookie'
-import { Redirect } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 
 export const getSession = () => {
@@ -16,15 +15,13 @@ export const getSession = () => {
     } catch (error) {
         console.log(error)
     }
-    return session
-}
+    return session;
+};
+
 
 export const logIn = () => {
-    const jwtToken = sessionStorage.getItem("token")
-    const sessionToken = Cookies.set("__session", jwtToken);
-
-    console.log(sessionToken);
-    console.log(jwtToken);
+    const jwtToken = sessionStorage.getItem("token");
+    Cookies.set("__session", jwtToken);
 };
 
 export const logOut = () => {

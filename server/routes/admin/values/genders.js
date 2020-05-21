@@ -13,9 +13,9 @@ const adminAuth = require("../../../auth/adminAuth");
 
 /*
     @Route /genders/
-    @Auth Protected
+    @Auth Protected - Only Needs a token, no Rank
 */
-router.get("/", auth, adminAuth, (req, res) => {
+router.get("/", auth, (req, res) => {
     processQuery("SELECT * FROM `genders`")
         .then((genders) => {
             return res.json({ genders: genders})

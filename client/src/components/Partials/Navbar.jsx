@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class NavigationBar extends Component {
   render() {
     return (
-      <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-secondary sticky-top'>
         <a className='navbar-brand' href='/'>
           SnailyCAD
         </a>
