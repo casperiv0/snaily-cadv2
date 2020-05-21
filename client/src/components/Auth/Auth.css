@@ -1,5 +1,5 @@
-.center-container{
-  min-height: 95vh;
+.login-container {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,13 +23,13 @@
 }
 
 @media screen and (min-width: 350px) {
-    .login-box {
-      width: 300px;
-    }
+  .login-box {
+    width: 300px;
   }
-  
-  @media screen and (min-width: 600px) {
-    .login-box {
-      width: 550px;
-    }
+}
+
+@media screen and (min-width: 600px) {
+  .login-box {
+    width: 550px;
   }
+}

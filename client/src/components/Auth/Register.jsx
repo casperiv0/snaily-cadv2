@@ -27,7 +27,7 @@ export default class Register extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { username, password, password2, email } = this.state;
+    const { username, password, password2 } = this.state;
 
     axios({
       url: 'http://localhost:3001/auth/register',
@@ -49,7 +49,6 @@ export default class Register extends Component {
         error: msg,
       });
 
-      console.log(res.data);
     });
   };
 
@@ -65,7 +64,7 @@ export default class Register extends Component {
   }
 
   render() {
-    const { username, password, password2, email, error } = this.state;
+    const { username, password, password2, error } = this.state;
     return (
       <form className='login-box' onSubmit={this.onSubmit}>
         {/* avatar */}
