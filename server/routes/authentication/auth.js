@@ -64,7 +64,7 @@ router.post("/register", async (req, res) => {
                         id: newUser.insertId,
                         username: username,
                         rank: "No Rank",
-                    }, jwt_secret, { expiresIn: 9400 });
+                    }, jwt_secret, { expiresIn: 3600 });
 
                     return res.json({ msg: "User Created", token: token });
                 }
@@ -79,7 +79,7 @@ router.post("/register", async (req, res) => {
                         id: newUser.insertId,
                         username: username,
                         rank: "No Rank",
-                    }, jwt_secret, { expiresIn: 9400 });
+                    }, jwt_secret, { expiresIn: 3600 });
 
                     return res.json({ msg: "User Created", token: token });
                 };
@@ -97,7 +97,7 @@ router.post("/register", async (req, res) => {
                     id: newUser.insertId,
                     username: username,
                     rank: "No Rank",
-                }, jwt_secret, { expiresIn: 9400 });
+                }, jwt_secret, { expiresIn: 3600 });
 
                 return res.json({ msg: "User Created", token: token });
             }
@@ -140,7 +140,7 @@ router.post("/login", async (req, res) => {
                     id: user[0].id,
                     username: username,
                     rank: user[0].rank,
-                }, jwt_secret, { expiresIn: 9400 });
+                }, jwt_secret, { expiresIn: 3600 });
 
 
                 return res.json({ msg: "LoggedIn", token: token });

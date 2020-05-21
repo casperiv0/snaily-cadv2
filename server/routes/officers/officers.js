@@ -72,11 +72,24 @@ router.post("/add", auth, officerAuth, (req, res) => {
 
 });
 
+/*
+    @Route /myofficers/:officerId
+    @Auth Protected
+*/
+router.delete("/myofficers/:officerId", auth, officerAuth, (req, res) => {
+    const officerId = req.params;
+
+    processQuery("DELETE FROM `officers` WHERE `officers`.`id` = ?", [officerId])
+        .then(() => {
+            return res.json({ msg: "Deleted" });
+        })
+        .catch(err => console.log(err));
+});
 
 /*
     @Route /officers/add-ticket
     @Auth Protected
-    @Extra Database name is changed from `posted_charges` TO `tickets`
+    @Extra Database name is changed from `posted_charges` TO `leo_tickets`
     @Extra `charge` is changed to `violations`
     @Extra `ticket_amount` was removed
 */
@@ -164,6 +177,8 @@ router.get("/search/:citizenName", auth, officerAuth, async (req, res) => {
 
     return res.json({ warrants, tickets, arrestReports: arrest_reports, writtenWarnings: written_warnings });
 })
+
+
 
 
 module.exports = router;

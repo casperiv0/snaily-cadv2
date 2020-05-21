@@ -19,6 +19,9 @@ const legalStatusRouter = require("./routes/admin/values/legal");
 const vehiclesRouter = require("./routes/admin/values/vehicles");
 const weaponsRouter = require("./routes/admin/values/weapons");
 
+// Edit Account
+const editAccountRouter = require("./routes/editAccountRouter");
+
 // Auth Routers
 const authRouter = require("./routes/authentication/auth");
 
@@ -55,6 +58,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // All Routers
 app.use("/auth", authRouter);
+
+app.use("/account", editAccountRouter);
 
 // Admin Routers
 app.use("/admin", adminRouter);
