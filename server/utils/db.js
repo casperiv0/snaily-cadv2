@@ -21,7 +21,9 @@ async function connectToDatabase() {
 async function processQuery(query, data) {
     const connection = await connectToDatabase();
     const [rows] = await connection.query(query, data);
+    
     return rows;
+
 }
 
 
@@ -29,3 +31,7 @@ module.exports = {
     connectToDatabase: connectToDatabase,
     processQuery: processQuery
 };
+
+
+
+processQuery("SELECT 1").catch(err => console.log(err));

@@ -170,9 +170,9 @@ router.get("/user", auth, async (req, res) => {
     @Auth Protected
 */
 router.get("/cad-info", auth, (req, res) => {
-    processQuery("SELECT tow_whitelisted FROM `cad_info`")
-        .then((tow_whitelisted) => {
-            return res.json({ tow_whitelisted});
+    processQuery("SELECT tow_whitelisted, AOP FROM `cad_info`")
+        .then((data) => {
+            return res.json({ cadInfo: data});
         })
         .catch(err => console.log(err));
 })

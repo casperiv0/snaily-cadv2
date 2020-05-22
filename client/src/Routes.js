@@ -17,8 +17,8 @@ import CreateCitizen from "./components/Citizen/CreateCitizen";
 
 
 // Tow
-// import TowAuthRoute from './components/Auth/TowAuthRoute';
-// import Tow from "./components/Tow/Tow";
+import TowAuthRoute from './components/Auth/TowAuthRoute';
+import Tow from "./components/Tow/Tow";
 import NoAccess from './components/Partials/Messages/NoAccess';
 
 
@@ -52,7 +52,7 @@ export default class Routes extends Component {
 
 
                 <Switch basename="/">
-                    {/* <TowAuthRoute exact path="/tow" component={Tow} /> */}
+                    <TowAuthRoute exact path="/tow" component={Tow} />
                 </Switch>
 
 
