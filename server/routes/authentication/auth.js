@@ -120,7 +120,7 @@ router.post("/login", async (req, res) => {
     // Check if all fields are filled in
     if (username && password) {
 
-        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);        
+        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);
 
         // Check if user exist
         if (!user[0]) {
@@ -159,7 +159,22 @@ router.post("/login", async (req, res) => {
 router.get("/user", auth, async (req, res) => {
     const user = await processQuery("SELECT id, username, rank, leo, ems_fd, dispatch, tow  FROM `users` WHERE `id` = ?", [req.user.id]);
 
+    if (!user[0]) return res.json({ msg: "User not found"})
+
     return res.json({ user: user });
+});
+
+
+/*
+    @Route /cad_info
+    @Auth Protected
+*/
+router.get("/cad-info", auth, (req, res) => {
+    processQuery("SELECT tow_whitelisted FROM `cad_info`")
+        .then((tow_whitelisted) => {
+            return res.json({ tow_whitelisted});
+        })
+        .catch(err => console.log(err));
 })
 
 

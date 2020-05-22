@@ -1,6 +1,6 @@
 /*
     GET /911calls - shows all 911 calls
-    GET /tow - shows all tow calls
+    GET /tow-calls - shows all tow calls
     
     DELETE /911calls/:callId - cancel/delete 911 call 
     PUT /911calls/:callId - update 911 call

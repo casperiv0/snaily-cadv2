@@ -20,7 +20,11 @@ const LoggedInSection = () => {
         'x-auth-snailycad-token': sessionStorage.getItem('token'),
       },
     }).then(res => {
+      if (!res.data.user) {
+        window.location = "/auth/login"
+      } else {
         setUsername(res.data.user[0].username);
+      }
     });
   }, []);
 

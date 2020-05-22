@@ -3,7 +3,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const { port } = require("../config.js");
-const { connectToDatabase } = require("./utils/db")
+const { connectToDatabase } = require("./utils/db");
+const helmet = require('helmet');
 
 // Require Routes
 // ADMIN ROUTERS
@@ -51,12 +52,12 @@ const ems_fdRouter = require("./routes/ems-fd/ems-fd");
 
 // Middleware
 app.use(cors());
+app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// All Routers
+// Auth Routers
 app.use("/auth", authRouter);
 
 app.use("/account", editAccountRouter);

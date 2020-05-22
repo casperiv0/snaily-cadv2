@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 export default class CitizenBox extends Component {
   render() {
-    const { fullName } = this.props;
+    const { fullName, id} = this.props;
     return (
       <div className='list-group-item bg-secondary border-secondary text-light'>
           {fullName}
 
           <div className="float-right">
-              <Link className="btn btn-primary">More Info</Link>
+              <Link to={"/citizen/"+id} className="btn btn-primary">More Info</Link>
           </div>
       </div>
     );
