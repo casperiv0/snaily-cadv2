@@ -46,6 +46,12 @@ export default class CitizensDetailPage extends Component {
       },
     })
       .then((res) => {
+        if (res.data.msg === "Forbidden") {
+          sessionStorage.setItem("message", "This citizen is not linked to your account, Therefore you can't view this citizen.");
+          return window.location = "/citizen";
+        }
+        
+
         if (res.data.msg ==="Citizen Not Found") {
           sessionStorage.setItem("message", "Citizen Was not found!");
           return window.location = "/citizen";

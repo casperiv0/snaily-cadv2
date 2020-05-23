@@ -81,6 +81,7 @@ export default class RegisterVehicle extends Component {
       }
     });
 
+    // Get Companies
     Axios({
       url: backendURL + '/company',
       headers: {
@@ -95,6 +96,22 @@ export default class RegisterVehicle extends Component {
         console.log(res.data.msg);
       }
     });
+
+    // Get all statuses
+    Axios({
+      url: backendURL + '/admin/legal-statuses',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.statuses) {
+          this.setState({
+            statuses: res.data.statuses,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
@@ -208,7 +225,7 @@ export default class RegisterVehicle extends Component {
                 : statuses.map((status, index) => {
                     return (
                       <option key={index} value={status.status}>
-                        {owner.status}
+                        {status.status}
                       </option>
                     );
                   })}

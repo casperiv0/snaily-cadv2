@@ -36,7 +36,7 @@ router.get("/:citizenId", auth, async (req, res) => {
     if (!citizen[0]) return res.json({msg: "Citizen Not Found"})
 
     // Check if the citizen is linked to the account
-    if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
+    if (citizen[0].linked_to !== req.user.username) return res.json({msg: "Forbidden"})
 
 
     // show the citizen information
