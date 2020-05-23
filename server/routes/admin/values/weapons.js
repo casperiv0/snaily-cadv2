@@ -15,7 +15,7 @@ const adminAuth = require("../../../auth/adminAuth");
     @Route /weapons/
     @Auth Protected
 */
-router.get("/", auth, adminAuth, (req, res) => {
+router.get("/", auth, (req, res) => {
     processQuery("SELECT * FROM `weapons`")
         .then((weapons) => {
             return res.json({ weapons: weapons})

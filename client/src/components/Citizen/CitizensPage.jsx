@@ -5,6 +5,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
+import SuccessMessage from './SuccessMessage';
 
 export default class CitizensPage extends Component {
   constructor() {
@@ -12,11 +13,12 @@ export default class CitizensPage extends Component {
 
     this.state = {
       citizens: [],
+      message: sessionStorage.getItem('message'),
     };
   }
 
   componentDidMount() {
-    document.title = "Citizens - See all your citizens"
+    document.title = 'Citizens - See all your citizens';
     this.getCitizens();
   }
 
@@ -34,10 +36,18 @@ export default class CitizensPage extends Component {
     });
   };
 
+  componentDidUpdate() {
+    document.addEventListener(
+      'beforeunload',
+      sessionStorage.removeItem('message')
+    );
+  }
+
   render() {
     const { citizens } = this.state;
     return (
       <div className='container'>
+        {this.state.message ? <SuccessMessage /> : null}
         <TopButtons />
 
         <ul className='list-group mt-5'>

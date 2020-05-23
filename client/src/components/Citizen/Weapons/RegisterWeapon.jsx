@@ -1,0 +1,212 @@
+import React, { Component } from 'react';
+import Axios from 'axios';
+import { backendURL } from '../../../config/config';
+import Cookies from 'js-cookie';
+import { Alert } from '@material-ui/lab';
+
+export default class RegisterVehicle extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      owners: [],
+      statuses: [],
+      weapons: [],
+      weapon: '',
+      owner: '',
+      weaponStatus: '',
+      error: '',
+    };
+  }
+
+  register = (e) => {
+    e.preventDefault();
+    const { weapon, weaponStatus, owner } = this.state;
+    Axios({
+      url: backendURL + '/c/weapons/register',
+      method: 'POST',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+      data: {
+        weapon,
+        status: weaponStatus,
+        owner,
+      },
+    }).then((res) => {
+      if (res.data.msg === 'Registered') {
+        sessionStorage.setItem('message', 'Weapon Successfully Registered!');
+        return (window.location = '/citizen');
+      }
+    })
+    .catch(err => console.log(err));
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  getAllData = () => {
+    //   Get all citizens linked to account
+    Axios({
+      url: backendURL + '/citizen',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      if (res.data.citizens) {
+        this.setState({
+          owners: res.data.citizens,
+        });
+      } else {
+        console.log(res.data.msg);
+      }
+    });
+
+    // Get all statuses
+    Axios({
+      url: backendURL + '/admin/legal-statuses',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.statuses) {
+          this.setState({
+            statuses: res.data.statuses,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+
+    //   Get all weapons
+    Axios({
+      url: backendURL + '/admin/weapons',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.weapons) {
+          this.setState({
+            weapons: res.data.weapons,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  componentDidMount() {
+    this.getAllData();
+  }
+
+  render() {
+    const {
+      weapon,
+      weaponStatus,
+      owner,
+      error,
+      statuses,
+      owners,
+      weapons,
+    } = this.state;
+
+    return (
+      <form className='container text-light' onSubmit={this.register}>
+        {error ? (
+          <Alert variant='filled' severity='warning'>
+            {error}
+          </Alert>
+        ) : null}
+
+        <div className='form-row mt-4'>
+          {/* Weapon */}
+          <div className='form-group col-md-4'>
+            <label htmlFor='weapon'>Enter Weapon</label>
+            <input
+              value={weapon}
+              onChange={this.handleChange}
+              name='weapon'
+              id='weapon'
+              list='weapons'
+              className='form-control bg-secondary border-secondary text-light'
+            />
+            <datalist id='weapons'>
+              {!weapons[0]
+                ? ''
+                : weapons.map((weapon, index) => {
+                    return (
+                      <option key={index} value={weapon.name}>
+                        {weapon.name}
+                      </option>
+                    );
+                  })}
+            </datalist>
+          </div>
+
+          {/* Owner */}
+          <div className='form-group col-md-4'>
+            <label htmlFor='owner'>Select Weapon Owner</label>
+            <input
+              type='text'
+              list='owners'
+              value={owner}
+              onChange={this.handleChange}
+              name='owner'
+              id='owner'
+              className='form-control bg-secondary border-secondary text-light'
+            />
+            <datalist id='owners'>
+              {!owners[0] ? (
+                <option value='No Owners Found'>No Owners Found</option>
+              ) : (
+                owners.map((owner, index) => {
+                  return (
+                    <option key={index} value={owner.full_name}>
+                      {owner.full_name}
+                    </option>
+                  );
+                })
+              )}
+            </datalist>
+          </div>
+
+          {/* In Status */}
+          <div className='form-group col-md-4'>
+            <label htmlFor='weaponStatus'>Select Weapon Status</label>
+            <input
+              type='text'
+              list='statuses'
+              value={weaponStatus}
+              onChange={this.handleChange}
+              name='weaponStatus'
+              id='weaponStatus'
+              className='form-control bg-secondary border-secondary text-light'
+            />
+            <datalist id='statuses'>
+              {!statuses[0]
+                ? ''
+                : statuses.map((status, index) => {
+                    return (
+                      <option key={index} value={status.status}>
+                        {owner.status}
+                      </option>
+                    );
+                  })}
+            </datalist>
+          </div>
+        </div>
+        <div className='form-group float-right'>
+          <a href='/citizen' className='btn btn-danger'>
+            Cancel
+          </a>
+          <button onClick={this.register} className='ml-2 btn btn-primary'>
+            Register Weapon
+          </button>
+        </div>
+      </form>
+    );
+  }
+}

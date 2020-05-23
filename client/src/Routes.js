@@ -28,6 +28,9 @@ import Bleeter from "./components/Bleeter/Bleeter"
 // Vehicles
 import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
 
+// Weapons
+import RegisterWeapon from "./components/Citizen/Weapons/RegisterWeapon"
+
 export default class Routes extends Component {
     render() {
         return (
@@ -51,7 +54,12 @@ export default class Routes extends Component {
                 <Switch basename="/">
                     <PrivateRoute exact path="/citizen" component={CitizensPage} />
                     <PrivateRoute exact path="/citizen/create" component={CreateCitizen} />
+
+                    {/* Vehicles */}
                     <PrivateRoute exact path="/vehicles/register" component={RegisterVehicle} />
+
+                    {/* Weapons */}
+                    <PrivateRoute exact path="/weapons/register" component={RegisterWeapon} />
                 </Switch>
 
 

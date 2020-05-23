@@ -17,8 +17,8 @@ const adminAuth = require("../../../auth/adminAuth");
 */
 router.get("/", auth, (req, res) => {
     processQuery("SELECT * FROM `in_statuses`")
-        .then((in_statuses) => {
-            return res.json({ in_statuses: in_statuses})
+        .then((statuses) => {
+            return res.json({ statuses: statuses})
         })
         .catch(err => console.log(err));
 });

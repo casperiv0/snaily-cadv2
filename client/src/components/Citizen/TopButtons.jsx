@@ -6,7 +6,7 @@ export default class TopButtons extends Component {
   render() {
     return (
       <div>
-        <div className='row'>
+        <div className='d-flex'>
           <button onClick={logOut} className='col btn btn-danger'>
             Logout
           </button>
@@ -15,7 +15,7 @@ export default class TopButtons extends Component {
           </Link>
         </div>
 
-        <div className='row mt-1'>
+        <div className='d-flex mt-1'>
           <Link to='/citizen/create' className='col btn btn-primary'>
             Create new Citizen
           </Link>
@@ -27,7 +27,7 @@ export default class TopButtons extends Component {
           </Link>
         </div>
 
-        <div className='row mt-1'>
+        <div className='d-flex mt-1'>
           <Link to='/manage-company-employment' className='col btn btn-primary'>
             Manage Employment Status
           </Link>
