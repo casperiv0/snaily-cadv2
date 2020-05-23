@@ -25,6 +25,9 @@ import NoAccess from './components/Partials/Messages/NoAccess';
 // Bleeter
 import Bleeter from "./components/Bleeter/Bleeter"
 
+// Vehicles
+import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
+
 export default class Routes extends Component {
     render() {
         return (
@@ -48,6 +51,7 @@ export default class Routes extends Component {
                 <Switch basename="/">
                     <PrivateRoute exact path="/citizen" component={CitizensPage} />
                     <PrivateRoute exact path="/citizen/create" component={CreateCitizen} />
+                    <PrivateRoute exact path="/vehicles/register" component={RegisterVehicle} />
                 </Switch>
 
 
