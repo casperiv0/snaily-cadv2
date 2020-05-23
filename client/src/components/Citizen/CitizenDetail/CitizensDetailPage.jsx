@@ -5,6 +5,10 @@ import Cookies from 'js-cookie';
 import GeneralInformation from './GeneralInformation';
 import LicensesBox from "../Licenses/LicensesBox";
 import LoadingArea from '../../Partials/LoadingArea';
+import WeaponsBox from "../Weapons/WeaponsBox"
+import MedicalRecordsBox from '../Medical/MedicalRecordsBox';
+import RegisteredVehicles from "../Vehicles/RegisteredVehicles"
+
 
 export default class CitizensDetailPage extends Component {
   constructor() {
@@ -33,6 +37,7 @@ export default class CitizensDetailPage extends Component {
   getCitizenData = () => {
     const citizenId = this.props.match.params.citizenId
 
+    // main data
     axios({
       url: backendURL + '/citizen/' + citizenId,
       headers: {
@@ -121,6 +126,17 @@ export default class CitizensDetailPage extends Component {
         />
 
         <LicensesBox citizenId={citizenId} dmv={dmv} ccw={ccw} firearmsLicense={firearmsLicense} pilotLicense={pilotLicense} />
+
+        {/* Medical Records */}
+        <MedicalRecordsBox fullName={fullName} />
+
+        {/* Weapons box */}
+        <WeaponsBox />
+
+        {/* Vehicles, Weapons, Ticket & Arrest reports */}
+        <ul className="list-group">
+          <RegisteredVehicles />
+        </ul>
       </div>
     );
   }

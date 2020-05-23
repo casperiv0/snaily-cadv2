@@ -46,7 +46,7 @@ export default class CitizensPage extends Component {
   render() {
     const { citizens } = this.state;
     return (
-      <div className='container'>
+      <div className='container mb-5'>
         {this.state.message ? <SuccessMessage /> : null}
         <TopButtons />
 

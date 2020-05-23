@@ -12,13 +12,8 @@ const { processQuery } = require("../../utils/db");
 /*
     @Route /:citizenName
     @Auth Protected
-    @Extra EMS_FD Only
 */
 router.get("/:citizenName", auth, async (req, res) => {
-    const user = await processQuery("SELECT ems_fd FROM `users` WHERE `username` = ?", [req.user.username]);
-
-    if (user[0].ems_fd !== "yes") return res.sendStatus(403);
-
     processQuery("SELECT * FROM `medical_records` WHERE `name` = ?", [req.params.citizenName])
         .then(records => {
             return res.json({ records: records });

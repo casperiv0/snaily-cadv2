@@ -16,7 +16,8 @@ Please contact me before contributing so I know! Thanks
 
 ### Release Date
 
-Hoping to get it out end of June, mid July
+Hoping to get it out end of June
+
 
 <!-- ## Features
 

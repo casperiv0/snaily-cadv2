@@ -1,4 +1,5 @@
 /*
+    GET / - shows all weapons linked to user
     POST /register - Register Weapon
     DELETE /:weaponId - delete weapon
 */
@@ -8,6 +9,18 @@ const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 
+
+/*
+    @Route /
+    @Auth Protected
+*/
+router.get("/", auth, (req, res) =>{
+    processQuery("SELECT * FROM `registered_weapons` WHERE `linked_to` = ?", [req.user.username])
+        .then(weapons => {
+            return res.json({weapons});
+        })
+        .catch(err => console.log(err));
+})
 
 /*
     @Route /register

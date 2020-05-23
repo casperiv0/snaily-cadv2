@@ -1,4 +1,5 @@
 /*
+    GET / - shows all vehicles linked to user
     POST /register - register vehicle
     GET /:carId-:plate - edit vehicle
     PUT /:carId-:plate - edit vehicle
@@ -9,6 +10,19 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+
+
+/*  
+    @Route /register
+    @Auth Protected
+*/
+router.get("/", auth, (req, res) =>{
+    processQuery("SELECT * FROM `registered_cars` WHERE `linked_to` = ?", [req.user.username])
+        .then(vehicles => {
+            return res.json({vehicles});
+        })
+        .catch(err => console.log(err));
+})
 
 
 /*  
