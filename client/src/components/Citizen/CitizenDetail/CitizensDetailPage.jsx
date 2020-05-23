@@ -5,9 +5,10 @@ import Cookies from 'js-cookie';
 import GeneralInformation from './GeneralInformation';
 import LicensesBox from "../Licenses/LicensesBox";
 import LoadingArea from '../../Partials/LoadingArea';
-import WeaponsBox from "../Weapons/WeaponsBox"
 import MedicalRecordsBox from '../Medical/MedicalRecordsBox';
 import RegisteredVehicles from "../Vehicles/RegisteredVehicles"
+import RegisteredWeapons from '../Weapons/RegisteredWeapons';
+
 
 
 export default class CitizensDetailPage extends Component {
@@ -45,6 +46,12 @@ export default class CitizensDetailPage extends Component {
       },
     })
       .then((res) => {
+        if (res.data.msg ==="Citizen Not Found") {
+          sessionStorage.setItem("message", "Citizen Was not found!");
+          return window.location = "/citizen";
+        };
+
+
         if (res.data.citizen) {
           const citizen = res.data.citizen[0];
           this.setState({
@@ -108,7 +115,7 @@ export default class CitizensDetailPage extends Component {
     }
 
     return (
-      <div className='container-fluid mt-2'>
+      <div className='container-fluid mt-2 pb-5'>
         {/* Main Info Box */}
         <GeneralInformation
           fullName={fullName}
@@ -130,12 +137,10 @@ export default class CitizensDetailPage extends Component {
         {/* Medical Records */}
         <MedicalRecordsBox fullName={fullName} />
 
-        {/* Weapons box */}
-        <WeaponsBox />
-
         {/* Vehicles, Weapons, Ticket & Arrest reports */}
         <ul className="list-group">
           <RegisteredVehicles />
+          <RegisteredWeapons />
         </ul>
       </div>
     );

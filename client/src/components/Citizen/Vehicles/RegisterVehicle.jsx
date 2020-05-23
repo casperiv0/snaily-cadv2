@@ -4,7 +4,6 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Alert } from '@material-ui/lab';
 
-
 export default class RegisterVehicle extends Component {
   constructor() {
     super();
@@ -81,10 +80,25 @@ export default class RegisterVehicle extends Component {
         console.log(res.data.msg);
       }
     });
+
+    Axios({
+      url: backendURL + '/company',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      if (res.data.companies) {
+        this.setState({
+          companies: res.data.companies,
+        });
+      } else {
+        console.log(res.data.msg);
+      }
+    });
   };
 
   componentDidMount() {
-    document.title= "Register A Weapon"
+    document.title = 'Register A Weapon';
     this.getAllData();
   }
 
@@ -99,6 +113,7 @@ export default class RegisterVehicle extends Component {
       owners,
       statuses,
       error,
+      companies,
     } = this.state;
 
     return (
@@ -108,7 +123,6 @@ export default class RegisterVehicle extends Component {
             {error}
           </Alert>
         ) : null}
-
 
         <div className='form-row mt-4'>
           {/* Plate */}
@@ -207,13 +221,25 @@ export default class RegisterVehicle extends Component {
               (If Selected Company) Enter Company Name
             </label>
             <input
-              disabled={insuranceStatus !== 'Company' ? true : false}
+              disabled={insuranceStatus.toLowerCase() !== 'Company'.toLowerCase() ? true : false}
               value={company}
               onChange={this.handleChange}
               name='company'
               id='company'
+              list="companies"
               className='form-control bg-dark border-dark text-light'
             />
+            <datalist id='companies'>
+              {!companies[0]
+                ? ''
+                : companies.map((company, index) => {
+                    return (
+                      <option key={index} value={company.business_name}>
+                        {company.business_name}
+                      </option>
+                    );
+                  })}
+            </datalist>
           </div>
         </div>
         <div className='form-group float-right'>

@@ -84,13 +84,13 @@ router.post("/register", auth, async (req, res) => {
 
 
 /*
-    @Route /:carId-:plate
+    @Route /:carId
     @Auth Protected
 */
-router.get("/:carId-:plate", auth, async (req, res) => {
+router.get("/:carId", auth, async (req, res) => {
     const vehicle = await processQuery("SELECT * FROM `registered_cars` WHERE `id` = ?", [req.params.carId]);
 
-    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
+    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found" });
 
 
     if (vehicle[0].linked_to !== req.user.username) return res.json({ msg: "You can't edit someone elses vehicle!" });
@@ -99,10 +99,10 @@ router.get("/:carId-:plate", auth, async (req, res) => {
 });
 
 /*
-    @Route /:carId-:plate
+    @Route /:carId
     @Auth Protected
 */
-router.put("/:carId-:plate", auth, async (req, res) => {
+router.put("/:carId", auth, async (req, res) => {
     const { color, status, company } = req.body;
     const carId = req.params.carId;
 
@@ -124,10 +124,10 @@ router.put("/:carId-:plate", auth, async (req, res) => {
 });
 
 /*
-    @Route /:carId-:plate
+    @Route /:carId
     @Auth Protected
 */
-router.delete("/:carId-:plate", auth, async (req, res) => {
+router.delete("/:carId", auth, async (req, res) => {
     const carId = req.params.carId;
     const vehicle = await processQuery("SELECT * FROM `registered_cars` WHERE `id` = ?", [carId]);
 

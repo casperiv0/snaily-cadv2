@@ -33,6 +33,7 @@ import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
 
 // Weapons
 import RegisterWeapon from "./components/Citizen/Weapons/RegisterWeapon"
+import EditRegisteredVehicle from './components/Citizen/Vehicles/EditRegisteredVehicle';
 
 export default class Routes extends Component {
     render() {
@@ -63,6 +64,7 @@ export default class Routes extends Component {
 
                     {/* Vehicles */}
                     <PrivateRoute exact path="/vehicles/register" component={RegisterVehicle} />
+                    <PrivateRoute exact path="/vehicles/edit/:vehicleId" component={EditRegisteredVehicle} />
 
                     {/* Weapons */}
                     <PrivateRoute exact path="/weapons/register" component={RegisterWeapon} />

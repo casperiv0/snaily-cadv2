@@ -3,64 +3,64 @@ import { backendURL } from '../../../config/config';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 
-export default class RegisteredVehicles extends Component {
+export default class RegisteredWeapons extends Component {
   constructor() {
     super();
 
     this.state = {
-      vehicles: [],
+      weapons: [],
     };
   }
 
-  getRegisteredVehicles = () => {
+  getRegisteredWeapons = () => {
     Axios({
-      url: backendURL + '/c/vehicles',
+      url: backendURL + '/c/weapons',
       method: 'GET',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     })
       .then((res) => {
-        if (res.data.vehicles) {
+        if (res.data.weapons) {
           this.setState({
-            vehicles: res.data.vehicles,
+            weapons: res.data.weapons,
           });
         }
       })
       .catch((err) => console.log(err));
   };
 
-  deleteVehicle = (vehicleId) => {
+  deleteWeapon = (vehicleId) => {
     Axios({
-      url: backendURL + '/c/vehicles/' + vehicleId,
+      url: backendURL + '/c/weapons/' + vehicleId,
       method: 'DELETE',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
-      if (res.data.msg === 'Deleted') {
-        sessionStorage.setItem('message', 'Successfully Deleted Vehicle!');
+      if (res.data.msg === 'Deleted Weapon') {
+        sessionStorage.setItem('message', 'Successfully Deleted Weapon!');
         return (window.location = '/citizen');
       }
     });
   };
 
   componentDidMount() {
-    this.getRegisteredVehicles();
+    this.getRegisteredWeapons();
   }
   render() {
-    const { vehicles } = this.state;
+    const { weapons } = this.state;
     return (
       <div className='list-group-item list-group-item-action bg-dark text-light border-dark mt-1'>
         <div className='d-flex'>
-          <h5 className='mb-1'>Registered Vehicles:</h5>
+          <h5 className='mb-1'>Registered Weapons:</h5>
         </div>
 
-        {!vehicles[0] ? (
+        {!weapons[0] ? (
           <li className='list-group-item bg-secondary border-secondary mt-2 d-flex justify-content-between'>
-            No Vehicles Registered
-            <a href='/vehicles/register' className='btn btn-primary'>
-              Register a Vehicle
+            No Weapons Registered
+            <a href='/weapons/register' className='btn btn-primary'>
+              Register a Weapon
             </a>
           </li>
         ) : (
@@ -69,60 +69,47 @@ export default class RegisteredVehicles extends Component {
               className='btn btn-primary mt-2'
               type='button'
               data-toggle='collapse'
-              data-target='#registeredVehicles'
+              data-target='#registeredWeapons'
               aria-expanded='false'
               aria-controls='collapseExample'>
-              Toggle Registered Vehicles
+              Toggle Registered Weapons
             </button>
-            <div className='collapse mt-2' id='registeredVehicles'>
-              {vehicles.map((vehicle, index) => (
-                <div key={index}>
+            <div className='collapse mt-2' id='registeredWeapons'>
+              {weapons.map((weapon, index) => (
                 <li
+                  key={index}
                   className='list-group-item d-flex justify-content-between bg-secondary border-dark'>
-                  <div>
+                  <div key={index}>
                     {/* Vehicle */}
-                    <span className='font-weight-bold'>{vehicle.vehicle}</span>
+                    <span className='font-weight-bold'>{weapon.name}</span>
                     <br />
-                    {/* Plate */}
-                    <span className='font-weight-bold'>Plate: </span>
+
+                    {/* Serial Number */}
+                    <span className='font-weight-bold'>Serial Number: </span>
                     <span className='uppercase font-weight-normal'>
-                      {vehicle.plate}
+                      {weapon.serial_number}
                     </span>
                     <br />
 
-                    {/* Insurance */}
-                    <span className='font-weight-bold'>Insurance Status:</span>
-                    <span> {vehicle.in_status}</span> <br />
-
-                    {/* Color */}
-                    <span className='font-weight-bold'>Color: </span>
-                    {vehicle.color}
-                    <br />
-
-                    {/* VIN Number */}
-                    <span className='font-weight-bold'>VIN: </span>
-                    {vehicle.vin_number} <br />
-
-                     {/* Company */}
-                     <span className='font-weight-bold'>Company: </span>
-                    {vehicle.company} <br />
+                    {/* Status */}
+                    <span className='font-weight-bold'>Weapon Status:</span>
+                    <span> {weapon.status}</span> <br />
                   </div>
 
                   {/* actions */}
                   <div className=''>
                     <a
-                      href={'/vehicles/edit/' + vehicle.id}
+                      href={'/vehicles/edit/' + weapon.id}
                       className='btn btn-success'>
                       Edit
                     </a>
                     <a
-                      onClick={() => this.deleteVehicle(vehicle.id)}
+                      onClick={() => this.deleteWeapon(weapon.id)}
                       className='btn btn-danger ml-2'>
                       Delete
                     </a>
                   </div>
                 </li>
-                </div>
               ))}
             </div>
           </>
