@@ -36,7 +36,7 @@ export default class Bleeter extends Component {
   }
 
   render() {
-    const { bleets, loading } = this.state;
+    const { bleets } = this.state;
     return (
       <div className="container">
         {!bleets[0] ? (

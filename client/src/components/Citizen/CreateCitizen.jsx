@@ -72,10 +72,10 @@ export default class AddCitizen extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
-      console.log(res.data.in_statuses);
+      console.log(res.data.statuses);
 
       this.setState({
-        statuses: res.data.in_statuses,
+        statuses: res.data.statuses,
       });
     });
   };
@@ -90,7 +90,7 @@ export default class AddCitizen extends Component {
     event.preventDefault();
     axios({
       url: backendURL + '/citizen/add',
-      method: "POST",
+      method: 'POST',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
@@ -109,20 +109,21 @@ export default class AddCitizen extends Component {
         pilotLicense: this.state.pilotLicense,
         ccw: this.state.ccw,
       },
-    }).then((res) => {
-      if (res.data.msg === 'Citizen Created') {
-        sessionStorage.setItem(
-          'message',
-          'Successfully Created ' + this.state.fullName
-        );
-        return window.location = '/citizen';
-      }
-
-      this.setState({
-        error: res.data.msg
-      });
     })
-    .catch(err => console.log(err));
+      .then((res) => {
+        if (res.data.msg === 'Citizen Created') {
+          sessionStorage.setItem(
+            'message',
+            'Successfully Created ' + this.state.fullName
+          );
+          return (window.location = '/citizen');
+        }
+
+        this.setState({
+          error: res.data.msg,
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -158,7 +159,7 @@ export default class AddCitizen extends Component {
               onChange={this.handleChange}
               name='fullName'
               id='fullName'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
           </div>
 
@@ -170,7 +171,7 @@ export default class AddCitizen extends Component {
               onChange={this.handleChange}
               name='birth'
               id='birth'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
           </div>
 
@@ -180,9 +181,10 @@ export default class AddCitizen extends Component {
             <select
               name='ethnicity'
               value={ethnicity}
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}>
               <option defaultChecked>Select Ethnicity..</option>
+              <option disabled>--------</option>
               {ethnicities.map((ethnicity, index) => (
                 <option key={index} value={ethnicity.name}>
                   {ethnicity.name}
@@ -197,10 +199,12 @@ export default class AddCitizen extends Component {
             <select
               name='gender'
               id='gender'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               value={gender}
               onChange={this.handleChange}>
               <option defaultChecked>Select Gender..</option>
+              <option disabled>--------</option>
+
               {genders.map((gender, index) => (
                 <option key={index} value={gender.name}>
                   {gender.name}
@@ -216,7 +220,7 @@ export default class AddCitizen extends Component {
               value={hairColor}
               name='hairColor'
               id='hairColor'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -228,7 +232,7 @@ export default class AddCitizen extends Component {
               value={eyeColor}
               name='eyeColor'
               id='eyeColor'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -240,7 +244,7 @@ export default class AddCitizen extends Component {
               value={address}
               name='address'
               id='address'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -252,7 +256,7 @@ export default class AddCitizen extends Component {
               value={height}
               name='height'
               id='height'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -264,7 +268,7 @@ export default class AddCitizen extends Component {
               value={weight}
               name='weight'
               id='weight'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}
             />
           </div>
@@ -278,15 +282,18 @@ export default class AddCitizen extends Component {
               <select
                 name='dmv'
                 id='dmv'
-                className='form-control bg-secondary border-secondary text-light'
+                className='form-control bg-dark border-dark text-light'
                 value={dmv}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
-                {statuses.map((status, index) => (
-                  <option key={index} value={status.status}>
-                    {status.status}
-                  </option>
-                ))}
+                <option disabled>--------</option>
+                {!statuses[0]
+                  ? ''
+                  : statuses.map((status, index) => (
+                      <option key={index} value={status.status}>
+                        {status.status}
+                      </option>
+                    ))}
               </select>
             </div>
 
@@ -296,10 +303,12 @@ export default class AddCitizen extends Component {
               <select
                 name='firearmsLicense'
                 id='firearmsLicense'
-                className='form-control bg-secondary border-secondary text-light'
+                className='form-control bg-dark border-dark text-light'
                 value={firearmsLicense}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
+                <option disabled>--------</option>
+
                 {statuses.map((status, index) => (
                   <option key={index} value={status.status}>
                     {status.status}
@@ -314,10 +323,12 @@ export default class AddCitizen extends Component {
               <select
                 name='pilotLicense'
                 id='pilotLicense'
-                className='form-control bg-secondary border-secondary text-light'
+                className='form-control bg-dark border-dark text-light'
                 value={pilotLicense}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
+                <option disabled>--------</option>
+
                 {statuses.map((status, index) => (
                   <option key={index} value={status.status}>
                     {status.status}
@@ -332,10 +343,11 @@ export default class AddCitizen extends Component {
               <select
                 name='ccw'
                 id='ccw'
-                className='form-control bg-secondary border-secondary text-light'
+                className='form-control bg-dark border-dark text-light'
                 value={ccw}
                 onChange={this.handleChange}>
                 <option defaultChecked>Select Licenses Status..</option>
+                <option disabled>--------</option>
                 {statuses.map((status, index) => (
                   <option key={index} value={status.status}>
                     {status.status}

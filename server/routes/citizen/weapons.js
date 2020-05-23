@@ -26,11 +26,16 @@ router.post("/register", auth, async (req, res) => {
 
     const { owner, weapon, status, } = req.body;
 
-    processQuery("INSERT INTO `registered_weapons` (`owner`, `weapon`, `serial_number`, `status`, `linked_to`) VALUES (?, ?, ?, ?, ?)", [owner, weapon, serialNumber(10), status, req.user.username])
-        .then(() => {
-            return res.json({ msg: "Registered" })
-        })
-        .catch(err => console.log(err));
+    if (owner, weapon, status) {
+        processQuery("INSERT INTO `registered_weapons` (`owner`, `weapon`, `serial_number`, `status`, `linked_to`) VALUES (?, ?, ?, ?, ?)", [owner, weapon, serialNumber(10), status, req.user.username])
+            .then(() => {
+                return res.json({ msg: "Registered" })
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Please fill in all fields" })
+    }
+
 });
 
 

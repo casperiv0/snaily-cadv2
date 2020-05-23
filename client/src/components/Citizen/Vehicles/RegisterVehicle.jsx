@@ -84,6 +84,7 @@ export default class RegisterVehicle extends Component {
   };
 
   componentDidMount() {
+    document.title= "Register A Weapon"
     this.getAllData();
   }
 
@@ -118,7 +119,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='plate'
               id='plate'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
               maxLength='8'
               minLength='1'
             />
@@ -132,7 +133,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='color'
               id='color'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
           </div>
 
@@ -144,7 +145,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='vehicle'
               id='vehicle'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
           </div>
 
@@ -158,7 +159,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='owner'
               id='owner'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
             <datalist id='owners'>
               {!owners[0] ? (
@@ -185,7 +186,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='insuranceStatus'
               id='insuranceStatus'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
             <datalist id='statuses'>
               {!statuses[0]
@@ -211,12 +212,12 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='company'
               id='company'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
           </div>
         </div>
         <div className='form-group float-right'>
-          <a href='/citizens' className='btn btn-danger'>
+          <a href='/citizen' className='btn btn-danger'>
             Cancel
           </a>
           <button onClick={this.register} className='ml-2 btn btn-primary'>

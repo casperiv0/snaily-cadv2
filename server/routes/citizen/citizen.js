@@ -36,7 +36,7 @@ router.get("/:citizenId", auth, async (req, res) => {
     if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
 
     // show the citizen information
-    return res.json(citizen);
+    return res.json({citizen: citizen});
 });
 
 
@@ -101,7 +101,7 @@ router.delete("/:citizenId", auth, async (req, res) => {
     //  Delete the citizen
     processQuery("DELETE FROM `citizens` WHERE `id` = ?", [req.params.citizenId])
         .then(() => {
-            return res.json({ msg: "Citizen Was deleted" })
+            return res.json({ msg: "Deleted" })
         })
         .catch(err => console.log(err));
 });

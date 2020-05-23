@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Partials
@@ -14,7 +14,10 @@ import PrivateRoute from "./components/Auth/PrivateRoute"
 // Citizen
 import CitizensPage from "./components/Citizen/CitizensPage";
 import CreateCitizen from "./components/Citizen/CreateCitizen";
+import CitizensDetailPage from "./components/Citizen/CitizenDetail/CitizensDetailPage";
 
+// Licenses
+import EditLicenses from "./components/Citizen/Licenses/EditLicenses";
 
 // Tow
 import TowAuthRoute from './components/Auth/TowAuthRoute';
@@ -54,6 +57,9 @@ export default class Routes extends Component {
                 <Switch basename="/">
                     <PrivateRoute exact path="/citizen" component={CitizensPage} />
                     <PrivateRoute exact path="/citizen/create" component={CreateCitizen} />
+                    <PrivateRoute exact path="/citizen/:citizenId" component={CitizensDetailPage} />
+                    <PrivateRoute exact path="/licenses/edit/:citizenId" component={EditLicenses} />
+
 
                     {/* Vehicles */}
                     <PrivateRoute exact path="/vehicles/register" component={RegisterVehicle} />

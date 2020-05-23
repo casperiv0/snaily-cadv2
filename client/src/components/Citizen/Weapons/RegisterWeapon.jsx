@@ -38,6 +38,10 @@ export default class RegisterVehicle extends Component {
         sessionStorage.setItem('message', 'Weapon Successfully Registered!');
         return (window.location = '/citizen');
       }
+
+      this.setState({
+        error: res.data.msg
+      })
     })
     .catch(err => console.log(err));
   };
@@ -99,6 +103,7 @@ export default class RegisterVehicle extends Component {
   };
 
   componentDidMount() {
+    document.title= "Register A Weapon"
     this.getAllData();
   }
 
@@ -131,7 +136,7 @@ export default class RegisterVehicle extends Component {
               name='weapon'
               id='weapon'
               list='weapons'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
             <datalist id='weapons'>
               {!weapons[0]
@@ -156,7 +161,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='owner'
               id='owner'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
             <datalist id='owners'>
               {!owners[0] ? (
@@ -183,7 +188,7 @@ export default class RegisterVehicle extends Component {
               onChange={this.handleChange}
               name='weaponStatus'
               id='weaponStatus'
-              className='form-control bg-secondary border-secondary text-light'
+              className='form-control bg-dark border-dark text-light'
             />
             <datalist id='statuses'>
               {!statuses[0]

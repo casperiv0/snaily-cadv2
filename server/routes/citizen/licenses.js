@@ -9,12 +9,12 @@ const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 
 /*
-    @Route /:citizenId-:full_name/edit-licenses
+    @Route /:citizenId/edit-licenses
     @Auth Protected
 */
-router.get("/:citizenId-:full_name/edit-licenses", auth, async (req, res) => {
+router.get("/:citizenId/edit", auth, async (req, res) => {
     const current = await processQuery("SELECT dmv, pilot_license, fire_license, ccw FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
-    const licenses = await processQuery("SELECT * FROM `statuses`");
+    const licenses = await processQuery("SELECT * FROM `in_statuses`");
 
     return res.json({ current: current, licenses: licenses });
 });
@@ -24,11 +24,11 @@ router.get("/:citizenId-:full_name/edit-licenses", auth, async (req, res) => {
     @Route /:citizenId-:full_name/edit-licenses
     @Auth Protected
 */
-router.post("/:citizenId-:full_name/edit-licenses", auth, (req, res) => {
-    const { dmv, pilotLicense, fireLicense, ccw } = req.body;
+router.post("/:citizenId/edit", auth, (req, res) => {
+    const { dmv, pilotLicense, firearmsLicense, ccw } = req.body;
 
-    if (dmv, pilotLicense, fireLicense, ccw) {
-        processQuery("UPDATE `citizens` SET `dmv` = ?, `pilot_license` = ?, `fire_license` = ?, `ccw` = ? WHERE `citizens`.`id` = ?", [dmv, pilotLicense, fireLicense, ccw, req.params.citizenId])
+    if (dmv, pilotLicense, firearmsLicense, ccw) {
+        processQuery("UPDATE `citizens` SET `dmv` = ?, `pilot_license` = ?, `fire_license` = ?, `ccw` = ? WHERE `citizens`.`id` = ?", [dmv, pilotLicense, firearmsLicense, ccw, req.params.citizenId])
             .then(() => {
                 return res.json({msg: "Updated"});
             })

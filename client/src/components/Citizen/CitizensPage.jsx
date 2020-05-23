@@ -5,7 +5,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
-import SuccessMessage from './SuccessMessage';
+import SuccessMessage from "../Partials/Messages/SuccessMessage";
 
 export default class CitizensPage extends Component {
   constructor() {
@@ -50,7 +50,7 @@ export default class CitizensPage extends Component {
         {this.state.message ? <SuccessMessage /> : null}
         <TopButtons />
 
-        <ul className='list-group mt-5'>
+        <ul className='list-group mt-2'>
           {!citizens[0] ? (
             <NoCitizensMessage />
           ) : (

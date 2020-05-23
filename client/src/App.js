@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 class App extends Component {
   render() {
     return (
-      <div style={{backgroundColor: "#343a40", minHeight: "100vh"}}>
+      <div style={{backgroundColor: "#191919", minHeight: "100vh"}}>
         <Routes />
       </div>
     )
