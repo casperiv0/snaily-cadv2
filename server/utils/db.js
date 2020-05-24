@@ -21,7 +21,7 @@ async function connectToDatabase() {
 async function processQuery(query, data) {
     const connection = await connectToDatabase();
     const [rows] = await connection.query(query, data);
-    
+    connection.end()
     return rows;
 
 }

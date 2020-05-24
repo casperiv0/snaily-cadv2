@@ -81,11 +81,11 @@ router.put("/:citizenId", auth, async (req, res) => {
     if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
 
 
-    const { birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw } = req.body
+    const { birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv } = req.body
 
-    const query = "UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ?, `dmv` = ?, `fire_license` = ?, `pilot_license` = ?, `ccw` = ? WHERE `citizens`.`id` = ?";
+    const query = "UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ? WHERE `citizens`.`id` = ?";
 
-    processQuery(query, [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw, req.params.citizenId])
+    processQuery(query, [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, req.params.citizenId])
         .then(() => {
             return res.json({ msg: "Citizen Updated" })
         })

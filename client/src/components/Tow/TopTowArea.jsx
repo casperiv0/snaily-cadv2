@@ -50,7 +50,7 @@ export default class TopTowArea extends Component {
           aria-labelledby='exampleModalLabel'
           aria-hidden='true'>
           <div className='modal-dialog' role='document'>
-            <div className='modal-content  bg-secondary'>
+            <div className='modal-content bg-dark border-dark text-light'>
               <div className='modal-header'>
                 <h5 className='modal-title' id='exampleModalLabel'>
                   Notepad
@@ -65,7 +65,7 @@ export default class TopTowArea extends Component {
               </div>
               <div className='modal-body'>
                 <textarea
-                  className='form-control bg-dark border-dark text-light'
+                  className='form-control bg-secondary border-secondary text-light'
                   cols='30'
                   rows='10'
                   onChange={this.onChange}
@@ -77,7 +77,7 @@ export default class TopTowArea extends Component {
               <div className='modal-footer'>
                 <button
                   type='button'
-                  className='container btn btn-dark'
+                  className='container btn btn-secondary'
                   data-dismiss='modal'>
                   Close
                 </button>

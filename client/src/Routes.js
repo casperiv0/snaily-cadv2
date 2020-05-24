@@ -40,6 +40,12 @@ import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
 import RegisterWeapon from "./components/Citizen/Weapons/RegisterWeapon"
 import EditRegisteredVehicle from './components/Citizen/Vehicles/EditRegisteredVehicle';
 
+// EMS_FD
+import PrivateEMSRoute from "./components/Auth/PrivateEMSRoute"
+import EmsFdDashboard from './components/EMS-FD/EmsFdDashboard/EmsFdDashboard';
+import MyEmsFdDeputies from './components/EMS-FD/MyEmsFdDeputies/MyEmsFdDeputies';
+import CreateEmsFdDeputy from './components/EMS-FD/MyEmsFdDeputies/CreateEmsFdDeputy';
+
 export default class Routes extends Component {
     render() {
         return (
@@ -89,6 +95,13 @@ export default class Routes extends Component {
 
                 <Switch basename="/">
                     <Route path="/bleeter" exact component={Bleeter} />
+                </Switch>
+
+
+                <Switch basename="/">
+                    <PrivateEMSRoute exact path="/ems-fd" component={EmsFdDashboard} />
+                    <PrivateEMSRoute exact path="/ems-fd/deputies" component={MyEmsFdDeputies} />
+                    <PrivateEMSRoute exact path="/ems-fd/deputies/create-deputy" component={CreateEmsFdDeputy} />
                 </Switch>
 
             </Router>

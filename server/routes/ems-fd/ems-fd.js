@@ -17,9 +17,8 @@ const emsFDAuth = require("../../auth/ems-fdAuth");
     @Auth Protected
 */
 router.get("/", auth, emsFDAuth, async (req, res) => {
-    const user = await processQuery("SELECT ems_fd FROM `users` WHERE `id` = ?", [req.user.id]);
 
-    const deputies = await processQuery("SELECT * FROM `ems-fd` WHERE `linked_to` = ?", [user[0].username]).catch(err => console.log(err));
+    const deputies = await processQuery("SELECT * FROM `ems-fd` WHERE `linked_to` = ?", [req.user.username]).catch(err => console.log(err));
 
     return res.json({ deputies: deputies });
 });
