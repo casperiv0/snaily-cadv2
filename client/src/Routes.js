@@ -15,6 +15,11 @@ import PrivateRoute from "./components/Auth/PrivateRoute"
 import CitizensPage from "./components/Citizen/CitizensPage";
 import CreateCitizen from "./components/Citizen/CreateCitizen";
 import CitizensDetailPage from "./components/Citizen/CitizenDetail/CitizensDetailPage";
+import EditCitizen from './components/Citizen/EditCitizen';
+
+// Medical Records
+import AddMedicalRecords from './components/Citizen/Medical/AddMedicalRecords';
+
 
 // Licenses
 import EditLicenses from "./components/Citizen/Licenses/EditLicenses";
@@ -59,7 +64,13 @@ export default class Routes extends Component {
                     <PrivateRoute exact path="/citizen" component={CitizensPage} />
                     <PrivateRoute exact path="/citizen/create" component={CreateCitizen} />
                     <PrivateRoute exact path="/citizen/:citizenId" component={CitizensDetailPage} />
+                    <PrivateRoute exact path="/citizen/:citizenId/edit" component={EditCitizen} />
+
+                    {/* Licenses */}
                     <PrivateRoute exact path="/licenses/edit/:citizenId" component={EditLicenses} />
+
+                    {/* Medical Record */}
+                    <PrivateRoute exact path="/medical-records/add/:citizenId-:fullName" component={AddMedicalRecords} />
 
 
                     {/* Vehicles */}

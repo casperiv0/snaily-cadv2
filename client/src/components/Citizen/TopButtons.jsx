@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { logOut } from '../Auth/getSession';
 import { Link } from 'react-router-dom';
+import CallTowModal from "./CallTowModal";
+import CallEmergencyServicesModal from "./CallEmergencyServicesModal"
 
 export default class TopButtons extends Component {
   render() {
@@ -31,11 +33,13 @@ export default class TopButtons extends Component {
           <Link to='/manage-company-employment' className='col btn btn-primary'>
             Manage Employment Status
           </Link>
-          <button className='col ml-1 btn btn-primary'>Call Tow Service</button>
-          <button className='col ml-1 btn btn-primary'>
+          <button data-toggle="modal" data-target="#callTow" className='col ml-1 btn btn-primary'>Call Tow Service</button>
+          <button data-toggle="modal" data-target="#call911" className='col ml-1 btn btn-primary'>
             Call Emergency Services
           </button>
         </div>
+        <CallTowModal />
+        <CallEmergencyServicesModal />
       </div>
     );
   }

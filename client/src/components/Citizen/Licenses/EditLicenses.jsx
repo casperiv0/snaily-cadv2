@@ -28,7 +28,6 @@ export default class componentName extends Component {
       .then((res) => {
         if (res.data.current) {
           const current = res.data.current[0];
-
           this.setState({
             statuses: res.data.licenses,
             dmv: current.dmv,

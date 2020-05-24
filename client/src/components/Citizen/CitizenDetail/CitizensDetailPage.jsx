@@ -141,7 +141,7 @@ export default class CitizensDetailPage extends Component {
         <LicensesBox citizenId={citizenId} dmv={dmv} ccw={ccw} firearmsLicense={firearmsLicense} pilotLicense={pilotLicense} />
 
         {/* Medical Records */}
-        <MedicalRecordsBox fullName={fullName} />
+        <MedicalRecordsBox citizenId={citizenId} fullName={fullName} />
 
         {/* Vehicles, Weapons, Ticket & Arrest reports */}
         <ul className="list-group">

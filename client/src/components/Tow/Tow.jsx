@@ -92,7 +92,7 @@ export default class Tow extends Component {
                 key={index}
                 id={call.id}
                 index={index}
-                caller={call.caller}
+                caller={call.name}
                 location={call.location}
                 description={call.description}
                 cancelTowCall={this.cancelTowCall}

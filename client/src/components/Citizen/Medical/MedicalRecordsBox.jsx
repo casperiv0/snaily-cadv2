@@ -40,7 +40,7 @@ export default class MedicalRecordsBox extends Component {
           <h4>
             Medical Records{' '}
             <a
-              href='/medical-records/add'
+              href={'/medical-records/add/'+this.props.citizenId+"-"+this.props.fullName}
               className='btn btn-primary float-right'>
               Add Medical Record
             </a>

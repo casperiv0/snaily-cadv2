@@ -116,6 +116,7 @@ export default class RegisteredVehicles extends Component {
                       Edit
                     </a>
                     <a
+                      href="#deleteVehicle"
                       onClick={() => this.deleteVehicle(vehicle.id)}
                       className='btn btn-danger ml-2'>
                       Delete

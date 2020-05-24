@@ -81,7 +81,7 @@ export default class RegisteredWeapons extends Component {
                   className='list-group-item d-flex justify-content-between bg-secondary border-dark'>
                   <div key={index}>
                     {/* Vehicle */}
-                    <span className='font-weight-bold'>{weapon.name}</span>
+                    <span className='font-weight-bold'>{weapon.weapon}</span>
                     <br />
 
                     {/* Serial Number */}
@@ -104,6 +104,7 @@ export default class RegisteredWeapons extends Component {
                       Edit
                     </a>
                     <a
+                      href="#deleteWeapon"
                       onClick={() => this.deleteWeapon(weapon.id)}
                       className='btn btn-danger ml-2'>
                       Delete

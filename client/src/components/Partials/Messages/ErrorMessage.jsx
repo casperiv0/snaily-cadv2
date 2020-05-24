@@ -7,7 +7,7 @@ export default class ErrorMessage extends Component {
         {this.props.message}
         <button
           type='button'
-          class='close'
+          className='close'
           data-dismiss='alert'
           aria-label='Close'>
           <span aria-hidden='true'>&times;</span>

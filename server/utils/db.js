@@ -34,4 +34,6 @@ module.exports = {
 
 
 
-processQuery("SELECT 1").catch(err => console.log(err));
+setInterval(() => {
+    processQuery("SELECT 1").catch(err => console.log(err));
+}, 10000)

@@ -17,27 +17,27 @@ export default class TopTowArea extends Component {
 
   refresh = () => {
     document.location.reload();
-  }
+  };
   render() {
     const { notepad } = this.state;
     const { children } = this.props;
     return (
       <ul className='list-group'>
         <div className='list-group-item active'>
-          <p>Active Calls 
-          <div className='float-right'>
-            <button
-              data-toggle='modal'
-              data-target='#notepad'
-              className='btn btn-success'>
-              Notepad
-            </button>
-            <button className='ml-2 btn btn-success' onClick={this.refresh}> 
-              Refresh
-            </button>
+          <div>
+            Active Calls
+            <div className='float-right'>
+              <button
+                data-toggle='modal'
+                data-target='#notepad'
+                className='btn btn-success'>
+                Notepad
+              </button>
+              <button className='ml-2 btn btn-success' onClick={this.refresh}>
+                Refresh
+              </button>
+            </div>
           </div>
-          </p>
-          
         </div>
         {children}
 
@@ -64,7 +64,15 @@ export default class TopTowArea extends Component {
                 </button>
               </div>
               <div className='modal-body'>
-                <textarea className="form-control bg-dark border-dark text-light" cols="30" rows="10" onChange={this.onChange} value={notepad} name="notepad" >{notepad}</textarea>
+                <textarea
+                  className='form-control bg-dark border-dark text-light'
+                  cols='30'
+                  rows='10'
+                  onChange={this.onChange}
+                  value={notepad}
+                  name='notepad'>
+                  {notepad}
+                </textarea>
               </div>
               <div className='modal-footer'>
                 <button

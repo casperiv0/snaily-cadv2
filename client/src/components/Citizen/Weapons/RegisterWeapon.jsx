@@ -4,7 +4,7 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Alert } from '@material-ui/lab';
 
-export default class RegisterVehicle extends Component {
+export default class RegisterWeapon extends Component {
   constructor() {
     super();
 
@@ -196,7 +196,7 @@ export default class RegisterVehicle extends Component {
                 : statuses.map((status, index) => {
                     return (
                       <option key={index} value={status.status}>
-                        {owner.status}
+                        {status.status}
                       </option>
                     );
                   })}
