@@ -131,6 +131,10 @@ router.post("/login", async (req, res) => {
         bcrypt.compare(password, user[0].password, async (err, result) => {
             if (err) return res.json({ msg: "There was an err getting back your password" });
 
+            if (user[0].banned === "true") return res.json({msg: `This Account Was Banned From This CAD, reason: ${user[0].ban_reason}`});
+
+            if (user[0].whitelist_status === "pending") return res.json({msg: "This Account is still pending access"});
+
             // password is incorrect
             if (result === false) return res.json({ msg: "Password was incorrect" });
 

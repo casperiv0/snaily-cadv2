@@ -18,10 +18,10 @@ const { processQuery } = require("../../utils/db");
 */
 router.get("/", auth, async (req, res) => {
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
-        const users = await processQuery("SELECT id, username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users`");
-        const pendingUsers = await processQuery("SELECT username, whitelist_status FROM `users` WHERE `users`.`whitelist_status` = ?", ["pending"]);
+        const members = await processQuery("SELECT id, username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users`");
+        const pendingMembers = await processQuery("SELECT id, username, whitelist_status FROM `users` WHERE `users`.`whitelist_status` = ?", ["pending"]);
 
-        return res.json({ users: users, pendingUsers: pendingUsers });
+        return res.json({ members: members, pendingMembers: pendingMembers });
     } else {
         res.sendStatus(403);
     };
@@ -155,6 +155,12 @@ router.post("/decline/:memberId", auth, async (req, res) => {
             return res.json({ msg: "User Declined" });
         })
         .catch(err => console.log(err));
-})
+
+    processQuery("DELETE FROM `users` WHERE `users`.`id` = ?", [req.params.memberId])
+        .then(() => {
+            return res.json({ msg: "Account Was Removed" });
+        })
+        .catch(err => console.log(err));
+});
 
 module.exports = router;
