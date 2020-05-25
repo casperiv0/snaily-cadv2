@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
+import { getSession } from '../Auth/getSession';
 
 export default class NavigationBar extends Component {
   constructor() {
@@ -19,16 +20,17 @@ export default class NavigationBar extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
-      if (res.data.user[0]) {
+      if (res.data.user) {
+        let rank =  getSession() ? res.data.user[0].rank : "No Rank"
         this.setState({
-          rank: res.data.user[0].rank,
+          rank: rank,
         });
       }
     });
   };
 
   componentDidMount() {
-    this.getRank();
+    this.getRank() 
   }
 
   render() {

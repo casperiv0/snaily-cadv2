@@ -35,7 +35,7 @@ export default class Vehicles extends Component {
       .catch((err) => console.log(err));
   };
 
-  deleteGender = (id) => {
+  deleteVehicle = (id) => {
     Axios({
       url: backendURL + '/admin/vehicles/' + id,
       method: 'DELETE',
@@ -137,7 +137,7 @@ export default class Vehicles extends Component {
                       </a>
                       <button
                         onClick={() => {
-                          this.deleteGender(vehicle.id);
+                          this.deleteVehicle(vehicle.id);
                         }}
                         className='btn btn-danger'>
                         Delete

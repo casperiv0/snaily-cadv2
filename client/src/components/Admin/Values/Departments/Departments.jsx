@@ -67,7 +67,7 @@ export default class Departments extends Component {
     const { departments,message } = this.state;
     
     return (
-      <div className='container text-light col-md-9'>
+      <div className='text-light container col'>
           {
               message ? <AdminSuccessMessage message={message} /> : null 
           }

@@ -28,7 +28,7 @@ class AdminRoute extends Component {
             },
         })
             .then(res => {
-                if (res.data.user[0]) {
+                if (res.data.user) {
                     const { rank } = res.data.user[0]
                     if (rank === "moderator" || rank === "admin" || rank === "owner") {
                         this.setState({
@@ -41,7 +41,7 @@ class AdminRoute extends Component {
                         })
                     }
                 } else {
-                    console.log('User not found');
+                    window.location = "/auth/login"
                 }
             })
             .catch(err => console.log(err));
@@ -57,7 +57,7 @@ class AdminRoute extends Component {
 
         // I'll refactor this soon.
         return (
-            <div className="container row">
+            <div className="container-fluid row">
                 <AdminSideHeader />
                 <Route
                     {...rest}

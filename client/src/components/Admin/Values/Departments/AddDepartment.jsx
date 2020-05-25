@@ -54,7 +54,7 @@ export default class AddDepartment extends Component {
   render() {
     const { department, error } = this.state;
     return (
-      <form className="col-md-9 container text-light" onSubmit={this.onSubmit}>
+      <form className="container col-xl text-light" onSubmit={this.onSubmit}>
         {
             error ? <ErrorMessage message={error} /> : null
         }

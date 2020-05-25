@@ -44,9 +44,7 @@ body {
 .drawer-content a {
   margin-top: -1px;
   width: 100%;
-  background-color: var(--dark);
   padding: 10px;
-  color: var(--light);
   text-decoration: none;
   transition: all .3s;
   font-size: 20px;
@@ -54,7 +52,7 @@ body {
 }
 
 .drawer-content a:hover {
-  background-color: #5e5e5e;
+  background-color: #6c757d;
 }
 
 /* make responsive */

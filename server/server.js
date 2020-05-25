@@ -66,7 +66,7 @@ app.use("/account", editAccountRouter);
 
 // Admin Routers
 app.use("/admin", adminRouter);
-app.use("/admin/citizen", citizenManagementRouter);
+app.use("/admin/citizens", citizenManagementRouter);
 app.use("/admin/members", memberManagementRouter);
 app.use("/admin/edit-cad", editCadRouter);
 app.use("/admin/departments", departmentsRouter);

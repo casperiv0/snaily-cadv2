@@ -51,22 +51,35 @@ import AdminRoute from "./components/Auth/AdminRoute"
 import Admin from './components/Admin/Admin';
 
 // values
+// departments
 import Departments from './components/Admin/Values/Departments/Departments.jsx';
 import AddDepartment from './components/Admin/Values/Departments/AddDepartment';
 import EditDepartment from './components/Admin/Values/Departments/EditDepartment';
-
+// ethnicities
 import Ethnicities from './components/Admin/Values/Ethnicities/Ethnicities';
 import AddEthnicity from './components/Admin/Values/Ethnicities/AddEthnicity';
 import EditEthnicity from './components/Admin/Values/Ethnicities/EditEthnicty';
+// genders
 import AddGender from './components/Admin/Values/Genders/AddGender';
 import Genders from './components/Admin/Values/Genders/Genders';
 import EditGender from './components/Admin/Values/Genders/Editgender';
+// legal statuses
 import LegalStatuses from './components/Admin/Values/Legal/LegalStatuses';
 import AddLegalStatus from './components/Admin/Values/Legal/AddLegalStatus';
 import EditLegalStatus from './components/Admin/Values/Legal/EditLegalStatus';
+// Vehicles
 import AddVehicle from './components/Admin/Values/Vehicles/AddVehicle';
 import EditVehicle from './components/Admin/Values/Vehicles/EditVehicle';
 import Vehicles from './components/Admin/Values/Vehicles/Vehicles';
+
+// weapons
+import Weapons from './components/Admin/Values/Weapons/Weapons';
+import AddWeapon from './components/Admin/Values/Weapons/AddWeapon';
+import EditWeapon from './components/Admin/Values/Weapons/EditWeapon';
+
+// Management
+import ActionLogs from './components/Admin/Management/ActionLogs';
+import CitizenManagement from './components/Admin/Management/CitizenManagement';
 
 export default class Routes extends Component {
     render() {
@@ -126,9 +139,12 @@ export default class Routes extends Component {
                     <PrivateEMSRoute exact path="/ems-fd/deputies/create-deputy" component={CreateEmsFdDeputy} />
                 </Switch>
 
-                <div className="container row">
+                <div className="container-fluid row">
                     <Switch basename="/admin">
                         <AdminRoute exact path="/admin" component={Admin} />
+                        {/* Management */}
+                        <AdminRoute exact path="/admin/action-logs" component={ActionLogs} />
+                        <AdminRoute exact path="/admin/manage/citizens" component={CitizenManagement} />
 
                         {/* Values */}
 
@@ -156,6 +172,11 @@ export default class Routes extends Component {
                         <AdminRoute exact path="/admin/vehicles" component={Vehicles} />
                         <AdminRoute exact path="/admin/vehicles/add" component={AddVehicle} />
                         <AdminRoute exact path="/admin/vehicles/edit/:id" component={EditVehicle} />
+
+                         {/* Weapons */}
+                         <AdminRoute exact path="/admin/weapons" component={Weapons} />
+                        <AdminRoute exact path="/admin/weapons/add" component={AddWeapon} />
+                        <AdminRoute exact path="/admin/weapons/edit/:id" component={EditWeapon} />
                     </Switch>
                 </div>
 

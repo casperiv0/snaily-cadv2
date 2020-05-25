@@ -8,7 +8,7 @@ export default class Admin extends Component {
   }
   render() {
     return (
-      <div className="col-md-9">
+      <div className="col">
           <CadInformation />
       </div>
     );
