@@ -46,6 +46,19 @@ import EmsFdDashboard from './components/EMS-FD/EmsFdDashboard/EmsFdDashboard';
 import MyEmsFdDeputies from './components/EMS-FD/MyEmsFdDeputies/MyEmsFdDeputies';
 import CreateEmsFdDeputy from './components/EMS-FD/MyEmsFdDeputies/CreateEmsFdDeputy';
 
+// admin
+import AdminRoute from "./components/Auth/AdminRoute"
+import Admin from './components/Admin/Admin';
+
+// values
+import Departments from './components/Admin/Values/Departments/Departments.jsx';
+import AddDepartment from './components/Admin/Values/Departments/AddDepartment';
+import EditDepartment from './components/Admin/Values/Departments/EditDepartment';
+import AdminSideHeader from './components/Partials/AdminSideHeader';
+import Ethnicities from './components/Admin/Values/Ethnicities/Ethnicities';
+import AddEthnicity from './components/Admin/Values/Ethnicities/AddEthnicity';
+import EditEthnicity from './components/Admin/Values/Ethnicities/EditEthnicty';
+
 export default class Routes extends Component {
     render() {
         return (
@@ -103,6 +116,25 @@ export default class Routes extends Component {
                     <PrivateEMSRoute exact path="/ems-fd/deputies" component={MyEmsFdDeputies} />
                     <PrivateEMSRoute exact path="/ems-fd/deputies/create-deputy" component={CreateEmsFdDeputy} />
                 </Switch>
+
+                <div className="container row">
+                    <AdminSideHeader />
+                    <Switch basename="/">
+                        <AdminRoute exact path="/admin" component={Admin} />
+
+                        {/* Values */}
+
+                        {/* Departments */}
+                        <AdminRoute exact path="/admin/departments" component={Departments} />
+                        <AdminRoute exact path="/admin/departments/add" component={AddDepartment} />
+                        <AdminRoute exact path="/admin/departments/edit/:id" component={EditDepartment} />
+
+                        {/* Ethnicities */}
+                        <AdminRoute exact path="/admin/ethnicities" component={Ethnicities} />
+                        <AdminRoute exact path="/admin/ethnicities/add" component={AddEthnicity} />
+                        <AdminRoute exact path="/admin/ethnicities/edit/:id" component={EditEthnicity} />
+                    </Switch>
+                </div>
 
             </Router>
         )

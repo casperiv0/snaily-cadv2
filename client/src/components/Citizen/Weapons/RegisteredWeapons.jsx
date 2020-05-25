@@ -99,11 +99,6 @@ export default class RegisteredWeapons extends Component {
                   {/* actions */}
                   <div className=''>
                     <a
-                      href={'/vehicles/edit/' + weapon.id}
-                      className='btn btn-success'>
-                      Edit
-                    </a>
-                    <a
                       href="#deleteWeapon"
                       onClick={() => this.deleteWeapon(weapon.id)}
                       className='btn btn-danger ml-2'>

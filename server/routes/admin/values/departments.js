@@ -43,11 +43,17 @@ router.get("/", auth, officerAdminAuth, (req, res) => {
 */
 router.post("/add", auth, adminAuth, (req, res) => {
     const { department } = req.body;
-    processQuery("INSERT INTO `departments` (`name`) VALUES (?)", [department])
-        .then(() => {
-            return res.json({ msg: "Added" });
-        })
-        .catch(err => console.log(err));
+
+    if (department) {
+        processQuery("INSERT INTO `departments` (`name`) VALUES (?)", [department])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Please fill in all fields" })
+    }
+
 });
 
 /*
@@ -69,11 +75,16 @@ router.get("/edit/:deptId", auth, adminAuth, (req, res) => {
 router.put("/edit/:deptId", auth, adminAuth, (req, res) => {
     const { department } = req.body;
 
-    processQuery("UPDATE `departments` SET `name` = ? WHERE `departments`.`id` = ?", [department, req.params.deptId])
-        .then(() => {
-            return res.json({ msg: "Updated" });
-        })
-        .catch(err => console.log(err));
+    if (department) {
+        processQuery("UPDATE `departments` SET `name` = ? WHERE `departments`.`id` = ?", [department, req.params.deptId])
+            .then(() => {
+                return res.json({ msg: "Updated" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Please fill in all fields" })
+    }
+
 });
 
 /*

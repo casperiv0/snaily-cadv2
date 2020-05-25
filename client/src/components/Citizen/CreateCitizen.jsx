@@ -95,6 +95,7 @@ export default class AddCitizen extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
+        citizen_pictures: this.state.citizen_pictures,
         fullName: this.state.fullName,
         birth: this.state.birth,
         gender: this.state.gender,

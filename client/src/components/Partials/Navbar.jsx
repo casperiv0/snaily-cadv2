@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
+import { backendURL } from '../../config/config';
+import Cookies from 'js-cookie';
 
 export default class NavigationBar extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      rank: '',
+    };
+  }
+
+  getRank = () => {
+    Axios({
+      url: backendURL + '/auth/user',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      if (res.data.user[0]) {
+        this.setState({
+          rank: res.data.user[0].rank,
+        });
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.getRank();
+  }
+
   render() {
+    const { rank } = this.state;
     return (
       <nav className='navbar navbar-expand-lg navbar-dark bg-secondary sticky-top'>
         <a className='navbar-brand' href='/'>
@@ -51,6 +82,13 @@ export default class NavigationBar extends Component {
                 Bleeter
               </a>
             </li>
+            {rank === 'moderator' || rank === 'admin' || rank === 'owner' ? (
+              <li className='nav-item'>
+                <a className='nav-link' href='/admin'>
+                  Admin
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
       </nav>

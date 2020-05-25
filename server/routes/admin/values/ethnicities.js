@@ -18,7 +18,7 @@ const adminAuth = require("../../../auth/adminAuth");
 router.get("/", auth, (req, res) => {
     processQuery("SELECT * FROM `ethnicities`")
         .then((ethnicities) => {
-            return res.json({ ethnicities: ethnicities})
+            return res.json({ ethnicities: ethnicities })
         })
         .catch(err => console.log(err));
 });
@@ -28,12 +28,18 @@ router.get("/", auth, (req, res) => {
     @Auth Protected
 */
 router.post("/add", auth, adminAuth, (req, res) => {
-    const { ethnicity } = req.body;
-    processQuery("INSERT INTO `ethnicities` (`name`) VALUES (?)", [ethnicity])
-        .then(() => {
-            return res.json({ msg: "Added" });
-        })
-        .catch(err => console.log(err));
+    const { ethnicity } = req.body;    
+    
+    if (ethnicity) {
+        processQuery("INSERT INTO `ethnicities` (`name`) VALUES (?)", [ethnicity])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Please fill in all fields" })
+    }
+
 });
 
 /*

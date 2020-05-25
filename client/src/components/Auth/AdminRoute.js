@@ -7,18 +7,19 @@ import Cookies from 'js-cookie';
 import { Component } from "react";
 import Spinner from "../Partials/LoadingArea"
 
-class PrivateEMSRoute extends Component {
+
+class AdminRoute extends Component {
 
     constructor() {
         super()
 
         this.state = {
-            EMSFDAccess: false,
+            adminAccess: false,
             loading: true
         };
     };
 
-    getEmsFdAccess = () => {
+    getAdminAccess = () => {
         axios.get(backendURL + "/auth/user", {
             headers: {
                 "x-auth-snailycad-token": Cookies.get("__session"),
@@ -26,9 +27,10 @@ class PrivateEMSRoute extends Component {
         })
             .then(res => {
                 if (res.data.user[0]) {
-                    if (res.data.user[0].ems_fd === "yes") {
+                    const {rank}= res.data.user[0]
+                    if (rank === "moderator" || rank === "admin" || rank === "owner") {
                         this.setState({
-                            EMSFDAccess: true,
+                            adminAccess: true,
                             loading: false
                         });
                     } else {
@@ -44,12 +46,12 @@ class PrivateEMSRoute extends Component {
     };
 
     componentDidMount() {
-        this.getEmsFdAccess();
+        this.getAdminAccess();
     }
 
     render() {
         const { component: Component, ...rest } = this.props;
-        const { EMSFDAccess, loading } = this.state;
+        const { adminAccess, loading } = this.state;
 
         // I'll refactor this soon.
         return (
@@ -60,7 +62,7 @@ class PrivateEMSRoute extends Component {
                         if (loading) {
                             return (<Spinner />)
                         } else {
-                            if (!EMSFDAccess === false) {
+                            if (!adminAccess === false) {
                                 return (<Component {...props} />)
                             } else {
                                 window.location = "/403"
@@ -82,4 +84,4 @@ class PrivateEMSRoute extends Component {
     }
 };
 
-export default PrivateEMSRoute;
+export default AdminRoute;

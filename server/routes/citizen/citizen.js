@@ -7,6 +7,9 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const multer = require('multer');
+const upload = multer();
+
 
 /*
     @Route /
@@ -31,16 +34,16 @@ router.get("/", auth, async (req, res) => {
 */
 router.get("/:citizenId", auth, async (req, res) => {
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
-    
-    
-    if (!citizen[0]) return res.json({msg: "Citizen Not Found"})
+
+
+    if (!citizen[0]) return res.json({ msg: "Citizen Not Found" })
 
     // Check if the citizen is linked to the account
-    if (citizen[0].linked_to !== req.user.username) return res.json({msg: "Forbidden"})
+    if (citizen[0].linked_to !== req.user.username) return res.json({ msg: "Forbidden" })
 
 
     // show the citizen information
-    return res.json({citizen: citizen});
+    return res.json({ citizen: citizen });
 });
 
 
@@ -49,6 +52,14 @@ router.get("/:citizenId", auth, async (req, res) => {
     @auth Protected
 */
 router.post("/add", auth, async (req, res) => {
+    console.log(res.body);
+
+    const file = req.files ? req.files.citizen_pictures : null;
+    const fileName = req.files ? file.name : "default.svg";
+
+    console.log(file);
+    
+
     const { fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw } = req.body;
     if (fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight) {
 
@@ -57,10 +68,17 @@ router.post("/add", auth, async (req, res) => {
 
         if (citizen[0]) return res.json({ msg: "Name is Already in use!" });
 
+        // Move the picture to /public/citizens-picture
+        file ? file.mv("./public/citizen-pictures/" + fileName, err => {
+            if (err) {
+                return console.log(err);
+            }
+        }) : null;
+
         // Create the citizen        
         const query = "INSERT INTO `citizens` ( `full_name`, `linked_to`, `birth`, `gender`, `ethnicity`, `hair_color`, `eye_color`, `address`, `height`, `weight`, `dmv`, `fire_license`, `pilot_license`,`ccw`,`business`, `rank`, `vehicle_reg`, `posts`, `citizen_picture`, `b_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        processQuery(query, [fullName, req.user.username, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw, "Not Working Anywhere", "", "true", "true", "", ""])
+        processQuery(query, [fullName, req.user.username, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw, "Not Working Anywhere", "", "true", "true", fileName, ""])
             .then(citizen => {
                 return res.json({ msg: "Citizen Created" });
             })

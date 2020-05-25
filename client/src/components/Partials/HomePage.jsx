@@ -6,7 +6,7 @@ import { backendURL } from '../../config/config';
 
 export default class HomePage extends Component {
   render() {
-    return getSession() ? <LoggedInSection /> : <NotLoggedInSection />;
+    return getSession() ? (<div><LoggedInSection /><Credits /></div>) : <NotLoggedInSection />;
   }
 }
 
@@ -14,6 +14,7 @@ const LoggedInSection = () => {
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
+    document.title = "Home - SnailyCAD"
     axios({
       url: backendURL + '/auth/user',
       headers: {
@@ -62,3 +63,13 @@ const NotLoggedInSection = () => {
     </div>
   );
 };
+
+
+const Credits = () => {
+  return (
+    <div className="fixed-bottom text-light bg-dark border-dark pl-2 pt-2">
+      <p>Feel Free to support me <a href="https://www.paypal.me/caspertheghosty">here</a></p>
+      <p><a href="https://dev-caspertheghost.github.io/">CasperTheGhost</a> | Thanks for choosing SnailyCAD!</p>
+    </div>
+  )
+}

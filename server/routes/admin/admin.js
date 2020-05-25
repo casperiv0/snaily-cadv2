@@ -15,14 +15,12 @@ const { processQuery } = require("../../utils/db");
     @Auth Protected
 */
 router.get("/", auth, async (req, res) => {
-    console.log(req.user.rank);
-
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
         const users = await processQuery("SELECT username FROM `users`").catch(err => console.log(err));
         const allCitizens = await processQuery("SELECT id FROM `citizens`").catch(err => console.log(err));
         const allWeapons = await processQuery("SELECT id FROM `registered_weapons`").catch(err => console.log(err));
-        const allVehicles = await processQuery("SELECT id FROM `registered_vehicles`").catch(err => console.log(err));
-        const allTickets = await processQuery("SELECT id FROM `tickets`").catch(err => console.log(err));
+        const allVehicles = await processQuery("SELECT id FROM `registered_cars`").catch(err => console.log(err));
+        const allTickets = await processQuery("SELECT id FROM `leo_tickets`").catch(err => console.log(err));
         const allArrestReports = await processQuery("SELECT id FROM `arrest_reports`").catch(err => console.log(err));
         const allCompanies = await processQuery("SELECT id FROM `businesses`").catch(err => console.log(err));
         const allCompanyPosts = await processQuery("SELECT id FROM `posts`").catch(err => console.log(err));

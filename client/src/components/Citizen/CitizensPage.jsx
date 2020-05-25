@@ -6,12 +6,14 @@ import Cookies from 'js-cookie';
 import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
 import SuccessMessage from "../Partials/Messages/SuccessMessage";
+import LoadingArea from "../Partials/LoadingArea"
 
 export default class CitizensPage extends Component {
   constructor() {
     super();
 
     this.state = {
+      loading: true,
       citizens: [],
       message: sessionStorage.getItem('message'),
     };
@@ -32,8 +34,9 @@ export default class CitizensPage extends Component {
     }).then((res) => {
       this.setState({
         citizens: res.data.citizens,
+        loading: false
       });
-    });
+    });   
   };
 
   componentDidUpdate() {
@@ -44,7 +47,10 @@ export default class CitizensPage extends Component {
   }
 
   render() {
-    const { citizens } = this.state;
+    const { citizens, loading } = this.state;
+    if (loading) {
+      return <LoadingArea />
+    }
     return (
       <div className='container pb-5'>
         {this.state.message ? <SuccessMessage /> : null}

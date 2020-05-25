@@ -27,6 +27,8 @@ export default class MyDeputiesList extends Component {
 
   componentDidMount() {
       this.getEmsFdDeputies()
+        document.title = "EMS-FD - My Deputies"
+    
   }
 
   render() {

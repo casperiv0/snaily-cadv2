@@ -19,12 +19,13 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "reactstrap": "^8.4.1",
+    "recharts": "^1.8.5",
     "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --config ./jest.config.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

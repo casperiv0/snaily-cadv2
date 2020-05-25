@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 const app = express();
 const { port } = require("../config.js");
 const { connectToDatabase } = require("./utils/db");
@@ -53,6 +54,7 @@ const ems_fdRouter = require("./routes/ems-fd/ems-fd");
 // Middleware
 app.use(cors());
 app.use(helmet());
+app.use(fileUpload());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -186,7 +186,7 @@ export default class EditRegisteredVehicle extends Component {
             </datalist>
         </div>
         <div className="form-group float-right">
-          <a href="/citizen" className="btn btn-danger">Cancel</a>
+          <a href={"/citizen"} className="btn btn-danger">Cancel</a>
           <button className="btn btn-primary ml-2" type="submit">Update Vehicle</button>
         </div>
       </form>

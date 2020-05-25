@@ -31,7 +31,7 @@ router.post("/register", auth, async (req, res) => {
         let result = '';
         let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let charactersLength = characters.length;
-        for (var i = 0; i < charactersLength; i++) {
+        for (var i = 0; i < 10; i++) {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;

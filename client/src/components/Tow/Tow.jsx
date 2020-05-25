@@ -52,6 +52,7 @@ export default class Tow extends Component {
   };
 
   componentDidMount() {
+    document.title = "Tow Truckers"
     this.getData();
   }
 
