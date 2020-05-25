@@ -54,7 +54,7 @@ import Admin from './components/Admin/Admin';
 import Departments from './components/Admin/Values/Departments/Departments.jsx';
 import AddDepartment from './components/Admin/Values/Departments/AddDepartment';
 import EditDepartment from './components/Admin/Values/Departments/EditDepartment';
-import AdminSideHeader from './components/Partials/AdminSideHeader';
+
 import Ethnicities from './components/Admin/Values/Ethnicities/Ethnicities';
 import AddEthnicity from './components/Admin/Values/Ethnicities/AddEthnicity';
 import EditEthnicity from './components/Admin/Values/Ethnicities/EditEthnicty';
@@ -127,8 +127,7 @@ export default class Routes extends Component {
                 </Switch>
 
                 <div className="container row">
-                    <AdminSideHeader />
-                    <Switch basename="/">
+                    <Switch basename="/admin">
                         <AdminRoute exact path="/admin" component={Admin} />
 
                         {/* Values */}
@@ -152,7 +151,7 @@ export default class Routes extends Component {
                         <AdminRoute exact path="/admin/legal-statuses" component={LegalStatuses} />
                         <AdminRoute exact path="/admin/legal-statuses/add" component={AddLegalStatus} />
                         <AdminRoute exact path="/admin/legal-statuses/edit/:id" component={EditLegalStatus} />
-                        
+
                         {/* Vehicles */}
                         <AdminRoute exact path="/admin/vehicles" component={Vehicles} />
                         <AdminRoute exact path="/admin/vehicles/add" component={AddVehicle} />

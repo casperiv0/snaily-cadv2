@@ -6,6 +6,8 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import { Component } from "react";
 import Spinner from "../Partials/LoadingArea"
+import AdminSideHeader from '../Partials/AdminSideHeader';
+
 
 
 class AdminRoute extends Component {
@@ -27,7 +29,7 @@ class AdminRoute extends Component {
         })
             .then(res => {
                 if (res.data.user[0]) {
-                    const {rank}= res.data.user[0]
+                    const { rank } = res.data.user[0]
                     if (rank === "moderator" || rank === "admin" || rank === "owner") {
                         this.setState({
                             adminAccess: true,
@@ -55,31 +57,34 @@ class AdminRoute extends Component {
 
         // I'll refactor this soon.
         return (
-            <Route
-                {...rest}
-                render={props => {
-                    if (getSession()) {
-                        if (loading) {
-                            return (<Spinner />)
-                        } else {
-                            if (!adminAccess === false) {
-                                return (<Component {...props} />)
+            <div className="container row">
+                <AdminSideHeader />
+                <Route
+                    {...rest}
+                    render={props => {
+                        if (getSession()) {
+                            if (loading) {
+                                return (<Spinner />)
                             } else {
-                                window.location = "/403"
+                                if (!adminAccess === false) {
+                                    return (<Component {...props} />)
+                                } else {
+                                    window.location = "/403"
+                                };
                             };
-                        };
 
-                    } else {
-                        return (<Redirect
-                            to={{
-                                pathname: "/auth/login",
-                                state: { from: props.location }
-                            }}
-                        />)
+                        } else {
+                            return (<Redirect
+                                to={{
+                                    pathname: "/auth/login",
+                                    state: { from: props.location }
+                                }}
+                            />)
+                        }
                     }
-                }
-                }
-            />
+                    }
+                />
+            </div>
         );
     }
 };

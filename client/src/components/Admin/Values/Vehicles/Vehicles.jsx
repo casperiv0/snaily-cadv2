@@ -73,7 +73,6 @@ export default class Vehicles extends Component {
       defaultVehicles,
       message,
       loading,
-      search,
     } = this.state;
 
     if (loading) {

@@ -8,9 +8,9 @@ export default class CallTowModal extends Component {
     super();
 
     this.state = {
-      description: '',
-      caller: '',
-      location: '',
+      towDescription: '',
+      towCaller: '',
+      towLocation: '',
     };
   }
 
@@ -28,9 +28,9 @@ export default class CallTowModal extends Component {
       headers: { 'x-auth-snailycad-token': Cookies.get('__session') },
       method: "POST",
       data: {
-        description: this.state.description,
-        caller: this.state.caller,
-        location: this.state.location,
+        description: this.state.towDescription,
+        caller: this.state.towCaller,
+        location: this.state.towLocation,
       },
     }).then((res) => {
       if (res.data.msg === 'Tow Truckers Called') {
@@ -41,7 +41,7 @@ export default class CallTowModal extends Component {
   };
 
   render() {
-    const { description, location, caller } = this.state;
+    const { towDescription, towLocation, towCaller } = this.state;
     return (
       <div
         className='modal fade'
@@ -69,11 +69,11 @@ export default class CallTowModal extends Component {
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Call Description</label>
                   <textarea
-                    name='description'
-                    id='description'
+                    name='towDescription'
+                    id='towDescription'
                     cols='30'
                     rows='5'
-                    value={description}
+                    value={towDescription}
                     onChange={this.onChange}
                     placeholder='Description'
                     className='form-control bg-secondary border-secondary text-light'
@@ -84,12 +84,12 @@ export default class CallTowModal extends Component {
                   <input
                     type='text'
                     className='form-control bg-secondary border-secondary text-light'
-                    id='caller'
+                    id='towLocation'
                     aria-describedby='emailHelp'
-                    value={caller}
+                    value={towLocation}
                     onChange={this.onChange}
                     required
-                    name='caller'
+                    name='towLocation'
                   />
                 </div>
                 <div className='form-group'>
@@ -98,10 +98,10 @@ export default class CallTowModal extends Component {
                     required
                     type='text'
                     className='form-control bg-secondary border-secondary text-light'
-                    id='location'
-                    placeholder='Location'
-                    name='location'
-                    value={location}
+                    id='towCaller'
+                    placeholder='towCaller'
+                    name='towCaller'
+                    value={towCaller}
                     onChange={this.onChange}
                   />
                 </div>
