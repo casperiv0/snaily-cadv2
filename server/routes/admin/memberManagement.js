@@ -35,7 +35,7 @@ router.get("/", auth, async (req, res) => {
 */
 router.get("/edit/:memberId", auth, async (req, res) => {
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
-        const user = await processQuery("SELECT username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users` WHERE `id` = ?", [req.params.memberId]);
+        const user = await processQuery("SELECT id,username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users` WHERE `id` = ?", [req.params.memberId]);
 
         // Check if user exists
         if (!user[0]) return res.json({ msg: "User not found!" });
@@ -58,17 +58,12 @@ router.put("/edit/:memberId", auth, async (req, res) => {
         let query;
         let data = []
 
-        if (rank === undefined) {
-            query = "UPDATE `users` SET `leo` = ?, `ems_fd` = ?, `dispatch` = ?, `tow` = ? WHERE `users`.`id` = ?";
-            data = [leo, ems_fd, dispatch, tow, req.params.memberId];
-        } else {
-            query = "UPDATE `users` SET `leo` = ?, `ems_fd` = ?, `dispatch` = ?, `tow` = ?, `rank` = ? WHERE `users`.`id` = ?";
-            data = [leo, ems_fd, dispatch, tow, rank, req.params.memberId];
-        }
+        query = "UPDATE `users` SET `rank` = ?, `leo` = ?, `ems_fd` = ?, `dispatch` = ?, `tow` = ? WHERE `users`.`id` = ?";
+        data = [rank, leo, ems_fd, dispatch, tow, req.params.memberId];
 
         processQuery(query, data)
             .then(() => {
-                return res.json({ msg: "Updated Member" })
+                return res.json({ msg: "Updated" })
             })
             .catch(err => console.log(err));
 

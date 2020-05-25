@@ -86,6 +86,8 @@ import AdminEditCitizen from './components/Admin/Management/Citizen/AdminEditCit
 
 // members
 import MemberManagement from './components/Admin/Management/Members/MemberManagement';
+import Account from './components/Account/Account';
+import AdminEditMember from './components/Admin/Management/Members/AdminEditMember';
 
 export default class Routes extends Component {
     render() {
@@ -105,6 +107,10 @@ export default class Routes extends Component {
                         <Route path="/auth/register" exact component={Register} />
                     </Switch>
                 </div>
+
+                <Switch basename="/">
+                    <PrivateRoute exact path="/account" component={Account} />
+                </Switch>
 
 
                 <Switch basename="/">
@@ -157,7 +163,7 @@ export default class Routes extends Component {
 
                         {/* Members */}
                         <AdminRoute exact path="/admin/manage/members" component={MemberManagement} />
-                        <AdminRoute exact path="/admin/manage/members/edit/:id" component={AdminEditCitizen} />
+                        <AdminRoute exact path="/admin/manage/members/edit/:id" component={AdminEditMember} />
 
                         {/* Values */}
 

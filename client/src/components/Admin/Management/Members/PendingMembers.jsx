@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
-import AdminSuccessMessage from '../../AdminSuccessMessage';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';

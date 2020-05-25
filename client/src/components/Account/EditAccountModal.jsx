@@ -45,8 +45,8 @@ export default class EditAccountModal extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('message', 'Successfully Updated Password');
-          return (window.location = '/citizen');
+          sessionStorage.setItem('account-message', 'Successfully Updated Password');
+          return (window.location = '/account');
         }
 
         this.setState({

@@ -14,7 +14,7 @@ export default class AllMembersList extends Component {
       searchValue: '',
       members: [],
       filteredMembers: [],
-      loading: true
+      loading: true,
     };
   }
 
@@ -53,7 +53,7 @@ export default class AllMembersList extends Component {
           this.setState({
             members: res.data.members,
             filteredMembers: res.data.members,
-            loading: false
+            loading: false,
           });
         }
       })
@@ -68,7 +68,7 @@ export default class AllMembersList extends Component {
     const { filteredMembers, members, message, loading } = this.state;
 
     if (loading) {
-        return <LoadingArea />
+      return <LoadingArea />;
     }
 
     return (
@@ -111,12 +111,27 @@ export default class AllMembersList extends Component {
                         Police Access:
                       </span>{' '}
                       {member.leo} <br />
-                      <span className='font-weight-bold'>Dispatch Access:</span>{' '}
+                      <span className='font-weight-bold'>
+                        Dispatch Access:
+                      </span>{' '}
                       {member.dispatch} <br />
-                      <span className='font-weight-bold'>EMS/FD Access:</span>{' '}
-                      {member.ems_fd} <br />                      
+                      <span className='font-weight-bold'>
+                        EMS/FD Access:
+                      </span>{' '}
+                      {member.ems_fd} <br />
                       <span className='font-weight-bold'>Tow Access:</span>{' '}
                       {member.tow} <br />
+
+                      {/* Ban */}
+                      <span className='font-weight-bold'>Banned:</span>{' '}
+                      {member.banned} <br />
+                      {member.banned === 'true' ? (
+                        <div>
+                          <span className='font-weight-bold'>Ban Reason:</span>{' '}
+                          {member.ban_reason}
+                        </div>
+                      ) : null}
+
                     </div>
                   </div>
                   <div>
@@ -129,7 +144,11 @@ export default class AllMembersList extends Component {
                       aria-controls={'memberInfo' + member.id}>
                       Toggle Info
                     </button>
-                    <a className="btn btn-success ml-2" href={"/admin/manage/members/edit/"+member.id}>Manage Permissions</a>
+                    <a
+                      className='btn btn-success ml-2'
+                      href={'/admin/manage/members/edit/' + member.id}>
+                      Manage Permissions
+                    </a>
                   </div>
                 </li>
               );

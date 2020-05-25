@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import { getSession } from '../Auth/getSession';
+import { Avatar } from '@material-ui/core';
 
 export default class NavigationBar extends Component {
   constructor() {
@@ -21,7 +22,7 @@ export default class NavigationBar extends Component {
       },
     }).then((res) => {
       if (res.data.user) {
-        let rank =  getSession() ? res.data.user[0].rank : "No Rank"
+        let rank = getSession() ? res.data.user[0].rank : 'No Rank';
         this.setState({
           rank: rank,
         });
@@ -30,7 +31,7 @@ export default class NavigationBar extends Component {
   };
 
   componentDidMount() {
-    this.getRank() 
+    this.getRank();
   }
 
   render() {
@@ -91,6 +92,13 @@ export default class NavigationBar extends Component {
                 </a>
               </li>
             ) : null}
+          </ul>
+          <ul className="nav navbar-nav" style={{ float: 'right' }}>
+            <li className='nav-item'>
+              <a className='nav-link' href='/account'>
+                <Avatar src="/citizen-pictures/default.svg" />
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

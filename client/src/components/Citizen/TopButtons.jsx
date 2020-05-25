@@ -3,7 +3,6 @@ import { logOut } from '../Auth/getSession';
 import { Link } from 'react-router-dom';
 import CallTowModal from './CallTowModal';
 import CallEmergencyServicesModal from './CallEmergencyServicesModal';
-import EditAccountModal from '../Account/EditAccountModal';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
@@ -44,11 +43,9 @@ export default class TopButtons extends Component {
             Logout
           </button>
           <Link
-            data-toggle='modal'
-            to='#editPassword'
-            data-target="#editPassword"
+            to='/account'
             className='col ml-1 btn btn-primary'>
-            Edit Password
+            Account
           </Link>
         </div>
 
@@ -83,7 +80,6 @@ export default class TopButtons extends Component {
         </div>
         <CallTowModal />
         <CallEmergencyServicesModal />
-        <EditAccountModal />
       </div>
     );
   }
