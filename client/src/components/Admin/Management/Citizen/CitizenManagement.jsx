@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { backendURL } from '../../../config/config';
+import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
-import ErrorMessage from '../../Partials/Messages/ErrorMessage';
-import LoadingArea from '../../Partials/LoadingArea';
-import AdminSuccessMessage from '../AdminSuccessMessage';
+import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import LoadingArea from '../../../Partials/LoadingArea';
+import AdminSuccessMessage from '../../AdminSuccessMessage';
 
 export default class CitizenManagement extends Component {
   constructor() {

@@ -79,7 +79,10 @@ import EditWeapon from './components/Admin/Values/Weapons/EditWeapon';
 
 // Management
 import ActionLogs from './components/Admin/Management/ActionLogs';
-import CitizenManagement from './components/Admin/Management/CitizenManagement';
+
+// citizens
+import CitizenManagement from './components/Admin/Management/Citizen/CitizenManagement';
+import AdminEditCitizen from './components/Admin/Management/Citizen/AdminEditCitizen';
 
 export default class Routes extends Component {
     render() {
@@ -144,7 +147,10 @@ export default class Routes extends Component {
                         <AdminRoute exact path="/admin" component={Admin} />
                         {/* Management */}
                         <AdminRoute exact path="/admin/action-logs" component={ActionLogs} />
+
+                        {/* Citizens */}
                         <AdminRoute exact path="/admin/manage/citizens" component={CitizenManagement} />
+                        <AdminRoute exact path="/admin/manage/citizens/edit/:id" component={AdminEditCitizen} />
 
                         {/* Values */}
 

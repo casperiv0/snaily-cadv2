@@ -52,14 +52,9 @@ router.get("/:citizenId", auth, async (req, res) => {
     @auth Protected
 */
 router.post("/add", auth, async (req, res) => {
-    console.log(res.body);
-
     const file = req.files ? req.files.citizen_pictures : null;
     const fileName = req.files ? file.name : "default.svg";
-
-    console.log(file);
     
-
     const { fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw } = req.body;
     if (fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight) {
 
