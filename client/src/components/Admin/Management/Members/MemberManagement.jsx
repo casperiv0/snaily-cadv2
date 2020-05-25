@@ -36,7 +36,7 @@ export default class MemberManagement extends Component {
   };
 
   componentDidMount() {
-    document.title = 'Citizen Management - Admin';
+    document.title = 'Member Management - Admin';
   }
 
   componentDidUpdate() {

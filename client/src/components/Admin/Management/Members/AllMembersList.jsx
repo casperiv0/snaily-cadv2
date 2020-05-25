@@ -104,7 +104,7 @@ export default class AllMembersList extends Component {
                     </span>
                     <div
                       className='collapse mt-2'
-                      id={'citizenInfo' + member.id}>
+                      id={'memberInfo' + member.id}>
                       <span className='font-weight-bold'>Rank:</span>{' '}
                       {member.rank} <br />
                       <span className='font-weight-bold'>
@@ -124,9 +124,9 @@ export default class AllMembersList extends Component {
                       className='btn btn-primary'
                       type='button'
                       data-toggle='collapse'
-                      data-target={'#citizenInfo' + member.id}
+                      data-target={'#memberInfo' + member.id}
                       aria-expanded='false'
-                      aria-controls={'citizenInfo' + member.id}>
+                      aria-controls={'memberInfo' + member.id}>
                       Toggle Info
                     </button>
                     <a className="btn btn-success ml-2" href={"/admin/manage/members/edit/"+member.id}>Manage Permissions</a>
