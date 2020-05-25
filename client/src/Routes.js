@@ -58,6 +58,15 @@ import AdminSideHeader from './components/Partials/AdminSideHeader';
 import Ethnicities from './components/Admin/Values/Ethnicities/Ethnicities';
 import AddEthnicity from './components/Admin/Values/Ethnicities/AddEthnicity';
 import EditEthnicity from './components/Admin/Values/Ethnicities/EditEthnicty';
+import AddGender from './components/Admin/Values/Genders/AddGender';
+import Genders from './components/Admin/Values/Genders/Genders';
+import EditGender from './components/Admin/Values/Genders/Editgender';
+import LegalStatuses from './components/Admin/Values/Legal/LegalStatuses';
+import AddLegalStatus from './components/Admin/Values/Legal/AddLegalStatus';
+import EditLegalStatus from './components/Admin/Values/Legal/EditLegalStatus';
+import AddVehicle from './components/Admin/Values/Vehicles/AddVehicle';
+import EditVehicle from './components/Admin/Values/Vehicles/EditVehicle';
+import Vehicles from './components/Admin/Values/Vehicles/Vehicles';
 
 export default class Routes extends Component {
     render() {
@@ -133,6 +142,21 @@ export default class Routes extends Component {
                         <AdminRoute exact path="/admin/ethnicities" component={Ethnicities} />
                         <AdminRoute exact path="/admin/ethnicities/add" component={AddEthnicity} />
                         <AdminRoute exact path="/admin/ethnicities/edit/:id" component={EditEthnicity} />
+
+                        {/* Genders */}
+                        <AdminRoute exact path="/admin/genders" component={Genders} />
+                        <AdminRoute exact path="/admin/genders/add" component={AddGender} />
+                        <AdminRoute exact path="/admin/genders/edit/:id" component={EditGender} />
+
+                        {/* Legal Statuses */}
+                        <AdminRoute exact path="/admin/legal-statuses" component={LegalStatuses} />
+                        <AdminRoute exact path="/admin/legal-statuses/add" component={AddLegalStatus} />
+                        <AdminRoute exact path="/admin/legal-statuses/edit/:id" component={EditLegalStatus} />
+                        
+                        {/* Vehicles */}
+                        <AdminRoute exact path="/admin/vehicles" component={Vehicles} />
+                        <AdminRoute exact path="/admin/vehicles/add" component={AddVehicle} />
+                        <AdminRoute exact path="/admin/vehicles/edit/:id" component={EditVehicle} />
                     </Switch>
                 </div>
 

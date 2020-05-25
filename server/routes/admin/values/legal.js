@@ -55,7 +55,7 @@ router.get("/edit/:legalId", auth, adminAuth, (req, res) => {
 router.put("/edit/:legalId", auth, adminAuth, (req, res) => {
     const { legalStatus } = req.body;
 
-    processQuery("UPDATE `in_statuses` SET `name` = ? WHERE `in_statuses`.`id` = ?", [legalStatus, req.params.legalId])
+    processQuery("UPDATE `in_statuses` SET `status` = ? WHERE `in_statuses`.`id` = ?", [legalStatus, req.params.legalId])
         .then(() => {
             return res.json({ msg: "Updated" });
         })

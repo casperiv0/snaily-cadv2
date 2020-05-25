@@ -15,12 +15,11 @@ const adminAuth = require("../../../auth/adminAuth");
     @Route /vehicles/
     @Auth Protected
 */
-router.get("/", auth, adminAuth, (req, res) => {
-    processQuery("SELECT * FROM `vehicles`")
-        .then((vehicles) => {
-            return res.json({ vehicles: vehicles})
-        })
-        .catch(err => console.log(err));
+router.get("/", auth, adminAuth, async (req, res) => {
+    const defaultVehicles = await processQuery("SELECT * FROM `vehicles` WHERE `default_car` = ?", ['true']);
+    const nonDefaultVehicles = await processQuery("SELECT * FROM `vehicles` WHERE `default_car` = ?", ['false']);
+
+    return res.json({ defaultVehicles: defaultVehicles, nonDefaultVehicles: nonDefaultVehicles });
 });
 
 /*
