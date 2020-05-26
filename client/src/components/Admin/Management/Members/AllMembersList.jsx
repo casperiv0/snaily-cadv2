@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
-import AdminSuccessMessage from '../../AdminSuccessMessage';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../../Partials/LoadingArea';
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class AllMembersList extends Component {
   constructor() {
@@ -73,7 +73,7 @@ export default class AllMembersList extends Component {
 
     return (
       <div className='mt-2'>
-        {message ? <AdminSuccessMessage message={message} /> : null}
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <h3>All Members</h3>
         <div className='form-group'>
           <label htmlFor='search'>Filter member by name</label>

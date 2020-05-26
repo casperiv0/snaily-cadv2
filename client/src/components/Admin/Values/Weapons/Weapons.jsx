@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
-import AdminSuccessMessage from "../../AdminSuccessMessage";
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class Weapons extends Component {
   constructor() {
@@ -69,7 +69,7 @@ export default class Weapons extends Component {
     return (
       <div className='container text-light col-md-9'>
           {
-              message ? <AdminSuccessMessage message={message} /> : null 
+              message ? <SuccessMessage dismiss message={message} /> : null 
           }
         <h3>
           Manage Weapons - <a href='/admin/weapons/add'>+</a>

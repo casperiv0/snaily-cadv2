@@ -4,7 +4,7 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../../Partials/LoadingArea';
-import AdminSuccessMessage from '../../AdminSuccessMessage';
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class CitizenManagement extends Component {
   constructor() {
@@ -100,7 +100,7 @@ export default class CitizenManagement extends Component {
     }
     return (
       <div className='container col text-light'>
-        {message ? <AdminSuccessMessage message={message} /> : null}
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='form-group'>
           <label htmlFor='search'>Filter by citizen name</label>
           <input

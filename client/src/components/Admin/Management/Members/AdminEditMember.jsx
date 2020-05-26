@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../../../config/config';
 import BanHammerArea from './BanHammerArea';
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class AdminEditMember extends Component {
   constructor() {
@@ -142,7 +143,7 @@ export default class AdminEditMember extends Component {
 
     return (
       <div className='container-fluid col text-light'>
-        {!message ? null : <div className='alert alert-success'>{message}</div>}
+        {message ?  <SuccessMessage message={message} dismiss /> : null}
 
         <form onSubmit={this.onSubmit} className="pb-5">
           <div className='form-group'>

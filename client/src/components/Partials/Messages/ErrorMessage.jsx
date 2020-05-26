@@ -5,13 +5,15 @@ export default class ErrorMessage extends Component {
     return (
       <div className='alert alert-dismissible alert-warning'>
         {this.props.message}
-        <button
+        {
+          this.props.dismiss ?   <button
           type='button'
           className='close'
           data-dismiss='alert'
           aria-label='Close'>
           <span aria-hidden='true'>&times;</span>
-        </button>
+        </button> : null
+        }
       </div>
     );
   }

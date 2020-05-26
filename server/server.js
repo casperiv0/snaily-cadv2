@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const adminRouter = require("./routes/admin/admin");
 const citizenManagementRouter = require("./routes/admin/citizenManagement");
 const memberManagementRouter = require("./routes/admin/memberManagement");
+const companyManagementRouter = require("./routes/admin/companyManagement");
 const editCadRouter = require("./routes/admin/editCad");
 // admin values
 const departmentsRouter = require("./routes/admin/values/departments");
@@ -68,6 +69,7 @@ app.use("/account", editAccountRouter);
 app.use("/admin", adminRouter);
 app.use("/admin/citizens", citizenManagementRouter);
 app.use("/admin/members", memberManagementRouter);
+app.use("/admin/companies", companyManagementRouter);
 app.use("/admin/edit-cad", editCadRouter);
 app.use("/admin/departments", departmentsRouter);
 app.use("/admin/ethnicities", ethnicitiesRouter);

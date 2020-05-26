@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
-import AdminSuccessMessage from "../../AdminSuccessMessage";
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class Departments extends Component {
   constructor() {
@@ -69,7 +69,7 @@ export default class Departments extends Component {
     return (
       <div className='text-light container col'>
           {
-              message ? <AdminSuccessMessage message={message} /> : null 
+              message ? <SuccessMessage dismiss message={message} /> : null 
           }
         <h3>
           Manage Departments - <a href='/admin/departments/add'>+</a>

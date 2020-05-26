@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import LoadingArea from '../../../Partials/LoadingArea';
 import AllMembersList from './AllMembersList';
 import PendingMembers from './PendingMembers';
-import AdminSuccessMessage from '../../AdminSuccessMessage';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
+import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 
 export default class MemberManagement extends Component {
   constructor() {
@@ -53,7 +53,7 @@ export default class MemberManagement extends Component {
     }
     return (
       <div className='container col text-light'>
-        {message ? <AdminSuccessMessage message={message} /> : null}
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='nav nav-tabs' id='nav-tab' role='tablist'>
           <a
             className='nav-item nav-link active bg-dark text-light border-secondary'

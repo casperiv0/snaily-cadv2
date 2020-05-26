@@ -10,6 +10,10 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import PrivateRoute from "./components/Auth/PrivateRoute"
 
+// Account
+import Account from './components/Account/Account';
+import AdminEditMember from './components/Admin/Management/Members/AdminEditMember';
+
 
 // Citizen
 import CitizensPage from "./components/Citizen/CitizensPage";
@@ -86,8 +90,10 @@ import AdminEditCitizen from './components/Admin/Management/Citizen/AdminEditCit
 
 // members
 import MemberManagement from './components/Admin/Management/Members/MemberManagement';
-import Account from './components/Account/Account';
-import AdminEditMember from './components/Admin/Management/Members/AdminEditMember';
+
+// Company
+import CompanyManagement from './components/Admin/Management/CompanyManagement';
+
 
 export default class Routes extends Component {
     render() {
@@ -164,6 +170,9 @@ export default class Routes extends Component {
                         {/* Members */}
                         <AdminRoute exact path="/admin/manage/members" component={MemberManagement} />
                         <AdminRoute exact path="/admin/manage/members/edit/:id" component={AdminEditMember} />
+
+                        <AdminRoute exact path="/admin/manage/companies" component={CompanyManagement} />
+
 
                         {/* Values */}
 

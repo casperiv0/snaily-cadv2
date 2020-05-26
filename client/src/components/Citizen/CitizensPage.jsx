@@ -47,13 +47,13 @@ export default class CitizensPage extends Component {
   }
 
   render() {
-    const { citizens, loading } = this.state;
+    const { citizens, loading, message } = this.state;
     if (loading) {
       return <LoadingArea />
     }
     return (
       <div className='container pb-5'>
-        {this.state.message ? <SuccessMessage /> : null}
+        {this.state.message ? <SuccessMessage message={message} dismiss /> : null}
         <TopButtons />
 
         <ul className='list-group mt-2'>
