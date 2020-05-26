@@ -36,7 +36,6 @@ export default class TopArea extends Component {
   componentDidMount() {
     this.getCadData();
   }
-  
 
   render() {
     const { aop, loading } = this.state;
@@ -47,8 +46,15 @@ export default class TopArea extends Component {
       <div>
         <h3 className='card-title text-light'>EMS/FD - AOP: {aop}</h3>
         <div className='card bg-dark mx-auto mb-4'>
-          <div className='card-header text-light bolder'>
-          <h4>Utility Panel</h4>
+          <div className='card-header text-light bolder d-flex justify-content-between'>
+            <h4>Utility Panel</h4>
+            <button
+              onClick={() => {
+                document.location.reload();
+              }}
+              className='btn btn-secondary'>
+              Refresh
+            </button>
           </div>
           <div className='card-body row'>
             <a
@@ -70,8 +76,6 @@ export default class TopArea extends Component {
               data-toggle='modal'>
               Notepad
             </button>
-
-
           </div>
         </div>
       </div>

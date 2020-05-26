@@ -77,52 +77,56 @@ export default class RegisteredVehicles extends Component {
             <div className='collapse mt-2' id='registeredVehicles'>
               {vehicles.map((vehicle, index) => (
                 <div key={index}>
-                <li
-                  className='list-group-item d-flex justify-content-between bg-secondary border-dark'>
-                  <div>
-                    {/* Vehicle */}
-                    <span className='font-weight-bold'>{vehicle.vehicle}</span>
-                    <br />
-                    {/* Plate */}
-                    <span className='font-weight-bold'>Plate: </span>
-                    <span className='uppercase font-weight-normal'>
-                      {vehicle.plate}
-                    </span>
-                    <br />
+                  <li className='list-group-item d-flex justify-content-between bg-secondary border-dark'>
+                    <div>
+                      {/* Vehicle */}
+                      <span className='font-weight-bold'>
+                        {vehicle.vehicle}
+                      </span>
+                      <br />
+                      {/* Plate */}
+                      <span className='font-weight-bold'>Plate: </span>
+                      <span className='uppercase font-weight-normal'>
+                        {vehicle.plate}
+                      </span>
+                      <br />
+                      {/* Insurance */}
+                      <span className='font-weight-bold'>
+                        Insurance Status:
+                      </span>
+                      <span> {vehicle.in_status}</span> <br />
+                      {/* Color */}
+                      <span className='font-weight-bold'>Color: </span>
+                      {vehicle.color}
+                      <br />
+                      {/* VIN Number */}
+                      <span className='font-weight-bold'>VIN: </span>
+                      {vehicle.vin_number} <br />
+                      {/* Company */}
+                      <span className='font-weight-bold'>Company: </span>
+                      {vehicle.company} <br />
+                    </div>
 
-                    {/* Insurance */}
-                    <span className='font-weight-bold'>Insurance Status:</span>
-                    <span> {vehicle.in_status}</span> <br />
-
-                    {/* Color */}
-                    <span className='font-weight-bold'>Color: </span>
-                    {vehicle.color}
-                    <br />
-
-                    {/* VIN Number */}
-                    <span className='font-weight-bold'>VIN: </span>
-                    {vehicle.vin_number} <br />
-
-                     {/* Company */}
-                     <span className='font-weight-bold'>Company: </span>
-                    {vehicle.company} <br />
-                  </div>
-
-                  {/* actions */}
-                  <div className=''>
-                    <a
-                      href={'/vehicles/edit/' + vehicle.id}
-                      className='btn btn-success'>
-                      Edit
-                    </a>
-                    <a
-                      href="#deleteVehicle"
-                      onClick={() => this.deleteVehicle(vehicle.id)}
-                      className='btn btn-danger ml-2'>
-                      Delete
-                    </a>
-                  </div>
-                </li>
+                    {/* actions */}
+                    <div className=''>
+                      {/* <a
+                        href={'/vehicles/edit/' + vehicle.id}
+                        className='btn btn-primary mr-2'>
+                        Report Stolen
+                      </a> */}
+                      <a
+                        href={'/vehicles/edit/' + vehicle.id}
+                        className='btn btn-success'>
+                        Edit
+                      </a>
+                      <a
+                        href='#deleteVehicle'
+                        onClick={() => this.deleteVehicle(vehicle.id)}
+                        className='btn btn-danger ml-2'>
+                        Delete
+                      </a>
+                    </div>
+                  </li>
                 </div>
               ))}
             </div>

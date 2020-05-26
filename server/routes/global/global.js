@@ -88,6 +88,7 @@ router.delete("/911calls/:callId", auth, emrAuth, (req, res) => {
 router.put("/911calls/:callId", auth, emrAuth, (req, res) => {
     const { status, location, description } = req.body;
     const assigned_unit = [req.body.assigned_unit].join(" ");
+    console.log(req.body.assigned_unit);
 
     processQuery("UPDATE `911calls` SET `location` = ?, `status` = ?, `assigned_unit` = ?, `description` = ? WHERE `911calls`.`id` = ?",
         [location, status, assigned_unit, description, req.params.callId])

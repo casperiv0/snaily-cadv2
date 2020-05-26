@@ -33,17 +33,19 @@ export default class Bleeter extends Component {
 
   componentDidMount() {
     this.getBleets();
+    document.title = "Bleeter - View & Create Bleets";
   }
 
   render() {
     const { bleets } = this.state;
     return (
-      <div className="container">
+      <div className="container text-light">
+        <h3>Bleeter</h3>
         {!bleets[0] ? (
           <h1>No bleets found</h1>
         ) : (
           bleets.map((bleet, index) => (
-            <BleetBox key={index} title={bleet.title} />
+            <BleetBox key={index} id={bleet.id} title={bleet.title} bleet={bleet.description} />
           ))
         )}{' '}
       </div>

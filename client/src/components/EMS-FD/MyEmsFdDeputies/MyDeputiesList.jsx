@@ -18,17 +18,45 @@ export default class MyDeputiesList extends Component {
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
-    }).then((res) => {        
-      this.setState({
-        deputies: res.data.deputies,
-      });
-    });
+    })
+      .then((res) => {
+        this.setState({
+          deputies: res.data.deputies,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  deleteDeputy = (id, deputyName) => {
+    Axios({
+      url: backendURL + '/ems-fd/' + id,
+      method: 'DELETE',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.msg === 'Deleted') {
+          sessionStorage.setItem(
+            'ems-fd-message',
+            'Successfully Deleted ' + deputyName
+          );
+          return (window.location = '/ems-fd/deputies');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
-      this.getEmsFdDeputies()
-        document.title = "EMS-FD - My Deputies"
-    
+    this.getEmsFdDeputies();
+    document.title = 'EMS-FD - My Deputies';
+  }
+
+  componentDidUpdate() {
+    document.addEventListener(
+      'beforeunload',
+      sessionStorage.removeItem('ems-fd-message')
+    );
   }
 
   render() {
@@ -38,21 +66,33 @@ export default class MyDeputiesList extends Component {
       return (
         <div className='list-group-item mt-2 text-light bg-dark border-dark'>
           You Don't have any EMS deputies. Create one{' '}
-          <a href='/ems-fd/deputies/add-deputy'>here</a>
+          <a href='/ems-fd/deputies/create-deputy'>here</a>
         </div>
       );
     }
 
     return (
-      <div className='mt-2'>
+      <ul className='list-group mt-2'>
         {deputies.map((deputy, index) => {
           return (
-            <li key={index} className='list-group-item mt-2 text-light bg-dark border-dark'>
-              qsd
+            <li
+              key={index}
+              className='list-group-item mt-2 text-light bg-dark border-dark d-flex justify-content-between'>
+              {deputy.name}
+              <div>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => {
+                    this.deleteDeputy(deputy.id, deputy.name);
+                  }}
+                  type='button'>
+                  Delete Deputy
+                </button>
+              </div>
             </li>
           );
         })}
-      </div>
+      </ul>
     );
   }
 }

@@ -38,8 +38,9 @@ export default class ActionLogs extends Component {
   render() {
     const { logs } = this.state;
     return (
-      <div className='col'>
-        <table className='table table-dark'>
+      <div className='col text-light'>
+        <h3>Action Logs</h3>
+        <table className='table table-dark mt-3'>
           <thead>
             <tr>
               <th scope='col'>#</th>

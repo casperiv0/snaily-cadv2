@@ -94,6 +94,10 @@ import MemberManagement from './components/Admin/Management/Members/MemberManage
 // Company
 import CompanyManagement from './components/Admin/Management/CompanyManagement';
 
+// Dispatch
+import DispatchRoute from "./components/Auth/DispatchRoute"
+import DispatchDashboard from './components/Dispatch/Dashboard/DispatchDashboard';
+
 
 export default class Routes extends Component {
     render() {
@@ -146,17 +150,19 @@ export default class Routes extends Component {
                 </Switch>
 
 
+                {/* Bleeter */}
                 <Switch basename="/">
                     <Route path="/bleeter" exact component={Bleeter} />
                 </Switch>
 
-
+                {/* EMS-fd */}
                 <Switch basename="/">
                     <PrivateEMSRoute exact path="/ems-fd" component={EmsFdDashboard} />
                     <PrivateEMSRoute exact path="/ems-fd/deputies" component={MyEmsFdDeputies} />
                     <PrivateEMSRoute exact path="/ems-fd/deputies/create-deputy" component={CreateEmsFdDeputy} />
                 </Switch>
 
+                {/* Admin */}
                 <div className="container-fluid row">
                     <Switch basename="/admin">
                         <AdminRoute exact path="/admin" component={Admin} />
@@ -201,13 +207,17 @@ export default class Routes extends Component {
                         <AdminRoute exact path="/admin/vehicles/add" component={AddVehicle} />
                         <AdminRoute exact path="/admin/vehicles/edit/:id" component={EditVehicle} />
 
-                         {/* Weapons */}
-                         <AdminRoute exact path="/admin/weapons" component={Weapons} />
+                        {/* Weapons */}
+                        <AdminRoute exact path="/admin/weapons" component={Weapons} />
                         <AdminRoute exact path="/admin/weapons/add" component={AddWeapon} />
                         <AdminRoute exact path="/admin/weapons/edit/:id" component={EditWeapon} />
                     </Switch>
                 </div>
 
+                {/* Dispatch */}
+                <Switch basename="/">
+                    <DispatchRoute exact path="/dispatch" component={DispatchDashboard} />
+                </Switch>
             </Router>
         )
     }

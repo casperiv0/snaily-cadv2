@@ -113,7 +113,9 @@ export default class CitizenManagement extends Component {
         </div>
 
         <ul className='list-group'>
-          {!citizens[0] ? <ErrorMessage message='This CAD does not have any citizens' /> : null }
+          {!citizens[0] ? (
+            <ErrorMessage message='This CAD does not have any citizens' />
+          ) : null}
           {!filteredCitizens[0] ? (
             <ErrorMessage message='No citizens found with that name' />
           ) : (
@@ -123,11 +125,13 @@ export default class CitizenManagement extends Component {
                   key={index}
                   className='list-group-item bg-dark border-secondary d-flex justify-content-between'>
                   <div>
-                    <span className='font-weight-bold'>
+                    <h5 className='font-weight-bold'>
                       {++index} | {citizen.full_name}
-                    </span>
+                    </h5>
+                    <span className='font-weight-bold'>Linked To: </span>
+                    {citizen.linked_to}
                     <div
-                      className='collapse mt-2'
+                      className='collapse'
                       id={'citizenInfo' + citizen.id}>
                       <span className='font-weight-bold'>Full Name:</span>{' '}
                       {citizen.full_name} <br />

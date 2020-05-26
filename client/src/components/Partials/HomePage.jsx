@@ -5,6 +5,9 @@ import axios from 'axios';
 import { backendURL } from '../../config/config';
 
 export default class HomePage extends Component {
+  componentDidMount() {
+    document.title = "Home - SnailyCAD"
+  }
   render() {
     return getSession() ? (<div><LoggedInSection /><Credits /></div>) : <NotLoggedInSection />;
   }
@@ -14,7 +17,6 @@ const LoggedInSection = () => {
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
-    document.title = "Home - SnailyCAD"
     axios({
       url: backendURL + '/auth/user',
       headers: {

@@ -21,9 +21,8 @@ router.get("/", auth, dispatchAuth, async (req, res) => {
     // reminder casper: when going on-duty set status = "on-duty" > off-duty => "off-duty" LEO & EMS/FD
     const onDutyOfficers = await processQuery("SELECT * FROM `officers` WHERE `status` = ?", ["on-duty"]);
     const onDutyEMS_FD = await processQuery("SELECT * FROM `ems-fd` WHERE `status` = ?", ["on-duty"]);
-    const bolos = await processQuery("SELECT * FROM `bolos`");
 
-    return res.json({ addresses, onDutyOfficers, onDutyEMS_FD, bolos });
+    return res.json({ addresses, onDutyOfficers, onDutyEMS_FD });
 });
 
 
@@ -59,14 +58,38 @@ router.put("/update-aop", auth, dispatchAuth, (req, res) => {
 */
 router.put("/update-officer/:officerId", auth, dispatchAuth, (req, res) => {
     const { officerId } = req.params;
-    const { status } = req.body;
+    let { status, status2 } = req.body;
 
-    processQuery("UPDATE `officers` SET `status` = ? WHERE `officers`.`id` = ?", [status, officerId])
+    if (status.toLowerCase() === "off-duty") {
+        status2 = "--------"
+    }
+
+    processQuery("UPDATE `officers` SET `status` = ?, `status2` = ? WHERE `officers`.`id` = ?", [status, status2, officerId])
         .then(() => {
             return res.json({ msg: 'Updated' });
         })
         .catch(err => console.log(err));
 });
+
+/*
+    @Route /dispatch/update-ems-fd/:deputyId
+    @Auth Protected
+*/
+router.put("/update-ems-fd/:deputyId", auth, dispatchAuth, (req, res) => {
+    const { deputyId } = req.params;
+    let { status, status2 } = req.body;
+
+    if (status.toLowerCase() === "off-duty") {
+        status2 = "--------"
+    }
+
+    processQuery("UPDATE `ems-fd` SET `status` = ?, `status2` = ? WHERE `ems-fd`.`id` = ?", [status, status2, deputyId])
+        .then(() => {
+            return res.json({ msg: 'Updated' });
+        })
+        .catch(err => console.log(err));
+});
+
 
 
 module.exports = router;

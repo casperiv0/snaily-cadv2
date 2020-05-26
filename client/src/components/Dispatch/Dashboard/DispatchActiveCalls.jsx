@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { backendURL } from '../config/config';
+import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import Update911Call from './Modals/Update911Call';
 
-export default class Active911Calls extends Component {
+export default class DispatchActiveCalls extends Component {
   constructor() {
     super();
 
     this.state = {
       calls: [],
+      activeOfficers: [],
     };
   }
 
@@ -25,12 +27,28 @@ export default class Active911Calls extends Component {
     });
   };
 
+  getActiveOfficers = () => {
+    Axios({
+      url: backendURL + '/dispatch',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        this.setState({
+          activeOfficers: res.data.onDutyOfficers,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   componentDidMount() {
     this.get911Calls();
+    this.getActiveOfficers();
   }
 
   render() {
-    const { calls } = this.state;
+    const { calls, activeOfficers } = this.state;
     return (
       <ul
         className='list-group scroll-bar overflow-auto'
@@ -51,18 +69,36 @@ export default class Active911Calls extends Component {
                 <th scope='col'>Caller Location</th>
                 <th scope='col'>Call Description</th>
                 <th scope='col'>Status</th>
+                <th scope='col'>Assigned Units</th>
+                <th scope='col'>Actions</th>
               </tr>
             </thead>
             <tbody>
               {calls.map((call, index) => {
                 return (
                   <tr key={index}>
-                    <th scope='row'>{++index}</th>
+                    <td scope='row'>{++index}</td>
                     <td>{call.name}</td>
                     <td>{call.location}</td>
                     <td>{call.description}</td>
                     <td>{call.status}</td>
                     <td>{call.assigned_unit}</td>
+                    <td>
+                      <button
+                        type='button'
+                        className='btn btn-primary'
+                        data-toggle='modal'
+                        data-target={'#update911Call' + call.id}>
+                        Update Call
+                      </button>
+                    </td>
+                    <Update911Call
+                      id={call.id}
+                      location={call.location}
+                      assignedUnits={call.assigned_unit}
+                      description={call.description}
+                      activeOfficers={activeOfficers}
+                    />
                   </tr>
                 );
               })}
