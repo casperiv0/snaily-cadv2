@@ -9,7 +9,7 @@ export default class Update911Call extends Component {
 
     this.state = {
       location: '',
-      description: '',
+      callDescription: '',
       assignedUnits: [],
       activeOfficers: [],
     };
@@ -24,7 +24,7 @@ export default class Update911Call extends Component {
   componentDidMount() {
     this.setState({
       location: this.props.location,
-      description: this.props.description,
+      callDescription: this.props.description,
       activeOfficers: this.props.activeOfficers,
     });
   }
@@ -46,7 +46,7 @@ export default class Update911Call extends Component {
       },
       data: {
         location: this.state.location,
-        description: this.state.description,
+        description: this.state.callDescription,
         assigned_unit: this.state.assignedUnits,
       },
     })
@@ -79,7 +79,7 @@ export default class Update911Call extends Component {
   }
 
   render() {
-    const { id, location, description, activeOfficers } = this.props;
+    const { id, location, callDescription, activeOfficers } = this.props;
     return (
       <td
         className='modal fade'
@@ -117,9 +117,9 @@ export default class Update911Call extends Component {
                 <div className='form-group'>
                   <label htmlFor='status'>Description</label>
                   <input
-                    name='description'
-                    id='description'
-                    value={description}
+                    name='callDescription'
+                    id='callDescription'
+                    value={callDescription}
                     className='form-control bg-secondary border-secondary text-light'
                     onChange={this.onChange}
                   />

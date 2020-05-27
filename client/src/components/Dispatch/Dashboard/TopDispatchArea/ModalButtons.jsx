@@ -7,7 +7,7 @@ export default class ModalButtons extends Component {
         {/* Name Search Buttons */}
         <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#nameSearch'
+          data-target='#nameSearchModal'
           data-toggle='modal'>
           Name Search |{' '}
           <img
@@ -20,7 +20,7 @@ export default class ModalButtons extends Component {
         {/* Plate Search */}
         <button
           className='btn btn-primary  col-md-2 text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#plateSearch'
+          data-target='#plateSearchModal'
           data-toggle='modal'>
           Plate Search |{' '}
           <img
@@ -33,7 +33,7 @@ export default class ModalButtons extends Component {
         {/* Weapon Search */}
         <button
           className='btn btn-primary  col-md-2 text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#weaponSearch'
+          data-target='#weaponSearchModal'
           data-toggle='modal'>
           Weapon Search |{' '}
           <img
@@ -46,7 +46,7 @@ export default class ModalButtons extends Component {
         {/* Address Search */}
         <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#addressSearch'
+          data-target='#addressSearchModal'
           data-toggle='modal'>
           Address Search |{' '}
           <img
@@ -59,7 +59,7 @@ export default class ModalButtons extends Component {
         {/* Create Bolo */}
         <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#createBolo'
+          data-target='#createBoloModal'
           data-toggle='modal'>
           Create Bolo |{' '}
           <img
@@ -85,13 +85,13 @@ export default class ModalButtons extends Component {
         {/* Notepad */}
         <button
           className='btn btn-primary  col-md-2 text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#createBoloModal'
+          data-target='#notepad'
           data-toggle='modal'>
-          Create Bolo |{' '}
+          Open Notepad |{' '}
           <img
             style={{ width: '25px' }}
             src='/icons/internal/notepad.png'
-            alt='weapon'
+            alt='notepad'
           />
         </button>
       </div>

@@ -7,6 +7,11 @@ import DispatchActiveCalls from './DispatchActiveCalls';
 import ActiveBolos from '../../ActiveBolos';
 import CreateBoloModal from '../../Modals/CreateBoloModal';
 import CallEmergencyServicesModal from "../../Modals/CallEmergencyServicesModal"
+import NotepadModal from '../../EMS-FD/EmsFdDashboard/NotepadModal';
+import AddressSearchModal from '../../Modals/AddressSearchModal';
+import NameSearchModal from '../../Modals/NameSearch/NameSearchModal';
+import PlateSearchModal from '../../Modals/PlateSearchModal';
+import WeaponSearchModal from '../../Modals/WeaponSearchModal';
 
 export default class DispatchDashboard extends Component {
   constructor() {
@@ -42,6 +47,12 @@ export default class DispatchDashboard extends Component {
         {/* Modals */}
         <CreateBoloModal />
         <CallEmergencyServicesModal to="/dispatch" messageType="dispatch-message" />
+        <NotepadModal />
+
+        <AddressSearchModal />
+        <NameSearchModal />
+        <PlateSearchModal />
+        <WeaponSearchModal />
       </div>
     );
   }

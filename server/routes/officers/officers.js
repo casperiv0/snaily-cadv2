@@ -163,7 +163,7 @@ router.post("/add-written-warning", auth, officerAuth, (req, res) => {
     @Route /officers/search/:citizenName
     @Auth Protected
 */
-router.get("/search/:citizenName", auth, officerAuth, async (req, res) => {
+router.get("/search/name/:citizenName", auth, officerAuth, async (req, res) => {
     const { citizenName } = req.params;
 
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `full_name` = ?", [citizenName]);
@@ -174,9 +174,45 @@ router.get("/search/:citizenName", auth, officerAuth, async (req, res) => {
     const tickets = await processQuery("SELECT * FROM `leo_tickets` WHERE `name` = ?", [citizenName]);
     const arrest_reports = await processQuery("SELECT * FROM `arrest_reports` WHERE `arrestee_name` = ?", [citizenName]);
     const written_warnings = await processQuery("SELECT * FROM `written_warnings` WHERE `name` = ?", [citizenName]);
+    const vehicles = await processQuery("SELECT * FROM `registered_cars` WHERE `owner` = ?", [citizenName]);
+    const weapons = await processQuery("SELECT * FROM `registered_weapons` WHERE `owner` = ?", [citizenName]);
 
-    return res.json({ warrants, tickets, arrestReports: arrest_reports, writtenWarnings: written_warnings });
+    return res.json({ citizen, warrants, tickets, arrestReports: arrest_reports, writtenWarnings: written_warnings, weapons, vehicles });
 })
+
+/*
+    @Route /officers/search/plate/:plate
+    @Auth Protected
+*/
+router.get("/search/plate/:plate", auth, officerAuth, async (req, res) => {
+    const { plate } = req.params;
+
+    const foundPlate = await processQuery("SELECT * FROM `registered_cars` WHERE `plate` = ?", [plate]);
+        
+
+    if (!foundPlate[0]) return res.json({ msg: "Plate Not Found" });
+
+
+    return res.json({ plate: foundPlate });
+})
+
+/*
+    @Route /officers/search/weapon/:serialNumber
+    @Auth Protected
+*/
+router.get("/search/weapon/:serialNumber", auth, officerAuth, async (req, res) => {
+    const { serialNumber } = req.params;
+
+    const foundWeapon = await processQuery("SELECT * FROM `registered_weapons` WHERE `serial_number` = ?", [serialNumber]);
+        
+
+    if (!foundWeapon[0]) return res.json({ msg: "Weapon Not Found" });
+
+
+    return res.json({ weapon: foundWeapon });
+})
+
+
 
 
 

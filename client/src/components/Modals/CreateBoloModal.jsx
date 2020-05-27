@@ -13,8 +13,8 @@ export default class CreateBoloModal extends Component {
       name: '',
       plate: '',
       color: '',
-      description: '',
-      message: "",
+      boloDescription: '',
+      message: '',
     };
   }
 
@@ -25,37 +25,39 @@ export default class CreateBoloModal extends Component {
   };
 
   onSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      Axios({
-        url: backendURL + '/global/add-bolo',
-        method: "POST",
-        headers: {
-          'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            type: this.state.type,
-            description: this.state.description,
-            plate: this.state.plate,
-            color: this.state.color,
-            name: this.state.name,
+    Axios({
+      url: backendURL + '/global/add-bolo',
+      method: 'POST',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+      data: {
+        type: this.state.type,
+        description: this.state.boloDescription,
+        plate: this.state.plate,
+        color: this.state.color,
+        name: this.state.name,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+
+        if (res.data.msg === 'Added') {
+          sessionStorage.setItem('dispatch-message', 'Successfully Added Bolo');
+          return (window.location = '/dispatch');
         }
-      }).then(res => {
-          console.log(res.data);
-          
-          if (res.data.msg === "Added") {
-            sessionStorage.setItem("dispatch-message", "Successfully Added Bolo");
-            return window.location = "/dispatch"
-          }
 
-          this.setState({
-              message: res.data.msg
-          })
-      }).catch(err => console.log(err));
-  }
+        this.setState({
+          message: res.data.msg,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   render() {
-    const { type, name, plate, color, description,message } = this.state;
+    const { type, name, plate, color, boloDescription, message } = this.state;
     return (
       <div
         className='modal fade'
@@ -80,7 +82,7 @@ export default class CreateBoloModal extends Component {
             </div>
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
-                  {message ? <ErrorMessage message={message} dismiss /> : null}
+                {message ? <ErrorMessage message={message} dismiss /> : null}
                 <div className='form-group'>
                   <label htmlFor='type'>Select Type</label>
                   <select
@@ -97,14 +99,13 @@ export default class CreateBoloModal extends Component {
                   <label htmlFor='name'>Enter Description</label>
                   <textarea
                     type='text'
-                    name='description'
-                    id='description'
-                    rows="5"
-                    cols="30"
+                    name='boloDescription'
+                    id='boloDescription'
+                    rows='5'
+                    cols='30'
                     className='form-control bg-secondary border-secondary text-light'
                     onChange={this.onChange}
-                    value={description}
-                  ></textarea>
+                    value={boloDescription}></textarea>
                 </div>
                 {type === 'person' ? (
                   <div className='form-group'>

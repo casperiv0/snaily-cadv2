@@ -77,7 +77,7 @@ export default class DispatchActiveCalls extends Component {
               {calls.map((call, index) => {
                 return (
                   <tr key={index}>
-                    <td scope='row'>{++index}</td>
+                    <th scope='row'>{++index}</th>
                     <td>{call.name}</td>
                     <td>{call.location}</td>
                     <td>{call.description}</td>

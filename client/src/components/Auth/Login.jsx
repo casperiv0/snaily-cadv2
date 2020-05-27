@@ -7,7 +7,7 @@ import {
   Avatar,
   Button,
   Link,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import './Auth.css';
@@ -31,7 +31,7 @@ export default class Login extends Component {
 
     this.setState({
       error: '',
-      loading: true
+      loading: true,
     });
     const { username, password } = this.state;
     axios({
@@ -45,7 +45,9 @@ export default class Login extends Component {
       if (res.data.msg === 'LoggedIn') {
         sessionStorage.setItem('token', res.data.token);
         logIn();
-        return (window.location = '/citizen');
+        return (window.location = !this.props.location.state.from.pathname
+          ? '/citizen'
+          : this.props.location.state.from.pathname);
       }
 
       this.setState({
@@ -111,11 +113,16 @@ export default class Login extends Component {
           </div>
         </FormControl>
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-          <div className="loading-wrapper">
-          <Button fullWidth disabled={loading} type='submit' variant='contained' color='primary'>
-            Log In
-          </Button>
-          {loading ? <CircularProgress className="loader" size={24} /> : null}
+          <div className='loading-wrapper'>
+            <Button
+              fullWidth
+              disabled={loading}
+              type='submit'
+              variant='contained'
+              color='primary'>
+              Log In
+            </Button>
+            {loading ? <CircularProgress className='loader' size={24} /> : null}
           </div>
         </FormControl>
       </form>

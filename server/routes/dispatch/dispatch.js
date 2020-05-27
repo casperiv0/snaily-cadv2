@@ -30,11 +30,12 @@ router.get("/", auth, dispatchAuth, async (req, res) => {
     @Route /dispatch/address-search
     @Auth Protected
 */
-router.get("/address-search", auth, dispatchAuth, (req, res) => {
-    const { address } = req.body;
-    processQuery("SELECT * FROM citizens WHERE address = ?", [address])
-        .then((address) => {
-            return res.json({ address })
+router.post("/address-search", auth, dispatchAuth, (req, res) => {
+    const address = req.body.address.trim();
+
+    processQuery("SELECT * FROM citizens WHERE `citizens`.`address` LIKE ?", ["%" + address + "%"])
+        .then((citizens) => {
+            return res.json({ citizens })
         })
         .catch(err => console.log(err));
 });

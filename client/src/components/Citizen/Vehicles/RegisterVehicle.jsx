@@ -39,7 +39,7 @@ export default class RegisterVehicle extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
-        plate,
+        plate: plate.toUpperCase(),
         owner,
         vehicle,
         status: insuranceStatus,
