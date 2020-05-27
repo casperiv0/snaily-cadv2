@@ -26,7 +26,7 @@ export default class CallTowModal extends Component {
     Axios({
       url: backendURL + '/global/create-911-call',
       headers: { 'x-auth-snailycad-token': Cookies.get('__session') },
-      method: "POST",
+      method: 'POST',
       data: {
         description: this.state.description,
         caller: this.state.caller,
@@ -34,8 +34,13 @@ export default class CallTowModal extends Component {
       },
     }).then((res) => {
       if (res.data.msg === '911 was called') {
-        sessionStorage.setItem('message', 'Emergency Services Were Called!');
-        window.location = '/citizen';
+        sessionStorage.setItem(
+          this.props.messageType,
+          this.props.messageType === 'dispatch-message'
+            ? 'Successfully Created 911 Call'
+            : 'Emergency Services Were Called!'
+        );
+        window.location = this.props.to;
       }
     });
   };

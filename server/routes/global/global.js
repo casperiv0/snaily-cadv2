@@ -9,8 +9,9 @@
     POST /create-911-call - create 911 call
     POST /create-tow-call
 
+    GET /bolos - get all bolos
     POST /add-bolo - add a bolo
-    DELETE /bolo/:boloId - delete a bolo
+    DELETE /bolos/:boloId - delete a bolo
 
     POST /suspend-dmv/:citizenId - suspend a drivers license
 
@@ -86,9 +87,15 @@ router.delete("/911calls/:callId", auth, emrAuth, (req, res) => {
     @Auth Protected
 */
 router.put("/911calls/:callId", auth, emrAuth, (req, res) => {
-    const { status, location, description } = req.body;
-    const assigned_unit = [req.body.assigned_unit].join(" ");
-    console.log(req.body.assigned_unit);
+    const { location, description } = req.body;
+    const assigned_unit = [req.body.assigned_unit].join(", ");
+    let status = "";
+
+    if (assigned_unit) {
+        status = "Assigned"
+    } else {
+        status = "Not Assigned"
+    }
 
     processQuery("UPDATE `911calls` SET `location` = ?, `status` = ?, `assigned_unit` = ?, `description` = ? WHERE `911calls`.`id` = ?",
         [location, status, assigned_unit, description, req.params.callId])
@@ -144,23 +151,44 @@ router.delete("/tow-calls/:callId", (req, res) => {
 })
 
 /*
-    @Route /global/add-bolo
+    @Route /global/bolos
     @Auth Protected
 */
-router.post("/add-bolo", auth, emrAuth, (req, res) => {
-    const { description } = req.body
-    processQuery("INSERT INTO `bolos` (`description`) VALUES (?)", description)
-        .then(() => {
-            return res.json({ msg: "Added bolo" });
+router.get("/bolos", auth, emrAuth, (req, res) => {
+    processQuery("SELECT *  FROM `bolos`")
+        .then((bolos) => {
+            return res.json({ bolos: bolos });
         })
         .catch(err => console.log(err));
 });
 
 /*
-    @Route /global/bolo/:boloId
+    @Route /global/add-bolo
     @Auth Protected
 */
-router.delete("/bolo/:boloId", auth, emrAuth, async (req, res) => {
+router.post("/add-bolo", auth, emrAuth, (req, res) => {
+    let { type, plate, color, name, description } = req.body;
+
+    plate !== "" ? plate : plate = "No plate specified";
+    color !== "" ? color : color = "No color specified";
+    name !== "" ? name : name = "No name specified";
+
+    if (type && description) {
+        processQuery("INSERT INTO `bolos` (`type`, `description`, `plate`, `name`, `color`) VALUES (?, ?, ?, ?, ?)", [type, description, plate, name, color])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Type and description are required" });
+    }
+});
+
+/*
+    @Route /global/bolos/:boloId
+    @Auth Protected
+*/
+router.delete("/bolos/:boloId", auth, emrAuth, async (req, res) => {
     processQuery("DELETE FROM `bolos` WHERE `id` = ?", [req.params.boloId])
         .then(() => {
             return res.json({ msg: "Deleted Bolo" });

@@ -4,6 +4,9 @@ import ActiveUnits from './ActiveUnits';
 import UpdateAop from './UpdateAop';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import DispatchActiveCalls from './DispatchActiveCalls';
+import ActiveBolos from '../../ActiveBolos';
+import CreateBoloModal from '../../Modals/CreateBoloModal';
+import CallEmergencyServicesModal from "../../Modals/CallEmergencyServicesModal"
 
 export default class DispatchDashboard extends Component {
   constructor() {
@@ -26,7 +29,7 @@ export default class DispatchDashboard extends Component {
   render() {
     const { message } = this.state;
     return (
-      <div className='container-fluid text-light'>
+      <div className='container-fluid text-light pb-5'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <TopDispatchArea />
         <div className='row mt-3'>
@@ -34,6 +37,11 @@ export default class DispatchDashboard extends Component {
           <UpdateAop />
         </div>
         <DispatchActiveCalls />
+        <ActiveBolos />
+
+        {/* Modals */}
+        <CreateBoloModal />
+        <CallEmergencyServicesModal to="/dispatch" messageType="dispatch-message" />
       </div>
     );
   }

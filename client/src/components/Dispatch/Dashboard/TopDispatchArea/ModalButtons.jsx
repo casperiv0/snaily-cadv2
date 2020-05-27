@@ -72,7 +72,7 @@ export default class ModalButtons extends Component {
         {/* Create 911 Call */}
         <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#create911call'
+          data-target='#call911'
           data-toggle='modal'>
           Create 911 Call |{' '}
           <img
@@ -85,7 +85,7 @@ export default class ModalButtons extends Component {
         {/* Notepad */}
         <button
           className='btn btn-primary  col-md-2 text-light btn-secondary bg-secondary mt-2 ml-1'
-          data-target='#notepad'
+          data-target='#createBoloModal'
           data-toggle='modal'>
           Create Bolo |{' '}
           <img

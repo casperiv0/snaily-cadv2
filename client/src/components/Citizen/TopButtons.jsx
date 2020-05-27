@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { logOut } from '../Auth/getSession';
 import { Link } from 'react-router-dom';
 import CallTowModal from './CallTowModal';
-import CallEmergencyServicesModal from './CallEmergencyServicesModal';
+import CallEmergencyServicesModal from '../Modals/CallEmergencyServicesModal';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
@@ -79,7 +79,7 @@ export default class TopButtons extends Component {
           </button>
         </div>
         <CallTowModal />
-        <CallEmergencyServicesModal />
+        <CallEmergencyServicesModal to="/citizen"  messageType="message" />
       </div>
     );
   }

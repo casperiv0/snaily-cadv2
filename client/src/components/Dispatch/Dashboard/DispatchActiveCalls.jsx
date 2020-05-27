@@ -51,7 +51,7 @@ export default class DispatchActiveCalls extends Component {
     const { calls, activeOfficers } = this.state;
     return (
       <ul
-        className='list-group scroll-bar overflow-auto'
+        className='list-group scroll-bar overflow-auto mt-3'
         style={{ maxHeight: '25rem' }}>
         <div className='bg-secondary border-secondary list-group-item text-light sticky-top'>
           Active 911 Calls

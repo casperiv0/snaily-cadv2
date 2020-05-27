@@ -10,7 +10,7 @@ export default class Update911Call extends Component {
     this.state = {
       location: '',
       description: '',
-      assignedUnits: '',
+      assignedUnits: [],
       activeOfficers: [],
     };
   }
@@ -25,7 +25,6 @@ export default class Update911Call extends Component {
     this.setState({
       location: this.props.location,
       description: this.props.description,
-      assignedUnits: this.props.assignedUnits,
       activeOfficers: this.props.activeOfficers,
     });
   }
@@ -37,10 +36,47 @@ export default class Update911Call extends Component {
   };
 
   onSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-
+    Axios({
+      url: backendURL + '/global/911calls/' + this.props.id,
+      method: 'PUT',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+      data: {
+        location: this.state.location,
+        description: this.state.description,
+        assigned_unit: this.state.assignedUnits,
+      },
+    })
+      .then((res) => {
+        if (res.data.msg === 'Updated') {
+          sessionStorage.setItem(
+            'dispatch-message',
+            'Successfully Updated 911 call'
+          );
+          return (window.location = '/dispatch');
+        }
+      })
+      .catch((err) => console.log(err));
   };
+
+  cancelCall = (e) => {
+    Axios({
+      url: backendURL + '/global/911calls/' + this.props.id,
+      method: 'DELETE',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+    .then(res => {
+      if (res.data.msg === "Canceled") {
+        sessionStorage.setItem("dispatch-message", "Successfully Canceled 911 Call");
+        return window.location = "/dispatch"
+      }
+    })
+  }
 
   render() {
     const { id, location, description, activeOfficers } = this.props;
@@ -90,23 +126,30 @@ export default class Update911Call extends Component {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='status'>Assigned Units</label>
-                  <select
-                    multiple
-                    name='assignedUnits'
-                    id='assignedUnits'
-                    onChange={this.handleSelect}
-                    className='form-control'>
-                    {activeOfficers.map((officer, index) => {
-                      return (
-                        <option key={index} value={officer.officer_name}>
-                          {officer.officer_name}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  {!activeOfficers[0] ? <p>There are no officers active</p> :
+                   activeOfficers.map((officer, index) => {
+                    return (
+                      <div key={index} className='form-group'>
+                        <input
+                          type='checkbox'
+                          name='assigned_unit'
+                          className='form-control-input'
+                          value={officer.officer_name}
+                          onClick={this.handleSelect}
+                        />
+                        <label className=''>{officer.officer_name}</label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className='modal-footer'>
+              <button
+              onClick={this.cancelCall}
+                  type='button'
+                  className='btn btn-danger'>
+                  End 911 Call
+                </button>
                 <button
                   type='button'
                   className='btn btn-secondary'
