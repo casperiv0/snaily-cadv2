@@ -17,10 +17,10 @@ const dispatchAuth = require("../../auth/dispatchAuth");
     @Auth Protected
 */
 router.get("/", auth, dispatchAuth, async (req, res) => {
-    const addresses = await processQuery("SELECT address FROM `citizens`");
+    const addresses = await processQuery("SELECT address FROM `citizens`").catch(err => console.log(err));
     // reminder casper: when going on-duty set status = "on-duty" > off-duty => "off-duty" LEO & EMS/FD
-    const onDutyOfficers = await processQuery("SELECT * FROM `officers` WHERE `status` = ?", ["on-duty"]);
-    const onDutyEMS_FD = await processQuery("SELECT * FROM `ems-fd` WHERE `status` = ?", ["on-duty"]);
+    const onDutyOfficers = await processQuery("SELECT * FROM `officers` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
+    const onDutyEMS_FD = await processQuery("SELECT * FROM `ems-fd` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
 
     return res.json({ addresses, onDutyOfficers, onDutyEMS_FD });
 });
@@ -57,7 +57,7 @@ router.put("/update-aop", auth, dispatchAuth, (req, res) => {
     @Route /dispatch/update-officer/:officerId
     @Auth Protected
 */
-router.put("/update-officer/:officerId", auth, dispatchAuth, (req, res) => {
+router.put("/update-officer/:officerId", auth, (req, res) => {
     const { officerId } = req.params;
     let { status, status2 } = req.body;
 

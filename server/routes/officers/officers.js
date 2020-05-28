@@ -1,5 +1,5 @@
 /*
-    GET / - shows all data for the police dashboard
+    GET /get-status/:officerId - shows current status for officer
     GET /penal-codes - shows all the penal codes
     GET /myofficers - shows all officers linked to the loggedin account
     POST /add - add an officer
@@ -25,8 +25,10 @@ const officerAuth = require("../../auth/officerAuth");
     @Route /officers
     @Auth Protected
 */
-router.get("/", auth, officerAuth, async (req, res) => {
-    const bolos = await processQuery("SELECT * FROM `bolos`");
+router.get("/get-status/:officerId", auth, officerAuth, async (req, res) => {
+    processQuery("SELECT * FROM `officers` WHERE `id` = ?", [req.params.officerId]).then((officer) => {
+        return res.json({ officer: officer[0] })
+    })
 });
 
 
@@ -109,7 +111,7 @@ router.post("/create-ticket", auth, officerAuth, async (req, res) => {
         processQuery("INSERT INTO `leo_tickets` (`name`, `violations`, `officer_name`, `date`, `postal`, `notes`) VALUES (?, ?, ?, ?, ?, ?)", [name, violations, officer_name, date, postal, notes])
             .then(() => {
                 return res.json({ msg: "Added" })
-            })
+            }).catch(err => console.log(err));
 
     } else {
         return res.json({ msg: "Name, violations and officer name are required!" });
@@ -178,7 +180,7 @@ router.post("/create-written-warning", auth, officerAuth, (req, res) => {
 router.post("/create-warrant", auth, officerAuth, (req, res) => {
     const { fullName, status, details } = req.body;
 
-    if (fullName && status ) {
+    if (fullName && status) {
         processQuery("INSERT INTO `warrants` (`name`, `reason`, `status`) VALUES (?, ?, ?)",
             [fullName, details, status])
             .then(() => {

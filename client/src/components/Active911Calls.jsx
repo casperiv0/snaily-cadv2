@@ -51,6 +51,7 @@ export default class Active911Calls extends Component {
                 <th scope='col'>Caller Location</th>
                 <th scope='col'>Call Description</th>
                 <th scope='col'>Status</th>
+                <th scope='col'>Assigned Units</th>
               </tr>
             </thead>
             <tbody>

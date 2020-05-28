@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import LeoStatuses from './LeoStatuses';
 
 export default class TopLeoArea extends Component {
   constructor() {
@@ -53,6 +54,7 @@ export default class TopLeoArea extends Component {
         <div className='card-body'>
           <LeoModalButtons />
         </div>
+        <LeoStatuses />
       </div>
     );
   }

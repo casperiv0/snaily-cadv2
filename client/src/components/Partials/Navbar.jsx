@@ -70,7 +70,7 @@ export default class NavigationBar extends Component {
                 Dispatch{' '}
                 <img
                   style={{ maxHeight: '20px' }}
-                  src='/icons/internal/fire.png'
+                  src='/icons/internal/Dispatch.png'
                   alt='officer'
                 />
               </a>
@@ -80,7 +80,7 @@ export default class NavigationBar extends Component {
                 EMS/FD{' '}
                 <img
                   style={{ maxHeight: '20px' }}
-                  src='/icons/internal/Dispatch.png'
+                  src='/icons/internal/fire.png'
                   alt='Dispatch'
                 />
               </a>

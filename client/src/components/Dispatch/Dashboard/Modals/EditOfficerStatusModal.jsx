@@ -20,6 +20,9 @@ export default class EditOfficerStatusModal extends Component {
   };
 
   onSubmit = (e) => {
+    if (this.state.status === "off-duty") {
+      Cookies.remove("on-duty-officerId");
+    }
     e.preventDefault();
     Axios({
       url: backendURL + '/dispatch/update-officer/' + this.props.id,

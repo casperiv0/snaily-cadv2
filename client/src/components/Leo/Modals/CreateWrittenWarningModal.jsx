@@ -10,11 +10,11 @@ export default class CreateWrittenWarningModal extends Component {
     super();
 
     this.state = {
-      name: '',
+      name3: '',
       infractions: '',
-      officerName: '',
-      notes: '',
-      postal: '',
+      officerName3: '',
+      notes3: '',
+      postal3: '',
       penalCodes: [],
       loading: true,
       error: '',
@@ -29,10 +29,10 @@ export default class CreateWrittenWarningModal extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
-        name: this.state.name,
-        officer_name: this.state.officerName,
-        postal: this.state.postal,
-        notes: this.state.notes,
+        name: this.state.name3,
+        officer_name: this.state.officerName3,
+        postal: this.state.postal3,
+        notes: this.state.notes3,
         infractions: this.state.infractions,
       },
     }).then((res) => {
@@ -40,7 +40,7 @@ export default class CreateWrittenWarningModal extends Component {
         sessionStorage.setItem(
           'leo-message',
           'Successfully Created Written Warning, Target Name: ' +
-            this.state.name
+            this.state.name3
         );
         return (window.location = '/leo/dash');
       }
@@ -81,11 +81,11 @@ export default class CreateWrittenWarningModal extends Component {
 
   render() {
     const {
-      name,
+      name3,
       infractions,
-      officerName,
-      notes,
-      postal,
+      officerName3,
+      notes3,
+      postal3,
       penalCodes,
       loading,
       error,
@@ -125,20 +125,20 @@ export default class CreateWrittenWarningModal extends Component {
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='name'
-                    id='name'
-                    value={name}
+                    name='name3'
+                    id='name3'
+                    value={name3}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='officerName'>Enter Officer Name</label>
+                  <label htmlFor='officerName3'>Enter Officer Name</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='officerName'
-                    id='officerName'
-                    value={officerName}
+                    name='officerName3'
+                    id='officerName3'
+                    value={officerName3}
                     onChange={this.onChange}
                   />
                 </div>
@@ -164,24 +164,24 @@ export default class CreateWrittenWarningModal extends Component {
                   </datalist>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='postal'>Nearest Postal</label>
+                  <label htmlFor='postal3'>Nearest Postal</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='postal'
-                    id='postal'
-                    value={postal}
+                    name='postal3'
+                    id='postal3'
+                    value={postal3}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='notes'>Notes</label>
+                  <label htmlFor='notes3'>Notes</label>
                   <textarea
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='notes'
-                    id='notes'
-                    value={notes}
+                    name='notes3'
+                    id='notes3'
+                    value={notes3}
                     onChange={this.onChange}></textarea>
                 </div>
               </div>

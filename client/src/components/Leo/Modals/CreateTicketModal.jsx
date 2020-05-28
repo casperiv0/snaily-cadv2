@@ -10,11 +10,11 @@ export default class CreateTicketModal extends Component {
     super();
 
     this.state = {
-      name: '',
+      name2: '',
       violations: '',
-      officerName: '',
-      notes: '',
-      postal: '',
+      officerName2: '',
+      notes2: '',
+      postal2: '',
       penalCodes: [],
       loading: true,
       error: '',
@@ -29,17 +29,17 @@ export default class CreateTicketModal extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
-        name: this.state.name,
-        officer_name: this.state.officerName,
-        postal: this.state.postal,
-        notes: this.state.notes,
+        name: this.state.name2,
+        officer_name: this.state.officerName2,
+        postal: this.state.postal2,
+        notes: this.state.notes2,
         violations: this.state.violations,
       },
     }).then((res) => {
       if (res.data.msg === 'Added') {
         sessionStorage.setItem(
           'leo-message',
-          'Successfully Created Ticket, Target Name: ' + this.state.name
+          'Successfully Created Ticket, Target Name: ' + this.state.name2
         );
         return (window.location = '/leo/dash');
       }
@@ -80,11 +80,11 @@ export default class CreateTicketModal extends Component {
 
   render() {
     const {
-      name,
+      name2,
       violations,
-      officerName,
-      notes,
-      postal,
+      officerName2,
+      notes2,
+      postal2,
       penalCodes,
       loading,
       error,
@@ -124,20 +124,20 @@ export default class CreateTicketModal extends Component {
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='name'
-                    id='name'
-                    value={name}
+                    name='name2'
+                    id='name2'
+                    value={name2}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='officerName'>Enter Officer Name</label>
+                  <label htmlFor='officerName2'>Enter Officer Name</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='officerName'
-                    id='officerName'
-                    value={officerName}
+                    name='officerName2'
+                    id='officerName2'
+                    value={officerName2}
                     onChange={this.onChange}
                   />
                 </div>
@@ -163,25 +163,25 @@ export default class CreateTicketModal extends Component {
                   </datalist>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='postal'>Nearest Postal</label>
+                  <label htmlFor='postal2'>Nearest Postal</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='postal'
-                    id='postal'
-                    value={postal}
+                    name='postal2'
+                    id='postal2'
+                    value={postal2}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='notes'>Notes</label>
+                  <label htmlFor='notes2'>Notes</label>
                   <textarea
                     rows='5'
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
-                    name='notes'
-                    id='notes'
-                    value={notes}
+                    name='notes2'
+                    id='notes2'
+                    value={notes2}
                     onChange={this.onChange}></textarea>
                 </div>
               </div>

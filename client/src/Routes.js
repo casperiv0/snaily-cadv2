@@ -20,6 +20,7 @@ import CitizensPage from "./components/Citizen/CitizensPage";
 import CreateCitizen from "./components/Citizen/CreateCitizen";
 import CitizensDetailPage from "./components/Citizen/CitizenDetail/CitizensDetailPage";
 import EditCitizen from './components/Citizen/EditCitizen';
+import ManageEmployment from "./components/Citizen/Company/ManageEmployment"
 
 // Medical Records
 import AddMedicalRecords from './components/Citizen/Medical/AddMedicalRecords';
@@ -91,7 +92,7 @@ import AdminEditCitizen from './components/Admin/Management/Citizen/AdminEditCit
 // members
 import MemberManagement from './components/Admin/Management/Members/MemberManagement';
 
-// Company
+// admin company
 import CompanyManagement from './components/Admin/Management/CompanyManagement';
 
 // Dispatch
@@ -106,6 +107,7 @@ import CadSettings from './components/Admin/CadSettings';
 import LeoRoute from "./components/Auth/Routes/LeoRoute"
 import LeoDashboard from './components/Leo/LeoDashboard';
 import PenalCodes from "./components/Leo/PenalCodes"
+import Codes10 from './components/Leo/Codes10';
 
 
 export default class Routes extends Component {
@@ -151,6 +153,10 @@ export default class Routes extends Component {
 
                     {/* Weapons */}
                     <PrivateRoute exact path="/weapons/register" component={RegisterWeapon} />
+                </Switch>
+
+                <Switch basename="/">
+                    <PrivateRoute exact path="/manage-company-employment" component={ManageEmployment}  />
                 </Switch>
 
 
@@ -235,6 +241,7 @@ export default class Routes extends Component {
                 <Switch basename="/">
                     <LeoRoute exact path="/leo/dash" component={LeoDashboard} />
                     <LeoRoute exact path="/leo/penal-codes" component={PenalCodes} />
+                    <LeoRoute exact path="/leo/10-codes" component={Codes10} />
                 </Switch>
             </Router>
         )

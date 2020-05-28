@@ -12,6 +12,7 @@ import CreateArrestReportModal from './Modals/CreateArrestReportModal';
 import Active911Calls from '../Active911Calls';
 import CreateWarrant from './CreateWarrant';
 import ActiveBolos from '../ActiveBolos';
+import SelectOfficerModal from './Modals/SelectOfficerModal';
 
 export default class LeoDashboard extends Component {
   constructor() {
@@ -55,6 +56,7 @@ export default class LeoDashboard extends Component {
         <CreateWrittenWarningModal />
         <CreateTicketModal />
         <CreateArrestReportModal />
+        <SelectOfficerModal />
       </div>
     );
   }

@@ -56,20 +56,26 @@ router.post("/join", auth, async (req, res) => {
     @auth Protected
 */
 router.post("/create", auth, async (req, res) => {
-    const { createdCompanyName, owner, whitelistStatus } = req.body;
-
-    // Check if company already exists
-    const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [createdCompanyName]);
-
-    if (company[0]) return res.json({ msg: "Company name is already in use!" });
+    const { companyName, owner, whitelistStatus } = req.body;
 
 
-    // Create the company
-    const createdCompany = await processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`) VALUES (?, ?, ?, ?)", [createdCompanyName, owner, req.user.username, whitelistStatus]);
-    const updateCitizen = await processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [createdCompanyName, "owner", owner]);
+    if (companyName && owner) {
+        // Check if company already exists
+        const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [companyName]);
+
+        if (company[0]) return res.json({ msg: "Company name is already in use!" });
 
 
-    return res.json({ msg: "Company Created" });
+        // Create the company
+        processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`) VALUES (?, ?, ?, ?)", [companyName, owner, req.user.username, whitelistStatus]);
+        processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner]);
+
+
+        return res.json({ msg: "Company Created" });
+    } else {
+        return res.json({ msg: "Company Name and owner are required!" })
+    }
+
 });
 
 
