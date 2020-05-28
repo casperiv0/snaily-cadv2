@@ -105,6 +105,7 @@ import CadSettings from './components/Admin/CadSettings';
 // LEO
 import LeoRoute from "./components/Auth/Routes/LeoRoute"
 import LeoDashboard from './components/Leo/LeoDashboard';
+import PenalCodes from "./components/Leo/PenalCodes"
 
 
 export default class Routes extends Component {
@@ -233,6 +234,7 @@ export default class Routes extends Component {
 
                 <Switch basename="/">
                     <LeoRoute exact path="/leo/dash" component={LeoDashboard} />
+                    <LeoRoute exact path="/leo/penal-codes" component={PenalCodes} />
                 </Switch>
             </Router>
         )
