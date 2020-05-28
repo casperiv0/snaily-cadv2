@@ -1,0 +1,26 @@
+{
+  "name": "snailycad-v2",
+  "version": "1.0.0",
+  "description": "SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!",
+  "main": "config.js",
+  "scripts": {
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "create": "npm install --prefix client && npm install --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dev-CasperTheGhost/snaily-cadv2.git"
+  },
+  "keywords": [],
+  "author": "Dev-CasperTheGhost",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dev-CasperTheGhost/snaily-cadv2/issues"
+  },
+  "homepage": "https://github.com/Dev-CasperTheGhost/snaily-cadv2#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
