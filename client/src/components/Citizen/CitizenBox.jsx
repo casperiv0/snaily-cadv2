@@ -5,7 +5,7 @@ export default class CitizenBox extends Component {
   render() {
     const { fullName, id} = this.props;
     return (
-      <div className='list-group-item bg-dark border-dark text-light'>
+      <div className='list-group-item bg-dark border-secondary text-light'>
           {fullName}
 
           <div className="float-right">

@@ -52,9 +52,10 @@ router.get("/:citizenId", auth, async (req, res) => {
     @auth Protected
 */
 router.post("/add", auth, async (req, res) => {
-    const file = req.files ? req.files.citizen_pictures : null;
+    const file = req.files ? req.files.image : null;
     const fileName = req.files ? file.name : "default.svg";
-    
+
+
     const { fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv, fireLicense, pilotLicense, ccw } = req.body;
     if (fullName, birth, gender, ethnicity, hairColor, eyeColor, address, height, weight) {
 
@@ -89,6 +90,11 @@ router.post("/add", auth, async (req, res) => {
     @auth Protected
 */
 router.put("/:citizenId", auth, async (req, res) => {
+    let query = "";
+    let data = "";
+    const file = req.files ? req.files.image : null;
+    let fileName = req.files ? file.name : "";
+
     // Check if the citizen is linked to the account 
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
     if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
@@ -96,10 +102,23 @@ router.put("/:citizenId", auth, async (req, res) => {
 
     const { birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv } = req.body
 
-    const query = "UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ? WHERE `citizens`.`id` = ?";
+    if (file) {
+        query = "UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ?, `citizen_picture` = ? WHERE `citizens`.`id` = ?";
+        data = [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, fileName, req.params.citizenId]
+    } else {
+        query = "UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ? WHERE `citizens`.`id` = ?";
+        data = [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, req.params.citizenId]
+    }
 
-    processQuery(query, [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, req.params.citizenId])
+    processQuery(query, data)
         .then(() => {
+            if (file) {
+                file.mv("./public/citizen-pictures/" + fileName, err => {
+                    if (err) {
+                        return console.log(err);
+                    }
+                })
+            }
             return res.json({ msg: "Citizen Updated" })
         })
         .catch(err => console.log(err));

@@ -3,6 +3,7 @@ import { getSession } from '../Auth/getSession';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { backendURL } from '../../config/config';
+import SuccessMessage from './Messages/SuccessMessage';
 
 export default class HomePage extends Component {
   componentDidMount() {
@@ -47,8 +48,13 @@ const LoggedInSection = () => {
 };
 
 const NotLoggedInSection = () => {
+  const message = sessionStorage.getItem("home-message");
+  useEffect(() => {
+    document.addEventListener("beforeunload", sessionStorage.removeItem("home-message"))
+  })
   return (
     <div className='container mt-3 text-light'>
+      {message ? <SuccessMessage message={message} dismiss /> : null}
       <h2>Welcome Back!</h2>
       <Link
         className='btn btn-primary mb-2'

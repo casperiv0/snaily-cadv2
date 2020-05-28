@@ -8,10 +8,11 @@ export default class AdminSideHeader extends Component {
           <h3 className="text-light">Management</h3>
         </div>
         <div className='drawer-content'>
-          <a className="text-light text-decoration-none" href='/admin/action-logs'>Action Logs</a>
+          <a className="text-light text-decoration-none" href='/admin/audit-logs'>Audit Logs</a>
           <a className="text-light text-decoration-none" href='/admin/manage/members'>Member Management</a>
           <a className="text-light text-decoration-none" href='/admin/manage/citizens'>Citizen Management</a>
           <a className="text-light text-decoration-none" href='/admin/manage/companies'>Company Management</a>
+          <a className="text-light text-decoration-none" href='/admin/cad-settings'>CAD Settings</a>
         </div>
         <div className='admin-header-icon mt-3'>
           <h3 className="text-light">Values</h3>

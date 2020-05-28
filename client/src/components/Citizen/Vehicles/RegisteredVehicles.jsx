@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { backendURL } from '../../../config/config';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
+import LoadingArea from '../../Partials/LoadingArea';
 
 export default class RegisteredVehicles extends Component {
   constructor() {
@@ -9,6 +10,7 @@ export default class RegisteredVehicles extends Component {
 
     this.state = {
       vehicles: [],
+      loading: true
     };
   }
 
@@ -24,6 +26,7 @@ export default class RegisteredVehicles extends Component {
         if (res.data.vehicles) {
           this.setState({
             vehicles: res.data.vehicles,
+            loading: false
           });
         }
       })
@@ -49,7 +52,14 @@ export default class RegisteredVehicles extends Component {
     this.getRegisteredVehicles();
   }
   render() {
-    const { vehicles } = this.state;
+    const { vehicles, loading } = this.state;
+
+    if (loading) {
+      return <div className="container">
+        <LoadingArea />
+      </div>
+    }
+
     return (
       <div className='list-group-item list-group-item-action bg-dark text-light border-dark mt-1'>
         <div className='d-flex'>

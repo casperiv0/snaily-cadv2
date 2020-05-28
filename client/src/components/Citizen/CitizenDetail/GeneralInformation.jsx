@@ -47,8 +47,8 @@ export default class GeneralInformation extends Component {
         <div className='card-body'>
           <div className='row ml-4 mt-2 mb-2'>
             <img
-              src={'/citizen-pictures/' + this.props.picture}
-              alt='icon'
+              src={backendURL+'/citizen-pictures/' + this.props.picture}
+              alt={this.props.picture}
               className='rounded-circle'
               style={{ width: '100px', height: '100px' }}
             />

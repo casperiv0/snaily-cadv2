@@ -98,6 +98,10 @@ import CompanyManagement from './components/Admin/Management/CompanyManagement';
 import DispatchRoute from "./components/Auth/DispatchRoute"
 import DispatchDashboard from './components/Dispatch/Dashboard/DispatchDashboard';
 
+// CAD settings
+import OwnerRoute from './components/Auth/Routes/OwnerRoute';
+import CadSettings from './components/Admin/CadSettings';
+
 
 export default class Routes extends Component {
     render() {
@@ -162,12 +166,16 @@ export default class Routes extends Component {
                     <PrivateEMSRoute exact path="/ems-fd/deputies/create-deputy" component={CreateEmsFdDeputy} />
                 </Switch>
 
+                <Switch basename="/">
+                    <OwnerRoute path="/admin/cad-settings" component={CadSettings} />
+                </Switch>
+
                 {/* Admin */}
                 <div className="container-fluid row">
                     <Switch basename="/admin">
                         <AdminRoute exact path="/admin" component={Admin} />
                         {/* Management */}
-                        <AdminRoute exact path="/admin/action-logs" component={ActionLogs} />
+                        <AdminRoute exact path="/admin/audit-logs" component={ActionLogs} />
 
                         {/* Citizens */}
                         <AdminRoute exact path="/admin/manage/citizens" component={CitizenManagement} />

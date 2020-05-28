@@ -45,7 +45,8 @@ export default class Login extends Component {
       if (res.data.msg === 'LoggedIn') {
         sessionStorage.setItem('token', res.data.token);
         logIn();
-        return (window.location = !this.props.location.state.from.pathname
+        // check if there's a "from" state, ifso redirect to that path
+        return (window.location = !this.props.location.state
           ? '/citizen'
           : this.props.location.state.from.pathname);
       }

@@ -84,7 +84,7 @@ export default class Tow extends Component {
         <h2>Tow Dashboard - AOP: {aop} </h2>
         <TopTowArea>
           {towCalls.length === 0 ? (
-            <li className='list-group-item bg-secondary border-secondary'>
+            <li className='list-group-item bg-dark border-dark'>
               No Active Calls
             </li>
           ) : (

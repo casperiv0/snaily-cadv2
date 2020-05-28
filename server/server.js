@@ -59,6 +59,7 @@ app.use(fileUpload());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
 // Auth Routers
 app.use("/auth", authRouter);

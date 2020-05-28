@@ -4,7 +4,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
-export default class AddCitizen extends Component {
+export default class CreateCitizen extends Component {
   constructor() {
     super();
 
@@ -24,8 +24,9 @@ export default class AddCitizen extends Component {
       weight: '',
       dmv: '',
       pilotLicense: '',
-      firearmsLicenses: '',
+      firearmsLicense: '',
       ccw: '',
+      image: '',
     };
   }
 
@@ -72,8 +73,6 @@ export default class AddCitizen extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
-      console.log(res.data.statuses);
-
       this.setState({
         statuses: res.data.statuses,
       });
@@ -88,29 +87,32 @@ export default class AddCitizen extends Component {
 
   createCitizen = (event) => {
     event.preventDefault();
-    axios({
-      url: backendURL + '/citizen/add',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        citizen_pictures: this.state.citizen_pictures,
-        fullName: this.state.fullName,
-        birth: this.state.birth,
-        gender: this.state.gender,
-        ethnicity: this.state.ethnicity,
-        hairColor: this.state.hairColor,
-        eyeColor: this.state.eyeColor,
-        address: this.state.address,
-        height: this.state.height,
-        weight: this.state.weight,
-        dmv: this.state.dmv,
-        fireLicense: this.state.firearmsLicenses,
-        pilotLicense: this.state.pilotLicense,
-        ccw: this.state.ccw,
-      },
-    })
+    const url = `${backendURL}/citizen/add`;
+
+    const fd = new FormData();
+    if (this.state.image) {
+      fd.append('image', this.state.image, this.state.image.name);
+    }
+    fd.append('fullName', this.state.fullName);
+    fd.append('birth', this.state.birth);
+    fd.append('gender', this.state.gender);
+    fd.append('ethnicity', this.state.ethnicity);
+    fd.append('hairColor', this.state.hairColor);
+    fd.append('eyeColor', this.state.eyeColor);
+    fd.append('address', this.state.address);
+    fd.append('height', this.state.height);
+    fd.append('weight', this.state.weight);
+    fd.append('dmv', this.state.dmv);
+    fd.append('fireLicense', this.state.firearmsLicense);
+    fd.append('pilotLicense', this.state.pilotLicense);
+    fd.append('ccw', this.state.ccw);
+
+    axios
+      .post(url, fd, {
+        headers: {
+          'x-auth-snailycad-token': Cookies.get('__session'),
+        },
+      })
       .then((res) => {
         if (res.data.msg === 'Citizen Created') {
           sessionStorage.setItem(
@@ -125,6 +127,12 @@ export default class AddCitizen extends Component {
         });
       })
       .catch((err) => console.log(err));
+  };
+
+  handleFileChange = (e) => {
+    this.setState({
+      image: e.target.files[0],
+    });
   };
 
   render() {
@@ -152,6 +160,18 @@ export default class AddCitizen extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <form onSubmit={this.createCitizen}>
+          {/* Picture */}
+          <div className='form-group'>
+            <label htmlFor='fullName'>Enter Full Name</label>
+            <input
+              type='file'
+              onChange={this.handleFileChange}
+              name='image'
+              id='image'
+              className='form-control text-light'
+            />
+          </div>
+
           {/* Full Name */}
           <div className='form-group'>
             <label htmlFor='fullName'>Enter Full Name</label>

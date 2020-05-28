@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 
-export default class ActionLogs extends Component {
+export default class AuditLogs extends Component {
   constructor() {
     super();
 
@@ -12,7 +12,7 @@ export default class ActionLogs extends Component {
     };
   }
 
-  getActionLogs = () => {
+  getAuditLogs = () => {
     Axios({
       url: backendURL + '/admin/action-logs/',
       method: 'GET',
@@ -31,15 +31,15 @@ export default class ActionLogs extends Component {
   };
 
   componentDidMount() {
-    document.title = "Action Logs - Admin"
-    this.getActionLogs();
+    document.title = "Audit Logs - Admin"
+    this.getAuditLogs();
   }
 
   render() {
     const { logs } = this.state;
     return (
       <div className='col text-light'>
-        <h3>Action Logs</h3>
+        <h3>Audit Logs</h3>
         <table className='table table-dark mt-3'>
           <thead>
             <tr>

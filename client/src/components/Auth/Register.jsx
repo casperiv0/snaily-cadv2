@@ -49,6 +49,11 @@ export default class Register extends Component {
         return (window.location = '/citizen');
       }
 
+      if (msg === "Pending") {
+        sessionStorage.setItem('home-message', 'Successfully Created Account, This account is currently pending access');
+        return (window.location = '/citizen');
+      }
+
       this.setState({
         loading: false,
         error: msg,
@@ -129,11 +134,16 @@ export default class Register extends Component {
         </FormControl>
 
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-          <div className="loading-wrapper">
-          <Button fullWidth disabled={loading} type='submit' variant='contained' color='primary'>
-            Register
-          </Button>
-          {loading ? <CircularProgress className="loader" size={24} /> : null}
+        <div className='loading-wrapper'>
+            <Button
+              fullWidth
+              disabled={loading}
+              type='submit'
+              variant='contained'
+              color='primary'>
+                Create Account
+            </Button>
+            {loading ? <CircularProgress className='loader' size={24} /> : null}
           </div>
         </FormControl>
       </form>

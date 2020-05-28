@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { backendURL } from '../../../config/config';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
+import LoadingArea from "../../Partials/LoadingArea"
 
 export default class RegisteredWeapons extends Component {
   constructor() {
@@ -9,6 +10,7 @@ export default class RegisteredWeapons extends Component {
 
     this.state = {
       weapons: [],
+      loading: true,
     };
   }
 
@@ -24,6 +26,7 @@ export default class RegisteredWeapons extends Component {
         if (res.data.weapons) {
           this.setState({
             weapons: res.data.weapons,
+            loading: false,
           });
         }
       })
@@ -49,7 +52,14 @@ export default class RegisteredWeapons extends Component {
     this.getRegisteredWeapons();
   }
   render() {
-    const { weapons } = this.state;
+    const { weapons, loading } = this.state;
+    if (loading) {
+      return (
+        <div className='container'>
+          <LoadingArea />
+        </div>
+      );
+    }
     return (
       <div className='list-group-item list-group-item-action bg-dark text-light border-dark mt-1'>
         <div className='d-flex'>
@@ -83,14 +93,12 @@ export default class RegisteredWeapons extends Component {
                     {/* Vehicle */}
                     <span className='font-weight-bold'>{weapon.weapon}</span>
                     <br />
-
                     {/* Serial Number */}
                     <span className='font-weight-bold'>Serial Number: </span>
                     <span className='uppercase font-weight-normal'>
                       {weapon.serial_number}
                     </span>
                     <br />
-
                     {/* Status */}
                     <span className='font-weight-bold'>Weapon Status:</span>
                     <span> {weapon.status}</span> <br />
@@ -99,7 +107,7 @@ export default class RegisteredWeapons extends Component {
                   {/* actions */}
                   <div className=''>
                     <a
-                      href="#deleteWeapon"
+                      href='#deleteWeapon'
                       onClick={() => this.deleteWeapon(weapon.id)}
                       className='btn btn-danger ml-2'>
                       Delete

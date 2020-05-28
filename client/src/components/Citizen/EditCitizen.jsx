@@ -22,6 +22,7 @@ export default class EditCitizen extends Component {
       address: '',
       height: '',
       weight: '',
+      image: '',
     };
   }
 
@@ -119,27 +120,31 @@ export default class EditCitizen extends Component {
   };
 
   updateCitizen = (event) => {
-    const citizenId = this.props.match.params.citizenId;
-
     event.preventDefault();
-    axios({
-      url: backendURL + '/citizen/' + citizenId,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        fullName: this.state.fullName,
-        birth: this.state.birth,
-        gender: this.state.gender,
-        ethnicity: this.state.ethnicity,
-        hairColor: this.state.hairColor,
-        eyeColor: this.state.eyeColor,
-        address: this.state.address,
-        height: this.state.height,
-        weight: this.state.weight,
-      },
-    })
+
+    const citizenId = this.props.match.params.citizenId;
+    const url = `${backendURL}/citizen/${citizenId}`;
+
+    const fd = new FormData();
+    if (this.state.image) {
+      fd.append('image', this.state.image, this.state.image.name);
+    }
+    fd.append('fullName', this.state.fullName);
+    fd.append('birth', this.state.birth);
+    fd.append('gender', this.state.gender);
+    fd.append('ethnicity', this.state.ethnicity);
+    fd.append('hairColor', this.state.hairColor);
+    fd.append('eyeColor', this.state.eyeColor);
+    fd.append('address', this.state.address);
+    fd.append('height', this.state.height);
+    fd.append('weight', this.state.weight);
+
+    axios
+      .put(url, fd, {
+        headers: {
+          'x-auth-snailycad-token': Cookies.get('__session'),
+        },
+      })
       .then((res) => {
         if (res.data.msg === 'Citizen Updated') {
           sessionStorage.setItem(
@@ -154,6 +159,31 @@ export default class EditCitizen extends Component {
         });
       })
       .catch((err) => console.log(err));
+
+    // axios({
+    //   url: backendURL + '/citizen/' + citizenId,
+    //   method: 'PUT',
+    //   headers: {
+    //     'x-auth-snailycad-token': Cookies.get('__session'),
+    //   },
+    //   data: {
+    //     fullName: this.state.fullName,
+    //     birth: this.state.birth,
+    //     gender: this.state.gender,
+    //     ethnicity: this.state.ethnicity,
+    //     hairColor: this.state.hairColor,
+    //     eyeColor: this.state.eyeColor,
+    //     address: this.state.address,
+    //     height: this.state.height,
+    //     weight: this.state.weight,
+    //   },
+    // })
+  };
+
+  handleFileChange = (e) => {
+    this.setState({
+      image: e.target.files[0],
+    });
   };
 
   render() {
@@ -176,6 +206,18 @@ export default class EditCitizen extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <form onSubmit={this.updateCitizen}>
+          <div className='form-group'>
+            <label htmlFor='fullName'>Select Image</label>
+            <input
+              type='file'
+              onChange={this.handleFileChange}
+              name='image'
+              id='image'
+              className='form-control'
+            />
+            <small>If none selected this will NOT overwrite your old one</small>
+          </div>
+
           {/* Full Name */}
           <div className='form-group'>
             <label htmlFor='fullName'>Enter Full Name</label>
@@ -183,7 +225,7 @@ export default class EditCitizen extends Component {
               disabled
               value={fullName}
               className='form-control bg-dark border-dark text-light'
-              title="At this moment you are unable to change your name."
+              title='At this moment you are unable to change your name.'
             />
           </div>
 

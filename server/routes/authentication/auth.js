@@ -46,13 +46,13 @@ router.post("/register", async (req, res) => {
                 // CAD is whitelisted and Tow too
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "true") {
                     return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending"]);
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending"]).then(() => {return res.json({msg: "Pending"})})
                 }
 
                 // CAD is whitelisted but tow is not
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "false") {
-                    processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending"])
+                    return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending"]).then(() => {return res.json({msg: "Pending"})})
                 };
 
 
@@ -174,7 +174,7 @@ router.get("/user", auth, async (req, res) => {
     @Auth Protected
 */
 router.get("/cad-info", auth, (req, res) => {
-    processQuery("SELECT tow_whitelisted, AOP FROM `cad_info`")
+    processQuery("SELECT tow_whitelisted, AOP, cad_name, whitelisted FROM `cad_info`")
         .then((data) => {
             return res.json({ cadInfo: data});
         })
