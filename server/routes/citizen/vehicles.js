@@ -1,5 +1,5 @@
 /*
-    GET / - shows all vehicles linked to user
+    GET /all/:citizenId - shows all vehicles linked to user
     POST /register - register vehicle
     GET /:carId-:plate - edit vehicle
     PUT /:carId-:plate - edit vehicle
@@ -13,13 +13,17 @@ const { processQuery } = require("../../utils/db");
 
 
 /*  
-    @Route /register
+    @Route /:citizenId
     @Auth Protected
 */
-router.get("/", auth, (req, res) =>{
-    processQuery("SELECT * FROM `registered_cars` WHERE `linked_to` = ?", [req.user.username])
+router.post("/all/:citizenId", auth, async (req, res) => {
+    const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]).catch(err => console.log(err));
+    
+    if (!citizen[0]) return res.json({ msg: "Citizen Not found" })
+
+    processQuery("SELECT * FROM `registered_cars` WHERE `owner` = ? AND `linked_to` = ?", [citizen[0].full_name, req.user.username])
         .then(vehicles => {
-            return res.json({vehicles});
+            return res.json({ vehicles });
         })
         .catch(err => console.log(err));
 })
@@ -30,13 +34,18 @@ router.get("/", auth, (req, res) =>{
     @Auth Protected
 */
 router.post("/register", auth, async (req, res) => {
-    const { plate, owner, vehicle, status, color, company } = req.body;
+    const { owner, vehicle, status, color, company } = req.body;
+    let plate = req.body.plate;
 
     if (plate && owner && vehicle && status && color) {
 
         // Check if plate is equal or shorter than 8
-        if (plate.toString().length > 8) {
+        if (plate.length > 8) {
             return res.json({ msg: "Plate Can only be 8 characters long!" });
+        }
+
+        if (plate.includes("O")) {
+            plate = plate.replace(/O/g, '0');
         }
 
         const citizen = await processQuery("SELECT vehicle_reg, rank FROM `citizens` WHERE `full_name` = ?", [owner]);

@@ -10,14 +10,14 @@ export default class RegisteredVehicles extends Component {
 
     this.state = {
       vehicles: [],
-      loading: true
+      loading: true,
     };
   }
 
   getRegisteredVehicles = () => {
     Axios({
-      url: backendURL + '/c/vehicles',
-      method: 'GET',
+      url: backendURL + '/c/vehicles/all/' + this.props.citizenId,
+      method: 'POST',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
@@ -26,7 +26,12 @@ export default class RegisteredVehicles extends Component {
         if (res.data.vehicles) {
           this.setState({
             vehicles: res.data.vehicles,
-            loading: false
+            loading: false,
+          });
+        } else {
+          this.setState({
+            vehicles: [],
+            loading: false,
           });
         }
       })
@@ -55,9 +60,11 @@ export default class RegisteredVehicles extends Component {
     const { vehicles, loading } = this.state;
 
     if (loading) {
-      return <div className="container">
-        <LoadingArea />
-      </div>
+      return (
+        <div className='container'>
+          <LoadingArea />
+        </div>
+      );
     }
 
     return (

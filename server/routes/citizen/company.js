@@ -38,13 +38,13 @@ router.post("/join", auth, async (req, res) => {
     if (company[0].whitelisted === "true") {
         processQuery("UPDATE `citizens` SET `business` = ?, `b_status` = ? WHERE `full_name` = ?", [joinedCompany, "awaiting", citizenName])
             .then(() => {
-                return res.json({ msg: "This company is whitelisted, You have been set to \"awaiting\" access" });
+                return res.json({ msg: "pending" });
             })
             .catch(err => console.log(err));
     } else {
         processQuery("UPDATE `citizens` SET `business` = ?, `b_status` = ? WHERE `full_name` = ?", [joinedCompany, "accepted", citizenName])
             .then(() => {
-                return res.json({ msg: "Successfully joined the company! Welcome." });
+                return res.json({ msg: "Joined" });
             })
             .catch(err => console.log(err));
     };

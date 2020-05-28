@@ -145,7 +145,7 @@ export default class CitizensDetailPage extends Component {
 
         {/* Vehicles, Weapons, Ticket & Arrest reports */}
         <ul className="list-group">
-          <RegisteredVehicles />
+          <RegisteredVehicles citizenId={citizenId} />
           <RegisteredWeapons />
         </ul>
       </div>

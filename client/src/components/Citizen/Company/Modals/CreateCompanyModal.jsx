@@ -11,7 +11,6 @@ export default class CreateCompanyModal extends Component {
     this.state = {
       companyName: '',
       companyOwner: '',
-      companyOwners: [],
       whitelisted: 'false',
       loading: true,
       error:""
@@ -21,21 +20,6 @@ export default class CreateCompanyModal extends Component {
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
-    });
-  };
-
-  getCompanyOwners = () => {
-    axios({
-      url: backendURL + '/citizen',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      this.setState({
-        companyOwners: res.data.citizens,
-        loading: false,
-      });
     });
   };
 
@@ -66,10 +50,6 @@ export default class CreateCompanyModal extends Component {
           })
       })
   };
-
-  componentDidMount() {
-    this.getCompanyOwners();
-  }
 
   render() {
     const { companyName, companyOwners,error } = this.state;
@@ -117,10 +97,10 @@ export default class CreateCompanyModal extends Component {
                     onChange={this.onChange}
                     id='companyOwner'>
                     <option>Select Owner..</option>
-                    {!companyOwners[0] ? (
+                    {!this.props.owners[0] ? (
                       <option>You don't have any citizens!</option>
                     ) : (
-                      companyOwners.map((owner, index) => {
+                      this.props.owners.map((owner, index) => {
                         return (
                           <option key={index} value={owner.full_name}>
                             {owner.full_name}
