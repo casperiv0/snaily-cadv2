@@ -112,6 +112,8 @@ import LeoRoute from "./components/Auth/Routes/LeoRoute"
 import LeoDashboard from './components/Leo/LeoDashboard';
 import PenalCodes from "./components/Leo/PenalCodes"
 import Codes10 from './components/Leo/Codes10';
+import MyOfficers from './components/Leo/MyOfficers/MyOfficers';
+import CreateOfficer from './components/Leo/MyOfficers/CreateOfficer';
 
 
 export default class Routes extends Component {
@@ -245,10 +247,13 @@ export default class Routes extends Component {
                     <DispatchRoute exact path="/dispatch" component={DispatchDashboard} />
                 </Switch>
 
+                    {/* LEO */}
                 <Switch basename="/">
                     <LeoRoute exact path="/leo/dash" component={LeoDashboard} />
                     <LeoRoute exact path="/leo/penal-codes" component={PenalCodes} />
                     <LeoRoute exact path="/leo/10-codes" component={Codes10} />
+                    <LeoRoute exact path="/leo/myofficers" component={MyOfficers} />
+                    <LeoRoute exact path="/leo/myofficers/create" component={CreateOfficer} />
                 </Switch>
             </Router>
         )

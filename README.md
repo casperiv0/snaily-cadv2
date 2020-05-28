@@ -20,6 +20,10 @@ SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 14. Run `npm start` in the root folder (`./snaily-cadv2`)
 15. CAD should be running on [http://localhost:5000](http://localhost:5000)
 
+## Updating CAD
+
+1. Run `git pull origin master`
+
 **If you don't understand any of these steps, let me know so I can help you.**
 
 _If you find any problems with these steps, please contact me asap._

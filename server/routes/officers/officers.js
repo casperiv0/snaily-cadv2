@@ -59,7 +59,7 @@ router.get("/myofficers", auth, officerAuth, (req, res) => {
     @Auth Protected
     @Extra note: departments come from /departments
 */
-router.post("/add", auth, officerAuth, (req, res) => {
+router.post("/myofficers/add", auth, officerAuth, (req, res) => {
     const { officerName, officerDept } = req.body;
 
     if (officerName, officerDept) {
@@ -79,10 +79,10 @@ router.post("/add", auth, officerAuth, (req, res) => {
     @Route /myofficers/:officerId
     @Auth Protected
 */
-router.delete("/myofficers/:officerId", auth, officerAuth, (req, res) => {
-    const officerId = req.params;
+router.delete("/myofficers/del/:officerId", auth, officerAuth, (req, res) => {
+    const {officerId} = req.params;
 
-    processQuery("DELETE FROM `officers` WHERE `officers`.`id` = ?", [officerId])
+    processQuery("DELETE FROM `officers` WHERE `id` = ?", [officerId])
         .then(() => {
             return res.json({ msg: "Deleted" });
         })
