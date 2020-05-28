@@ -23,16 +23,6 @@ body {
   justify-content: flex-start;
 }
 
-.admin-header-icon h1 {
-  margin-right: 20px;
-}
-
-.admin-header-icon img {
-  margin-right: 20px;
-  width: 20px;
-  cursor: pointer;
-}
-
 .drawer-content {
   margin-top: 20px;
   width: 100%;
@@ -54,5 +44,3 @@ body {
 .drawer-content a:hover {
   background-color: #6c757d;
 }
-
-/* make responsive */

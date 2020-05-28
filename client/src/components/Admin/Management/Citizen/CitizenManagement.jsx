@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../../Partials/LoadingArea';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import DeleteCitizenModal from './DeleteCitizenModal';
 
 export default class CitizenManagement extends Component {
   constructor() {
@@ -61,26 +62,6 @@ export default class CitizenManagement extends Component {
     });
   };
 
-  deleteCitizen = (id) => {
-    Axios({
-      url: backendURL + '/admin/citizens/' + id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Citizen Deleted') {
-          sessionStorage.setItem(
-            'admin-message',
-            'Successfully Deleted Citizen'
-          );
-          return (window.location = '/admin/manage/citizens');
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
   componentDidMount() {
     document.title = 'Citizen Management - Admin';
     this.getCitizens();
@@ -130,9 +111,7 @@ export default class CitizenManagement extends Component {
                     </h5>
                     <span className='font-weight-bold'>Linked To: </span>
                     {citizen.linked_to}
-                    <div
-                      className='collapse'
-                      id={'citizenInfo' + citizen.id}>
+                    <div className='collapse' id={'citizenInfo' + citizen.id}>
                       <span className='font-weight-bold'>Full Name:</span>{' '}
                       {citizen.full_name} <br />
                       <span className='font-weight-bold'>
@@ -155,18 +134,18 @@ export default class CitizenManagement extends Component {
                       {citizen.weight} <br />
                       <span className='font-weight-bold'>Employer:</span>{' '}
                       {citizen.business} <br />
-                      <div className='row mt-2'>
+                      <div className='d-flex mt-2'>
                         <a
                           href={'/admin/manage/citizens/edit/' + citizen.id}
                           className='btn btn-primary mr-2'>
                           Edit Citizen Info
                         </a>
                         <button
+                          type='button'
                           className='btn btn-danger'
-                          onClick={() => {
-                            this.deleteCitizen(citizen.id);
-                          }}>
-                          Delete Citizen (Instant)
+                          data-toggle='modal'
+                          data-target={'#deleteCitizen'+citizen.id}>
+                          Delete Citizen
                         </button>
                       </div>
                     </div>
@@ -181,6 +160,7 @@ export default class CitizenManagement extends Component {
                       aria-controls={'citizenInfo' + citizen.id}>
                       Toggle Info
                     </button>
+                    <DeleteCitizenModal id={citizen.id} fullName={citizen.full_name} />
                   </div>
                 </li>
               );

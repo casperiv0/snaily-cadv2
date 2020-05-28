@@ -42,10 +42,10 @@ export default class DispatchDashboard extends Component {
           <UpdateAop />
         </div>
         <DispatchActiveCalls />
-        <ActiveBolos />
+        <ActiveBolos to="/dispatch" />
 
         {/* Modals */}
-        <CreateBoloModal />
+        <CreateBoloModal  messageType="dispatch-message" to="/dispatch" />
         <CallEmergencyServicesModal to="/dispatch" messageType="dispatch-message" />
         <NotepadModal />
 

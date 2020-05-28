@@ -21,7 +21,7 @@ class OwnerRoute extends Component {
         };
     };
 
-    getAdminAccess = () => {
+    getOwnerAccess = () => {
         axios.get(backendURL + "/auth/user", {
             headers: {
                 "x-auth-snailycad-token": Cookies.get("__session"),
@@ -48,7 +48,7 @@ class OwnerRoute extends Component {
     };
 
     componentDidMount() {
-        this.getAdminAccess();
+        this.getOwnerAccess();
     }
 
     render() {

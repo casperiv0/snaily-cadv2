@@ -93,13 +93,13 @@ export default class Vehicles extends Component {
         <div className='mt-3'>
           <h5>Default Vehicles ({defaultVehicles.length}) </h5>
           <button
-            className='btn btn-primary container mb-2'
+            className='btn btn-primary col mb-2'
             type='button'
             data-toggle='collapse'
             data-target='#collapseExample'
             aria-expanded='false'
             aria-controls='collapseExample'>
-            Show Vehicles
+            Show Default Vehicles
           </button>
           <div className='collapse' id='collapseExample'>
             {defaultVehicles.map((vehicle, index) => {

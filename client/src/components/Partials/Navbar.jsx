@@ -56,7 +56,7 @@ export default class NavigationBar extends Component {
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
-              <a className='nav-link' href='/officers/dash'>
+              <a className='nav-link' href='/leo/dash'>
                 Police Dept
               </a>
             </li>

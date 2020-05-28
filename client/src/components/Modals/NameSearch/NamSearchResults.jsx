@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import { backendURL } from '../../../config/config';
 
 export default class NamSearchResults extends Component {
   render() {
@@ -17,7 +18,7 @@ export default class NamSearchResults extends Component {
         {!warrants[0] ? null : (
           <ErrorMessage
             color='danger'
-            message='WARNING: Person has a warrant'
+            message='WARNING: Person has 1 or more warrants'
           />
         )}
         <div className='row'>
@@ -65,6 +66,11 @@ export default class NamSearchResults extends Component {
                 <span className='font-weight-bold'>Height / Weight:</span>{' '}
                 {generalInfo.height} / {generalInfo.weight} <br />
               </div>
+              <div>
+                <span className='font-weight-bold'>Employer:</span>{' '}
+                {generalInfo.business} <br />
+              </div>
+              <img className="rounded mt-2" style={{width: "140px"}} src={backendURL+"/citizen-pictures/"+generalInfo.citizen_picture} alt=""/>
             </div>
           </div>
           <div className='col-md-6'>

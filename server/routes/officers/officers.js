@@ -5,9 +5,10 @@
     POST /add - add an officer
     DELETE /:officerId - delete an officer
 
-    POST /add-ticket
-    POST /add-arrest-report
-    POST /add-written-warning
+    POST /create-ticket
+    POST /create-arrest-report
+    POST /create-written-warning
+    POST /create-warrant
 
     GET /search/:citizenName
     GET /search/:serialNumber
@@ -93,7 +94,7 @@ router.delete("/myofficers/:officerId", auth, officerAuth, (req, res) => {
     @Extra `charge` is changed to `violations`
     @Extra `ticket_amount` was removed
 */
-router.post("/add-ticket", auth, officerAuth, async (req, res) => {
+router.post("/create-ticket", auth, officerAuth, async (req, res) => {
     const { name, violations, officer_name } = req.body;
     const postal = req.body.postal.toString();
     const date = new Date().toLocaleDateString();
@@ -103,7 +104,7 @@ router.post("/add-ticket", auth, officerAuth, async (req, res) => {
         notes = "Not Specified";
     };
 
-    if (name, violations, officer_name, postal) {
+    if (name && violations && officer_name) {
 
         processQuery("INSERT INTO `leo_tickets` (`name`, `violations`, `officer_name`, `date`, `postal`, `notes`) VALUES (?, ?, ?, ?, ?, ?)", [name, violations, officer_name, date, postal, notes])
             .then(() => {
@@ -111,7 +112,7 @@ router.post("/add-ticket", auth, officerAuth, async (req, res) => {
             })
 
     } else {
-        return res.json({ msg: "Please fill in all required fields" });
+        return res.json({ msg: "Name, violations and officer name are required!" });
     };
 });
 
@@ -121,7 +122,7 @@ router.post("/add-ticket", auth, officerAuth, async (req, res) => {
     @Auth Protected
     @Extra `name` is changed to `arrestee_name`
 */
-router.post("/add-arrest-report", auth, officerAuth, (req, res) => {
+router.post("/create-arrest-report", auth, officerAuth, (req, res) => {
     const { arresteeName, charges, officer_name, postal } = req.body;
     const date = new Date().toLocaleDateString();
 
@@ -130,19 +131,24 @@ router.post("/add-arrest-report", auth, officerAuth, (req, res) => {
         notes = "Not Specified";
     };
 
-    processQuery("INSERT INTO `arrest_reports` (`arrestee_name`, `date`, `charges`, `officer_name`, `notes`, `postal`) VALUES (?, ?, ?, ?, ?, ?)",
-        [arresteeName, date, charges, officer_name, notes, postal])
-        .then(() => {
-            return res.json({ msg: "Added" });
-        })
-        .catch(err => console.log(err));
+    if (arresteeName && charges && officer_name) {
+        processQuery("INSERT INTO `arrest_reports` (`arrestee_name`, `date`, `charges`, `officer_name`, `notes`, `postal`) VALUES (?, ?, ?, ?, ?, ?)",
+            [arresteeName, date, charges, officer_name, notes, postal])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Arrestee name, Charges and officer name are required" })
+    }
+
 });
 
 /*
     @Route /officers/add-written-warning
     @Auth Protected
 */
-router.post("/add-written-warning", auth, officerAuth, (req, res) => {
+router.post("/create-written-warning", auth, officerAuth, (req, res) => {
     const { name, officer_name, infractions, postal } = req.body;
     const date = new Date().toLocaleDateString();
 
@@ -151,13 +157,39 @@ router.post("/add-written-warning", auth, officerAuth, (req, res) => {
         notes = "Not Specified";
     };
 
-    processQuery("INSERT INTO `written_warnings` (`name`, `date`, `infractions`, `officer_name`, `notes`, `postal`) VALUES (?, ?, ?, ?, ?, ?)",
-        [name, date, infractions, officer_name, notes, postal])
-        .then(() => {
-            return res.json({ msg: "Added" });
-        })
-        .catch(err => console.log(err));
+    if (name && officer_name && infractions) {
+        processQuery("INSERT INTO `written_warnings` (`name`, `date`, `infractions`, `officer_name`, `notes`, `postal`) VALUES (?, ?, ?, ?, ?, ?)",
+            [name, date, infractions, officer_name, notes, postal])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Name, Officer name and infractions are required" });
+    }
+
+
 });
+
+/*
+    @Route /officers/create-warrant
+    @Auth Protected
+*/
+router.post("/create-warrant", auth, officerAuth, (req, res) => {
+    const { fullName, status, details } = req.body;
+
+    if (fullName && status ) {
+        processQuery("INSERT INTO `warrants` (`name`, `reason`, `status`) VALUES (?, ?, ?)",
+            [fullName, details, status])
+            .then(() => {
+                return res.json({ msg: "Added" });
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Name and status are required" });
+    }
+});
+
 
 /*
     @Route /officers/search/:citizenName
@@ -188,7 +220,7 @@ router.get("/search/plate/:plate", auth, officerAuth, async (req, res) => {
     const { plate } = req.params;
 
     const foundPlate = await processQuery("SELECT * FROM `registered_cars` WHERE `plate` = ?", [plate]);
-        
+
 
     if (!foundPlate[0]) return res.json({ msg: "Plate Not Found" });
 
@@ -204,7 +236,7 @@ router.get("/search/weapon/:serialNumber", auth, officerAuth, async (req, res) =
     const { serialNumber } = req.params;
 
     const foundWeapon = await processQuery("SELECT * FROM `registered_weapons` WHERE `serial_number` = ?", [serialNumber]);
-        
+
 
     if (!foundWeapon[0]) return res.json({ msg: "Weapon Not Found" });
 

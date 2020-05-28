@@ -146,7 +146,7 @@ export default class RegisterVehicle extends Component {
           <div className='form-group col-md-4'>
             <label htmlFor='plate'>Enter Plate</label>
             <input
-              value={plate}
+              value={plate.toUpperCase()}
               onChange={this.handleChange}
               name='plate'
               id='plate'

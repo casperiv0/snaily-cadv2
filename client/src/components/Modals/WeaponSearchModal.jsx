@@ -91,7 +91,7 @@ export default class WeaponSearchModal extends Component {
                   <div className='mt-3'>
                     <span className='font-weight-bold'>Weapon: </span>
                     {results.weapon} <br />
-                    <span className='font-weight-bold'>OWner: </span>
+                    <span className='font-weight-bold'>Owner: </span>
                     {results.owner} <br />
                     <span className='font-weight-bold'>Serial Number: </span>
                     {results.serial_number} <br />

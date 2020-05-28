@@ -82,7 +82,7 @@ import AddWeapon from './components/Admin/Values/Weapons/AddWeapon';
 import EditWeapon from './components/Admin/Values/Weapons/EditWeapon';
 
 // Management
-import ActionLogs from './components/Admin/Management/ActionLogs';
+import AuditLogs from './components/Admin/Management/AuditLogs';
 
 // citizens
 import CitizenManagement from './components/Admin/Management/Citizen/CitizenManagement';
@@ -101,6 +101,10 @@ import DispatchDashboard from './components/Dispatch/Dashboard/DispatchDashboard
 // CAD settings
 import OwnerRoute from './components/Auth/Routes/OwnerRoute';
 import CadSettings from './components/Admin/CadSettings';
+
+// LEO
+import LeoRoute from "./components/Auth/Routes/LeoRoute"
+import LeoDashboard from './components/Leo/LeoDashboard';
 
 
 export default class Routes extends Component {
@@ -175,7 +179,7 @@ export default class Routes extends Component {
                     <Switch basename="/admin">
                         <AdminRoute exact path="/admin" component={Admin} />
                         {/* Management */}
-                        <AdminRoute exact path="/admin/audit-logs" component={ActionLogs} />
+                        <AdminRoute exact path="/admin/audit-logs" component={AuditLogs} />
 
                         {/* Citizens */}
                         <AdminRoute exact path="/admin/manage/citizens" component={CitizenManagement} />
@@ -225,6 +229,10 @@ export default class Routes extends Component {
                 {/* Dispatch */}
                 <Switch basename="/">
                     <DispatchRoute exact path="/dispatch" component={DispatchDashboard} />
+                </Switch>
+
+                <Switch basename="/">
+                    <LeoRoute exact path="/leo/dash" component={LeoDashboard} />
                 </Switch>
             </Router>
         )

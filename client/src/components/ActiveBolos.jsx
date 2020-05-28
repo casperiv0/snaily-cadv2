@@ -38,7 +38,7 @@ export default class ActiveBolos extends Component {
     }).then((res) => {
       if (res.data.msg === 'Deleted Bolo') {
         sessionStorage.setItem('dispatch-message', 'Successfully Deleted BOLO');
-        return (window.location = '/dispatch');
+        return (window.location = this.props.to);
       }
     });
   };

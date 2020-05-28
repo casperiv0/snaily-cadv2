@@ -45,8 +45,8 @@ export default class CreateBoloModal extends Component {
         console.log(res.data);
 
         if (res.data.msg === 'Added') {
-          sessionStorage.setItem('dispatch-message', 'Successfully Added Bolo');
-          return (window.location = '/dispatch');
+          sessionStorage.setItem(this.props.messageType, 'Successfully Added Bolo');
+          return (window.location = this.props.to);
         }
 
         this.setState({
