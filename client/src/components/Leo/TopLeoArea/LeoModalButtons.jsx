@@ -4,7 +4,11 @@ export default class LeoModalButtons extends Component {
   render() {
     return (
       <div>
-          <a href="/leo/myofficers" className="btn btn-primary col-md-2 mt-2 ml-1">My Officers</a>
+        <a
+          href='/leo/myofficers'
+          className='btn btn-primary col-md-2 mt-2 ml-1'>
+          My Officers
+        </a>
         {/* Name Search Buttons */}
         <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
@@ -44,8 +48,8 @@ export default class LeoModalButtons extends Component {
           />
         </button>
 
-         {/* createWarningModal */}
-         <button
+        {/* createWarningModal */}
+        <button
           className='btn btn-primary col-md-3  text-light btn-secondary bg-secondary mt-2 ml-1'
           data-target='#createWarningModal'
           data-toggle='modal'>
@@ -57,8 +61,8 @@ export default class LeoModalButtons extends Component {
           />
         </button>
 
-         {/* createTicketModal */}
-         <button
+        {/* createTicketModal */}
+        <button
           className='btn btn-primary col-md-2  text-light btn-secondary bg-secondary mt-2 ml-1'
           data-target='#createTicketModal'
           data-toggle='modal'>
@@ -70,8 +74,8 @@ export default class LeoModalButtons extends Component {
           />
         </button>
 
-         {/* createArrestReport */}
-         <button
+        {/* createArrestReport */}
+        <button
           className='btn btn-primary col-md-3  text-light btn-secondary bg-secondary mt-2 ml-1'
           data-target='#createArrestReport'
           data-toggle='modal'>
@@ -108,8 +112,22 @@ export default class LeoModalButtons extends Component {
             alt='notepad'
           />
         </button>
-        <a href="/leo/penal-codes" className="btn btn-secondary col-md-2 mt-2 ml-1">Penal Codes</a>
-        <a href="/leo/10-codes" className="btn btn-secondary col-md-2 mt-2 ml-1">10 Codes</a>
+        <a
+          href='/leo/penal-codes'
+          className='btn btn-secondary col-md-2 mt-2 ml-1'>
+          Penal Codes |{' '}
+          <img
+            style={{ width: '25px' }}
+            src='/icons/internal/Penal_Code.png'
+            alt='Penal_Code'
+          />
+        </a>
+        <a
+          href='/leo/10-codes'
+          className='btn btn-secondary col-md-2 mt-2 ml-1'>
+          10 Codes |{' '}
+          <img style={{ width: '25px' }} src='/icons/internal/list.png' alt='10codes' />
+        </a>
       </div>
     );
   }

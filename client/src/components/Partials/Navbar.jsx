@@ -57,46 +57,81 @@ export default class NavigationBar extends Component {
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
               <a className='nav-link' href='/leo/dash'>
-                Police Dept
+                Police Dept{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/Police_Dept.png'
+                  alt='officer'
+                />
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/dispatch'>
-                Dispatch
+                Dispatch{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/fire.png'
+                  alt='officer'
+                />
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/ems-fd'>
-                EMS/FD
+                EMS/FD{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/Dispatch.png'
+                  alt='Dispatch'
+                />
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/citizen'>
-                Citizen
+                Citizen{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/citizen.png'
+                  alt='citizen'
+                />
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/tow'>
-                Tow
+                Tow{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/tow.png'
+                  alt='tow'
+                />
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/bleeter'>
-                Bleeter
+                Bleeter{' '}
+                <img
+                  style={{ maxHeight: '20px' }}
+                  src='/icons/internal/bleeter.png'
+                  alt='bleeter'
+                />
               </a>
             </li>
             {rank === 'moderator' || rank === 'admin' || rank === 'owner' ? (
               <li className='nav-item'>
                 <a className='nav-link' href='/admin'>
-                  Admin
+                  Admin{' '}
+                  <img
+                    style={{ maxHeight: '20px' }}
+                    src='/icons/internal/gear.png'
+                    alt='gear'
+                  />
                 </a>
               </li>
             ) : null}
           </ul>
-          <ul className="nav navbar-nav" style={{ float: 'right' }}>
+          <ul className='nav navbar-nav' style={{ float: 'right' }}>
             <li className='nav-item'>
               <a className='nav-link' href='/account'>
-                <Avatar src="/citizen-pictures/default.svg" />
+                <Avatar src='/citizen-pictures/default.svg' />
               </a>
             </li>
           </ul>
