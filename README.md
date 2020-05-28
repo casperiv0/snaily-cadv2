@@ -10,11 +10,17 @@ SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 4. Create a database called `snaily-cad`
 5. Import the `snaily-cad.sql` file
 
-
 ## Sneekpeaks
 
+**Leo Dashboard**
 ![Leo Dashboard](./media/LeoDashboard.png)
+
+**Dispatch Dashboard**
+![Dispatch](./media/Dispatch.png)
+
+**Citizen Detail**
+![CitizenDetail](./media/CitizenDetail.png)
 
 ## Release Date
 
-Hoping to get it out end of June
+Full Release: Second Week Of June
