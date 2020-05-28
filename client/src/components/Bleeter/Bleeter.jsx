@@ -3,8 +3,6 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import BleetBox from './BleetBox';
-import SuccessMessage from '../Partials/Messages/SuccessMessage';
-
 
 export default class Bleeter extends Component {
   constructor() {

@@ -13,7 +13,7 @@ export default class CreateCompanyModal extends Component {
       companyOwner: '',
       whitelisted: 'false',
       loading: true,
-      error:""
+      error: '',
     };
   }
 
@@ -24,35 +24,38 @@ export default class CreateCompanyModal extends Component {
   };
 
   onSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      axios({
-        url: backendURL + '/company/create',
-        method: 'POST',
-        headers: {
-          'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            companyName: this.state.companyName,
-            owner: this.state.companyOwner,
-            whitelistStatus: this.state.whitelisted,
-        }
-      }).then(res => {
-          console.log(res.data);
-          
-          if (res.data.msg==="Company Created") {
-              sessionStorage.setItem("message", "Successfully Created Company: "+this.state.companyName);
-              return window.location = "/citizen";
-          }
+    axios({
+      url: backendURL + '/company/create',
+      method: 'POST',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+      data: {
+        companyName: this.state.companyName,
+        owner: this.state.companyOwner,
+        whitelistStatus: this.state.whitelisted,
+      },
+    }).then((res) => {
+      console.log(res.data);
 
-          this.setState({
-              error: res.data.msg
-          })
-      })
+      if (res.data.msg === 'Company Created') {
+        sessionStorage.setItem(
+          'message',
+          'Successfully Created Company: ' + this.state.companyName
+        );
+        return (window.location = '/citizen');
+      }
+
+      this.setState({
+        error: res.data.msg,
+      });
+    });
   };
 
   render() {
-    const { companyName, companyOwners,error } = this.state;
+    const { companyName, error } = this.state;
     return (
       <div
         className='modal fade'
@@ -77,7 +80,7 @@ export default class CreateCompanyModal extends Component {
             </div>
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
-                  {error ? <ErrorMessage message={error} /> : null}
+                {error ? <ErrorMessage message={error} /> : null}
                 <div className='form-group'>
                   <label htmlFor='companyName'>Enter Company Name</label>
                   <input

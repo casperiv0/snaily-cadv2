@@ -7,7 +7,7 @@
     "url": "https://github.com/dev-caspertheghost/snaily-cad-v2"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [
     "cad/mdt",
