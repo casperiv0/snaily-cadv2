@@ -37,6 +37,10 @@ import NoAccess from './components/Partials/Messages/NoAccess';
 
 // Bleeter
 import Bleeter from "./components/Bleeter/Bleeter"
+import Bleet from './components/Bleeter/Bleet/Bleet';
+import CreateBleet from './components/Bleeter/CreateBleet';
+import EditBleet from './components/Bleeter/Bleet/EditBleet';
+
 
 // Vehicles
 import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
@@ -167,7 +171,10 @@ export default class Routes extends Component {
 
                 {/* Bleeter */}
                 <Switch basename="/">
-                    <Route path="/bleeter" exact component={Bleeter} />
+                    <PrivateRoute path="/bleeter" exact component={Bleeter} />
+                    <PrivateRoute path="/bleeter/create" exact component={CreateBleet} />
+                    <PrivateRoute path="/bleet/:bleetId" exact component={Bleet} />
+                    <PrivateRoute path="/bleet/:bleetId/edit" exact component={EditBleet} />
                 </Switch>
 
                 {/* EMS-fd */}

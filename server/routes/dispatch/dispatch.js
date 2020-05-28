@@ -76,6 +76,7 @@ router.put("/update-officer/:officerId", auth, (req, res) => {
     @Route /dispatch/update-ems-fd/:deputyId
     @Auth Protected
 */
+
 router.put("/update-ems-fd/:deputyId", auth, dispatchAuth, (req, res) => {
     const { deputyId } = req.params;
     let { status, status2 } = req.body;

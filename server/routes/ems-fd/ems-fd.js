@@ -57,21 +57,6 @@ router.get("/search/:citizenName", auth, emsFDAuth, (req, res) => {
 
 
 /*
-    @Route /ems-fd/status/:status
-    @Auth Protected
-*/
-router.put("/status/:deputyId", auth, emsFDAuth, async (req, res) => {
-    const status = req.body.status;
-    const deputyId = req.params.deputyId;
-
-    processQuery("UPDATE `ems-fd` SET `status2` = ? WHERE `id` = ?", [status, deputyId])
-        .then(() => {
-            return res.json({ msg: 'Updated Status' });
-        })
-        .catch(err => console.log(err));
-});
-
-/*
     @Route /ems-fd/:deputyId
     @Auth Protected
 */
@@ -81,6 +66,16 @@ router.delete("/:deputyId", auth, emsFDAuth, (req, res) => {
             return res.json({ msg: "Deleted" });
         })
         .catch(err => console.log(err));
+});
+
+/*
+    @Route /ems-fd/get-status/:deputyId
+    @Auth Protected
+*/
+router.get("/get-status/:deputyId", auth, emsFDAuth, async (req, res) => {
+    processQuery("SELECT * FROM `ems-fd` WHERE `id` = ?", [req.params.deputyId]).then((emsFd) => {
+        return res.json({ emsFd: emsFd[0] })
+    }).catch(err => console.log(err));
 });
 
 module.exports = router;

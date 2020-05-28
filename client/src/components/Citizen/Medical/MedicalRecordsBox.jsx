@@ -40,38 +40,46 @@ export default class MedicalRecordsBox extends Component {
           <h4>
             Medical Records{' '}
             <a
-              href={'/medical-records/add/'+this.props.citizenId+"-"+this.props.fullName}
+              href={
+                '/medical-records/add/' +
+                this.props.citizenId +
+                '-' +
+                this.props.fullName
+              }
               className='btn btn-primary float-right'>
               Add Medical Record
             </a>
           </h4>
         </div>
-        <div className='card-body'>
-          {!records[0] ? (
-            <div className='list-group-item bg-dark border-dark'>No medical records, Stay Healthy <span aria-label="smiley" role="img">🙂</span></div>
-          ) : (
-            <table className='table table-dark'>
-              <thead>
-                <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Type</th>
-                  <th scope='col'>Short Information</th>
-                </tr>
-              </thead>
-              <tbody>
-                {records.map((record, index) => {
-                  return (
-                    <tr key={index}>
-                      <th scope='row'> {++index} </th>
-                      <td> {record.type} </td>
-                      <td> {record.short_info} </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
+        {!records[0] ? (
+          <div className='list-group-item bg-dark border-dark'>
+            No medical records, Stay Healthy{' '}
+            <span aria-label='smiley' role='img'>
+              🙂
+            </span>
+          </div>
+        ) : (
+          <table className='table table-dark'>
+            <thead>
+              <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>Type</th>
+                <th scope='col'>Short Information</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.map((record, index) => {
+                return (
+                  <tr key={index}>
+                    <th scope='row'> {++index} </th>
+                    <td> {record.type} </td>
+                    <td> {record.short_info} </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }

@@ -168,7 +168,7 @@ export default class CreateCitizen extends Component {
               onChange={this.handleFileChange}
               name='image'
               id='image'
-              className='form-control text-light'
+              className='form-control-file text-light'
             />
           </div>
 

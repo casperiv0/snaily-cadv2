@@ -159,25 +159,6 @@ export default class EditCitizen extends Component {
         });
       })
       .catch((err) => console.log(err));
-
-    // axios({
-    //   url: backendURL + '/citizen/' + citizenId,
-    //   method: 'PUT',
-    //   headers: {
-    //     'x-auth-snailycad-token': Cookies.get('__session'),
-    //   },
-    //   data: {
-    //     fullName: this.state.fullName,
-    //     birth: this.state.birth,
-    //     gender: this.state.gender,
-    //     ethnicity: this.state.ethnicity,
-    //     hairColor: this.state.hairColor,
-    //     eyeColor: this.state.eyeColor,
-    //     address: this.state.address,
-    //     height: this.state.height,
-    //     weight: this.state.weight,
-    //   },
-    // })
   };
 
   handleFileChange = (e) => {
@@ -213,7 +194,7 @@ export default class EditCitizen extends Component {
               onChange={this.handleFileChange}
               name='image'
               id='image'
-              className='form-control'
+              className='form-control-file'
             />
             <small>If none selected this will NOT overwrite your old one</small>
           </div>

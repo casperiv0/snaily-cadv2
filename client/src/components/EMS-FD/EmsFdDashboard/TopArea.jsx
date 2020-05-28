@@ -3,6 +3,8 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import EmsFdStatuses from "./EmsFdStatuses"
+import SelectEmsFdModal from './Modals/SelectEmsFdModal';
 
 export default class TopArea extends Component {
   constructor() {
@@ -77,6 +79,8 @@ export default class TopArea extends Component {
               Notepad
             </button>
           </div>
+          <EmsFdStatuses />
+          <SelectEmsFdModal />
         </div>
       </div>
     );

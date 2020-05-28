@@ -3,6 +3,8 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import BleetBox from './BleetBox';
+import SuccessMessage from '../Partials/Messages/SuccessMessage';
+
 
 export default class Bleeter extends Component {
   constructor() {
@@ -33,19 +35,29 @@ export default class Bleeter extends Component {
 
   componentDidMount() {
     this.getBleets();
-    document.title = "Bleeter - View & Create Bleets";
+    document.title = 'Bleeter - View & Create Bleets';
   }
 
   render() {
     const { bleets } = this.state;
     return (
-      <div className="container text-light">
-        <h3>Bleeter</h3>
+      <div className='container text-light'>
+        <div className='pb-3 d-flex justify-content-between'>
+          <h3>Bleeter</h3>
+          <a href='/bleeter/create' className='btn btn-primary'>
+            Create Bleet
+          </a>
+        </div>
         {!bleets[0] ? (
           <h1>No bleets found</h1>
         ) : (
           bleets.map((bleet, index) => (
-            <BleetBox key={index} id={bleet.id} title={bleet.title} bleet={bleet.description} />
+            <BleetBox
+              key={index}
+              id={bleet.id}
+              title={bleet.title}
+              bleet={bleet.description}
+            />
           ))
         )}{' '}
       </div>

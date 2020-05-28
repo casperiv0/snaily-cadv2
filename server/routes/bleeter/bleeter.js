@@ -31,15 +31,24 @@ router.get("/", auth, async (req, res) => {
 */
 router.post("/create", auth, async (req, res) => {
     const { title, bleet } = req.body;
+    const file = req.files ? req.files.image : null;
+    const fileName = req.files ? file.name : ""
     const uploadedAt = new Date().toLocaleDateString();
     const uploadedBy = req.user.username;
 
     if (title, bleet) {
 
         processQuery("INSERT INTO `bleets` (`title`, `description`, `uploaded_by`, `uploaded_at`, `file_dir`) VALUES (?, ?, ?, ?, ?)",
-            [title, bleet, uploadedBy, uploadedAt, ""])
-            .then(() => {
-                return res.json({ msg: "Uploaded" });
+            [title, bleet, uploadedBy, uploadedAt, fileName])
+            .then((result) => {
+                if (file) {
+                    file.mv("./public/bleeter-pictures/" + fileName, (err) => {
+                        if (err) {
+                            return console.log(err);
+                        }
+                    })
+                }
+                return res.json({ msg: "Created", bleetId: result.insertId });
             })
             .catch(err => console.log(err));
     } else {
@@ -92,10 +101,30 @@ router.put("/edit/:bleetId", auth, async (req, res) => {
     if (bleet[0].uploaded_by !== req.user.username) return res.sendStatus(403);
 
     const { title, description } = req.body;
+    const file = req.files ? req.files.image : null;
+    const fileName = req.files ? file.name : ""
 
-    processQuery("UPDATE `bleets` SET `title` = ?, `description` = ? WHERE `bleets`.`id` = ?", [title, description, req.params.bleetId])
+    let query = "";
+    let data = [];
+
+    if (file) {
+        query = "UPDATE `bleets` SET `title` = ?, `description` = ?, `file_dir` = ? WHERE `bleets`.`id` = ?";
+        data = [title, description, fileName, req.params.bleetId]
+    } else {
+        query = "UPDATE `bleets` SET `title` = ?, `description` = ? WHERE `bleets`.`id` = ?";
+        data = [title, description, req.params.bleetId];
+    }
+
+    processQuery(query, data)
         .then(() => {
-            return res.json({ msg: "Bleet Updated" });
+            if (file) {
+                file.mv("./public/bleeter-pictures/" + fileName, (err) => {
+                    if (err) {
+                        return console.log(err);
+                    };
+                });
+            };
+            return res.json({ msg: "Updated" });
         })
         .catch(err => console.log(err));
 });
