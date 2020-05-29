@@ -12,6 +12,7 @@ import {
 
 import Alert from '@material-ui/lab/Alert';
 import { logIn } from './getSession';
+import {backendURL} from "../../config/config";
 
 
 export default class Register extends Component {
@@ -33,7 +34,7 @@ export default class Register extends Component {
     const { username, password, password2 } = this.state;
 
     axios({
-      url: 'http://localhost:3001/auth/register',
+      url: backendURL+"/auth/register",
       method: 'POST',
       data: {
         username: username,

@@ -12,6 +12,7 @@ import {
 import { Alert } from '@material-ui/lab';
 import './Auth.css';
 import { logIn } from './getSession';
+import {backendURL} from "../../config/config";
 
 export default class Login extends Component {
   constructor() {
@@ -35,7 +36,7 @@ export default class Login extends Component {
     });
     const { username, password } = this.state;
     axios({
-      url: 'http://localhost:3001/auth/login',
+      url: backendURL + "/auth/login",
       method: 'POST',
       data: {
         username: username,
