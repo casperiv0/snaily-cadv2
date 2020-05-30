@@ -30,7 +30,8 @@ _If you find any problems with these steps, please contact me asap._
 
 ## Screenshots
 
-View Screenshots [here](https://)
+View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/media/SCREENSHOTS.md)
+
 
 ## Main Features
 
