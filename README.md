@@ -18,7 +18,7 @@ SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 12. Create a new database, name it `snaily-cad`
 13. Import `snaily-cad.sql` into that database, [Download xampp Here](https://www.apachefriends.org)
 14. Run `npm start` in the root folder (`./snaily-cadv2`)
-15. CAD should be running on [http://localhost:5000](http://localhost:5000)
+15. CAD should be running on [http://localhost/](http://localhost/)
 
 ## Updating CAD
 
