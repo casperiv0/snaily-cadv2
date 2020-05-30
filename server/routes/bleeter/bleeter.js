@@ -17,7 +17,7 @@ const { processQuery } = require("../../utils/db");
     @Auth Protected
 */
 router.get("/", auth, async (req, res) => {
-    processQuery("SELECT * FROM `bleets`")
+    processQuery("SELECT * FROM `bleets` ORDER BY `id` DESC")
         .then(bleets => {
             return res.json({ bleets: bleets });
         })

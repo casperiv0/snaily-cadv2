@@ -87,7 +87,7 @@ export default class BanHammerArea extends Component {
             </div>
             <button
               onClick={this.unbanUser}
-              className='btn btn-success mb-2 container'>
+              className='btn btn-success mb-2 col'>
               Revoke Ban
             </button>
           </div>
@@ -108,7 +108,7 @@ export default class BanHammerArea extends Component {
             </div>
             <button
               onClick={this.banUser}
-              className='btn container btn-danger mb-2'>
+              className='btn col btn-danger mb-2'>
               ban user
             </button>
           </div>

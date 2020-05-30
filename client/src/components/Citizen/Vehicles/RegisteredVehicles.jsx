@@ -45,12 +45,34 @@ export default class RegisteredVehicles extends Component {
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
-    }).then((res) => {
-      if (res.data.msg === 'Deleted') {
-        sessionStorage.setItem('message', 'Successfully Deleted Vehicle!');
-        return (window.location = '/citizen');
-      }
-    });
+    })
+      .then((res) => {
+        if (res.data.msg === 'Deleted') {
+          sessionStorage.setItem('message', 'Successfully Deleted Vehicle!');
+          return (window.location = '/citizen');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  reportAsStolen = (vehicleId) => {
+    Axios({
+      url: backendURL + '/c/vehicles/report-stolen/' + vehicleId,
+      method: 'POST',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.msg === 'Reported') {
+          sessionStorage.setItem(
+            'message',
+            'Successfully Report Vehicle as stolen'
+          );
+          return (window.location = '/citizen');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
@@ -83,7 +105,7 @@ export default class RegisteredVehicles extends Component {
         ) : (
           <>
             <button
-              className='btn btn-primary mt-2'
+              className='btn btn-secondary mt-2'
               type='button'
               data-toggle='collapse'
               data-target='#registeredVehicles'
@@ -126,22 +148,24 @@ export default class RegisteredVehicles extends Component {
 
                     {/* actions */}
                     <div className=''>
-                      {/* <a
-                        href={'/vehicles/edit/' + vehicle.id}
-                        className='btn btn-primary mr-2'>
-                        Report Stolen
-                      </a> */}
+                      {vehicle.in_status === 'Reported as stolen' ? null : (
+                        <button
+                          onClick={() => this.reportAsStolen(vehicle.id)}
+                          className='btn btn-dark mr-2'>
+                          Report As Stolen
+                        </button>
+                      )}
                       <a
                         href={'/vehicles/edit/' + vehicle.id}
                         className='btn btn-success'>
                         Edit
                       </a>
-                      <a
+                      <button
                         href='#deleteVehicle'
                         onClick={() => this.deleteVehicle(vehicle.id)}
                         className='btn btn-danger ml-2'>
                         Delete
-                      </a>
+                      </button>
                     </div>
                   </li>
                 </div>

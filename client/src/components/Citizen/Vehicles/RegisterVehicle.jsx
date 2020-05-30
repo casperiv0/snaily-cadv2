@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Alert } from '@material-ui/lab';
+import LoadingArea from "../../Partials/LoadingArea"
 
 export default class RegisterVehicle extends Component {
   constructor() {
@@ -19,6 +20,9 @@ export default class RegisterVehicle extends Component {
       insuranceStatus: '',
       company: '',
       error: '',
+      nonDefaultVehicles: [],
+      defaultVehicles: [],
+      loading: true
     };
   }
 
@@ -112,6 +116,24 @@ export default class RegisterVehicle extends Component {
         }
       })
       .catch((err) => console.log(err));
+
+    // Get all vehicles
+    Axios({
+      url: backendURL + '/admin/vehicles',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.defaultVehicles) {
+          this.setState({
+            defaultVehicles: res.data.defaultVehicles,
+            nonDefaultVehicles: res.data.nonDefaultVehicles,
+            loading: false
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
@@ -131,7 +153,15 @@ export default class RegisterVehicle extends Component {
       statuses,
       error,
       companies,
+      nonDefaultVehicles,
+      defaultVehicles,
+      loading
     } = this.state;
+
+
+    if (loading) {
+      return <LoadingArea />
+    }
 
     return (
       <form className='container text-light' onSubmit={this.register}>
@@ -177,7 +207,20 @@ export default class RegisterVehicle extends Component {
               name='vehicle'
               id='vehicle'
               className='form-control bg-dark border-dark text-light'
+              list="vehiclesList"
             />
+            <datalist id="vehiclesList">
+              {
+                !nonDefaultVehicles[0] ? "" : nonDefaultVehicles.map((vehicle, index) => {
+                  return <option key={index} value={vehicle.cname}>{vehicle.cname}</option>
+                })
+              }
+              {
+                !defaultVehicles[0] ? "" : defaultVehicles.map((vehicle, index) => {
+                  return <option key={index} value={vehicle.cname}>{vehicle.cname}</option>
+                })
+              }
+            </datalist>
           </div>
 
           {/* Owner */}
@@ -238,12 +281,16 @@ export default class RegisterVehicle extends Component {
               (If Selected Company) Enter Company Name
             </label>
             <input
-              disabled={insuranceStatus.toLowerCase() !== 'Company'.toLowerCase() ? true : false}
+              disabled={
+                insuranceStatus.toLowerCase() !== 'Company'.toLowerCase()
+                  ? true
+                  : false
+              }
               value={company}
               onChange={this.handleChange}
               name='company'
               id='company'
-              list="companies"
+              list='companies'
               className='form-control bg-dark border-dark text-light'
             />
             <datalist id='companies'>

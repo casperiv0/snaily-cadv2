@@ -99,7 +99,7 @@ router.post("/register", async (req, res) => {
                     rank: "No Rank",
                 }, jwt_secret, { expiresIn: 3600 });
 
-                return res.json({ msg: "User Created", token: token });
+                return res.json({ msg: "Owner Created", token: token });
             }
 
 

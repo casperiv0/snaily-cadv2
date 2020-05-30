@@ -20,7 +20,14 @@ import CitizensPage from "./components/Citizen/CitizensPage";
 import CreateCitizen from "./components/Citizen/CreateCitizen";
 import CitizensDetailPage from "./components/Citizen/CitizenDetail/CitizensDetailPage";
 import EditCitizen from './components/Citizen/EditCitizen';
+// Company
 import ManageEmployment from "./components/Citizen/Company/ManageEmployment"
+import CompanyPage from './components/Citizen/Company/CompanyPage/CompanyPage';
+import CreateCompanyPost from './components/Citizen/Company/CompanyPage/Posts/CreateCompanyPost';
+import ManageCompany from './components/Citizen/Company/CompanyPage/ManageCompany/ManageCompany';
+import EditEmployee from './components/Citizen/Company/CompanyPage/ManageCompany/Employees/EditEmployee';
+
+
 
 // Medical Records
 import AddMedicalRecords from './components/Citizen/Medical/AddMedicalRecords';
@@ -161,8 +168,14 @@ export default class Routes extends Component {
                     <PrivateRoute exact path="/weapons/register" component={RegisterWeapon} />
                 </Switch>
 
+                {/* Company */}
                 <Switch basename="/">
-                    <PrivateRoute exact path="/manage-company-employment" component={ManageEmployment}  />
+                    <PrivateRoute exact path="/manage-company-employment" component={ManageEmployment} />
+
+                    <PrivateRoute exact path="/company/:citizenId/:company" component={CompanyPage} />
+                    <PrivateRoute exact path="/company/:citizenId/:company/create-post" component={CreateCompanyPost} />
+                    <PrivateRoute exact path="/company/:citizenId/:company/manage" component={ManageCompany} />
+                    <PrivateRoute exact path="/company/:citizenId/:company/manage/:employeeId/" component={EditEmployee} />
                 </Switch>
 
 
@@ -247,7 +260,7 @@ export default class Routes extends Component {
                     <DispatchRoute exact path="/dispatch" component={DispatchDashboard} />
                 </Switch>
 
-                    {/* LEO */}
+                {/* LEO */}
                 <Switch basename="/">
                     <LeoRoute exact path="/leo/dash" component={LeoDashboard} />
                     <LeoRoute exact path="/leo/penal-codes" component={PenalCodes} />

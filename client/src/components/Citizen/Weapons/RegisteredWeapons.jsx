@@ -76,7 +76,7 @@ export default class RegisteredWeapons extends Component {
         ) : (
           <>
             <button
-              className='btn btn-primary mt-2'
+              className='btn btn-secondary mt-2'
               type='button'
               data-toggle='collapse'
               data-target='#registeredWeapons'

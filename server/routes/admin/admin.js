@@ -50,7 +50,7 @@ router.get("/", auth, async (req, res) => {
 router.get("/action-logs", auth, (req, res) => {
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
 
-        processQuery("SELECT * FROM `action_logs`")
+        processQuery("SELECT * FROM `action_logs` ORDER BY `id` DESC")
             .then(logs => {
                 return res.json({ action_logs: logs });
             })

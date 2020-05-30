@@ -57,7 +57,7 @@ export default class TopButtons extends Component {
             Register a New Vehicle
           </Link>
           <Link to='/weapons/register' className='col ml-1 btn btn-primary'>
-            Register a New Vehicle
+            Register a New Weapon
           </Link>
         </div>
 

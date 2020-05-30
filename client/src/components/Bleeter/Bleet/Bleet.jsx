@@ -57,7 +57,10 @@ export default class Bleet extends Component {
           <h3 className='pb-3 border-bottom'>
             {bleet.title}
             {getSession().username === bleet.uploaded_by ? (
-              <a href={"/bleet/"+this.props.match.params.bleetId+"/edit"} className='float-right btn btn-success' type='button'>
+              <a
+                href={'/bleet/' + this.props.match.params.bleetId + '/edit'}
+                className='float-right btn btn-success'
+                type='button'>
                 Edit Bleet
               </a>
             ) : null}
@@ -70,11 +73,13 @@ export default class Bleet extends Component {
           <ReactMarkdown source={bleet.description} escapeHtml={false} />
         </div>
         <div className='mt-5'>
-          <img
-            style={{ maxWidth: '85%' }}
-            src={`${backendURL}/bleeter-pictures/${bleet.file_dir}`}
-            alt=''
-          />
+          {bleet.file_dir !== '' ? (
+            <img
+              style={{ maxWidth: '85%' }}
+              src={`${backendURL}/bleeter-pictures/${bleet.file_dir}`}
+              alt=''
+            />
+          ) : null}
         </div>
       </div>
     );

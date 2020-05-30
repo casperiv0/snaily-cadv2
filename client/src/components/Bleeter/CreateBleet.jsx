@@ -55,6 +55,10 @@ export default class CreateBleet extends Component {
       .catch((err) => console.log(err));
   };
 
+  componentDidMount() {
+    document.title = 'Create Bleet - Bleeter';
+  }
+
   render() {
     const { title, bleet } = this.state;
     return (
@@ -92,9 +96,13 @@ export default class CreateBleet extends Component {
               onChange={this.onChange}
               value={bleet}></textarea>
           </div>
-          <div className="form-group float-right">
-              <a className="btn btn-danger" href="/bleeter">Cancel</a>
-              <button type="submit" className="btn btn-primary ml-2">Create Bleet</button>
+          <div className='form-group float-right'>
+            <a className='btn btn-danger' href='/bleeter'>
+              Cancel
+            </a>
+            <button type='submit' className='btn btn-primary ml-2'>
+              Create Bleet
+            </button>
           </div>
         </form>
       </div>

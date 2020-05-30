@@ -264,7 +264,7 @@ export default class AdminEditCitizen extends Component {
           <div className='form-group float-right'>
             <a
               className='btn btn-danger mr-2'
-              href={'/citizen/' + this.props.match.params.citizenId}>
+              href='/admin/manage/citizens'>
               Cancel
             </a>
             <button className='btn btn-primary' type='submit'>

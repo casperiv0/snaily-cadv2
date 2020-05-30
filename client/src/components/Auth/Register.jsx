@@ -50,6 +50,13 @@ export default class Register extends Component {
         return (window.location = '/citizen');
       }
 
+      if (msg === "Owner Created") {
+        sessionStorage.setItem('admin-message', 'Successfully Logged In.');
+        sessionStorage.setItem('token', res.data.token);
+        logIn();
+        return (window.location = '/admin/cad-settings');
+      }
+
       if (msg === "Pending") {
         sessionStorage.setItem('home-message', 'Successfully Created Account, This account is currently pending access');
         return (window.location = '/citizen');

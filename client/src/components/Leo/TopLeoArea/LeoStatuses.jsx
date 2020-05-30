@@ -109,13 +109,13 @@ export default class LeoStatuses extends Component {
           disabled={!currentStatus}
           onClick={this.updateStatus}
           name='status2'
-          value='10-10'
+          value='10-5'
           className={
-            '10-10' === currentStatus
+            '10-5' === currentStatus
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }>
-          10-10
+          10-5
         </button>
         <button
           disabled={!currentStatus}

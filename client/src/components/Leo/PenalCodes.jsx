@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import ReactMarkdown from 'react-markdown';
 
 export default class PenalCodes extends Component {
   constructor() {
@@ -26,18 +27,18 @@ export default class PenalCodes extends Component {
       .then((res) => {
         if (res.data.penalCodes) {
           this.setState({
-              penalCodes: res.data.penalCodes,
-              filteredPenalCodes: res.data.penalCodes,
-              loading: false,
+            penalCodes: res.data.penalCodes,
+            filteredPenalCodes: res.data.penalCodes,
+            loading: false,
           });
         }
       })
       .catch((err) => console.log(err));
   };
 
-
   componentDidMount() {
-      this.getPenalCodes();
+    document.title = 'Penal Codes - LEO';
+    this.getPenalCodes();
   }
 
   handleSearch = (e) => {
@@ -73,20 +74,25 @@ export default class PenalCodes extends Component {
         <ul className='list-group'>
           <input
             type='search'
-            name="penalCode"
-            placeholder="Search By Title"
+            name='penalCode'
+            placeholder='Search By Title'
             onChange={this.handleSearch}
             className='form-control bg-dark border-secondary text-light mb-3'
           />
-        {!filteredPenalCodes[0] ? <ErrorMessage message="No Penal Codes found with that title" /> : 
-        filteredPenalCodes.map((code, index) => {
-          return (
-            <li key={index} className='list-group-item bg-dark border-secondary'>
-              <h4 className='font-weight-bold'> {code.title} </h4>
-              <p className="mb-1">{code.des}</p>
-            </li>
-          );
-        })}
+          {!filteredPenalCodes[0] ? (
+            <ErrorMessage message='No Penal Codes found with that title' />
+          ) : (
+            filteredPenalCodes.map((code, index) => {
+              return (
+                <li
+                  key={index}
+                  className='list-group-item bg-dark border-secondary'>
+                  <h4 className='font-weight-bold'> {code.title} </h4>
+                  <ReactMarkdown escapeHtml={false} source={code.des} />
+                </li>
+              );
+            })
+          )}
         </ul>
       </div>
     );

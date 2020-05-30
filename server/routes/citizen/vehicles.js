@@ -4,6 +4,7 @@
     GET /:carId-:plate - edit vehicle
     PUT /:carId-:plate - edit vehicle
     DELETE /:carId-:plate - edit vehicle
+    POST /report-stolen/:vehicleId - report vehicle as stolen
 */
 
 
@@ -18,7 +19,7 @@ const { processQuery } = require("../../utils/db");
 */
 router.post("/all/:citizenId", auth, async (req, res) => {
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]).catch(err => console.log(err));
-    
+
     if (!citizen[0]) return res.json({ msg: "Citizen Not found" })
 
     processQuery("SELECT * FROM `registered_cars` WHERE `owner` = ? AND `linked_to` = ?", [citizen[0].full_name, req.user.username])
@@ -66,6 +67,8 @@ router.post("/register", auth, async (req, res) => {
         if (plate2[0]) {
             return res.json({ msg: "Plate is already in use!" });
         };
+
+        if (!citizen[0]) return res.json({ msg: "Citizen was not found!" });
 
 
         if (company !== "") {
@@ -148,6 +151,24 @@ router.delete("/:carId", auth, async (req, res) => {
     processQuery("DELETE FROM `registered_cars` WHERE `registered_cars`.`id` = ?", [carId])
         .then(() => {
             return res.json({ msg: "Deleted" });
+        })
+        .catch(err => console.log(err));
+});
+
+
+/*
+    @Route /report-stolen/:vehicleId
+    @Auth Protected
+*/
+router.post("/report-stolen/:vehicleId", auth, async (req, res) => {
+    const { vehicleId } = req.params;
+    const vehicle = await processQuery("SELECT * FROM `registered_cars` WHERE `id` = ?", [vehicleId]);
+
+    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
+
+    processQuery("UPDATE `registered_cars` SET `in_status` = ? WHERE `registered_cars`.`id` = ?", ["Reported as stolen", vehicleId])
+        .then(() => {
+            return res.json({ msg: "Reported" });
         })
         .catch(err => console.log(err));
 });

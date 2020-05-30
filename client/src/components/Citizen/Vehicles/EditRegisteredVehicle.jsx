@@ -84,6 +84,7 @@ export default class EditRegisteredVehicle extends Component {
   };
 
   componentDidMount() {
+    document.title = "Edit Registered Vehicle"
     this.getCurrentData();
     this.getExtraData();
   }

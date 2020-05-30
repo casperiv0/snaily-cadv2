@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import BleetBox from './BleetBox';
+import LoadingArea from '../Partials/LoadingArea';
 
 export default class Bleeter extends Component {
   constructor() {
@@ -10,7 +11,7 @@ export default class Bleeter extends Component {
 
     this.state = {
       bleets: [],
-      loading: false,
+      loading: true,
     };
   }
 
@@ -25,7 +26,7 @@ export default class Bleeter extends Component {
       .then((res) => {
         this.setState({
           bleets: res.data.bleets,
-          loading: true,
+          loading: false,
         });
       })
       .catch((err) => console.log(err));
@@ -37,7 +38,12 @@ export default class Bleeter extends Component {
   }
 
   render() {
-    const { bleets } = this.state;
+    const { bleets, loading } = this.state;
+
+    if (loading) {
+      return <LoadingArea />
+    }
+
     return (
       <div className='container text-light'>
         <div className='pb-3 d-flex justify-content-between'>
