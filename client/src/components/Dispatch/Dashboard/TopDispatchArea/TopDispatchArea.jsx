@@ -53,10 +53,9 @@ export default class TopDispatchArea extends Component {
 
     return (
       <div className='text-light'>
-        <h3>Dispatch - {aop} </h3>
         <div className='mt-4 card bg-dark border-dark'>
           <div className='card-header d-flex justify-content-between'>
-            <h4>Utility Panel</h4>
+            <h3>Utility Panel - AOP: {aop}</h3>
             <span id='time'></span>
           </div>
           <ModalButtons />

@@ -11,6 +11,8 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const createAuditLog = require("../../utils/createAuditLog");
+
 
 /*
     @Route /admin/members
@@ -63,6 +65,7 @@ router.put("/edit/:memberId", auth, async (req, res) => {
 
         processQuery(query, data)
             .then(() => {
+                createAuditLog(`Member with Id ${req.params.memberId} was edited by ${req.user.username}`)
                 return res.json({ msg: "Updated" })
             })
             .catch(err => console.log(err));
@@ -100,6 +103,7 @@ router.post("/ban/:memberId", auth, async (req, res) => {
 
         processQuery("UPDATE `users` SET `banned` = ?, `ban_reason` = ? WHERE `users`.`id` = ?", ['true', banReason, req.params.memberId])
             .then(() => {
+                createAuditLog(`Member with Id ${req.params.memberId} was banned by ${req.user.username}`)
                 return res.json({ msg: "User Banned", reason: banReason });
             })
             .catch(err => console.log(err));
@@ -118,6 +122,7 @@ router.post("/unban/:memberId", auth, async (req, res) => {
         const memberId = req.params.memberId;
         processQuery("UPDATE `users` SET `banned` = 'false', `ban_reason` = '' WHERE `users`.`id` = ?", [memberId])
             .then(() => {
+                createAuditLog(`Member with Id ${req.params.memberId} was unbanned by ${req.user.username}`)
                 return res.json({ msg: "User Unbanned" });
             })
             .catch(err => console.log(err));
@@ -135,6 +140,7 @@ router.post("/unban/:memberId", auth, async (req, res) => {
 router.post("/accept/:memberId", auth, async (req, res) => {
     processQuery("UPDATE `users` SET `whitelist_status` = ? WHERE `users`.`id` = ?", ["accepted", req.params.memberId])
         .then(() => {
+            createAuditLog(`Member with Id ${req.params.memberId} was accepted by ${req.user.username}`)
             return res.json({ msg: "User Accepted" });
         })
         .catch(err => console.log(err));
@@ -147,6 +153,7 @@ router.post("/accept/:memberId", auth, async (req, res) => {
 router.post("/decline/:memberId", auth, async (req, res) => {
     processQuery("UPDATE `users` SET `whitelist_status` = ? WHERE `users`.`id` = ?", ["declined", req.params.memberId])
         .then(() => {
+            createAuditLog(`Member with Id ${req.params.memberId} was declined by ${req.user.username}`)
             return res.json({ msg: "User Declined" });
         })
         .catch(err => console.log(err));

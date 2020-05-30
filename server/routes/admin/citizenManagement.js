@@ -8,6 +8,8 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const createAuditLog = require("../../utils/createAuditLog");
+
 
 
 /*
@@ -63,6 +65,7 @@ router.put("/edit/:citizenId", auth, async (req, res) => {
         processQuery('UPDATE `citizens` SET `birth` = ?, `gender` = ?, `ethnicity` = ?, `hair_color` = ?, `eye_color` = ?, `address` = ?, `height` = ?, `weight` = ? WHERE `citizens`.`id` = ?',
             [birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, citizenId])
             .then(() => {
+                createAuditLog(`Citizen with Id ${citizenId} was edited by ${req.user.username}`)
                 return res.json({ msg: "Updated Citizen" });
             })
             .catch(err => console.log(err));
@@ -81,6 +84,7 @@ router.delete("/:citizenId", auth, async (req, res) => {
         const citizenId = req.params.citizenId;
         processQuery("DELETE FROM `citizens` WHERE `citizens`.`id` = ?", [citizenId])
             .then(() => {
+                createAuditLog(`A citizen was deleted by ${req.user.username}`)
                 return res.json({ msg: "Citizen Deleted" });
             })
             .catch(err => console.log(err));

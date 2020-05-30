@@ -1,35 +1,35 @@
-import { getSession } from "./getSession";
+import { getSession } from "../getSession";
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import axios from 'axios';
-import { backendURL } from '../../config/config';
+import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Component } from "react";
-import Spinner from "../Partials/LoadingArea"
+import Spinner from "../../Partials/LoadingArea"
 
-
-class TowAuthRoute extends Component {
+class AdminRoute extends Component {
 
     constructor() {
         super()
 
         this.state = {
-            towAccess: false,
+            dispatchAccess: false,
             loading: true
         };
     };
 
-    getTowAccess = () => {
+    getAdminAccess = () => {
         axios.get(backendURL + "/auth/user", {
             headers: {
                 "x-auth-snailycad-token": Cookies.get("__session"),
             },
         })
             .then(res => {
-                if (res.data.user[0]) {
-                    if (res.data.user[0].tow === "yes") {
+                if (res.data.user) {
+                    const { dispatch } = res.data.user[0]
+                    if (dispatch === "yes") {
                         this.setState({
-                            towAccess: true,
+                            dispatchAccess: true,
                             loading: false
                         });
                     } else {
@@ -38,19 +38,19 @@ class TowAuthRoute extends Component {
                         })
                     }
                 } else {
-                    console.log('User not found');
+                    window.location = "/auth/login"
                 }
             })
             .catch(err => console.log(err));
     };
 
     componentDidMount() {
-        this.getTowAccess();
+        this.getAdminAccess();
     }
 
     render() {
         const { component: Component, ...rest } = this.props;
-        const { towAccess, loading } = this.state;
+        const { dispatchAccess, loading } = this.state;
 
         // I'll refactor this soon.
         return (
@@ -61,7 +61,7 @@ class TowAuthRoute extends Component {
                         if (loading) {
                             return (<Spinner />)
                         } else {
-                            if (!towAccess === false) {
+                            if (!dispatchAccess === false) {
                                 return (<Component {...props} />)
                             } else {
                                 window.location = "/403"
@@ -83,4 +83,4 @@ class TowAuthRoute extends Component {
     }
 };
 
-export default TowAuthRoute;
+export default AdminRoute;

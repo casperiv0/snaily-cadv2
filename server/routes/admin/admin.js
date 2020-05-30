@@ -8,7 +8,7 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
-
+const createAuditLog = require("../../utils/createAuditLog");
 
 /*
     @Route /admin/
@@ -73,6 +73,7 @@ router.delete("/delete-all-citizens", auth, (req, res) => {
 
         processQuery("DELETE FROM `citizens`")
             .then(() => {
+                createAuditLog(`All citizens were deleted by ${req.user.username}`)
                 return res.json({ msg: "Deleted All citizens" });
             })
             .catch(err => console.log(err))
@@ -92,6 +93,7 @@ router.delete("/manage-companies/:companyId", auth, async (req, res) => {
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
         processQuery("DELETE FROM `businesses` WHERE `id` = ?", companyId)
             .then(() => {
+                createAuditLog(`A company was deleted ${req.user.username}`)
                 return res.json({ msg: "Company Deleted" });
             })
             .catch(err => console.log(err));

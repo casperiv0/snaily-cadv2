@@ -6,6 +6,8 @@ const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 const adminAuth = require("../../auth/adminAuth");
+const createAuditLog = require("../../utils/createAuditLog");
+
 
 
 /*
@@ -17,6 +19,7 @@ router.delete("/:companyId", auth, adminAuth, (req, res) => {
 
     processQuery("DELETE FROM `businesses` WHERE `id` = ?", [companyId])
         .then(() => {
+            createAuditLog(`A company was deleted by ${req.user.username}`)
             return res.json({ msg: "Company Deleted" });
         })
         .catch(err => console.log(err));

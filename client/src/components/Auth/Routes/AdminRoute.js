@@ -1,12 +1,12 @@
-import { getSession } from "./getSession";
+import { getSession } from "../getSession";
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import axios from 'axios';
-import { backendURL } from '../../config/config';
+import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Component } from "react";
-import Spinner from "../Partials/LoadingArea"
-import AdminSideHeader from '../Partials/AdminSideHeader';
+import Spinner from "../../Partials/LoadingArea"
+import AdminSideHeader from '../../Partials/AdminSideHeader';
 
 
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import { Alert } from '@material-ui/lab';
 import LoadingArea from "../../Partials/LoadingArea"
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 

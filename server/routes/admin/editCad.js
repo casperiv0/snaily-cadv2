@@ -6,6 +6,8 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const createAuditLog = require("../../utils/createAuditLog");
+
 
 /*
     @Route /admin/edit-cad/
@@ -34,6 +36,7 @@ router.put("/", auth, (req, res) => {
 
         processQuery("UPDATE `cad_info` SET `cad_name` = ?, `AOP`= ?,`tow_whitelisted` = ?, `whitelisted` = ? ", [cadName, newAop, towWhitelist, whitelist])
             .then(() => {
+                createAuditLog(`CAD settings were updated by ${req.user.username}`)
                 return res.json({ msg: "CAD Updated" });
             })
             .catch(err => console.log(err));

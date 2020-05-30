@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { backendURL } from '../../config/config';
 import { Link } from 'react-router-dom';
 import EditAccountModal from './EditAccountModal';
+import LoadingArea from '../Partials/LoadingArea';
 
 export default class Account extends Component {
   constructor() {
@@ -13,6 +14,7 @@ export default class Account extends Component {
       randomFact: '',
       account: {},
       message: sessionStorage.getItem('account-message'),
+      loading: true,
     };
   }
 
@@ -44,6 +46,7 @@ export default class Account extends Component {
       .then((res) => {
         this.setState({
           account: res.data.user[0],
+          loading: false,
         });
       })
       .catch((err) => console.log(err));
@@ -57,8 +60,13 @@ export default class Account extends Component {
   }
 
   render() {
-    const { message } = this.state;
+    const { message, loading } = this.state;
     const { username, leo, dispatch, rank, ems_fd, tow } = this.state.account;
+
+    if (loading) {
+      return <LoadingArea />;
+    }
+
     return (
       <div className='container-fluid mt-2 text-light'>
         {message ? (

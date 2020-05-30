@@ -10,6 +10,8 @@ const router = require("express").Router();
 const auth = require("../../../auth/tokenAuth");
 const { processQuery } = require("../../../utils/db");
 const adminAuth = require("../../../auth/adminAuth");
+const createAuditLog = require("../../../utils/createAuditLog");
+
 
 /*
     @Route /weapons/
@@ -31,6 +33,7 @@ router.post("/add", auth, adminAuth, (req, res) => {
     const { weapon } = req.body;
     processQuery("INSERT INTO `weapons` (`name`) VALUES (?)", [weapon])
         .then(() => {
+            createAuditLog(`Weapon ${weapon} was added by ${req.user.username}`)
             return res.json({ msg: "Added" });
         })
         .catch(err => console.log(err));
@@ -57,6 +60,7 @@ router.put("/edit/:weaponId", auth, adminAuth, (req, res) => {
 
     processQuery("UPDATE `weapons` SET `name` = ? WHERE `weapons`.`id` = ?", [weapon, req.params.weaponId])
         .then(() => {
+            createAuditLog(`Weapon ${weapon} was edited by ${req.user.username}`)
             return res.json({ msg: "Updated" });
         })
         .catch(err => console.log(err));
@@ -69,6 +73,7 @@ router.put("/edit/:weaponId", auth, adminAuth, (req, res) => {
 router.delete("/:weaponId", auth, adminAuth, (req, res) => {
     processQuery("DELETE FROM `weapons` WHERE `weapons`.`id` = ?", [req.params.weaponId])
         .then(() => {
+            createAuditLog(`A weapon deleted by ${req.user.username}`)
             return res.json({ msg: "Deleted" });
         })
         .catch(err => console.log(err));

@@ -1,4 +1,4 @@
-import { getSession } from "./getSession";
+import { getSession } from "../getSession";
 import { Route, Redirect } from "react-router-dom";
 import React from "react";
 

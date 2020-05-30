@@ -50,7 +50,9 @@ export default class ActiveBolos extends Component {
   render() {
     const { bolos } = this.state;
     return (
-      <ul className='list-group mt-3 scroll-bar overflow-auto' style={{maxHeight:"25rem"}}>
+      <ul
+        className='list-group mt-3 scroll-bar overflow-auto'
+        style={{ maxHeight: '25rem' }}>
         <div className='list-group-item bg-secondary border-secondary'>
           Active Bolos
         </div>
@@ -63,7 +65,7 @@ export default class ActiveBolos extends Component {
             return (
               <li
                 key={index}
-                className='list-group-item bg-dark border-dark text-light d-flex justify-content-between'>
+                className='list-group-item bg-dark border-secondary text-light d-flex justify-content-between'>
                 <div className='d-flex'>
                   {++index} | &nbsp;
                   {bolo.type === 'person' ? (
@@ -72,7 +74,7 @@ export default class ActiveBolos extends Component {
                       <span className='font-weight-bold'>Name: </span>
                       {bolo.name}
                     </p>
-                  ) : (
+                  ) : bolo.type === 'vehicle' ? (
                     <p>
                       {bolo.description} <br />
                       <span className='font-weight-bold'>Plate: </span>
@@ -80,6 +82,10 @@ export default class ActiveBolos extends Component {
                       <br />
                       <span className='font-weight-bold'>Color: </span>
                       {bolo.color}
+                    </p>
+                  ) : (
+                    <p>
+                      {bolo.description} <br />
                     </p>
                   )}
                 </div>

@@ -10,6 +10,8 @@ const router = require("express").Router();
 const auth = require("../../../auth/tokenAuth");
 const { processQuery } = require("../../../utils/db");
 const adminAuth = require("../../../auth/adminAuth");
+const createAuditLog = require("../../../utils/createAuditLog");
+
 
 /*
     @Route /genders/
@@ -18,7 +20,7 @@ const adminAuth = require("../../../auth/adminAuth");
 router.get("/", auth, (req, res) => {
     processQuery("SELECT * FROM `genders`")
         .then((genders) => {
-            return res.json({ genders: genders})
+            return res.json({ genders: genders })
         })
         .catch(err => console.log(err));
 });
@@ -31,6 +33,7 @@ router.post("/add", auth, adminAuth, (req, res) => {
     const { gender } = req.body;
     processQuery("INSERT INTO `genders` (`name`) VALUES (?)", [gender])
         .then(() => {
+            createAuditLog(`Gender ${gender} was added by ${req.user.username}`)
             return res.json({ msg: "Added" });
         })
         .catch(err => console.log(err));
@@ -57,6 +60,7 @@ router.put("/edit/:genderId", auth, adminAuth, (req, res) => {
 
     processQuery("UPDATE `genders` SET `name` = ? WHERE `genders`.`id` = ?", [gender, req.params.genderId])
         .then(() => {
+            createAuditLog(`Gender ${gender} was edited by ${req.user.username}`)
             return res.json({ msg: "Updated" });
         })
         .catch(err => console.log(err));
@@ -69,6 +73,7 @@ router.put("/edit/:genderId", auth, adminAuth, (req, res) => {
 router.delete("/:genderId", auth, adminAuth, (req, res) => {
     processQuery("DELETE FROM `genders` WHERE `genders`.`id` = ?", [req.params.genderId])
         .then(() => {
+            createAuditLog(`A gender was deleted by ${req.user.username}`)
             return res.json({ msg: "Deleted" });
         })
         .catch(err => console.log(err));

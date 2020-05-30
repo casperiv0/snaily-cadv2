@@ -8,7 +8,7 @@ import HomePage from './components/Partials/HomePage';
 // Authentication
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import PrivateRoute from "./components/Auth/PrivateRoute"
+import PrivateRoute from "./components/Auth/Routes/PrivateRoute"
 
 // Account
 import Account from './components/Account/Account';
@@ -37,7 +37,7 @@ import AddMedicalRecords from './components/Citizen/Medical/AddMedicalRecords';
 import EditLicenses from "./components/Citizen/Licenses/EditLicenses";
 
 // Tow
-import TowAuthRoute from './components/Auth/TowAuthRoute';
+import TowAuthRoute from './components/Auth/Routes/TowAuthRoute';
 import Tow from "./components/Tow/Tow";
 import NoAccess from './components/Partials/Messages/NoAccess';
 
@@ -57,13 +57,13 @@ import RegisterWeapon from "./components/Citizen/Weapons/RegisterWeapon"
 import EditRegisteredVehicle from './components/Citizen/Vehicles/EditRegisteredVehicle';
 
 // EMS_FD
-import PrivateEMSRoute from "./components/Auth/PrivateEMSRoute"
+import PrivateEMSRoute from "./components/Auth/Routes/PrivateEMSRoute"
 import EmsFdDashboard from './components/EMS-FD/EmsFdDashboard/EmsFdDashboard';
 import MyEmsFdDeputies from './components/EMS-FD/MyEmsFdDeputies/MyEmsFdDeputies';
 import CreateEmsFdDeputy from './components/EMS-FD/MyEmsFdDeputies/CreateEmsFdDeputy';
 
 // admin
-import AdminRoute from "./components/Auth/AdminRoute"
+import AdminRoute from "./components/Auth/Routes/AdminRoute"
 import Admin from './components/Admin/Admin';
 
 // values
@@ -107,7 +107,7 @@ import MemberManagement from './components/Admin/Management/Members/MemberManage
 import CompanyManagement from './components/Admin/Management/CompanyManagement';
 
 // Dispatch
-import DispatchRoute from "./components/Auth/DispatchRoute"
+import DispatchRoute from "./components/Auth/Routes/DispatchRoute"
 import DispatchDashboard from './components/Dispatch/Dashboard/DispatchDashboard';
 
 // CAD settings

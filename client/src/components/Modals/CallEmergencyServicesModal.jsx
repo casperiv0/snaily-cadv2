@@ -69,8 +69,8 @@ export default class CallTowModal extends Component {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <div className='modal-body'>
-              <form onSubmit={this.callEmergencyServices}>
+            <form onSubmit={this.callEmergencyServices}>
+              <div className='modal-body'>
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Call Description</label>
                   <textarea
@@ -110,19 +110,19 @@ export default class CallTowModal extends Component {
                     onChange={this.onChange}
                   />
                 </div>
-                <div className='modal-footer'>
-                  <button
-                    type='button'
-                    className='btn btn-secondary'
-                    data-dismiss='modal'>
-                    Close
-                  </button>
-                  <button type='submit' className='btn btn-primary'>
-                    Call
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div className='modal-footer'>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  data-dismiss='modal'>
+                  Close
+                </button>
+                <button type='submit' className='btn btn-primary'>
+                  Call
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

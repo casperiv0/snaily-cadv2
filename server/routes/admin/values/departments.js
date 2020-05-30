@@ -9,6 +9,7 @@
 const router = require("express").Router();
 const auth = require("../../../auth/tokenAuth");
 const { processQuery } = require("../../../utils/db");
+const createAuditLog = require("../../../utils/createAuditLog");
 const adminAuth = require("../../../auth/adminAuth");
 
 
@@ -47,6 +48,7 @@ router.post("/add", auth, adminAuth, (req, res) => {
     if (department) {
         processQuery("INSERT INTO `departments` (`name`) VALUES (?)", [department])
             .then(() => {
+                createAuditLog(`Department ${department} was added by ${req.user.username}`);
                 return res.json({ msg: "Added" });
             })
             .catch(err => console.log(err));
@@ -78,6 +80,7 @@ router.put("/edit/:deptId", auth, adminAuth, (req, res) => {
     if (department) {
         processQuery("UPDATE `departments` SET `name` = ? WHERE `departments`.`id` = ?", [department, req.params.deptId])
             .then(() => {
+                createAuditLog(`Department ${department} was edited by ${req.user.username}`);
                 return res.json({ msg: "Updated" });
             })
             .catch(err => console.log(err));
@@ -94,6 +97,7 @@ router.put("/edit/:deptId", auth, adminAuth, (req, res) => {
 router.delete("/:deptId", auth, adminAuth, (req, res) => {
     processQuery("DELETE FROM `departments` WHERE `departments`.`id` = ?", [req.params.deptId])
         .then(() => {
+            createAuditLog(`A department was deleted by ${req.user.username}`);
             return res.json({ msg: "Deleted" });
         })
         .catch(err => console.log(err));

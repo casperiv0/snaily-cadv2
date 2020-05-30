@@ -46,10 +46,9 @@ export default class TopArea extends Component {
     }
     return (
       <div>
-        <h3 className='card-title text-light'>EMS/FD - AOP: {aop}</h3>
         <div className='card bg-dark mx-auto mb-4'>
           <div className='card-header text-light bolder d-flex justify-content-between'>
-            <h4>Utility Panel</h4>
+            <h3>Utility Panel - AOP: {aop}</h3>
             <button
               onClick={() => {
                 document.location.reload();
