@@ -4,6 +4,7 @@ import { backendURL } from '../../../../../config/config';
 import CompanyVehicles from './CompanyVehicles';
 import CompanyPending from './CompanyPending';
 import SuccessMessage from "../../../../Partials/Messages/SuccessMessage"
+import EditCompany from "./EditCompany"
 
 export default class ManageCompany extends Component {
   constructor() {
@@ -69,6 +70,18 @@ export default class ManageCompany extends Component {
               Pending Citizens
             </a>
           </li>
+          <li className='nav-item mr-1' role='presentation'>
+            <a
+              className='nav-link bg-dark border-dark text-light'
+              id='contact-tab'
+              data-toggle='tab'
+              href='#editCompany'
+              role='tab'
+              aria-controls='contact'
+              aria-selected='false'>
+              Edit Company
+            </a>
+          </li>
         </ul>
 
         <div className='tab-content' id='myTabContent'>
@@ -92,6 +105,13 @@ export default class ManageCompany extends Component {
             role='tabpanel'
             aria-labelledby='contact-tab'>
             <CompanyPending backendUrl={backendUrl} companyURL={companyURL} />
+          </div>
+          <div
+            className='tab-pane fade'
+            id='editCompany'
+            role='tabpanel'
+            aria-labelledby='contact-tab'>
+            <EditCompany backendUrl={backendUrl} companyURL={companyURL} />
           </div>
         </div>
       </div>

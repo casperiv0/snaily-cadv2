@@ -67,7 +67,7 @@ router.put("/edit/:citizenId", auth, async (req, res) => {
             })
             .catch(err => console.log(err));
     } else {
-        return res.json({msg: "Forbidden"})
+        return res.json({ msg: "Forbidden" })
     };
 });
 

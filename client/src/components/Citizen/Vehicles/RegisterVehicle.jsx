@@ -4,6 +4,7 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { Alert } from '@material-ui/lab';
 import LoadingArea from "../../Partials/LoadingArea"
+import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class RegisterVehicle extends Component {
   constructor() {
@@ -166,9 +167,7 @@ export default class RegisterVehicle extends Component {
     return (
       <form className='container text-light' onSubmit={this.register}>
         {error ? (
-          <Alert variant='filled' severity='warning'>
-            {error}
-          </Alert>
+          <ErrorMessage message={error} dismiss />
         ) : null}
 
         <div className='form-row mt-4'>

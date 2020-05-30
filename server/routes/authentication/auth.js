@@ -96,7 +96,7 @@ router.post("/register", async (req, res) => {
                 const token = jwt.sign({
                     id: newUser.insertId,
                     username: username,
-                    rank: "No Rank",
+                    rank: "owner",
                 }, jwt_secret, { expiresIn: 3600 });
 
                 return res.json({ msg: "Owner Created", token: token });

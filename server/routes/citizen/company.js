@@ -2,7 +2,8 @@
     GET / - shows all companies in the CAD
     POST /join - join a company
     POST /create - create a company
-    GET /:citizenId/:company
+    POST /:citizenId/:company
+    POST /:citizenId/:company/edit
     POST /:citizenId/:company/create-post
     GET /employees/:employeeId
     GET /:citizenId/:company/vehicles
@@ -109,15 +110,19 @@ router.post("/:citizenId/:companyName", auth, async (req, res) => {
     // Check if citizen is pending access
     if (citizen[0].b_status === "Pending") return res.json({ msg: "Pending" });
 
-
-
-
     // send data from the company & citizen
     return res.json({ company: company, citizen: citizen, posts: posts });
 });
 
 
 
+router.post("/:citizenId/:company/edit", auth, async (req, res) => {
+    const { whitelisted } = req.body;
+
+    processQuery("UPDATE `businesses` SET `whitelisted` = ? WHERE `business_name` = ?", [whitelisted, req.params.company]).then(() => {
+        return res.json({ msg: "Updated" })
+    }).catch(err => console.log(err));
+});
 
 /*
     @Route /:citizenId-:company/create-post
