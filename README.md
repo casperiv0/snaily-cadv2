@@ -2,6 +2,12 @@
 
 SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 
+## Screenshots & Video
+
+View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/media/SCREENSHOTS.md)
+
+Video: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/watch?v=N7J_csax6Jw)
+
 ## Installation
 
 1. Run `git clone https://github.com/Dev-CasperTheGhost/snaily-cadv2`
@@ -27,10 +33,6 @@ SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 **If you don't understand any of these steps, let me know so I can help you.**
 
 _If you find any problems with these steps, please contact me asap._
-
-## Screenshots
-
-View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/media/SCREENSHOTS.md)
 
 ## Main Features
 

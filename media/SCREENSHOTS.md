@@ -2,7 +2,7 @@
 
 **These are only brief screenshots!**
 
-I have a video coming soon with a full walk around the CAD :)
+View the video here: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/watch?v=N7J_csax6Jw)
 
 ## Citizens
 
