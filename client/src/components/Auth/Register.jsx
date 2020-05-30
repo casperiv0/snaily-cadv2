@@ -29,6 +29,9 @@ export default class Register extends Component {
   }
 
   onSubmit = (e) => {
+    this.setState({
+      loading: true
+    })
     e.preventDefault();
 
     const { username, password, password2 } = this.state;

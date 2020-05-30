@@ -5,6 +5,7 @@ import { backendURL } from '../../config/config';
 import { Link } from 'react-router-dom';
 import EditAccountModal from './EditAccountModal';
 import LoadingArea from '../Partials/LoadingArea';
+import { logOut } from '../Auth/getSession';
 
 export default class Account extends Component {
   constructor() {
@@ -90,6 +91,7 @@ export default class Account extends Component {
         <div className='card bg-dark border-dark'>
           <div className='card-header d-flex justify-content-between'>
             <h3>{username}</h3>
+            <div>
             <Link
               data-toggle='modal'
               to='#editPassword'
@@ -97,6 +99,8 @@ export default class Account extends Component {
               className='btn btn-primary'>
               Edit Password
             </Link>
+            <button className="btn btn-danger ml-2" onClick={() => {logOut()}}>Logout</button>
+            </div>
           </div>
           <div className='card-body'>
             <span className='font-weight-bold'>Rank:</span> {rank} <br />

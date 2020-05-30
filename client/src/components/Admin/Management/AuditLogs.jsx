@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import LoadingArea from '../../Partials/LoadingArea';
 
 export default class AuditLogs extends Component {
   constructor() {
@@ -9,6 +10,7 @@ export default class AuditLogs extends Component {
 
     this.state = {
       logs: [],
+      loading: true
     };
   }
 
@@ -24,6 +26,7 @@ export default class AuditLogs extends Component {
         if (res.data.action_logs) {
           this.setState({
             logs: res.data.action_logs,
+            loading: false
           });
         }
       })
@@ -36,7 +39,12 @@ export default class AuditLogs extends Component {
   }
 
   render() {
-    const { logs } = this.state;
+    const { logs, loading } = this.state;
+    
+    if (loading) {
+      return <LoadingArea />
+    }
+
     return (
       <div className='col text-light'>
         <h3>Audit Logs</h3>

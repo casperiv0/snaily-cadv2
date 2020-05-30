@@ -79,7 +79,7 @@ export default class BanHammerArea extends Component {
           <h5>Use the ban hammer</h5>
         </div>
         {message2 ? (
-          message2
+          <h5 className="card-body"> {message2} </h5>
         ) : banned === 'true' ? (
           <div className='card-body'>
             <div className='card-title'>

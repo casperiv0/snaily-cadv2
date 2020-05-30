@@ -36,6 +36,12 @@ export default class AdminEditMember extends Component {
       },
     })
       .then((res) => {
+        if (res.data.msg === 'Not Found') {
+          sessionStorage.setItem('admin-message', "Member wasn't found.");
+          window.location = "/admin/manage/members";
+        };
+
+        
         const user = res.data.user[0];
         this.setState({
           rank: user.rank,

@@ -131,7 +131,7 @@ export default class NavigationBar extends Component {
           <ul className='nav navbar-nav' style={{ float: 'right' }}>
             <li className='nav-item'>
               <a className='nav-link' href='/account'>
-                <Avatar src='/citizen-pictures/default.svg' />
+                <Avatar alt="account" src='/citizen-pictures/default.svg' />
               </a>
             </li>
           </ul>

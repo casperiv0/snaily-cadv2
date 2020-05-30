@@ -37,10 +37,10 @@ router.get("/", auth, async (req, res) => {
 */
 router.get("/edit/:memberId", auth, async (req, res) => {
     if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
-        const user = await processQuery("SELECT id,username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users` WHERE `id` = ?", [req.params.memberId]);
+        const user = await processQuery("SELECT id,username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users` WHERE `id` = ?", [req.params.memberId])
 
         // Check if user exists
-        if (!user[0]) return res.json({ msg: "User not found!" });
+        if (!user[0]) return res.json({ msg: "Not Found" });
 
 
         // "Current" is to check if the username are not the same so users can't ban them selfs

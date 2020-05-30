@@ -28,6 +28,7 @@ export default class Tow extends Component {
       if (res.status === 200) {
         this.setState({
           towCalls: res.data.towCalls,
+          loading: false
         });
       }
     });
@@ -44,10 +45,6 @@ export default class Tow extends Component {
           aop: res.data.cadInfo[0].AOP,
         });
       }
-    });
-
-    this.setState({
-      loading: false,
     });
   };
 
@@ -83,7 +80,7 @@ export default class Tow extends Component {
       <div className='container-fluid text-light'>
         <h2>Tow Dashboard - AOP: {aop} </h2>
         <TopTowArea>
-          {towCalls.length === 0 ? (
+          {!towCalls[0]? (
             <li className='list-group-item bg-dark border-dark'>
               No Active Calls
             </li>

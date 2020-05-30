@@ -26,6 +26,7 @@ export default class MemberManagement extends Component {
       },
     })
       .then((res) => {
+
         if (res.data.members) {
           this.setState({
             pendingMembers: res.data.pendingMembers,

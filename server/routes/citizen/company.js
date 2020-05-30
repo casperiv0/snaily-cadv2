@@ -8,6 +8,7 @@
     GET /employees/:employeeId
     GET /:citizenId/:company/vehicles
     GET /:citizenId/:company/pending-citizens
+    DELETE /:citizenId/:company/
 */
 
 const router = require("express").Router();
@@ -333,6 +334,31 @@ router.put("/:citizenId/:company/decline/:employeeId", auth, async (req, res) =>
         processQuery("UPDATE `citizens` SET `b_status` = ? WHERE `id` = ?", ["declined", req.params.employeeId])
             .then(() => {
                 return res.json({ msg: "Declined" })
+            })
+            .catch(err => console.log(err));
+    } else {
+        return res.json({ msg: "Forbidden" })
+    }
+})
+
+
+/*
+    @Route /:citizenId/:company/
+    @Auth Protected
+*/
+router.delete("/:citizenId/:company/", auth, async (req, res) => {
+    const citizen = await processQuery("SELECT linked_to, business, rank, vehicle_reg, posts, b_status FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
+
+    // Check if this citizen works here
+    if (citizen[0].business !== req.params.company) return res.json({ msg: "You're not working here" })
+
+
+    if (citizen[0].rank === "owner" || citizen[0].rank === "manager") {
+        processQuery("DELETE FROM `businesses` WHERE `business_name` = ?", [req.params.company])
+            .then(() => {
+                processQuery("UPDATE `citizens` SET `business` = ? WHERE `id` = ?", ["Not Working Anywhere", req.params.citizenId])
+                    .catch(err => console.log(err));
+                return res.json({ msg: "Deleted" })
             })
             .catch(err => console.log(err));
     } else {
