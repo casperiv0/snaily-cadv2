@@ -29,6 +29,10 @@ Video: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/wat
 ## Updating CAD
 
 1. Run `git pull origin master`
+2. Run `cd client`
+3. Run `npm run build` to create the latest build
+4. Run `cd ../`
+5. Run `npm start` to run the CAD again
 
 **If you don't understand any of these steps, let me know so I can help you.**
 

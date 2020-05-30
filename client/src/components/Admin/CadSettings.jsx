@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import SuccessMessage from "../Partials/Messages/SuccessMessage"
+import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
 export default class CadSettings extends Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class CadSettings extends Component {
       aop: '',
       towWhitelisted: '',
       cadWhitelisted: '',
+      error: "",
     };
   }
 
@@ -67,6 +69,10 @@ export default class CadSettings extends Component {
           sessionStorage.setItem('admin-message', 'Successfully Updated CAD');
           return (window.location = '/admin/cad-settings');
         }
+
+        this.setState({
+          error: res.data.msg
+        })
       })
       .catch((err) => console.log(err));
   };
@@ -78,11 +84,12 @@ export default class CadSettings extends Component {
   };
 
   render() {
-    const { cadName, aop, cadWhitelisted, towWhitelisted, message } = this.state;
+    const { cadName, aop, cadWhitelisted, towWhitelisted, message, error } = this.state;
 
     return (
       <div className='col text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
+        {error ? <ErrorMessage message={error} dismiss /> : null}
         <h3>CAD Settings</h3>
 
         <div className='card bg-dark border-dark mt-3'>

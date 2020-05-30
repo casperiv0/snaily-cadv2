@@ -51,7 +51,7 @@ export default class GeneralInformation extends Component {
               src={backendURL + '/citizen-pictures/' + this.props.picture}
               alt={this.props.picture}
               className='rounded-circle'
-              style={{ width: '100px', height: '100px' }}
+              style={{ width: '100px', height: '100px', objectFit: "cover", backgroundPosition: "center" }}
             />
             <div className='ml-5'>
               {/* full Name */}

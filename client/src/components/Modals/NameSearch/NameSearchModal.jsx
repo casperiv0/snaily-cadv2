@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import LoadingArea from '../../Partials/LoadingArea';
 
 export default class NameSearchModal extends Component {
   constructor() {
@@ -16,7 +17,8 @@ export default class NameSearchModal extends Component {
       arrestReports: [],
       generalInfo: [],
       warrants: [],
-      notFound: false
+      notFound: false,
+      loading: false
     };
   }
 
@@ -37,6 +39,18 @@ export default class NameSearchModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
+    this.setState({
+      loading: true,
+      notFound: false,
+      generalInfo: [],
+      warrants: [],
+      tickets: [],
+      arrestReports: [],
+      warnings: [],
+      registeredWeapons: [],
+      registeredVehicles: [],
+    })
+
     Axios({
       url: backendURL + '/officers/search/name/' + this.state.name,
       method: 'GET',
@@ -53,7 +67,8 @@ export default class NameSearchModal extends Component {
           warnings: res.data.writtenWarnings,
           registeredWeapons: res.data.weapons,
           registeredVehicles: res.data.vehicles,
-          notFound: false
+          notFound: false,
+          loading: false
         });
       } else {
         this.setState({
@@ -65,6 +80,7 @@ export default class NameSearchModal extends Component {
           warnings: [],
           registeredWeapons: [],
           registeredVehicles: [],
+          loading: false
         })
       }
     });
@@ -80,7 +96,8 @@ export default class NameSearchModal extends Component {
       warrants,
       notFound,
       registeredVehicles,
-      registeredWeapons
+      registeredWeapons,
+      loading
     } = this.state;
     return (
       <div
@@ -112,11 +129,13 @@ export default class NameSearchModal extends Component {
                     type='text'
                     name='name'
                     value={name}
+                    required
                     onChange={this.onChange}
                     className='form-control bg-secondary border-secondary text-light'
                   />
                 </div>
                 {notFound ? <ErrorMessage message="No Citizen Found With That Name" /> : null}
+                {loading ? <LoadingArea /> : null}
                 {!generalInfo.full_name ? null : (
                   <NamSearchResults
                     generalInfo={generalInfo}

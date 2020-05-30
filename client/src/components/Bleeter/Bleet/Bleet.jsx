@@ -51,7 +51,7 @@ export default class Bleet extends Component {
     }
 
     return (
-      <div className='container text-light mt-2'>
+      <div className='container text-light mt-2  pb-5'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div>
           <h3 className='pb-3 border-bottom'>
@@ -66,11 +66,11 @@ export default class Bleet extends Component {
             ) : null}
           </h3>
           <span className='float-right'>
-            {bleet.uploaded_at} | @{bleet.uploaded_by}{' '}
+            {bleet.uploaded_at} | @{bleet.uploaded_by}
           </span>
         </div>
         <div className='mt-5'>
-          <ReactMarkdown source={bleet.description} escapeHtml={false} />
+          <ReactMarkdown source={bleet.description} escapeHtml={true} />
         </div>
         <div className='mt-5'>
           {bleet.file_dir !== '' ? (

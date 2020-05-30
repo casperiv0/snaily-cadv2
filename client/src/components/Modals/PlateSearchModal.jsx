@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import LoadingArea from '../Partials/LoadingArea';
 
 export default class PlateSearchModal extends Component {
   constructor() {
@@ -12,11 +13,18 @@ export default class PlateSearchModal extends Component {
       plate: '',
       plateResults: [],
       plateNotFound: false,
+      loading: false,
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
+
+    this.setState({
+      loading: true,
+      plateNotFound: false,
+      plateResults: [],
+    });
 
     Axios({
       url: backendURL + '/officers/search/plate/' + this.state.plate,
@@ -29,11 +37,13 @@ export default class PlateSearchModal extends Component {
         this.setState({
           plateResults: res.data.plate[0],
           plateNotFound: false,
+          loading: false,
         });
       } else {
         this.setState({
-          plateResults: {},
+          plateResults: [],
           plateNotFound: true,
+          loading: false,
         });
       }
     });
@@ -46,7 +56,7 @@ export default class PlateSearchModal extends Component {
   };
 
   render() {
-    const { plate, plateResults, plateNotFound } = this.state;
+    const { plate, plateResults, plateNotFound, loading } = this.state;
     return (
       <div
         className='modal fade'
@@ -79,11 +89,13 @@ export default class PlateSearchModal extends Component {
                     name='plate'
                     id='plate'
                     value={plate}
-                    maxLength="8"
+                    maxLength='8'
+                    required
                     onChange={this.onChange}
                   />
                 </div>
                 {/* results */}
+                {loading ? <LoadingArea /> : null}
                 {plateNotFound ? (
                   <ErrorMessage message='Plate Was not found' />
                 ) : null}
@@ -99,9 +111,7 @@ export default class PlateSearchModal extends Component {
                     {plateResults.vin_number} <br />
                     <span className='font-weight-bold'>Color: </span>{' '}
                     {plateResults.color} <br />
-                    <span className='font-weight-bold'>
-                      Insurance Status:{' '}
-                    </span>
+                    <span className='font-weight-bold'>Insurance Status: </span>
                     {plateResults.in_status} <br />
                     <span className='font-weight-bold'>Company: </span>{' '}
                     {plateResults.company} <br />

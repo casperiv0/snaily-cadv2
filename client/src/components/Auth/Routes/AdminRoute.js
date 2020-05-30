@@ -57,33 +57,35 @@ class AdminRoute extends Component {
 
         // I'll refactor this soon.
         return (
-            <div className="container-fluid row">
-                <AdminSideHeader />
-                <Route
-                    {...rest}
-                    render={props => {
-                        if (getSession()) {
-                            if (loading) {
-                                return (<Spinner />)
-                            } else {
-                                if (!adminAccess === false) {
-                                    return (<Component {...props} />)
+            <div className="container-fluid">
+                <div className="row">
+                    <AdminSideHeader />
+                    <Route
+                        {...rest}
+                        render={props => {
+                            if (getSession()) {
+                                if (loading) {
+                                    return (<Spinner />)
                                 } else {
-                                    window.location = "/403"
+                                    if (!adminAccess === false) {
+                                        return (<Component {...props} />)
+                                    } else {
+                                        window.location = "/403"
+                                    };
                                 };
-                            };
 
-                        } else {
-                            return (<Redirect
-                                to={{
-                                    pathname: "/auth/login",
-                                    state: { from: props.location }
-                                }}
-                            />)
+                            } else {
+                                return (<Redirect
+                                    to={{
+                                        pathname: "/auth/login",
+                                        state: { from: props.location }
+                                    }}
+                                />)
+                            }
                         }
-                    }
-                    }
-                />
+                        }
+                    />
+                </div>
             </div>
         );
     }
