@@ -18,7 +18,7 @@ export default class NameSearchModal extends Component {
       generalInfo: [],
       warrants: [],
       notFound: false,
-      loading: false
+      loading: false,
     };
   }
 
@@ -49,7 +49,7 @@ export default class NameSearchModal extends Component {
       warnings: [],
       registeredWeapons: [],
       registeredVehicles: [],
-    })
+    });
 
     Axios({
       url: backendURL + '/officers/search/name/' + this.state.name,
@@ -68,7 +68,7 @@ export default class NameSearchModal extends Component {
           registeredWeapons: res.data.weapons,
           registeredVehicles: res.data.vehicles,
           notFound: false,
-          loading: false
+          loading: false,
         });
       } else {
         this.setState({
@@ -80,11 +80,17 @@ export default class NameSearchModal extends Component {
           warnings: [],
           registeredWeapons: [],
           registeredVehicles: [],
-          loading: false
-        })
+          loading: false,
+        });
       }
     });
   };
+
+  updateName = (name) => {
+    this.setState({
+      name: name
+    })
+  }
 
   render() {
     const {
@@ -97,7 +103,7 @@ export default class NameSearchModal extends Component {
       notFound,
       registeredVehicles,
       registeredWeapons,
-      loading
+      loading,
     } = this.state;
     return (
       <div
@@ -124,8 +130,9 @@ export default class NameSearchModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='name'>Enter Citizen Name</label>
+                  <label htmlFor='namSearchInput'>Enter Citizen Name</label>
                   <input
+                    id='namSearchInput'
                     type='text'
                     name='name'
                     value={name}
@@ -134,7 +141,9 @@ export default class NameSearchModal extends Component {
                     className='form-control bg-secondary border-secondary text-light'
                   />
                 </div>
-                {notFound ? <ErrorMessage message="No Citizen Found With That Name" /> : null}
+                {notFound ? (
+                  <ErrorMessage message='No Citizen Found With That Name' />
+                ) : null}
                 {loading ? <LoadingArea /> : null}
                 {!generalInfo.full_name ? null : (
                   <NamSearchResults
@@ -155,7 +164,7 @@ export default class NameSearchModal extends Component {
                   data-dismiss='modal'>
                   Close
                 </button>
-                <button type='submit' className='btn btn-primary'>
+                <button type='submit' id="nameSearchSubmitBtn" className='btn btn-primary'>
                   Search
                 </button>
               </div>

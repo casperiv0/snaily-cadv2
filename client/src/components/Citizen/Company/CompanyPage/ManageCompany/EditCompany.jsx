@@ -9,6 +9,7 @@ export default class EditCompany extends Component {
     this.state = {
       current: [],
       whitelisted: '',
+      business_address: '',
     };
   }
 
@@ -21,6 +22,7 @@ export default class EditCompany extends Component {
       },
     }).then((res) => {
       this.setState({
+        business_address: res.data.company[0].business_address,
         whitelisted: res.data.company[0].whitelisted,
         current: res.data.company[0],
       });
@@ -38,6 +40,7 @@ export default class EditCompany extends Component {
       },
       data: {
         whitelisted: this.state.whitelisted,
+        business_address: this.state.business_address,
       },
     }).then((res) => {
       if (res.data.msg === 'Updated') {
@@ -76,7 +79,7 @@ export default class EditCompany extends Component {
   }
 
   render() {
-    const { current } = this.state;
+    const { current, business_address } = this.state;
     return (
       <div>
         <form className='mt-2' onSubmit={this.onSubmit}>
@@ -92,6 +95,16 @@ export default class EditCompany extends Component {
               <option value='true'>Yes</option>
               <option value='false'>No</option>
             </select>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='business_address'>Company Address</label>
+            <input
+              onChange={this.onChange}
+              className='form-control bg-secondary border-secondary text-light'
+              name='business_address'
+              id='business_address'
+              value={business_address}
+            />
           </div>
           <div className='form-group float-right'>
             <button className='btn btn-primary' type='submit'>

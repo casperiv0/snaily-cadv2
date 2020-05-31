@@ -1,6 +1,6 @@
 {
   "name": "snailycad-v2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!",
   "main": "config.js",
   "scripts": {
@@ -32,5 +32,8 @@
   "homepage": "https://github.com/Dev-CasperTheGhost/snaily-cadv2#readme",
   "dependencies": {
     "concurrently": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

@@ -6,6 +6,7 @@ const app = express();
 const { port } = require("../config.js");
 const { connectToDatabase } = require("./utils/db");
 const checkForUpdates = require("./utils/checkForUpdates")
+const updateDatabase = require("./utils/updateDatabase")
 const helmet = require('helmet');
 
 // Require Routes
@@ -105,16 +106,17 @@ app.use("/c/vehicles", citizenVehiclesRouter);
 app.use("/bleeter/", bleeterRouter);
 
 function start() {
-    checkForUpdates()
+    checkForUpdates();
+
+
+    updateDatabase();
     // Run connectToDB
     connectToDatabase().then(() => {
         console.log("Connected to Database");
     })
         .catch(err => console.log(err))
     // Run app on port
-    app.listen(port, () => {
-        console.log("Running On port: %s", port);
-    });
+    app.listen(port);
 };
 
 start();

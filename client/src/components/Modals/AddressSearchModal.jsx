@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
-// import NameSearchModal from './NameSearchModal';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
 export default class AddressSearchModal extends Component {
@@ -38,7 +37,7 @@ export default class AddressSearchModal extends Component {
       if (!res.data.citizens[0]) {
         this.setState({
           noneFound: true,
-          addresses: []
+          addresses: [],
         });
       } else {
         this.setState({
@@ -107,14 +106,6 @@ export default class AddressSearchModal extends Component {
                             </span>{' '}
                             {address.full_name}
                           </div>
-
-                          {/* <button
-                            type='button'
-                            className='btn btn-primary'
-                            data-toggle='modal'
-                            data-target='#nameSearchModal'>
-                            Open Name Search
-                          </button> */}
                         </li>
                       );
                     })

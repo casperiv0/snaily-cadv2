@@ -33,7 +33,7 @@ export default class EditRegisteredVehicle extends Component {
       if (res.data.vehicle) {
         const vehicle =  res.data.vehicle[0];
         this.setState({
-          plate: vehicle.plate,
+          plate: vehicle.plate.toUpperCase(),
           color: vehicle.color,
           company: vehicle.company,
           status: vehicle.in_status

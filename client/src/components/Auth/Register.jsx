@@ -7,13 +7,12 @@ import {
   Avatar,
   Button,
   Link,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
 import { logIn } from './getSession';
-import {backendURL} from "../../config/config";
-
+import { backendURL } from '../../config/config';
 
 export default class Register extends Component {
   constructor() {
@@ -24,25 +23,25 @@ export default class Register extends Component {
       password: '',
       password2: '',
       error: '',
-      loading: false
+      loading: false,
     };
   }
 
   onSubmit = (e) => {
     this.setState({
-      loading: true
-    })
+      loading: true,
+    });
     e.preventDefault();
 
     const { username, password, password2 } = this.state;
 
     axios({
-      url: backendURL+"/auth/register",
+      url: backendURL + '/auth/register',
       method: 'POST',
       data: {
         username: username,
         password: password,
-        password2: password2
+        password2: password2,
       },
     }).then((res) => {
       const { msg } = res.data;
@@ -53,15 +52,18 @@ export default class Register extends Component {
         return (window.location = '/citizen');
       }
 
-      if (msg === "Owner Created") {
+      if (msg === 'Owner Created') {
         sessionStorage.setItem('admin-message', 'Successfully Logged In.');
         sessionStorage.setItem('token', res.data.token);
         logIn();
         return (window.location = '/admin/cad-settings');
       }
 
-      if (msg === "Pending") {
-        sessionStorage.setItem('home-message', 'Successfully Created Account, This account is currently pending access');
+      if (msg === 'Pending') {
+        sessionStorage.setItem(
+          'home-message',
+          'Successfully Created Account, This account is currently pending access'
+        );
         return (window.location = '/citizen');
       }
 
@@ -69,7 +71,6 @@ export default class Register extends Component {
         loading: false,
         error: msg,
       });
-
     });
   };
 
@@ -79,9 +80,8 @@ export default class Register extends Component {
     });
   };
 
-
   componentDidMount() {
-    document.title = "Create An Account"
+    document.title = 'Create An Account';
   }
 
   render() {
@@ -95,7 +95,7 @@ export default class Register extends Component {
         <h1>Create an account</h1>
 
         {error ? (
-          <Alert className="alert-box" variant='filled' severity='warning'>
+          <Alert className='alert-box' variant='filled' severity='warning'>
             {error}
           </Alert>
         ) : null}
@@ -136,7 +136,7 @@ export default class Register extends Component {
             value={password2}
             onChange={this.handleChange}
           />
-           <div style={{ marginTop: '5px' }}>
+          <div style={{ marginTop: '5px' }}>
             Already have an account?{' '}
             <Link href='/auth/login' color='primary'>
               Login Here
@@ -145,14 +145,14 @@ export default class Register extends Component {
         </FormControl>
 
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-        <div className='loading-wrapper'>
+          <div className='loading-wrapper'>
             <Button
               fullWidth
               disabled={loading}
               type='submit'
               variant='contained'
               color='primary'>
-                Create Account
+              Create Account
             </Button>
             {loading ? <CircularProgress className='loader' size={24} /> : null}
           </div>

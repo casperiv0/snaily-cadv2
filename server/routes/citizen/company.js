@@ -118,11 +118,12 @@ router.post("/:citizenId/:companyName", auth, async (req, res) => {
 
 
 router.post("/:citizenId/:company/edit", auth, async (req, res) => {
-    const { whitelisted } = req.body;
+    const { whitelisted, business_address } = req.body;
 
-    processQuery("UPDATE `businesses` SET `whitelisted` = ? WHERE `business_name` = ?", [whitelisted, req.params.company]).then(() => {
-        return res.json({ msg: "Updated" })
-    }).catch(err => console.log(err));
+    processQuery("UPDATE `businesses` SET `whitelisted` = ?, `business_address` = ? WHERE `business_name` = ?",
+        [whitelisted, business_address, req.params.company]).then(() => {
+            return res.json({ msg: "Updated" })
+        }).catch(err => console.log(err));
 });
 
 /*

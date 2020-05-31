@@ -291,6 +291,7 @@ export default class RegisterVehicle extends Component {
               list='companies'
               className='form-control bg-dark border-dark text-light'
             />
+            <small>You are able to type in the field if the Insurance Status is set to "Company"</small>
             <datalist id='companies'>
               {!companies[0]
                 ? ''
