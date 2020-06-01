@@ -8,7 +8,8 @@ export default class EditEmsFdStatusModal extends Component {
     super();
 
     this.state = {
-      status: '',
+      emsStatus: '',
+      emsStatus2: '',
     };
   }
 
@@ -27,8 +28,8 @@ export default class EditEmsFdStatusModal extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
-        status: this.state.status,
-        status2: this.state.status2,
+        status: this.state.emsStatus,
+        status2: this.state.emsStatus2,
       },
     })
       .then((res) => {
@@ -45,9 +46,9 @@ export default class EditEmsFdStatusModal extends Component {
 
   componentDidMount() {
     this.setState({
-        status: this.props.status,
-        status2: this.props.status2
-    })
+      emsStatus: this.props.status,
+      emsStatus2: this.props.status2,
+    });
   }
 
   render() {
@@ -79,8 +80,8 @@ export default class EditEmsFdStatusModal extends Component {
                 <div className='form-group'>
                   <label htmlFor='status'>Set On-duty Or Off-duty</label>
                   <select
-                    name='status'
-                    id='status'
+                    name='emsStatus'
+                    id='emsStatus'
                     className='form-control bg-secondary border-secondary text-light'
                     onChange={this.onChange}>
                     <option value={status}>{status}</option>
@@ -92,8 +93,8 @@ export default class EditEmsFdStatusModal extends Component {
                 <div className='form-group'>
                   <label htmlFor='status'>Update Global Status</label>
                   <select
-                    name='status2'
-                    id='status2'
+                    name='emsStatus2'
+                    id='emsStatus2'
                     className='form-control bg-secondary border-secondary text-light'
                     onChange={this.onChange}>
                     <option value={status2}>{status2}</option>

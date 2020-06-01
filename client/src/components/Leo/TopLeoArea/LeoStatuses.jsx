@@ -38,6 +38,11 @@ export default class LeoStatuses extends Component {
 
   getCurrentStatus = () => {
     const officerId = Cookies.get('on-duty-officerId');
+
+    if (officerId === undefined) {
+      return;
+    }
+
     Axios({
       url: backendURL + '/officers/get-status/' + officerId,
       method: 'GET',

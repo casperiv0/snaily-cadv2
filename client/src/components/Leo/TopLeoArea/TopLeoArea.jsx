@@ -37,6 +37,14 @@ export default class TopLeoArea extends Component {
 
   componentDidMount() {
     this.getCADInfo();
+
+    setInterval(function () {
+      let date = document.getElementById('leo-time');
+      let d = new Date();
+      let currentTime = d.toLocaleTimeString();
+      let currentDate = d.toLocaleDateString();
+      date.textContent = currentTime + ' - ' + currentDate;
+    }, 1000);
   }
 
   render() {
@@ -50,6 +58,7 @@ export default class TopLeoArea extends Component {
       <div className='card mt-3 bg-dark border-dark text-light'>
         <div className='card-header d-flex justify-content-between'>
           <h4>Utility Panel - AOP: {aop}</h4>
+          <span id="leo-time"></span>
         </div>
         <div className='card-body'>
           <LeoModalButtons />

@@ -8,7 +8,7 @@ export default class Update911Call extends Component {
     super();
 
     this.state = {
-      location: '',
+      callLocation: '',
       callDescription: '',
       assignedUnits: [],
       activeOfficers: [],
@@ -23,8 +23,8 @@ export default class Update911Call extends Component {
 
   componentDidMount() {
     this.setState({
-      location: this.props.location,
-      callDescription: this.props.description,
+      callLocation: this.props.callLocation,
+      callDescription: this.props.callDescription,
       activeOfficers: this.props.activeOfficers,
     });
   }
@@ -45,7 +45,7 @@ export default class Update911Call extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
-        location: this.state.location,
+        location: this.state.callLocation,
         description: this.state.callDescription,
         assigned_unit: this.state.assignedUnits,
       },
@@ -69,17 +69,20 @@ export default class Update911Call extends Component {
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
-    })
-    .then(res => {
-      if (res.data.msg === "Canceled") {
-        sessionStorage.setItem("dispatch-message", "Successfully Canceled 911 Call");
-        return window.location = "/dispatch"
+    }).then((res) => {
+      if (res.data.msg === 'Canceled') {
+        sessionStorage.setItem(
+          'dispatch-message',
+          'Successfully Canceled 911 Call'
+        );
+        return (window.location = '/dispatch');
       }
-    })
-  }
+    });
+  };
 
   render() {
-    const { id, location, callDescription, activeOfficers } = this.props;
+    const { id, activeOfficers } = this.props;
+    const { callLocation, callDescription } = this.state;
     return (
       <td
         className='modal fade'
@@ -107,15 +110,15 @@ export default class Update911Call extends Component {
                 <div className='form-group'>
                   <label htmlFor='status'>Location</label>
                   <input
-                    name='location'
-                    id='location'
-                    value={location}
+                    name='callLocation'
+                    id='callLocation'
+                    value={callLocation}
                     className='form-control bg-secondary border-secondary text-light'
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='status'>Description</label>
+                  <label htmlFor='callDescription'>Description</label>
                   <input
                     name='callDescription'
                     id='callDescription'
@@ -126,26 +129,29 @@ export default class Update911Call extends Component {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='status'>Assigned Units</label>
-                  {!activeOfficers[0] ? <p>There are no officers active</p> :
-                   activeOfficers.map((officer, index) => {
-                    return (
-                      <div key={index} className='form-group'>
-                        <input
-                          type='checkbox'
-                          name='assigned_unit'
-                          className='form-control-input'
-                          value={officer.officer_name}
-                          onClick={this.handleSelect}
-                        />
-                        <label className=''>{officer.officer_name}</label>
-                      </div>
-                    );
-                  })}
+                  {!activeOfficers[0] ? (
+                    <p>There are no officers active</p>
+                  ) : (
+                    activeOfficers.map((officer, index) => {
+                      return (
+                        <div key={index} className='form-group'>
+                          <input
+                            type='checkbox'
+                            name='assigned_unit'
+                            className='form-control-input'
+                            value={officer.officer_name}
+                            onClick={this.handleSelect}
+                          />
+                          <label className=''>{officer.officer_name}</label>
+                        </div>
+                      );
+                    })
+                  )}
                 </div>
               </div>
               <div className='modal-footer'>
-              <button
-              onClick={this.cancelCall}
+                <button
+                  onClick={this.cancelCall}
                   type='button'
                   className='btn btn-danger'>
                   End 911 Call

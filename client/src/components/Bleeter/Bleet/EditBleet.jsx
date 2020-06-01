@@ -83,7 +83,7 @@ export default class EditBleet extends Component {
       return <LoadingArea />;
     }
     return (
-      <div className='container text-light mt-3'>
+      <div className='container text-light mt-3 pb-5'>
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
             <label htmlFor='title'>Image (Not Required)</label>

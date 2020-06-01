@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class SearchMedicalRecordModal extends Component {
   constructor() {
@@ -9,6 +10,8 @@ export default class SearchMedicalRecordModal extends Component {
 
     this.state = {
       citizenName: '',
+      medicalRecords: [],
+      notFound: false,
     };
   }
 
@@ -20,7 +23,6 @@ export default class SearchMedicalRecordModal extends Component {
 
   search = (e) => {
     e.preventDefault();
-    const resultsTable = document.getElementById('resultsTable');
     const { citizenName } = this.state;
 
     Axios({
@@ -30,38 +32,25 @@ export default class SearchMedicalRecordModal extends Component {
       },
     })
       .then((res) => {
-        let results = '';
         const { medicalRecords } = res.data;
 
-        if (medicalRecords.length > 0) {
-          medicalRecords.forEach((inf, index) => {
-            results +=
-              '<tr>' +
-              '<th scope="row">' +
-              ++index +
-              '</th>' +
-              '<td> ' +
-              inf.type +
-              ' </td>' +
-              '<td>' +
-              inf.short_info +
-              '</td>' +
-              '<td>' +
-              inf.name +
-              '</td>' +
-              '</tr>';
+        if (!medicalRecords[0]) {
+          this.setState({
+            notFound: true,
+            medicalRecords: [],
           });
-        } else {
-          results += 'No Medical Records found for this citizen';
         }
 
-        resultsTable.innerHTML = results;
+        this.setState({
+          notFound: false,
+          medicalRecords: medicalRecords,
+        });
       })
       .catch((err) => console.log(err));
   };
 
   render() {
-    const { citizenName } = this.state;
+    const { citizenName, medicalRecords, notFound } = this.state;
     return (
       <div
         className='modal fade'
@@ -95,17 +84,33 @@ export default class SearchMedicalRecordModal extends Component {
                   className='form-control bg-secondary border-secondary text-light'
                 />
 
-                <table className='table table-dark'>
-                  <thead>
-                    <tr>
-                      <th scope='col'>#</th>
-                      <th scope='col'>Type</th>
-                      <th scope='col'>Short Information</th>
-                      <th scope='col'>Name</th>
-                    </tr>
-                  </thead>
-                  <tbody id='resultsTable'></tbody>
-                </table>
+                {notFound ? (
+                  <ErrorMessage message='No medical records found for this citizen.' />
+                ) : (
+                  <table className='table table-dark'>
+                    <thead>
+                      <tr>
+                        <th scope='col'>#</th>
+                        <th scope='col'>Type</th>
+                        <th scope='col'>Short Information</th>
+                        <th scope='col'>Name</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {medicalRecords.map((record, index) => {
+                        return (
+                          <tr key={index}>
+                            <th scope='row'> {++index} </th>
+                            <td> {record.type} </td>
+                            <td> {record.short_info} </td>
+                            <td> {record.name} </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                )}
               </div>
               <div className='modal-footer'>
                 <button

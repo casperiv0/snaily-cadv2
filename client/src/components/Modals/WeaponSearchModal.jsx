@@ -74,6 +74,7 @@ export default class WeaponSearchModal extends Component {
                 <div className='form-group'>
                   <label htmlFor='weapon'>Enter Serial Number</label>
                   <input
+                    required
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
                     name='serialNumber'

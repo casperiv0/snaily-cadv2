@@ -13,27 +13,54 @@ import Active911Calls from '../Active911Calls';
 import CreateWarrant from './CreateWarrant';
 import ActiveBolos from '../ActiveBolos';
 import SelectOfficerModal from './Modals/SelectOfficerModal';
+import Axios from 'axios';
+import Cookies from 'js-cookie';
+import { backendURL } from '../../config/config';
+import LoadingArea from '../Partials/LoadingArea';
 
 export default class LeoDashboard extends Component {
   constructor() {
     super();
 
     this.state = {
+      penalCodes: [],
+      loading: true,
       message: sessionStorage.getItem('leo-message'),
     };
   }
 
   componentDidMount() {
     document.title = 'LEO Dashboard';
-
+    this.getPenalCodes();
     document.addEventListener(
       'beforeunload',
       sessionStorage.removeItem('leo-message')
     );
   }
 
+  getPenalCodes = () => {
+    Axios({
+      url: backendURL + '/officers/penal-codes',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        this.setState({
+          penalCodes: res.data.penalCodes,
+          loading: false,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   render() {
-    const { message } = this.state;
+    const { message, loading } = this.state;
+
+    if (loading) {
+      return <LoadingArea />;
+    }
+
     return (
       <div className='container-fluid text-light mt-3'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
@@ -42,7 +69,7 @@ export default class LeoDashboard extends Component {
         <div className='row mt-3'>
           <div className='col-md-9'>
             <Active911Calls />
-            <ActiveBolos to="/leo/dash" />
+            <ActiveBolos to='/leo/dash' />
           </div>
           <CreateWarrant />
         </div>
@@ -51,11 +78,11 @@ export default class LeoDashboard extends Component {
         <NameSearchModal />
         <PlateSearchModal />
         <WeaponSearchModal />
-        <CreateBoloModal messageType="leo-message" to="/leo/dash" />
+        <CreateBoloModal messageType='leo-message' to='/leo/dash' />
         <NotepadModal />
-        <CreateWrittenWarningModal />
-        <CreateTicketModal />
-        <CreateArrestReportModal />
+        <CreateWrittenWarningModal penalCodes={this.state.penalCodes} />
+        <CreateTicketModal penalCodes={this.state.penalCodes} />
+        <CreateArrestReportModal penalCodes={this.state.penalCodes} />
         <SelectOfficerModal />
       </div>
     );

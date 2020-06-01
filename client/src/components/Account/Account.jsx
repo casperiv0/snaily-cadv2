@@ -3,9 +3,9 @@ import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../config/config';
 import { Link } from 'react-router-dom';
-import EditAccountModal from './EditAccountModal';
+import EditPasswordModal from './EditPasswordModal';
 import LoadingArea from '../Partials/LoadingArea';
-import { logOut } from '../Auth/getSession';
+import SuccessMessage from '../Partials/Messages/SuccessMessage';
 
 export default class Account extends Component {
   constructor() {
@@ -13,7 +13,7 @@ export default class Account extends Component {
 
     this.state = {
       randomFact: '',
-      account: {},
+      account: [],
       message: sessionStorage.getItem('account-message'),
       loading: true,
     };
@@ -28,6 +28,28 @@ export default class Account extends Component {
         randomFact: res.data.text,
       });
     });
+  };
+
+  deleteAccount = () => {
+    Axios({
+      url: backendURL + '/auth/remove-account',
+      method: 'DELETE',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.msg === 'Deleted') {
+          sessionStorage.getItem(
+            'home-message',
+            'Successfully deleted your account'
+          );
+          return (window.location = '/');
+        }
+
+        console.log(res.data.msg);
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
@@ -70,19 +92,8 @@ export default class Account extends Component {
 
     return (
       <div className='container-fluid mt-2 text-light'>
-        {message ? (
-          <div className='alert alert-dismissible alert-success'>
-            {message}
-            <button
-              type='button'
-              className='close'
-              data-dismiss='alert'
-              aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-            </button>
-          </div>
-        ) : null}
-        <EditAccountModal />
+        {message ? <SuccessMessage message={message} dismiss /> : null}
+        <EditPasswordModal />
         <div>
           <h4>Account Information</h4>
           <p>Random Fact: {this.state.randomFact}</p>
@@ -92,14 +103,19 @@ export default class Account extends Component {
           <div className='card-header d-flex justify-content-between'>
             <h3>{username}</h3>
             <div>
-            <Link
-              data-toggle='modal'
-              to='#editPassword'
-              data-target='#editPassword'
-              className='btn btn-primary'>
-              Edit Password
-            </Link>
-            <button className="btn btn-danger ml-2" onClick={() => {logOut()}}>Logout</button>
+              <Link
+                data-toggle='modal'
+                to='#editPassword'
+                data-target='#editPassword'
+                className='btn btn-primary'>
+                Edit Password
+              </Link>
+              <button
+                className='btn btn-danger ml-2'
+                data-toggle='modal'
+                data-target='#deleteAccount'>
+                Delete My Account
+              </button>
             </div>
           </div>
           <div className='card-body'>
@@ -113,6 +129,72 @@ export default class Account extends Component {
             <br />
             <span className='font-weight-bold'>Tow Access:</span> {tow}
             <br />
+          </div>
+          <div className='card-footer d-flex'>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-secondary col-md-4 mr-1'
+              href='https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/CHANGELOG.md'>
+              See CAD Changelog
+            </a>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-secondary col-md-4 mr-1'
+              href='https://github.com/Dev-CasperTheGhost/snaily-cadv2/issues/new?assignees=&labels=&template=feature_request.md&title='>
+              Request a new feature
+            </a>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-secondary col-md-4'
+              href='https://github.com/Dev-CasperTheGhost/snaily-cadv2/issues/new?assignees=&labels=&template=bug_report.md&title='>
+              Report a bug
+            </a>
+          </div>
+        </div>
+
+        <div
+          className='modal fade'
+          id='deleteAccount'
+          tabIndex='-1'
+          role='dialog'
+          aria-labelledby='deleteAccount'
+          aria-hidden='true'>
+          <div className='modal-dialog' role='document'>
+            <div className='modal-content bg-dark border-dark text-light'>
+              <div className='modal-header'>
+                <h5 className='modal-title' id='deleteAccount'>
+                  Delete My Account
+                </h5>
+                <button
+                  type='button'
+                  className='close text-light'
+                  data-dismiss='modal'
+                  aria-label='Close'>
+                  <span aria-hidden='true'>&times;</span>
+                </button>
+              </div>
+              <div className='modal-body'>
+                Are you sure you want to delete your account? All your data will
+                be lost and removed and cannot be undone.
+              </div>
+              <div className='modal-footer'>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  data-dismiss='modal'>
+                  Cancel
+                </button>
+                <button
+                  type='button'
+                  onClick={this.deleteAccount}
+                  className='btn btn-danger'>
+                  Yes, Delete my account
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

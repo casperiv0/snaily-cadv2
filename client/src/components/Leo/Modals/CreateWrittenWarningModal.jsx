@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import LoadingArea from '../../Partials/LoadingArea';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class CreateWrittenWarningModal extends Component {
@@ -21,10 +20,10 @@ export default class CreateWrittenWarningModal extends Component {
     };
   }
   onSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
     Axios({
       url: backendURL + '/officers/create-written-warning',
-      method: "POST",
+      method: 'POST',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
@@ -57,26 +56,10 @@ export default class CreateWrittenWarningModal extends Component {
     });
   };
 
-  getPenalCodes = () => {
-    Axios({
-      url: backendURL + '/officers/penal-codes',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.penalCodes) {
-          this.setState({
-            loading: false,
-            penalCodes: res.data.penalCodes,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
   componentDidMount() {
-    this.getPenalCodes();
+    this.setState({
+      penalCodes: this.props.penalCodes,
+    });
   }
 
   render() {
@@ -87,13 +70,8 @@ export default class CreateWrittenWarningModal extends Component {
       notes3,
       postal3,
       penalCodes,
-      loading,
       error,
     } = this.state;
-
-    if (loading) {
-      return <LoadingArea />;
-    }
 
     return (
       <div

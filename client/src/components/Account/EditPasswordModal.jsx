@@ -3,7 +3,7 @@ import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
-import {CircularProgress} from "@material-ui/core";
+import { CircularProgress } from '@material-ui/core';
 
 export default class EditAccountModal extends Component {
   constructor() {
@@ -30,7 +30,6 @@ export default class EditAccountModal extends Component {
       loading: true,
     });
 
-
     Axios({
       url: backendURL + '/account/edit',
       method: 'PUT',
@@ -45,13 +44,16 @@ export default class EditAccountModal extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('account-message', 'Successfully Updated Password');
+          sessionStorage.setItem(
+            'account-message',
+            'Successfully Updated Password'
+          );
           return (window.location = '/account');
         }
 
         this.setState({
           error: res.data.msg,
-          loading: false
+          loading: false,
         });
       })
       .catch((err) => console.log(err));
@@ -132,11 +134,18 @@ export default class EditAccountModal extends Component {
                   Close
                 </button>
                 <div className='loading-wrapper'>
-                  <button disabled={loading} type='submit' className='btn btn-primary'>
+                  <button
+                    disabled={loading}
+                    type='submit'
+                    className='btn btn-primary'>
                     Update Password
                   </button>
                   {loading ? (
-                    <CircularProgress disableShrink  className='loader' size={40} />
+                    <CircularProgress
+                      disableShrink
+                      className='loader'
+                      size={40}
+                    />
                   ) : null}
                 </div>
               </div>

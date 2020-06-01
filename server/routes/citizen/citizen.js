@@ -3,6 +3,7 @@
     POST /add - add citizen
     PUT /:id - edit citizen
     DELETE /:id - delete citizen
+    GET /all
 */
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
@@ -140,6 +141,17 @@ router.delete("/:citizenId", auth, async (req, res) => {
             return res.json({ msg: "Deleted" })
         })
         .catch(err => console.log(err));
+});
+
+/*
+    @Route /all
+    @auth Protected
+*/
+router.post("/all", auth, async (req, res) => {
+    // Check if the citizen is linked to the account 
+    const citizens = await processQuery("SELECT id, full_name FROM `citizens`");
+
+    return res.json({ citizens: citizens })
 });
 
 module.exports = router;

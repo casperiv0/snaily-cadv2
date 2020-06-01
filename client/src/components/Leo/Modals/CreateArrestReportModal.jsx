@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import LoadingArea from '../../Partials/LoadingArea';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class CreateArrestReportModal extends Component {
@@ -16,7 +15,6 @@ export default class CreateArrestReportModal extends Component {
       notes: '',
       postal: '',
       penalCodes: [],
-      loading: true,
       error: '',
     };
   }
@@ -56,26 +54,10 @@ export default class CreateArrestReportModal extends Component {
     });
   };
 
-  getPenalCodes = () => {
-    Axios({
-      url: backendURL + '/officers/penal-codes',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.penalCodes) {
-          this.setState({
-            loading: false,
-            penalCodes: res.data.penalCodes,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
   componentDidMount() {
-    this.getPenalCodes();
+    this.setState({
+      penalCodes: this.props.penalCodes,
+    })
   }
 
   render() {
@@ -86,14 +68,8 @@ export default class CreateArrestReportModal extends Component {
       notes,
       postal,
       penalCodes,
-      loading,
       error,
     } = this.state;
-
-    if (loading) {
-      return <LoadingArea />;
-    }
-
     return (
       <div
         className='modal fade'

@@ -86,6 +86,21 @@ export default class NameSearchModal extends Component {
     });
   };
 
+  updateWarrantStatus = (warrantId) => {
+    Axios({
+      url: backendURL + '/global/update-warrant/' + warrantId,
+      method: 'PUT',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then(res => {
+      if (res.data.msg === "Updated") {
+        sessionStorage.setItem("leo-message", "Successfully changed status on warrant");
+        return window.location = "/leo/dash"
+      }
+    })
+  }
+
   updateName = (name) => {
     this.setState({
       name: name
@@ -154,6 +169,7 @@ export default class NameSearchModal extends Component {
                     warrants={warrants}
                     registeredVehicles={registeredVehicles}
                     registeredWeapons={registeredWeapons}
+                    updateWarrantStatus={this.updateWarrantStatus}
                   />
                 )}
               </div>

@@ -11,7 +11,7 @@ export default class MyOfficers extends Component {
 
     this.state = {
       officers: [],
-      message: sessionStorage.getItem('leo-message')
+      message: sessionStorage.getItem('leo-message'),
     };
   }
 
@@ -75,30 +75,32 @@ export default class MyOfficers extends Component {
           Create Officer
         </a>
 
-        {!officers[0] ? (
-          <ErrorMessage message="You don't have any officers." />
-        ) : (
-          officers.map((officer, index) => {
-            return (
-              <li
-                key={index}
-                className='list-group-item bg-dark border-dark text-light d-flex justify-content-between'>
-                <div>
-                  {++index} | {officer.officer_dept} | {officer.officer_name}
-                </div>
-                <div>
-                  <button
-                    className='btn btn-danger'
-                    onClick={() => {
-                      this.deleteOfficer(officer.id, officer.officer_name);
-                    }}>
-                    Delete Officer
-                  </button>
-                </div>
-              </li>
-            );
-          })
-        )}
+        <ul className='list-group'>
+          {!officers[0] ? (
+            <ErrorMessage message="You don't have any officers." />
+          ) : (
+            officers.map((officer, index) => {
+              return (
+                <li
+                  key={index}
+                  className='list-group-item bg-dark border-secondary text-light d-flex justify-content-between'>
+                  <div>
+                    {++index} | {officer.officer_dept} | {officer.officer_name}
+                  </div>
+                  <div>
+                    <button
+                      className='btn btn-danger'
+                      onClick={() => {
+                        this.deleteOfficer(officer.id, officer.officer_name);
+                      }}>
+                      Delete Officer
+                    </button>
+                  </div>
+                </li>
+              );
+            })
+          )}
+        </ul>
       </div>
     );
   }

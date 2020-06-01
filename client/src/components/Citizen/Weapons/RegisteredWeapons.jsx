@@ -16,7 +16,7 @@ export default class RegisteredWeapons extends Component {
 
   getRegisteredWeapons = () => {
     Axios({
-      url: backendURL + '/c/weapons',
+      url: backendURL + '/c/weapons/all/'+this.props.citizenId,
       method: 'GET',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),

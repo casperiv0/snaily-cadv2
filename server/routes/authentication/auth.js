@@ -46,13 +46,13 @@ router.post("/register", async (req, res) => {
                 // CAD is whitelisted and Tow too
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "true") {
                     return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`, `dispatch_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending", ""]).then(() => {return res.json({msg: "Pending"})})
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending", ""]).then(() => { return res.json({ msg: "Pending" }) })
                 }
 
                 // CAD is whitelisted but tow is not
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "false") {
                     return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`, `dispatch_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending", ""]).then(() => {return res.json({msg: "Pending"})})
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "yes", "false", "", "pending", ""]).then(() => { return res.json({ msg: "Pending" }) })
                 };
 
 
@@ -131,9 +131,9 @@ router.post("/login", async (req, res) => {
         bcrypt.compare(password, user[0].password, async (err, result) => {
             if (err) return res.json({ msg: "There was an err getting back your password" });
 
-            if (user[0].banned === "true") return res.json({msg: `This Account Was Banned From This CAD, reason: ${user[0].ban_reason}`});
+            if (user[0].banned === "true") return res.json({ msg: `This Account Was Banned From This CAD, reason: ${user[0].ban_reason}` });
 
-            if (user[0].whitelist_status === "pending") return res.json({msg: "This Account is still pending access"});
+            if (user[0].whitelist_status === "pending") return res.json({ msg: "This Account is still pending access" });
 
             // password is incorrect
             if (result === false) return res.json({ msg: "Password was incorrect" });
@@ -163,7 +163,7 @@ router.post("/login", async (req, res) => {
 router.get("/user", auth, async (req, res) => {
     const user = await processQuery("SELECT id, username, rank, leo, ems_fd, dispatch, tow  FROM `users` WHERE `id` = ?", [req.user.id]);
 
-    if (!user[0]) return res.json({ msg: "User not found"})
+    if (!user[0]) return res.json({ msg: "User not found" })
 
     return res.json({ user: user });
 });
@@ -176,10 +176,40 @@ router.get("/user", auth, async (req, res) => {
 router.get("/cad-info", auth, (req, res) => {
     processQuery("SELECT tow_whitelisted, AOP, cad_name, whitelisted FROM `cad_info`")
         .then((data) => {
-            return res.json({ cadInfo: data});
+            return res.json({ cadInfo: data });
         })
         .catch(err => console.log(err));
 })
 
+
+/*
+    @Route /auth/remove-account
+    @Auth Protected
+*/
+router.delete("/remove-account", auth, async (req, res) => {
+    const citizens = await processQuery("SELECT * FROM `citizens` WHERE `linked_to` = ?", [req.user.username]).catch(err => console.log(err));
+    const username = req.user.username;
+
+    citizens.forEach((citizen) => {
+        const citizenName = citizen.full_name
+        processQuery("DELETE FROM `arrest_reports` WHERE `arrestee_name` = ?", [citizenName]).catch(err => console.log(err));
+        processQuery("DELETE FROM `posts` WHERE `uploadedBy` = ?", [citizenName]).catch(err => console.log(err));
+        processQuery("DELETE FROM `warrants` WHERE `name` = ?", [citizenName]).catch(err => console.log(err));
+        processQuery("DELETE FROM `written_warnings` WHERE `name` = ?", [citizenName]).catch(err => console.log(err));
+        processQuery("DELETE FROM `leo_tickets` WHERE `name` = ?", [citizenName]).catch(err => console.log(err));
+        processQuery("DELETE FROM `medical_records` WHERE `name` = ?", [citizenName]).catch(err => console.log(err));
+    });
+
+    processQuery("DELETE FROM `citizens` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+    processQuery("DELETE FROM `businesses` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+    processQuery("DELETE FROM `ems-fd` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+    processQuery("DELETE FROM `officers` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+    processQuery("DELETE FROM `registered_cars` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+    processQuery("DELETE FROM `registered_weapons` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
+
+    processQuery("DELETE FROM `users` WHERE `id` = ?", [req.user.id]).then(() => {
+        return res.json({ msg: "Deleted" });
+    }).catch(err => console.log(err));
+})
 
 module.exports = router;

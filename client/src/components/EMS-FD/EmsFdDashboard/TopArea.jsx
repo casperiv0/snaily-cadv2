@@ -3,14 +3,16 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
-import EmsFdStatuses from "./EmsFdStatuses"
+import EmsFdStatuses from './EmsFdStatuses';
 import SelectEmsFdModal from './Modals/SelectEmsFdModal';
+import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 
 export default class TopArea extends Component {
   constructor() {
     super();
 
     this.state = {
+      message: sessionStorage.getItem('ems-fd-message'),
       aop: '',
       loading: true,
     };
@@ -37,15 +39,21 @@ export default class TopArea extends Component {
 
   componentDidMount() {
     this.getCadData();
+
+    document.addEventListener(
+      'beforeunload',
+      sessionStorage.removeItem('ems-fd-message')
+    );
   }
 
   render() {
-    const { aop, loading } = this.state;
+    const { aop, loading, message } = this.state;
     if (loading) {
       return <LoadingArea />;
     }
     return (
       <div>
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='card bg-dark mx-auto mb-4'>
           <div className='card-header text-light bolder d-flex justify-content-between'>
             <h3>Utility Panel - AOP: {aop}</h3>

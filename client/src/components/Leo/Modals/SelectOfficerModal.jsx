@@ -102,13 +102,17 @@ export default class SelectOfficerModal extends Component {
                     id='selectedOfficer'
                     onChange={this.onChange}>
                     <option value=''>Select Officer</option>
-                    {officers.map((officer, index) => {
-                      return (
-                        <option key={index} value={officer.id}>
-                          {officer.officer_name}
-                        </option>
-                      );
-                    })}
+                    {!officers[0] ? (
+                      <option>You don't have any officers.</option>
+                    ) : (
+                      officers.map((officer, index) => {
+                        return (
+                          <option key={index} value={officer.id}>
+                            {officer.officer_name}
+                          </option>
+                        );
+                      })
+                    )}
                   </select>
                 </div>
               </div>
@@ -119,9 +123,15 @@ export default class SelectOfficerModal extends Component {
                   data-dismiss='modal'>
                   Close
                 </button>
-                <button type='submit' className='btn btn-primary'>
-                  Go on-duty
-                </button>
+                {!officers[0] ? (
+                  <a href='/leo/myofficers/create' className='btn btn-primary'>
+                    Create an officer
+                  </a>
+                ) : (
+                  <button type='submit' className='btn btn-primary'>
+                    Go on-duty
+                  </button>
+                )}
               </div>
             </form>
           </div>

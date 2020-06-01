@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
-import { getSession } from '../Auth/getSession';
+import { getSession, logOut } from '../Auth/getSession';
 import { Avatar } from '@material-ui/core';
 
 export default class NavigationBar extends Component {
@@ -11,6 +11,7 @@ export default class NavigationBar extends Component {
 
     this.state = {
       rank: '',
+      cadName: '',
     };
   }
 
@@ -30,16 +31,32 @@ export default class NavigationBar extends Component {
     });
   };
 
+  getCadName = () => {
+    Axios({
+      url: backendURL + '/auth/cad-info',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      if (res.data.cadInfo) {
+        this.setState({
+          cadName: res.data.cadInfo[0].cad_name,
+        });
+      }
+    });
+  };
+
   componentDidMount() {
     this.getRank();
+    this.getCadName();
   }
 
   render() {
-    const { rank } = this.state;
+    const { rank,cadName } = this.state;
     return (
       <nav className='navbar navbar-expand-lg navbar-dark bg-secondary sticky-top'>
         <a className='navbar-brand' href='/'>
-          SnailyCAD
+          {cadName ? cadName : "SnailyCAD"}
         </a>
 
         <button
@@ -61,7 +78,7 @@ export default class NavigationBar extends Component {
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/Police_Dept.png'
-                  alt='officer'
+                  alt='leo'
                 />
               </a>
             </li>
@@ -71,7 +88,7 @@ export default class NavigationBar extends Component {
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/Dispatch.png'
-                  alt='officer'
+                  alt='dispatch'
                 />
               </a>
             </li>
@@ -81,7 +98,7 @@ export default class NavigationBar extends Component {
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/fire.png'
-                  alt='Dispatch'
+                  alt='ems/fd'
                 />
               </a>
             </li>
@@ -122,7 +139,7 @@ export default class NavigationBar extends Component {
                   <img
                     style={{ maxHeight: '20px' }}
                     src='/icons/internal/gear.png'
-                    alt='gear'
+                    alt='admin'
                   />
                 </a>
               </li>
@@ -130,9 +147,32 @@ export default class NavigationBar extends Component {
           </ul>
           <ul className='nav navbar-nav' style={{ float: 'right' }}>
             <li className='nav-item'>
-              <a className='nav-link' href='/account'>
-                <Avatar src='/citizen-pictures/default.svg' />
-              </a>
+              <div className='dropdown'>
+                <button
+                  className='btn btn-secondary '
+                  type='button'
+                  id='dropdownMenuButton'
+                  data-toggle='dropdown'
+                  aria-haspopup='true'
+                  aria-expanded='false'>
+                  <Avatar src='/citizen-pictures/default.svg' />
+                </button>
+                <div
+                  className='dropdown-menu dropdown-menu-right bg-dark border-dark'
+                  aria-labelledby='dropdownMenuButton'>
+                  <a
+                    className='dropdown-item bg-dark border-secondary text-light'
+                    href='/account'>
+                    Account
+                  </a>
+                  <div className='dropdown-divider bg-dark border-secondary'></div>
+                  <button
+                    onClick={logOut}
+                    className='dropdown-item bg-dark border-secondary text-light'>
+                    Logout
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
         </div>

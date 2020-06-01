@@ -46,8 +46,8 @@ export default class ActiveUnits extends Component {
 
     return (
       <div className='col-md-8'>
-        <div className='list-group'>
-          <div className='list-group-item bg-secondary border-secondary'>
+        <div className='list-group overflow-auto' style={{maxHeight: "20rem"}}>
+          <div className='list-group-item bg-secondary border-secondary sticky-top'>
             <h5>Active Police Officers</h5>
           </div>
           {!activeOfficers[0] ? (
@@ -88,8 +88,8 @@ export default class ActiveUnits extends Component {
             </table>
           )}
         </div>
-        <div className='list-group'>
-          <div className='list-group-item bg-secondary border-secondary'>
+        <div className='list-group overflow-auto mt-3' style={{maxHeight: "20rem"}}>
+          <div className='list-group-item bg-secondary border-secondary sticky-top'>
             <h5>Active EMS/FD Deputies</h5>
           </div>
           {!activeEmsFd[0] ? (

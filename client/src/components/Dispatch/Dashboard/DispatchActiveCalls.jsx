@@ -94,9 +94,9 @@ export default class DispatchActiveCalls extends Component {
                     </td>
                     <Update911Call
                       id={call.id}
-                      location={call.location}
+                      callLocation={call.location}
+                      callDescription={call.description}
                       assignedUnits={call.assigned_unit}
-                      description={call.description}
                       activeOfficers={activeOfficers}
                     />
                   </tr>

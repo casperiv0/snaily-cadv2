@@ -5,12 +5,14 @@
     PUT /:carId-:plate - edit vehicle
     DELETE /:carId-:plate - edit vehicle
     POST /report-stolen/:vehicleId - report vehicle as stolen
+    POST /transfer/:vehicleId - transfer a vehicle to a new owner
 */
 
 
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const createAuditLog = require("../../utils/createAuditLog")
 
 
 /*  
@@ -169,6 +171,31 @@ router.post("/report-stolen/:vehicleId", auth, async (req, res) => {
     processQuery("UPDATE `registered_cars` SET `in_status` = ? WHERE `registered_cars`.`id` = ?", ["Reported as stolen", vehicleId])
         .then(() => {
             return res.json({ msg: "Reported" });
+        })
+        .catch(err => console.log(err));
+});
+
+/*
+    @Route /c/vehicles/transfer/:vehicleId
+    @Auth Protected
+*/
+router.post("/transfer/:vehicleId", auth, async (req, res) => {
+    const { vehicleId } = req.params;
+    const { oldOwner, newOwner, plate } = req.body;
+    const vehicle = await processQuery("SELECT * FROM `registered_cars` WHERE `id` = ?", [vehicleId]);
+
+    if (plate !== vehicle[0].plate) {
+        const plateAlreadyExists = await processQuery("SELECT * FROM `registered_cars` WHERE `plate` = ?", [plate]).catch(er => console.log(er));
+
+        if (plateAlreadyExists[0]) return res.json({ msg: "This plate is already in use." })
+    }
+
+    if (!vehicle[0]) return res.json({ msg: "Vehicle Not Found!" });
+
+    processQuery("UPDATE `registered_cars` SET `owner` = ?, `plate` = ? WHERE `registered_cars`.`id` = ?", [newOwner, plate, vehicleId])
+        .then(() => {
+            createAuditLog(`${oldOwner} Successfully transferred a vehicle to ${newOwner}`);
+            return res.json({ msg: "Transferred" });
         })
         .catch(err => console.log(err));
 });

@@ -3,6 +3,10 @@ import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { backendURL } from '../../../config/config';
 
 export default class NamSearchResults extends Component {
+  updateWarrantStatus = (warrantId) => {
+    this.props.updateWarrantStatus(warrantId);
+  };
+
   render() {
     const {
       tickets,
@@ -70,7 +74,16 @@ export default class NamSearchResults extends Component {
                 <span className='font-weight-bold'>Employer:</span>{' '}
                 {generalInfo.business} <br />
               </div>
-              <img className="rounded mt-2" style={{width: "140px"}} src={backendURL+"/citizen-pictures/"+generalInfo.citizen_picture} alt=""/>
+              <img
+                className='rounded mt-2'
+                style={{ width: '140px' }}
+                src={
+                  backendURL +
+                  '/citizen-pictures/' +
+                  generalInfo.citizen_picture
+                }
+                alt=''
+              />
             </div>
           </div>
           <div className='col-md-6'>
@@ -258,11 +271,20 @@ export default class NamSearchResults extends Component {
                     return (
                       <li
                         key={index}
-                        className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Warrant: </span>
-                        {warrant.reason} <br />
-                        <span className='font-weight-bold'>Status: </span>
-                        {warrant.status}
+                        className='list-group-item border-dark text-dark d-flex justify-content-between'>
+                        <div>
+                          <span className='font-weight-bold'>Warrant: </span>
+                          {warrant.reason} <br />
+                          <span className='font-weight-bold'>Status: </span>
+                          {warrant.status}
+                        </div>
+                        <button
+                          onClick={() => {
+                            this.updateWarrantStatus(warrant.id);
+                          }}
+                          className='btn btn-primary'>
+                          Change Status
+                        </button>
                       </li>
                     );
                   })
@@ -331,7 +353,9 @@ export default class NamSearchResults extends Component {
                         {weapon.weapon} <br />
                         <span className='font-weight-bold'>Owner: </span>
                         {weapon.owner} <br />
-                        <span className='font-weight-bold'>Serial Number: </span>
+                        <span className='font-weight-bold'>
+                          Serial Number:{' '}
+                        </span>
                         {weapon.serial_number} <br />
                         <span className='font-weight-bold'>Status: </span>
                         {weapon.status} <br />
@@ -346,4 +370,4 @@ export default class NamSearchResults extends Component {
       </div>
     );
   }
-};
+}

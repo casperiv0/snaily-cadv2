@@ -25,7 +25,7 @@ class PrivateEMSRoute extends Component {
             },
         })
             .then(res => {
-                if (res.data.user[0]) {
+                if (res.data.user) {
                     if (res.data.user[0].ems_fd === "yes") {
                         this.setState({
                             EMSFDAccess: true,
@@ -37,7 +37,7 @@ class PrivateEMSRoute extends Component {
                         })
                     }
                 } else {
-                    console.log('User not found');
+                    window.location = "/auth/login"
                 }
             })
             .catch(err => console.log(err));

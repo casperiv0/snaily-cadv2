@@ -42,8 +42,6 @@ export default class CreateBoloModal extends Component {
       },
     })
       .then((res) => {
-        console.log(res.data);
-
         if (res.data.msg === 'Added') {
           sessionStorage.setItem(this.props.messageType, 'Successfully Added Bolo');
           return (window.location = this.props.to);
@@ -159,7 +157,7 @@ export default class CreateBoloModal extends Component {
                   data-dismiss='modal'>
                   Close
                 </button>
-                <button type='submit' className='btn btn-primary'>
+                <button type='submit' disabled={boloDescription === ""} className='btn btn-primary'>
                   Create Bolo
                 </button>
               </div>

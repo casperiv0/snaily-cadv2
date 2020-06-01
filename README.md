@@ -38,6 +38,10 @@ Video: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/wat
 
 _If you find any problems with these steps, please contact me asap._
 
+## Bugs
+
+You can report bugs [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
 ## Main Features
 
 - Administration Dashboard
@@ -66,6 +70,7 @@ _If you find any problems with these steps, please contact me asap._
   - Call emergency services and tow truckers from the citizen dashboard
   - Drivers, pilot, firearms license and CCW
   - Report vehicles as stolen
+  - Transfer a vehicle to a new owner
   - Companies
     - Company Blog posts
     - Create posts

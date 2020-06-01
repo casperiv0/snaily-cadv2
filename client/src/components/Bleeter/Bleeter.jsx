@@ -53,7 +53,7 @@ export default class Bleeter extends Component {
           </a>
         </div>
         {!bleets[0] ? (
-          <h1>No bleets found</h1>
+          <h5>No bleets found</h5>
         ) : (
           bleets.map((bleet, index) => (
             <BleetBox

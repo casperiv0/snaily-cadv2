@@ -14,8 +14,13 @@ const { processQuery } = require("../../utils/db");
     @Route /
     @Auth Protected
 */
-router.get("/", auth, (req, res) =>{
-    processQuery("SELECT * FROM `registered_weapons` WHERE `linked_to` = ?", [req.user.username])
+router.get("/all/:citizenId", auth, async (req, res) =>{
+    const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
+
+    if (!citizen[0]) return res.json({ msg: "Citizen Not found" })
+
+    
+        processQuery("SELECT * FROM `registered_weapons` WHERE `owner` = ? AND `linked_to` = ?", [citizen[0].full_name, req.user.username])
         .then(weapons => {
             return res.json({weapons});
         })

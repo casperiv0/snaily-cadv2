@@ -51,6 +51,7 @@ import EditBleet from './components/Bleeter/Bleet/EditBleet';
 
 // Vehicles
 import RegisterVehicle from './components/Citizen/Vehicles/RegisterVehicle';
+import TransferVehicle from './components/Citizen/Vehicles/TransferVehicle';
 
 // Weapons
 import RegisterWeapon from "./components/Citizen/Weapons/RegisterWeapon"
@@ -163,6 +164,7 @@ export default class Routes extends Component {
                     {/* Vehicles */}
                     <PrivateRoute exact path="/vehicles/register" component={RegisterVehicle} />
                     <PrivateRoute exact path="/vehicles/edit/:vehicleId" component={EditRegisteredVehicle} />
+                    <PrivateRoute exact path="/vehicles/transfer/:vehicleId" component={TransferVehicle} />
 
                     {/* Weapons */}
                     <PrivateRoute exact path="/weapons/register" component={RegisterWeapon} />

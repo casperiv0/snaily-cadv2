@@ -76,7 +76,8 @@ CREATE TABLE `bleets` (
   `description` text NOT NULL,
   `uploaded_by` varchar(255) NOT NULL,
   `uploaded_at` varchar(255) NOT NULL,
-  `file_dir` text NOT NULL
+  `file_dir` text NOT NULL,
+  `file_dir` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -105,7 +106,8 @@ CREATE TABLE `businesses` (
   `business_name` varchar(255) NOT NULL,
   `business_owner` varchar(255) NOT NULL,
   `linked_to` varchar(255) NOT NULL,
-  `whitelisted` varchar(255) NOT NULL
+  `whitelisted` varchar(255) NOT NULL,
+  `business_address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

@@ -36,6 +36,5 @@ module.exports = {
 
 setInterval(() => {
     processQuery("SELECT 1")
-        .then(res => { res })
         .catch(err => console.log(err))
 }, 10000)

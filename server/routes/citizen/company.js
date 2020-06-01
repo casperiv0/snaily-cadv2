@@ -2,13 +2,14 @@
     GET / - shows all companies in the CAD
     POST /join - join a company
     POST /create - create a company
-    POST /:citizenId/:company
-    POST /:citizenId/:company/edit
-    POST /:citizenId/:company/create-post
-    GET /employees/:employeeId
-    GET /:citizenId/:company/vehicles
-    GET /:citizenId/:company/pending-citizens
-    DELETE /:citizenId/:company/
+    POST /:citizenId/:company - company page
+    POST /:citizenId/:company/edit - edit company
+    POST /:citizenId/:company/create-post - create company post
+    GET /employees/:employeeId - edit employee 
+    GET /:citizenId/:company/vehicles - all company vehicles
+    GET /:citizenId/:company/pending-citizens - all pending citizens
+    DELETE /:citizenId/:company/ - delete company
+    PUT /:citizenId/:company/fire/:employeeId - fire employee
 */
 
 const router = require("express").Router();
@@ -354,7 +355,7 @@ router.delete("/:citizenId/:company/", auth, async (req, res) => {
     if (citizen[0].business !== req.params.company) return res.json({ msg: "You're not working here" })
 
 
-    if (citizen[0].rank === "owner" || citizen[0].rank === "manager") {
+    if (citizen[0].rank === "owner") {
         processQuery("DELETE FROM `businesses` WHERE `business_name` = ?", [req.params.company])
             .then(() => {
                 processQuery("UPDATE `citizens` SET `business` = ? WHERE `id` = ?", ["Not Working Anywhere", req.params.citizenId])
@@ -368,7 +369,29 @@ router.delete("/:citizenId/:company/", auth, async (req, res) => {
 })
 
 
+/*
+    @Route /:citizenId/:company/fire/:employeeId
+    @Auth Protected
+*/
+router.put("/:citizenId/:company/fire/:employeeId", auth, async (req, res) => {
+    const { citizenId, employeeId } = req.params;
+    const citizen = await processQuery("SELECT linked_to, business, rank, vehicle_reg, posts, b_status FROM `citizens` WHERE `id` = ?", [citizenId]);
+    const employee = await processQuery("SELECT id, rank, full_name FROM `citizens` WHERE `id` = ?", [employeeId])
 
+    // Check if this citizen works here
+    if (citizen[0].business !== req.params.company) return res.json({ msg: "You're not working here" });
 
+    if (employee[0].rank === "owner") {
+        return res.json({ msg: "You can't fire the owner!" })
+    };
+
+    if (citizen[0].rank === "owner" || citizen[0].rank === "manager") {
+        processQuery("UPDATE `citizens` SET `business` = ? WHERE `id` = ?", ["Not Working Anywhere", employeeId])
+            .catch(err => console.log(err));
+        return res.json({ msg: "Fired" })
+    } else {
+        return res.json({ msg: "Forbidden" })
+    }
+});
 
 module.exports = router;

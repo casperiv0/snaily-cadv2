@@ -79,6 +79,7 @@ export default class AddressSearchModal extends Component {
                     Enter Address (Full or part of the address)
                   </label>
                   <input
+                    required
                     type='text'
                     name='address'
                     id='address'

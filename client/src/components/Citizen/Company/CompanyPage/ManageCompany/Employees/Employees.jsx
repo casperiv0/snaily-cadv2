@@ -29,6 +29,27 @@ export default class Employees extends Component {
     });
   };
 
+  fireEmployee = (id, employeeName) => {
+    const url = this.props.backendUrl + '/fire/' + id;
+    Axios({
+      url: url,
+      method: 'PUT',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    }).then((res) => {
+      if (res.data.msg === 'Fired') {
+        sessionStorage.setItem(
+          'company-message',
+          'Successfully fired ' + employeeName
+        );
+        return (window.location = this.props.companyURL + '/manage');
+      }
+
+      console.log(res.data);
+    });
+  };
+
   componentDidMount() {
     this.getEmployees();
   }
@@ -74,6 +95,16 @@ export default class Employees extends Component {
                     href={this.props.companyURL + '/manage/' + employee.id}>
                     Manage Employee
                   </a>
+                  {employee.rank === 'employee' ? (
+                    <button
+                      type='button'
+                      className='btn btn-danger ml-2'
+                      onClick={() => {
+                        this.fireEmployee(employee.id, employee.full_name);
+                      }}>
+                      Fire Employee
+                    </button>
+                  ) : null}
                 </div>
               </li>
             );
