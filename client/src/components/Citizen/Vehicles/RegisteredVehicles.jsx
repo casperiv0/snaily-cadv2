@@ -123,7 +123,7 @@ export default class RegisteredVehicles extends Component {
                     {/* Plate */}
                     <span className='font-weight-bold'>Plate: </span>
                     <span className='uppercase font-weight-normal'>
-                      {vehicle.plate}
+                      {vehicle.plate.toUpperCase()}
                     </span>
                     <br />
                     {/* Insurance */}

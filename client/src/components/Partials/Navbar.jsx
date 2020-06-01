@@ -12,6 +12,7 @@ export default class NavigationBar extends Component {
     this.state = {
       rank: '',
       cadName: '',
+      loading: true,
     };
   }
 
@@ -41,6 +42,7 @@ export default class NavigationBar extends Component {
       if (res.data.cadInfo) {
         this.setState({
           cadName: res.data.cadInfo[0].cad_name,
+          loading: false,
         });
       }
     });
@@ -52,11 +54,11 @@ export default class NavigationBar extends Component {
   }
 
   render() {
-    const { rank,cadName } = this.state;
+    const { rank, cadName, loading } = this.state;
     return (
       <nav className='navbar navbar-expand-lg navbar-dark bg-secondary sticky-top'>
         <a className='navbar-brand' href='/'>
-          {cadName ? cadName : "SnailyCAD"}
+          {loading ? null : cadName ? cadName : 'SnailyCAD'}
         </a>
 
         <button

@@ -62,10 +62,10 @@ router.post("/join", auth, async (req, res) => {
     @auth Protected
 */
 router.post("/create", auth, async (req, res) => {
-    const { companyName, owner, whitelistStatus } = req.body;
+    const { companyName, owner, whitelistStatus, address } = req.body;
 
 
-    if (companyName && owner) {
+    if (companyName && owner && address) {
         // Check if company already exists
         const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [companyName]);
 
@@ -73,8 +73,9 @@ router.post("/create", auth, async (req, res) => {
 
 
         // Create the company
-        processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`) VALUES (?, ?, ?, ?)", [companyName, owner, req.user.username, whitelistStatus]);
-        processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner]);
+        processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`, `business_address`) VALUES (?, ?, ?, ?, ?)",
+            [companyName, owner, req.user.username, whitelistStatus, address]).catch(err => console.log(err))
+        processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner]).catch(err => console.log(err))
 
 
         return res.json({ msg: "Company Created" });

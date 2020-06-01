@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import LoadingArea from '../../Partials/LoadingArea';
 
 export default class EditRegisteredVehicle extends Component {
   constructor() {
     super();
 
     this.state = {
-      color: "",
-      plate: "",
-      status: "",
-      company: "",
+      color: '',
+      plate: '',
+      status: '',
+      company: '',
       statuses: [],
       companies: [],
+      loading: true
     };
   }
 
@@ -31,19 +33,18 @@ export default class EditRegisteredVehicle extends Component {
       }
 
       if (res.data.vehicle) {
-        const vehicle =  res.data.vehicle[0];
+        const vehicle = res.data.vehicle[0];
         this.setState({
           plate: vehicle.plate.toUpperCase(),
           color: vehicle.color,
           company: vehicle.company,
-          status: vehicle.in_status
+          status: vehicle.in_status,
         });
       }
     });
   };
 
   getExtraData = () => {
-
     // Companies
     Axios({
       url: backendURL + '/company',
@@ -71,11 +72,12 @@ export default class EditRegisteredVehicle extends Component {
         if (res.data.statuses) {
           this.setState({
             statuses: res.data.statuses,
+            loading: false
           });
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   onChange = (e) => {
     this.setState({
@@ -84,7 +86,7 @@ export default class EditRegisteredVehicle extends Component {
   };
 
   componentDidMount() {
-    document.title = "Edit Registered Vehicle"
+    document.title = 'Edit Registered Vehicle';
     this.getCurrentData();
     this.getExtraData();
   }
@@ -93,28 +95,33 @@ export default class EditRegisteredVehicle extends Component {
     e.preventDefault();
 
     Axios({
-      url: backendURL+"/c/vehicles/"+ this.props.match.params.vehicleId,
-      method: "PUT",
+      url: backendURL + '/c/vehicles/' + this.props.match.params.vehicleId,
+      method: 'PUT',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
       data: {
         color: this.state.color,
         status: this.state.status,
-        company: this.state.company
-      }
+        company: this.state.company,
+      },
     })
-    .then(res => {
-      if(res.data.msg==="Updated") {
-        sessionStorage.setItem("message", "Successfully Updated Vehicle");
-        window.location = "/citizen"
-      }
-    })
-    .catch(err => console.log(err));
-  }
+      .then((res) => {
+        if (res.data.msg === 'Updated') {
+          sessionStorage.setItem('message', 'Successfully Updated Vehicle');
+          window.location = '/citizen';
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   render() {
-    const { plate, color, status, company, statuses, companies } = this.state;
+    const { plate, color, status, company, statuses, companies, loading } = this.state;
+
+    if (loading) {
+      return <LoadingArea />
+    }
+
     return (
       <form className='container text-light' onSubmit={this.updateVehicle}>
         <div className='form-group'>
@@ -133,7 +140,7 @@ export default class EditRegisteredVehicle extends Component {
           <input
             type='text'
             value={color}
-            name="color"
+            name='color'
             onChange={this.onChange}
             className='form-control text-light bg-dark border-dark'
           />
@@ -142,53 +149,61 @@ export default class EditRegisteredVehicle extends Component {
         <div className='form-group'>
           <label htmlFor='plate'>Status</label>
           <input
-              type='text'
-              list='statuses'
-              value={status}
-              onChange={this.onChange}
-              name='status'
-              id='insuranceStatus'
-              className='form-control bg-dark border-dark text-light'
-            />
-            <datalist id='statuses'>
-              {!statuses[0]
-                ? ''
-                : statuses.map((status, index) => {
-                    return (
-                      <option key={index} value={status.status}>
-                        {status.status}
-                      </option>
-                    );
-                  })}
-            </datalist>
+            type='text'
+            list='statuses'
+            value={status}
+            onChange={this.onChange}
+            name='status'
+            id='insuranceStatus'
+            className='form-control bg-dark border-dark text-light'
+          />
+          <datalist id='statuses'>
+            {!statuses[0]
+              ? ''
+              : statuses.map((status, index) => {
+                  return (
+                    <option key={index} value={status.status}>
+                      {status.status}
+                    </option>
+                  );
+                })}
+          </datalist>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="company">Select Company</label>
-        <input
-              disabled={status.toLowerCase() !== 'Company'.toLowerCase() ? true : false}
-              value={ status.toLowerCase() !== 'Company'.toLowerCase() ? "" : company}
-              onChange={this.onChange}
-              name='company'
-              id='company'
-              list="companies"
-              className='form-control bg-dark border-dark text-light'
-            />
-            <datalist id='companies'>
-              {!companies[0]
-                ? ''
-                : companies.map((company, index) => {
-                    return (
-                      <option key={index} value={company.business_name}>
-                        {company.business_name}
-                      </option>
-                    );
-                  })}
-            </datalist>
+        <div className='form-group'>
+          <label htmlFor='company'>Select Company</label>
+          <input
+            disabled={
+              status.toLowerCase() !== 'Company'.toLowerCase() ? true : false
+            }
+            value={
+              status.toLowerCase() !== 'Company'.toLowerCase() ? '' : company
+            }
+            onChange={this.onChange}
+            name='company'
+            id='company'
+            list='companies'
+            className='form-control bg-dark border-dark text-light'
+          />
+          <datalist id='companies'>
+            {!companies[0]
+              ? ''
+              : companies.map((company, index) => {
+                  return (
+                    <option key={index} value={company.business_name}>
+                      {company.business_name}
+                    </option>
+                  );
+                })}
+          </datalist>
         </div>
-        <div className="form-group float-right">
-          <a href={"/citizen"} className="btn btn-danger">Cancel</a>
-          <button className="btn btn-primary ml-2" type="submit">Update Vehicle</button>
+        <div className='form-group float-right'>
+          <a href={'/citizen'} className='btn btn-danger'>
+            Cancel
+          </a>
+          <button className='btn btn-primary ml-2' type='submit'>
+            Update Vehicle
+          </button>
         </div>
       </form>
     );

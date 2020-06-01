@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Fixed `'business_address' doesn't have a default value`
+
 ## 1.1.0
 
 - Added Account Dropdown in navbar

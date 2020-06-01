@@ -12,6 +12,7 @@ export default class CreateCompanyModal extends Component {
       companyName: '',
       companyOwner: '',
       whitelisted: 'false',
+      address: "",
       loading: true,
       error: '',
     };
@@ -36,6 +37,7 @@ export default class CreateCompanyModal extends Component {
         companyName: this.state.companyName,
         owner: this.state.companyOwner,
         whitelistStatus: this.state.whitelisted,
+        address: this.state.address
       },
     }).then((res) => {
       console.log(res.data);
@@ -55,7 +57,7 @@ export default class CreateCompanyModal extends Component {
   };
 
   render() {
-    const { companyName, error } = this.state;
+    const { companyName, error,address } = this.state;
     return (
       <div
         className='modal fade'
@@ -89,6 +91,17 @@ export default class CreateCompanyModal extends Component {
                     name='companyName'
                     id='companyName'
                     value={companyName}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='address'>Enter Company Address</label>
+                  <input
+                    className='form-control bg-secondary border-secondary text-light'
+                    type='text'
+                    name='address'
+                    id='address'
+                    value={address}
                     onChange={this.onChange}
                   />
                 </div>
