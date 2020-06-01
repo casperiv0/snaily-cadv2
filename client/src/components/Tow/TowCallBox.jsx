@@ -10,7 +10,7 @@ export default class TowCallBox extends Component {
   render() {
     const { caller, location, description } = this.props;
     return (
-      <li className='list-group-item bg-secondary border-dark text-light border-dark'>
+      <li className='list-group-item bg-dark border-secondary text-light'>
         <span className='font-weight-bold'>Description:</span> {description}{' '}
         <br />
         <span className='font-weight-bold'>Location:</span> {location} <br />

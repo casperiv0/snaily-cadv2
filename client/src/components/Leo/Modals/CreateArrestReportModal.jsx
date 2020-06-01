@@ -37,7 +37,7 @@ export default class CreateArrestReportModal extends Component {
       if (res.data.msg === 'Added') {
         sessionStorage.setItem(
           'leo-message',
-          'Successfully Created Arrest Report, Target Name: ' + this.state.name
+          'Successfully Created Arrest Report, Target Name: ' + this.state.arresteeName
         );
         return (window.location = '/leo/dash');
       }

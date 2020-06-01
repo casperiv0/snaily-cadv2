@@ -69,6 +69,8 @@ export default class Register extends Component {
 
       this.setState({
         loading: false,
+        password: '',
+        password2: '',
         error: msg,
       });
     });

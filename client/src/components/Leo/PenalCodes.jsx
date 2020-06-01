@@ -70,7 +70,10 @@ export default class PenalCodes extends Component {
 
     return (
       <div className='container-fluid mt-3 text-light'>
+        <div className="d-flex justify-content-between mb-2">
         <h3>Penal Codes</h3>
+        <a href="/leo/dash" className="btn btn-secondary">Back to Dashboard</a>
+        </div>
         <ul className='list-group'>
           <input
             type='search'

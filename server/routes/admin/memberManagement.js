@@ -19,13 +19,13 @@ const createAuditLog = require("../../utils/createAuditLog");
     @Auth Protected
 */
 router.get("/", auth, async (req, res) => {
-    if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
+    if (req.user.rank === "admin" || req.user.rank === "owner") {
         const members = await processQuery("SELECT id, username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users`");
         const pendingMembers = await processQuery("SELECT id, username, whitelist_status FROM `users` WHERE `users`.`whitelist_status` = ?", ["pending"]);
 
         return res.json({ members: members, pendingMembers: pendingMembers });
     } else {
-        res.sendStatus(403);
+        return res.json({ msg: "Forbidden" })
     };
 
 });
@@ -36,7 +36,7 @@ router.get("/", auth, async (req, res) => {
     @Auth Protected
 */
 router.get("/edit/:memberId", auth, async (req, res) => {
-    if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
+    if (req.user.rank === "admin" || req.user.rank === "owner") {
         const user = await processQuery("SELECT id,username, rank, leo, ems_fd, dispatch, tow, banned, ban_reason FROM `users` WHERE `id` = ?", [req.params.memberId])
 
         // Check if user exists
@@ -46,7 +46,7 @@ router.get("/edit/:memberId", auth, async (req, res) => {
         // "Current" is to check if the username are not the same so users can't ban them selfs
         return res.json({ user: user, current: req.user.username });
     } else {
-        res.sendStatus(403);
+        return res.json({ msg: "Forbidden" })
     };
 });
 
@@ -55,7 +55,7 @@ router.get("/edit/:memberId", auth, async (req, res) => {
     @Auth Protected
 */
 router.put("/edit/:memberId", auth, async (req, res) => {
-    if (req.user.rank === "moderator" || req.user.rank === "admin" || req.user.rank === "owner") {
+    if (req.user.rank === "admin" || req.user.rank === "owner") {
         const { rank, leo, ems_fd, dispatch, tow } = req.body;
         let query;
         let data = []
@@ -71,7 +71,7 @@ router.put("/edit/:memberId", auth, async (req, res) => {
             .catch(err => console.log(err));
 
     } else {
-        res.sendStatus(403);
+        return res.json({ msg: "Forbidden" })
     };
 })
 
@@ -109,7 +109,7 @@ router.post("/ban/:memberId", auth, async (req, res) => {
             .catch(err => console.log(err));
 
     } else {
-        res.sendStatus(403);
+        return res.json({ msg: "Forbidden" })
     };
 });
 

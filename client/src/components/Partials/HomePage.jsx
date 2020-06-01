@@ -33,7 +33,7 @@ const LoggedInSection = () => {
       },
     }).then((res) => {
       if (!res.data.user) {
-        window.location = '/auth/login';
+        setUsername(null)
       } else {
         setUsername(res.data.user[0].username);
       }

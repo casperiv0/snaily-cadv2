@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import { Alert } from '@material-ui/lab';
+import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class RegisterWeapon extends Component {
   constructor() {
@@ -33,17 +33,18 @@ export default class RegisterWeapon extends Component {
         status: weaponStatus,
         owner,
       },
-    }).then((res) => {
-      if (res.data.msg === 'Registered') {
-        sessionStorage.setItem('message', 'Weapon Successfully Registered!');
-        return (window.location = '/citizen');
-      }
-
-      this.setState({
-        error: res.data.msg
-      })
     })
-    .catch(err => console.log(err));
+      .then((res) => {
+        if (res.data.msg === 'Registered') {
+          sessionStorage.setItem('message', 'Weapon Successfully Registered!');
+          return (window.location = '/citizen');
+        }
+
+        this.setState({
+          error: res.data.msg,
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   handleChange = (e) => {
@@ -103,7 +104,7 @@ export default class RegisterWeapon extends Component {
   };
 
   componentDidMount() {
-    document.title= "Register A Weapon"
+    document.title = 'Register A Weapon';
     this.getAllData();
   }
 
@@ -120,11 +121,7 @@ export default class RegisterWeapon extends Component {
 
     return (
       <form className='container text-light' onSubmit={this.register}>
-        {error ? (
-          <Alert variant='filled' severity='warning'>
-            {error}
-          </Alert>
-        ) : null}
+        {error ? <ErrorMessage message={error} dismiss /> : null}
 
         <div className='form-row mt-4'>
           {/* Weapon */}

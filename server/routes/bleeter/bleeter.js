@@ -38,8 +38,8 @@ router.post("/create", auth, async (req, res) => {
 
     if (title, bleet) {
 
-        processQuery("INSERT INTO `bleets` (`title`, `description`, `uploaded_by`, `uploaded_at`, `file_dir`) VALUES (?, ?, ?, ?, ?)",
-            [title, bleet, uploadedBy, uploadedAt, fileName])
+        processQuery("INSERT INTO `bleets` (`title`, `description`, `uploaded_by`, `uploaded_at`, `file_dir`, `pinned`) VALUES (?, ?, ?, ?, ?, ?)",
+            [title, bleet, uploadedBy, uploadedAt, fileName, "false"])
             .then((result) => {
                 if (file) {
                     file.mv("./public/bleeter-pictures/" + fileName, (err) => {

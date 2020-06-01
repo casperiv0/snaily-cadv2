@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import LoadingArea from '../Partials/LoadingArea';
 import TopTowArea from './TopTowArea';
 import TowCallBox from './TowCallBox';
+import SuccessMessage from '../Partials/Messages/SuccessMessage';
 
 export default class Tow extends Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class Tow extends Component {
       towCalls: [{}],
       aop: '',
       loading: true,
+      message: sessionStorage.getItem('tow-message'),
     };
   }
 
@@ -28,7 +30,7 @@ export default class Tow extends Component {
       if (res.status === 200) {
         this.setState({
           towCalls: res.data.towCalls,
-          loading: false
+          loading: false,
         });
       }
     });
@@ -49,7 +51,7 @@ export default class Tow extends Component {
   };
 
   componentDidMount() {
-    document.title = "Tow Truckers"
+    document.title = 'Tow Truckers';
     this.getData();
   }
 
@@ -65,39 +67,43 @@ export default class Tow extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Canceled') {
-          window.location = '/tow';
+          sessionStorage.setItem('tow-message', 'Successfully ended the call');
+          return (window.location = '/tow');
         }
       })
       .catch((err) => console.log(err));
   };
 
   render() {
-    const { aop, loading, towCalls } = this.state;
+    const { aop, loading, towCalls, message } = this.state;
 
     if (loading) return <LoadingArea />;
 
     return (
       <div className='container-fluid text-light'>
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <h2>Tow Dashboard - AOP: {aop} </h2>
-        <TopTowArea>
-          {!towCalls[0]? (
-            <li className='list-group-item bg-dark border-dark'>
-              No Active Calls
-            </li>
-          ) : (
-            towCalls.map((call, index) => (
-              <TowCallBox
-                key={index}
-                id={call.id}
-                index={index}
-                caller={call.name}
-                location={call.location}
-                description={call.description}
-                cancelTowCall={this.cancelTowCall}
-              />
-            ))
-          )}
-        </TopTowArea>
+        <ul className='list-group'>
+          <TopTowArea>
+            {!towCalls[0] ? (
+              <li className='list-group-item bg-dark border-secondary'>
+                No Active Calls
+              </li>
+            ) : (
+              towCalls.map((call, index) => (
+                <TowCallBox
+                  key={index}
+                  id={call.id}
+                  index={index}
+                  caller={call.name}
+                  location={call.location}
+                  description={call.description}
+                  cancelTowCall={this.cancelTowCall}
+                />
+              ))
+            )}
+          </TopTowArea>
+        </ul>
       </div>
     );
   }

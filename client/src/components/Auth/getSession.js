@@ -11,8 +11,6 @@ export const getSession = () => {
             // what is window.atob ?
             // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/atob
             session = JSON.parse(window.atob(base64))
-        } else {
-            window.location = "/auth/login"
         }
     } catch (error) {
         console.log(error)

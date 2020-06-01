@@ -58,7 +58,7 @@ router.post("/create-911-call", (req, res) => {
 
     if (description && caller && location) {
         processQuery("INSERT INTO `911calls` (`description`, `name`, `location`, `status`, `assigned_unit`) VALUES (?, ?, ?, ?, ?)",
-            [description, caller, location, "Not Assigned", ""])
+            [description, caller, location, "Not Assigned", "none"])
             .then(() => {
                 return res.json({ msg: "911 was called" });
             })

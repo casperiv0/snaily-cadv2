@@ -181,7 +181,7 @@ export default class CadSettings extends Component {
                 </select>
               </div>
               <div className='form-group'>
-                <button className='btn btn-primary container' type='submit'>
+                <button className='btn btn-primary col' type='submit'>
                   Update CAD
                 </button>
               </div>

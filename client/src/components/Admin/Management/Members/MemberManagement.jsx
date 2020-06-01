@@ -26,6 +26,11 @@ export default class MemberManagement extends Component {
       },
     })
       .then((res) => {
+        if (res.data.msg === 'Forbidden') {
+          return this.setState({
+            message: "Only admins+ are allowed to manage members",
+          })
+        }
 
         if (res.data.members) {
           this.setState({

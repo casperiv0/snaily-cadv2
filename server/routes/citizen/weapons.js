@@ -14,15 +14,15 @@ const { processQuery } = require("../../utils/db");
     @Route /
     @Auth Protected
 */
-router.get("/all/:citizenId", auth, async (req, res) =>{
+router.get("/all/:citizenId", auth, async (req, res) => {
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
 
     if (!citizen[0]) return res.json({ msg: "Citizen Not found" })
 
-    
-        processQuery("SELECT * FROM `registered_weapons` WHERE `owner` = ? AND `linked_to` = ?", [citizen[0].full_name, req.user.username])
+
+    processQuery("SELECT * FROM `registered_weapons` WHERE `owner` = ? AND `linked_to` = ?", [citizen[0].full_name, req.user.username])
         .then(weapons => {
-            return res.json({weapons});
+            return res.json({ weapons });
         })
         .catch(err => console.log(err));
 })
@@ -45,6 +45,11 @@ router.post("/register", auth, async (req, res) => {
     const { owner, weapon, status, } = req.body;
 
     if (owner, weapon, status) {
+
+        const citizen = await processQuery("SELECT * FROM `citizens` WHERE `full_name` = ?", [owner]).catch(err => console.log(err));
+
+        if (!citizen[0]) return res.json({ msg: "Citizen was not found!" })
+
         processQuery("INSERT INTO `registered_weapons` (`owner`, `weapon`, `serial_number`, `status`, `linked_to`) VALUES (?, ?, ?, ?, ?)", [owner, weapon, serialNumber(10), status, req.user.username])
             .then(() => {
                 return res.json({ msg: "Registered" })

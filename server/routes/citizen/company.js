@@ -39,7 +39,12 @@ router.post("/join", auth, async (req, res) => {
     // Check if company is whitelisted
     const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [joinedCompany]);
 
-    if (!company[0]) return res.json({ msg: "Company wasn't found!" })
+    if (!company[0]) return res.json({ msg: "Company wasn't found!" });
+
+    // check if citizen exists 
+    const citizen = await processQuery("SELECT * FROM `citizens` WHERE `full_name` = ?", [citizenName]).catch(err => console.log(err));
+
+    if (!citizen[0]) return res.json({ msg: "Citizen was not found!" });
 
     if (company[0].whitelisted === "true") {
         processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ?, `b_status` = ? WHERE `full_name` = ?", [joinedCompany, "employee", "pending", citizenName])
@@ -67,10 +72,14 @@ router.post("/create", auth, async (req, res) => {
 
     if (companyName && owner && address) {
         // Check if company already exists
-        const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [companyName]);
+        const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [companyName]).catch(err => console.log(err));
 
         if (company[0]) return res.json({ msg: "Company name is already in use!" });
 
+        // check if citizen exists 
+        const citizen = await processQuery("SELECT * FROM `citizens` WHERE `full_name` = ?", [owner]).catch(err => console.log(err));
+
+        if (!citizen[0]) return res.json({ msg: "Citizen was not found!" });
 
         // Create the company
         processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`, `business_address`) VALUES (?, ?, ?, ?, ?)",
@@ -80,7 +89,7 @@ router.post("/create", auth, async (req, res) => {
 
         return res.json({ msg: "Company Created" });
     } else {
-        return res.json({ msg: "Company Name and owner are required!" })
+        return res.json({ msg: "Company Name, owner and address are required!" })
     }
 
 });

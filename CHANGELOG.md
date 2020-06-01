@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2
+
+- Fixed `'stringifyd_name' doesn't have a default value`
+- Fixed `'pinned' doesn't have a default value`
+- Fixed when not logged in, it now shows `home` instead of nothing
+- Fixed CreateArrestReport `target name: undefined`, now shows the target name
+
 ## 1.1.1
 
 - Fixed `'business_address' doesn't have a default value`

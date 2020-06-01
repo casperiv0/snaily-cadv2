@@ -117,7 +117,17 @@ router.get("/:carId", auth, async (req, res) => {
     @Auth Protected
 */
 router.put("/:carId", auth, async (req, res) => {
-    const { color, status, company } = req.body;
+    const { color, status } = req.body;
+    let company = req.body.company;
+    
+    if (status !== "Company") {
+        company = "none"
+    }
+
+    if (company === "") {
+        company = "none"
+    }
+
     const carId = req.params.carId;
 
     if (color, status, company) {
