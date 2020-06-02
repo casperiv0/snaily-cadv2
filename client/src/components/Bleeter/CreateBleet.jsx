@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
+import ErrorMessage from "../Partials/Messages/ErrorMessage"
 
 export default class CreateBleet extends Component {
   constructor() {
@@ -11,6 +12,7 @@ export default class CreateBleet extends Component {
       title: '',
       bleet: '',
       image: '',
+      error: '',
     };
   }
 
@@ -49,8 +51,12 @@ export default class CreateBleet extends Component {
             'bleeter-message',
             'Successfully Created bleet!'
           );
-          window.location = '/bleet/' + res.data.bleetId;
+          return (window.location = '/bleet/' + res.data.bleetId);
         }
+
+        this.setState({
+          error: res.data.msg,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -60,9 +66,10 @@ export default class CreateBleet extends Component {
   }
 
   render() {
-    const { title, bleet } = this.state;
+    const { title, bleet, error } = this.state;
     return (
       <div className='container mt-3 text-light'>
+        {error ? <ErrorMessage  message={error} dismiss /> : null}
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
             <label htmlFor='title'>Image (Not Required)</label>

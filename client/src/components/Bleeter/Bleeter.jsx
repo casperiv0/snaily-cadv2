@@ -61,6 +61,7 @@ export default class Bleeter extends Component {
               id={bleet.id}
               title={bleet.title}
               bleet={bleet.description}
+              pinned={bleet.pinned}
             />
           ))
         )}{' '}

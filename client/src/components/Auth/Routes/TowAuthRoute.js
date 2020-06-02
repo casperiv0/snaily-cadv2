@@ -26,7 +26,7 @@ class TowAuthRoute extends Component {
             },
         })
             .then(res => {
-                if (res.data.user[0]) {
+                if (res.data.user) {
                     if (res.data.user[0].tow === "yes") {
                         this.setState({
                             towAccess: true,

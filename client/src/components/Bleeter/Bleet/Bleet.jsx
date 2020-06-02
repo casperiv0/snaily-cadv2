@@ -14,6 +14,7 @@ export default class Bleet extends Component {
     this.state = {
       bleet: [],
       loading: true,
+      message: sessionStorage.getItem('bleeter-message'),
     };
   }
 
@@ -29,7 +30,7 @@ export default class Bleet extends Component {
         bleet: res.data.bleet[0],
         loading: false,
       });
-      document.title = res.data.bleet[0].title;
+      document.title = res.data.bleet[0].title + ' - Bleeter';
     });
   };
 
@@ -43,8 +44,7 @@ export default class Bleet extends Component {
   }
 
   render() {
-    const { bleet, loading } = this.state;
-    const message = sessionStorage.getItem('bleeter-message');
+    const { bleet, loading, message } = this.state;
 
     if (loading) {
       return <LoadingArea />;
@@ -52,6 +52,9 @@ export default class Bleet extends Component {
 
     return (
       <div className='container text-light mt-2  pb-5'>
+        <a href="/bleeter" className="btn btn-secondary mb-2"> 
+        <img style={{width: "20px", marginRight: "5px"}} src="/icons/internal/go_back.svg" alt="go_back"/>
+         Go Back</a>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div>
           <h3 className='pb-3 border-bottom'>

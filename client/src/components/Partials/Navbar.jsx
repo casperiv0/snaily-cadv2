@@ -46,8 +46,8 @@ export default class NavigationBar extends Component {
       }
 
       this.setState({
-        loading: false
-      })
+        loading: false,
+      });
     });
   };
 
@@ -58,6 +58,8 @@ export default class NavigationBar extends Component {
 
   render() {
     const { rank, cadName, loading } = this.state;
+    const currentPath = window.location.pathname;
+
     return (
       <nav className='navbar navbar-expand-lg navbar-dark bg-secondary sticky-top'>
         <a className='navbar-brand' href='/'>
@@ -78,7 +80,11 @@ export default class NavigationBar extends Component {
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
-              <a className='nav-link' href='/leo/dash'>
+              <a
+                className={
+                  currentPath === '/leo/dash' ? 'nav-link active' : 'nav-link'
+                }
+                href='/leo/dash'>
                 Police Dept{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -88,7 +94,11 @@ export default class NavigationBar extends Component {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/dispatch'>
+              <a
+                className={
+                  currentPath === '/dispatch' ? 'nav-link active' : 'nav-link'
+                }
+                href='/dispatch'>
                 Dispatch{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -98,7 +108,11 @@ export default class NavigationBar extends Component {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/ems-fd'>
+              <a
+                className={
+                  currentPath === '/ems-fd' ? 'nav-link active' : 'nav-link'
+                }
+                href='/ems-fd'>
                 EMS/FD{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -108,7 +122,11 @@ export default class NavigationBar extends Component {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/citizen'>
+              <a
+                className={
+                  currentPath === '/citizen' ? 'nav-link active' : 'nav-link'
+                }
+                href='/citizen'>
                 Citizen{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -118,7 +136,11 @@ export default class NavigationBar extends Component {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/tow'>
+              <a
+                className={
+                  currentPath === '/tow' ? 'nav-link active' : 'nav-link'
+                }
+                href='/tow'>
                 Tow{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -128,7 +150,11 @@ export default class NavigationBar extends Component {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/bleeter'>
+              <a
+                className={
+                  currentPath === '/bleeter' ? 'nav-link active' : 'nav-link'
+                }
+                href='/bleeter'>
                 Bleeter{' '}
                 <img
                   style={{ maxHeight: '20px' }}
@@ -139,7 +165,11 @@ export default class NavigationBar extends Component {
             </li>
             {rank === 'moderator' || rank === 'admin' || rank === 'owner' ? (
               <li className='nav-item'>
-                <a className='nav-link' href='/admin'>
+                <a
+                  className={
+                    currentPath === '/admin' ? 'nav-link active' : 'nav-link'
+                  }
+                  href='/admin'>
                   Admin{' '}
                   <img
                     style={{ maxHeight: '20px' }}

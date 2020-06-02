@@ -23,28 +23,28 @@ export default class TopButtons extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
-      this.setState({
-        aop: res.data.cadInfo[0].AOP
-      });
+      if (res.data.cadInfo) {
+        this.setState({
+          aop: res.data.cadInfo[0].AOP,
+        });
+      }
     });
   };
 
   componentDidMount() {
-   this.getAOP()
+    this.getAOP();
   }
 
   render() {
     const { aop } = this.state;
     return (
       <div>
-        <h3 className="text-light">Welcome - AOP: {aop}</h3>
+        <h3 className='text-light'>Welcome - AOP: {aop}</h3>
         <div className='d-flex'>
           <button onClick={logOut} className='col btn btn-danger'>
             Logout
           </button>
-          <Link
-            to='/account'
-            className='col ml-1 btn btn-primary'>
+          <Link to='/account' className='col ml-1 btn btn-primary'>
             Account
           </Link>
         </div>
@@ -79,7 +79,7 @@ export default class TopButtons extends Component {
           </button>
         </div>
         <CallTowModal />
-        <CallEmergencyServicesModal to="/citizen"  messageType="message" />
+        <CallEmergencyServicesModal to='/citizen' messageType='message' />
       </div>
     );
   }

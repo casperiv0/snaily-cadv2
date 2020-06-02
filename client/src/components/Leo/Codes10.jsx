@@ -4,10 +4,14 @@ export default class Codes10 extends Component {
   render() {
     return (
       <div className='container-fluid pb-5 text-light'>
+        <div className='d-flex justify-content-between'>
           <h2>10 Codes</h2>
-        <a href="/leo/dash" className="btn btn-primary container-fluid mb-2">Back To Dashboard</a>
+          <a href='/leo/dash' className='btn btn-secondary mb-2'>
+            Back To Dashboard
+          </a>
+        </div>
         <div class='row'>
-          <div class='col'>
+          <div class='col-md-3'>
             <li class='list-group-item bg-dark border-dark text-light'>
               Service Status:
             </li>
@@ -60,7 +64,7 @@ export default class Codes10 extends Component {
               Signal 41: 10-41 | 10-8
             </li>
           </div>
-          <div class='col'>
+          <div class='col-md-3'>
             <li class='list-group-item bg-dark border-dark text-light'>
               Scenes:
             </li>
@@ -118,17 +122,12 @@ export default class Codes10 extends Component {
             <li class='list-group-item bg-dark border-dark text-light'>
               Signal 60: Drugs
             </li>
-
-            <div class='mb-3'></div>
           </div>
-        </div>
-        <div class='row'>
-          <div class='col'>
+          <div class='col-md-3'>
             <li class='list-group-item bg-dark border-dark text-light'>
               Requests:
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
-              {' '}
               10-27: Drivers License Check <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
@@ -144,7 +143,6 @@ export default class Codes10 extends Component {
               10-51: Towing Service <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
-              {' '}
               10-52: EMS service <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
@@ -154,11 +152,10 @@ export default class Codes10 extends Component {
               10-71: Supervisor needed
             </li>
           </div>
-          <div class='col'>
+          <div class='col-md-3'>
             <li class='list-group-item bg-dark border-dark text-light'>
               Subject Status:
             </li>
-
             <li class='list-group-item bg-dark border-dark text-light'>
               10-0: Disappeared <br />
             </li>
@@ -175,25 +172,19 @@ export default class Codes10 extends Component {
               10-44: Person Deceased <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
-              {' '}
               10-15: Subject in Custody <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
-              {' '}
               10-31: Not wanted, No warrants <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
-              {' '}
               10-56: Intoxicated Pedestrian <br />
             </li>
             <li class='list-group-item bg-dark border-dark text-light'>
               10-61: Armed with a knife
             </li>
           </div>
-        </div>
-
-        <div class='row mt-2'>
-          <div class='col'>
+          <div class='col-md-3'>
             <li class='list-group-item bg-dark border-dark text-light'>
               Radio Comms:
             </li>

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- In bleeter now only shows `...` if the bleet is longer than 120 characters
+- Fixed blank page on citizen page when not logged in (didn't happen all the time)
+- Cleaned up 10-codes page a little bit
+- Now shows if there was an error when creating a bleet
+- Added a "Go back" button in bleeter
+
 ## 1.1.2
 
 - Fixed `'stringifyd_name' doesn't have a default value`

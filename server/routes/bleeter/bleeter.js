@@ -36,7 +36,7 @@ router.post("/create", auth, async (req, res) => {
     const uploadedAt = new Date().toLocaleDateString();
     const uploadedBy = req.user.username;
 
-    if (title, bleet) {
+    if (title && bleet) {
 
         processQuery("INSERT INTO `bleets` (`title`, `description`, `uploaded_by`, `uploaded_at`, `file_dir`, `pinned`) VALUES (?, ?, ?, ?, ?, ?)",
             [title, bleet, uploadedBy, uploadedAt, fileName, "false"])

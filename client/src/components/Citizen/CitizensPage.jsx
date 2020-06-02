@@ -5,8 +5,8 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
-import SuccessMessage from "../Partials/Messages/SuccessMessage";
-import LoadingArea from "../Partials/LoadingArea"
+import SuccessMessage from '../Partials/Messages/SuccessMessage';
+import LoadingArea from '../Partials/LoadingArea';
 
 export default class CitizensPage extends Component {
   constructor() {
@@ -32,11 +32,17 @@ export default class CitizensPage extends Component {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
     }).then((res) => {
+      if (res.data.citizens) {
+        this.setState({
+          citizens: res.data.citizens,
+          loading: false,
+        });
+      }
+
       this.setState({
-        citizens: res.data.citizens,
-        loading: false
+        loading: false,
       });
-    });   
+    });
   };
 
   componentDidUpdate() {
@@ -49,11 +55,13 @@ export default class CitizensPage extends Component {
   render() {
     const { citizens, loading, message } = this.state;
     if (loading) {
-      return <LoadingArea />
+      return <LoadingArea />;
     }
     return (
       <div className='container pb-5'>
-        {this.state.message ? <SuccessMessage message={message} dismiss /> : null}
+        {this.state.message ? (
+          <SuccessMessage message={message} dismiss />
+        ) : null}
         <TopButtons />
 
         <ul className='list-group mt-2'>
