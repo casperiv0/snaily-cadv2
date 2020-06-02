@@ -2,6 +2,7 @@
 
 ## 1.2.0
 
+- Fixed notepad icon not showing in Dispatch page
 - In bleeter now only shows `...` if the bleet is longer than 120 characters
 - Fixed blank page on citizen page when not logged in (didn't happen all the time)
 - Cleaned up 10-codes page a little bit

@@ -90,7 +90,7 @@ export default class ModalButtons extends Component {
           Open Notepad |{' '}
           <img
             style={{ width: '25px' }}
-            src='/icons/internal/notepad.png'
+            src='/icons/internal/Notepad.png'
             alt='notepad'
           />
         </button>
