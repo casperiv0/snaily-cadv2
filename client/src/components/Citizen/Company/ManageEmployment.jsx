@@ -5,6 +5,7 @@ import axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class ManageEmployment extends Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class ManageEmployment extends Component {
       citizens: [],
       companies: [],
       loading: true,
+      companyWhitelisted: '',
     };
   }
 
@@ -49,7 +51,7 @@ export default class ManageEmployment extends Component {
       .then((res) => {
         this.setState({
           companies: res.data.companies,
-          loading: false
+          loading: false,
         });
       })
       .catch((err) => console.log(err));
@@ -76,7 +78,10 @@ export default class ManageEmployment extends Component {
           Create Company
         </button>
 
-        <JoinCompanyModal citizens={this.state.citizens} companies={this.state.companies} />
+        <JoinCompanyModal
+          citizens={this.state.citizens}
+          companies={this.state.companies}
+        />
         <CreateCompanyModal owners={this.state.citizens} />
       </div>
     );

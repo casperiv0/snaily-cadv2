@@ -88,12 +88,13 @@ router.delete("/911calls/:callId", auth, emrAuth, (req, res) => {
 */
 router.put("/911calls/:callId", auth, emrAuth, (req, res) => {
     const { location, description } = req.body;
-    const assigned_unit = [req.body.assigned_unit].join(", ");
+    let assigned_unit = [req.body.assigned_unit].join(", ");
     let status = "";
 
     if (assigned_unit) {
         status = "Assigned"
     } else {
+        assigned_unit = "none"
         status = "Not Assigned"
     }
 

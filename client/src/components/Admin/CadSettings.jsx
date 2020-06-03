@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
-import SuccessMessage from "../Partials/Messages/SuccessMessage"
+import SuccessMessage from '../Partials/Messages/SuccessMessage';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
 export default class CadSettings extends Component {
@@ -15,7 +15,8 @@ export default class CadSettings extends Component {
       aop: '',
       towWhitelisted: '',
       cadWhitelisted: '',
-      error: "",
+      companyWhitelisted: '',
+      error: '',
     };
   }
 
@@ -28,11 +29,14 @@ export default class CadSettings extends Component {
       },
     })
       .then((res) => {
+        console.log(res.data);
+        
         this.setState({
           cadName: res.data.cadInfo[0].cad_name,
           aop: res.data.cadInfo[0].AOP,
           cadWhitelisted: res.data.cadInfo[0].whitelisted,
           towWhitelisted: res.data.cadInfo[0].tow_whitelisted,
+          companyWhitelisted: res.data.cadInfo[0].company_whitelisted,
         });
       })
       .catch((err) => console.log(err));
@@ -62,6 +66,7 @@ export default class CadSettings extends Component {
         newAop: this.state.aop,
         whitelist: this.state.cadWhitelisted,
         towWhitelist: this.state.towWhitelisted,
+        companyWhitelisted: this.state.companyWhitelisted,
       },
     })
       .then((res) => {
@@ -71,8 +76,8 @@ export default class CadSettings extends Component {
         }
 
         this.setState({
-          error: res.data.msg
-        })
+          error: res.data.msg,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -84,7 +89,18 @@ export default class CadSettings extends Component {
   };
 
   render() {
-    const { cadName, aop, cadWhitelisted, towWhitelisted, message, error } = this.state;
+    const {
+      cadName,
+      aop,
+      cadWhitelisted,
+      towWhitelisted,
+      message,
+      error,
+      companyWhitelisted,
+    } = this.state;
+
+    console.log(companyWhitelisted);
+    
 
     return (
       <div className='col text-light'>
@@ -179,6 +195,25 @@ export default class CadSettings extends Component {
                   <option value='true'>Tow is whitelisted</option>
                   <option value='false'>Tow is not whitelisted</option>
                 </select>
+              </div>
+              <div className='form-group'>
+                <label htmlFor='companyWhitelisted'>Company whitelisted</label>
+                <select
+                  className='form-control bg-secondary border-secondary text-light'
+                  name='companyWhitelisted'
+                  id='companyWhitelisted'
+                  onChange={this.onChange}>
+                  <option value={companyWhitelisted}>
+                    {companyWhitelisted}
+                  </option>
+                  <option disabled>--------</option>
+                  <option value='true'>true</option>
+                  <option value='false'>false</option>
+                </select>
+                <small>
+                  If selected true, Only moderators and above are able to create
+                  companies (Not citizens)
+                </small>
               </div>
               <div className='form-group'>
                 <button className='btn btn-primary col' type='submit'>

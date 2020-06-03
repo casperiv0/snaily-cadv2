@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1
+
+- When updating a 911 call and not selecting any officer, it will now show `none` instead of nothing
+- Added a CAD setting to set `Create company` only for moderators and above (Not citizens)
+
 ## 1.2.0
 
 - Fixed notepad icon not showing in Dispatch page

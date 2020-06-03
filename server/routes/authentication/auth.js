@@ -88,7 +88,8 @@ router.post("/register", async (req, res) => {
 
             } else {
                 // Create CAD
-                processQuery("INSERT INTO `cad_info` (`owner`, `cad_name`, `AOP`, `tow_whitelisted`, `whitelisted`) VALUES (?, ?, ?, ?, ?)", [username, 'Change Me', 'Change Me', 'false', 'false']).catch(err => console.log(err));
+                processQuery("INSERT INTO `cad_info` (`owner`, `cad_name`, `AOP`, `tow_whitelisted`, `whitelisted`, `company_whitelisted`) VALUES (?, ?, ?, ?, ?)",
+                    [username, 'Change Me', 'Change Me', 'false', 'false', 'false']).catch(err => console.log(err));
 
                 // Create user
                 const newUser = await processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`, `dispatch_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -174,7 +175,7 @@ router.get("/user", auth, async (req, res) => {
     @Auth Protected
 */
 router.get("/cad-info", auth, (req, res) => {
-    processQuery("SELECT tow_whitelisted, AOP, cad_name, whitelisted FROM `cad_info`")
+    processQuery("SELECT tow_whitelisted, AOP, cad_name, whitelisted, company_whitelisted FROM `cad_info`")
         .then((data) => {
             return res.json({ cadInfo: data });
         })

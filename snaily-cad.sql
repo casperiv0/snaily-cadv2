@@ -122,7 +122,8 @@ CREATE TABLE `cad_info` (
   `cad_name` varchar(255) NOT NULL,
   `AOP` varchar(255) NOT NULL,
   `tow_whitelisted` varchar(255) NOT NULL,
-  `whitelisted` varchar(255) NOT NULL
+  `whitelisted` varchar(255) NOT NULL,
+  `company_whitelisted` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

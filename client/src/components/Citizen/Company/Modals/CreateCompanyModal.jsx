@@ -12,9 +12,10 @@ export default class CreateCompanyModal extends Component {
       companyName: '',
       companyOwner: '',
       whitelisted: 'false',
-      address: "",
+      address: '',
       loading: true,
       error: '',
+      companyWhitelisted: '',
     };
   }
 
@@ -37,7 +38,7 @@ export default class CreateCompanyModal extends Component {
         companyName: this.state.companyName,
         owner: this.state.companyOwner,
         whitelistStatus: this.state.whitelisted,
-        address: this.state.address
+        address: this.state.address,
       },
     }).then((res) => {
       console.log(res.data);
@@ -57,7 +58,7 @@ export default class CreateCompanyModal extends Component {
   };
 
   render() {
-    const { companyName, error,address } = this.state;
+    const { companyName, error, address,  } = this.state;
     return (
       <div
         className='modal fade'

@@ -32,11 +32,12 @@ router.get("/", auth, (req, res) => {
 */
 router.put("/", auth, (req, res) => {
     if (req.user.rank === "owner") {
-        const { cadName, newAop, whitelist, towWhitelist } = req.body;
+        const { cadName, newAop, whitelist, towWhitelist, companyWhitelisted } = req.body;
 
         if (cadName && newAop) {
 
-            processQuery("UPDATE `cad_info` SET `cad_name` = ?, `AOP`= ?,`tow_whitelisted` = ?, `whitelisted` = ? ", [cadName, newAop, towWhitelist, whitelist])
+            processQuery("UPDATE `cad_info` SET `cad_name` = ?, `AOP`= ?,`tow_whitelisted` = ?, `whitelisted` = ?, `company_whitelisted` = ?",
+                [cadName, newAop, towWhitelist, whitelist, companyWhitelisted])
                 .then(() => {
                     createAuditLog(`CAD settings were updated by ${req.user.username}`)
                     return res.json({ msg: "CAD Updated" });

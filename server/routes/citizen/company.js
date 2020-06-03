@@ -71,6 +71,8 @@ router.post("/create", auth, async (req, res) => {
 
 
     if (companyName && owner && address) {
+        const cadInfo = await processQuery("SELECT company_whitelisted FROM `cad_info`").catch(err => console.log(err));
+
         // Check if company already exists
         const company = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [companyName]).catch(err => console.log(err));
 
@@ -81,17 +83,32 @@ router.post("/create", auth, async (req, res) => {
 
         if (!citizen[0]) return res.json({ msg: "Citizen was not found!" });
 
-        // Create the company
-        processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`, `business_address`) VALUES (?, ?, ?, ?, ?)",
-            [companyName, owner, req.user.username, whitelistStatus, address]).catch(err => console.log(err))
-        processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner]).catch(err => console.log(err))
 
+        // Check if creating companies is whitelisted
+        if (cadInfo[0].company_whitelisted === "true") {
+            const user = await processQuery("SELECT rank FROM `users` WHERE `id` = ?", [req.user.id]).catch(err => console.log(err));
 
-        return res.json({ msg: "Company Created" });
+            if (user[0].rank === "owner" || user[0].rank === "admin" || user[0].rank === "moderator") {
+                // Create the company
+                processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`, `business_address`) VALUES (?, ?, ?, ?, ?)",
+                    [companyName, owner, req.user.username, whitelistStatus, address]).catch(err => console.log(err))
+                processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner])
+                    .then(() => { return res.json({ msg: "Company Created" }) })
+                    .catch(err => console.log(err))
+            } else {
+                return res.json({ msg: "Only moderators+ are allowed to create a company." });
+            }
+        } else {
+            // Create the company
+            processQuery("INSERT INTO `businesses` (`business_name`, `business_owner`, `linked_to`, `whitelisted`, `business_address`) VALUES (?, ?, ?, ?, ?)",
+                [companyName, owner, req.user.username, whitelistStatus, address]).catch(err => console.log(err))
+            processQuery("UPDATE `citizens` SET `business` = ?, `rank` = ? WHERE `citizens`.`full_name` = ?", [companyName, "owner", owner])
+                .then(() => { return res.json({ msg: "Company Created" }) })
+                .catch(err => console.log(err))
+        }
     } else {
         return res.json({ msg: "Company Name, owner and address are required!" })
-    }
-
+    };
 });
 
 
