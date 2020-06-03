@@ -88,7 +88,7 @@ router.post("/register", async (req, res) => {
 
             } else {
                 // Create CAD
-                processQuery("INSERT INTO `cad_info` (`owner`, `cad_name`, `AOP`, `tow_whitelisted`, `whitelisted`, `company_whitelisted`) VALUES (?, ?, ?, ?, ?)",
+                processQuery("INSERT INTO `cad_info` (`owner`, `cad_name`, `AOP`, `tow_whitelisted`, `whitelisted`, `company_whitelisted`) VALUES (?, ?, ?, ?, ?, ?)",
                     [username, 'Change Me', 'Change Me', 'false', 'false', 'false']).catch(err => console.log(err));
 
                 // Create user
