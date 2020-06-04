@@ -55,7 +55,7 @@ export default class CompanyVehicles extends Component {
                   {++index} | {vehicle.vehicle}
                   <div>
                     <span className='font-weight-bold'>Plate: </span>
-                    {vehicle.plate}
+                    {vehicle.plate.toUpperCase()}
                   </div>
                   <div>
                     <span className='font-weight-bold'>Status: </span>

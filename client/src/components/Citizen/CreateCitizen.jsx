@@ -162,7 +162,7 @@ export default class CreateCitizen extends Component {
         <form onSubmit={this.createCitizen}>
           {/* Picture */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Full Name</label>
+            <label htmlFor='fullName'>Select Image</label>
             <input
               type='file'
               onChange={this.handleFileChange}

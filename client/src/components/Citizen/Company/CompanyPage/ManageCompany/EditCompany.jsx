@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
+import ErrorMessage from '../../../../Partials/Messages/ErrorMessage';
 
 export default class EditCompany extends Component {
   constructor() {
@@ -10,6 +11,8 @@ export default class EditCompany extends Component {
       current: [],
       whitelisted: '',
       business_address: '',
+      business_name: '',
+      error: '',
     };
   }
 
@@ -23,6 +26,7 @@ export default class EditCompany extends Component {
     }).then((res) => {
       this.setState({
         business_address: res.data.company[0].business_address,
+        business_name: res.data.company[0].business_name,
         whitelisted: res.data.company[0].whitelisted,
         current: res.data.company[0],
       });
@@ -41,15 +45,20 @@ export default class EditCompany extends Component {
       data: {
         whitelisted: this.state.whitelisted,
         business_address: this.state.business_address,
+        business_name: this.state.business_name,
       },
     }).then((res) => {
       if (res.data.msg === 'Updated') {
         sessionStorage.setItem(
-          'company-message',
+          'message',
           'Successfully Updated Company'
         );
-        return (window.location = this.props.companyURL + '/manage');
+        return (window.location = "/citizen");
       }
+
+      this.setState({
+        error: res.data.msg,
+      });
     });
   };
 
@@ -79,10 +88,21 @@ export default class EditCompany extends Component {
   }
 
   render() {
-    const { current, business_address } = this.state;
+    const { current, business_address, business_name, error } = this.state;
     return (
       <div>
         <form className='mt-2' onSubmit={this.onSubmit}>
+          {error ? <ErrorMessage message={error} dismiss /> : null}
+          <div className='form-group'>
+            <label htmlFor='business_name'>Company Name</label>
+            <input
+              value={business_name}
+              onChange={this.onChange}
+              className='form-control bg-secondary border-secondary text-light'
+              name='business_name'
+              id='business_name'
+            />
+          </div>
           <div className='form-group'>
             <label htmlFor='whitelisted'>Company whitelisted</label>
             <select

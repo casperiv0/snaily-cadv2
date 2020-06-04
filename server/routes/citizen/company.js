@@ -15,6 +15,7 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
+const createAuditLog = require(".././../utils/createAuditLog");
 
 /*
     @Route /
@@ -146,12 +147,26 @@ router.post("/:citizenId/:companyName", auth, async (req, res) => {
 
 
 router.post("/:citizenId/:company/edit", auth, async (req, res) => {
-    const { whitelisted, business_address } = req.body;
+    const { whitelisted, business_address, business_name } = req.body;
 
-    processQuery("UPDATE `businesses` SET `whitelisted` = ?, `business_address` = ? WHERE `business_name` = ?",
-        [whitelisted, business_address, req.params.company]).then(() => {
+    if (business_name !== req.params.company) {
+        const existing = await processQuery("SELECT * FROM `businesses` WHERE `business_name` = ?", [business_name]).catch(err => console.log(err));
+        if (existing[0]) return res.json({ msg: "Company name already exists, please use a different name!" });
+    }
+
+
+    // Update all citizens & vehicles
+    processQuery("UPDATE `citizens` SET `business` = ? WHERE `business` = ?", [business_name, req.params.company]).catch(err => console.log(err));
+    processQuery("UPDATE `registered_cars` SET `company` = ? WHERE `company` = ?", [business_name, req.params.company]).catch(err => console.log(err));
+    processQuery("UPDATE `posts` SET `linked_to_bus` = ? WHERE `linked_to_bus` = ?", [business_name, req.params.company]).catch(err => console.log(err));
+
+
+    processQuery("UPDATE `businesses` SET `whitelisted` = ?, `business_address` = ?, `business_name` = ? WHERE `business_name` = ?",
+        [whitelisted, business_address, business_name, req.params.company]).then(() => {
             return res.json({ msg: "Updated" })
         }).catch(err => console.log(err));
+
+    createAuditLog(`Company ${req.params.company} was successfully renamed to ${business_name}`);
 });
 
 /*

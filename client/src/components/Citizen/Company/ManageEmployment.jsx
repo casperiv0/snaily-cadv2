@@ -5,7 +5,6 @@ import axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
-import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 
 export default class ManageEmployment extends Component {
   constructor() {

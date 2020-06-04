@@ -321,7 +321,7 @@ export default class NamSearchResults extends Component {
                         <span className='font-weight-bold'>Status: </span>
                         {vehicle.in_status} <br />
                         <span className='font-weight-bold'>Plate: </span>
-                        {vehicle.plate} <br />
+                        {vehicle.plate.toUpperCase()} <br />
                         <span className='font-weight-bold'>Color: </span>
                         {vehicle.color}
                       </li>

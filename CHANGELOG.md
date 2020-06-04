@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+- You can now rename your company
+- Bug fixes
+
 ## 1.2.1
 
 - When updating a 911 call and not selecting any officer, it will now show `none` instead of nothing

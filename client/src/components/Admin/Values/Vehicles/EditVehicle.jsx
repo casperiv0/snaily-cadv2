@@ -83,7 +83,7 @@ export default class EditVehicle extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <div className='form-group'>
-          <label htmlFor='vehicle'>Enter Gender Name</label>
+          <label htmlFor='vehicle'>Enter Vehicle</label>
           <input
             type='text'
             name='vehicle'
