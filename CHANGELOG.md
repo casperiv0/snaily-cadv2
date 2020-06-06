@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+- Added trucking logs (Hopefully more coming to this soon!)
+  - Create truck logs
+  - Delete Truck logs
+- Fixed more minor bugs
+
 ## 1.2.2
 
 - You can now rename your company

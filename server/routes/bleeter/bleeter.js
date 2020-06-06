@@ -4,6 +4,7 @@
     GET /:bleetId - shows information about bleet 
     GET /edit/:bleetId - shows information about bleet 
     PUT /edit/:bleetId - edit bleet
+    POST /:bleetId/like - add a like to a bleet
     DELETE /:bleetId - delete bleet, moderator+ only
 */
 
@@ -128,6 +129,18 @@ router.put("/edit/:bleetId", auth, async (req, res) => {
         })
         .catch(err => console.log(err));
 });
+
+
+router.post('/:bleetId/like', auth, async (req, res) => {
+    const { bleetId } = req.params;
+    const bleet = await processQuery("SELECT * FROM `bleets` WHERE `id` = ?", [bleetId]);
+
+    if (bleet[0].uploaded_by === req.user.username) return res.json({ msg: "You can't like your own bleet!" });
+
+    processQuery("UPDATE `bleets` SET `likes` = ? WHERE `id` = ?", [bleet[0].likes + 1, bleetId]).then(() => {
+        return res.json({ msg: "Liked" })
+    }).catch(err => console.log(err));
+})
 
 
 /*

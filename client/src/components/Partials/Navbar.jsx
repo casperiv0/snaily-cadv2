@@ -152,6 +152,22 @@ export default class NavigationBar extends Component {
             <li className='nav-item'>
               <a
                 className={
+                  currentPath === '/trucker-logs'
+                    ? 'nav-link active'
+                    : 'nav-link'
+                }
+                href='/truck-logs'>
+                Truck Logs{' '}
+                <img
+                  style={{ maxHeight: '20px', width: '20px' }}
+                  src='/icons/internal/truck-logs.svg'
+                  alt='tow'
+                />
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a
+                className={
                   currentPath === '/bleeter' ? 'nav-link active' : 'nav-link'
                 }
                 href='/bleeter'>

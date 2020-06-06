@@ -52,6 +52,7 @@ You can report bugs [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/is
 - LEO Dashboard
 - Dispatch Dashboard
 - Tow Dashboard
+- Trucker Logs
 - Bleeter
 
 - Administration
@@ -120,6 +121,12 @@ You can report bugs [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/is
 
   - See all active tow calls
   - in game call tow truckers command
+
+- Trucker Logs
+
+  - See all truck logs you've made
+  - Create unlimited truck logs
+  - Delete a truck log
 
 - Bleeter
 

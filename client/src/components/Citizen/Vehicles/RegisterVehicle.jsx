@@ -137,7 +137,7 @@ export default class RegisterVehicle extends Component {
   };
 
   componentDidMount() {
-    document.title = 'Register A Weapon';
+    document.title = 'Register A Vehicle';
     this.getAllData();
   }
 

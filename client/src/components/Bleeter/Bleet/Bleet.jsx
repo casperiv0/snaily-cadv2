@@ -34,6 +34,25 @@ export default class Bleet extends Component {
     });
   };
 
+  likeBleet = () => {
+    axios({
+      url: backendURL + '/bleeter/' + this.props.match.params.bleetId + '/like',
+      method: 'POST',
+      headers: {
+        'x-auth-snailycad-token': Cookies.get('__session'),
+      },
+    })
+      .then((res) => {
+        if (res.data.msg === 'Liked') {
+          this.getBleet();
+          this.setState({
+            message: 'Post Liked!',
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   componentDidMount() {
     this.getBleet();
 
@@ -52,24 +71,39 @@ export default class Bleet extends Component {
 
     return (
       <div className='container text-light mt-2  pb-5'>
-        <a href="/bleeter" className="btn btn-secondary mb-2"> 
-        <img style={{width: "20px", marginRight: "5px"}} src="/icons/internal/go_back.svg" alt="go_back"/>
-         Go Back</a>
+        <a href='/bleeter' className='btn btn-secondary mb-2'>
+          <img
+            style={{ width: '20px', marginRight: '5px' }}
+            src='/icons/internal/go_back.svg'
+            alt='go_back'
+          />
+          Go Back
+        </a>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div>
           <h3 className='pb-3 border-bottom'>
             {bleet.title}
-            {getSession().username === bleet.uploaded_by ? (
-              <a
-                href={'/bleet/' + this.props.match.params.bleetId + '/edit'}
-                className='float-right btn btn-success'
-                type='button'>
-                Edit Bleet
-              </a>
-            ) : null}
+
+            <div className='float-right'>
+              {getSession().username === bleet.uploaded_by ? (
+                <a
+                  href={'/bleet/' + this.props.match.params.bleetId + '/edit'}
+                  className='btn btn-success'
+                  type='button'>
+                  Edit Bleet
+                </a>
+              ) : (
+                <button
+                  className='btn btn-primary ml-2'
+                  onClick={this.likeBleet}>
+                  Like
+                </button>
+              )}
+            </div>
           </h3>
           <span className='float-right'>
-            {bleet.uploaded_at} | @{bleet.uploaded_by}
+            {bleet.uploaded_at} | @{bleet.uploaded_by} | {bleet.likes}
+            {bleet.likes === 1 ? ' Like' : ' Likes'}
           </span>
         </div>
         <div className='mt-5'>

@@ -122,6 +122,8 @@ import PenalCodes from "./components/Leo/PenalCodes"
 import Codes10 from './components/Leo/Codes10';
 import MyOfficers from './components/Leo/MyOfficers/MyOfficers';
 import CreateOfficer from './components/Leo/MyOfficers/CreateOfficer';
+import TruckerLogs from './components/TruckerLogs/TruckerLogs';
+import CreateTruckLog from './components/TruckerLogs/CreateTruckLog';
 
 
 export default class Routes extends Component {
@@ -269,6 +271,11 @@ export default class Routes extends Component {
                     <LeoRoute exact path="/leo/10-codes" component={Codes10} />
                     <LeoRoute exact path="/leo/myofficers" component={MyOfficers} />
                     <LeoRoute exact path="/leo/myofficers/create" component={CreateOfficer} />
+                </Switch>
+
+                <Switch basename="/">
+                    <PrivateRoute path="/truck-logs" component={TruckerLogs} exact  />
+                    <PrivateRoute path="/truck-logs/create" component={CreateTruckLog} exact  />
                 </Switch>
             </Router>
         )

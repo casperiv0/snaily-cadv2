@@ -170,7 +170,7 @@ export default class CreateTicketModal extends Component {
                   Cancel
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Create Written Warning
+                  Create Ticket
                 </button>
               </div>
             </form>

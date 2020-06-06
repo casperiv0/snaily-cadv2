@@ -50,6 +50,9 @@ const citizenVehiclesRouter = require("./routes/citizen/vehicles");
 // Bleeter
 const bleeterRouter = require("./routes/bleeter/bleeter");
 
+// truck logs
+const truckLogsRouter = require("./routes/trucklogs/trucklogs");
+
 // EMS_FD
 const ems_fdRouter = require("./routes/ems-fd/ems-fd");
 
@@ -102,6 +105,8 @@ app.use("/licenses", licensesRouter);
 app.use("/c/weapons", citizenWeaponsRouter);
 
 app.use("/c/vehicles", citizenVehiclesRouter);
+
+app.use("/truck-logs", truckLogsRouter);
 
 app.use("/bleeter/", bleeterRouter);
 
