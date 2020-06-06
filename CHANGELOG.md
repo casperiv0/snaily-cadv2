@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Fixed `"likes" doesn't have a default value`
+
 ## 1.3.0
 
 - Added trucking logs (Hopefully more coming to this soon!)

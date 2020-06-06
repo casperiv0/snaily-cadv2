@@ -8,7 +8,7 @@ French version of the CAD: [https://github.com/Dev-CasperTheGhost/snailycad-v2-f
 
 View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/media/SCREENSHOTS.md)
 
-Video: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/watch?v=N7J_csax6Jw)
+Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
 
 ## Installation
 
