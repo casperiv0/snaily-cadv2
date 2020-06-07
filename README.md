@@ -14,19 +14,18 @@ Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
 
 1. Run `git clone https://github.com/Dev-CasperTheGhost/snaily-cadv2`
 2. Run `cd snaily-cadv2`
-3. Modify `config.js` where needed
-4. Go to `client/src/config/` and modify `config.js` where needed
-5. Run `npm install` to install the first part of the dependencies
-6. Run `cd server && npm install` to install the second part of the dependencies
-7. Run `cd ../` to go back
-8. Run `cd client && npm install` to install the last dependencies (Might take a little bit)
+3. Make a copy of `config-template.js` and rename the copy to `config.js`
+4. Modify `config.js` where needed
+5. Go to `client/src/config/` and modify `config.js` where needed
+6. Run `npm install` to install the first part of the dependencies
+7. Run `npm run create`
+8. Run `cd client`
 9. Run `npm run build` To create a build folder
 10. Run `yarn global add serve` to add the serve command
-11. Make a copy of `config-template.js` and rename the copy to `config.js`
-12. Create a new database, name it `snaily-cad`
-13. Import `snaily-cad.sql` into that database, [Download xampp Here](https://www.apachefriends.org)
-14. Run `npm start` in the root folder (`./snaily-cadv2`)
-15. CAD should be running on [http://localhost/](http://localhost/)
+11. Create a new database, name it `snaily-cad`
+12. Import `snaily-cad.sql` into that database, [Download xampp Here](https://www.apachefriends.org)
+13. Run `npm start` in the root folder (`./snaily-cadv2`)
+14. CAD should be running on [http://localhost/](http://localhost/)
 
 ## Updating CAD
 

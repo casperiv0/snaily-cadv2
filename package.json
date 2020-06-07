@@ -6,6 +6,7 @@
   "scripts": {
     "server": "npm start --prefix server",
     "client": "npm run serve --prefix client",
+    "build": "npm run build --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "create": "npm install --prefix client && npm install --prefix server"
   },
