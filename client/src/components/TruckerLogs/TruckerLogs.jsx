@@ -46,11 +46,10 @@ export default class TruckerLogs extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Deleted') {
-          sessionStorage.setItem(
-            'truck-message',
-            'Successfully deleted truck log'
-          );
-          return (window.location = '/truck-logs');
+          this.getTruckLogs();
+          this.setState({
+            message: "Successfully deleted truck log"
+          })
         }
       })
       .catch((err) => console.log(err));

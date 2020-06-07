@@ -67,8 +67,10 @@ export default class Tow extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Canceled') {
-          sessionStorage.setItem('tow-message', 'Successfully ended the call');
-          return (window.location = '/tow');
+          this.getData();
+          this.setState({
+            message: 'Successfully ended the call',
+          });
         }
       })
       .catch((err) => console.log(err));
