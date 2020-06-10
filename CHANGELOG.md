@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+- Fixed `'This citizen doesn't belong to you'` when it did.
+
 ## 1.3.1
 
 - Fixed `"likes" doesn't have a default value`

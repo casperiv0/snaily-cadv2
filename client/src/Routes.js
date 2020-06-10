@@ -274,8 +274,8 @@ export default class Routes extends Component {
                 </Switch>
 
                 <Switch basename="/">
-                    <PrivateRoute path="/truck-logs" component={TruckerLogs} exact  />
-                    <PrivateRoute path="/truck-logs/create" component={CreateTruckLog} exact  />
+                    <PrivateRoute path="/truck-logs" component={TruckerLogs} exact />
+                    <PrivateRoute path="/truck-logs/create" component={CreateTruckLog} exact />
                 </Switch>
             </Router>
         )

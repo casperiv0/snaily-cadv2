@@ -46,7 +46,12 @@ router.post("/register", async (req, res) => {
                 // CAD is whitelisted and Tow too
                 if (cad_info[0].whitelisted === "true" && cad_info[0].tow_whitelisted === "true") {
                     return processQuery("INSERT INTO `users` (`username`, `password`, `rank`, `leo`, `ems_fd`, `dispatch`, `tow`, `banned`, `ban_reason`, `whitelist_status`, `dispatch_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending", ""]).then(() => { return res.json({ msg: "Pending" }) })
+                        [username, encryptedPassword, "No Rank", "no", "no", "no", "no", "false", "", "pending", ""])
+                        .then(() => { return res.json({ msg: "Pending" }) }).catch(err => {
+                            console.log(err);
+
+                            return res.json({ msg: "something went wrong!" })
+                        })
                 }
 
                 // CAD is whitelisted but tow is not
@@ -121,7 +126,10 @@ router.post("/login", async (req, res) => {
     // Check if all fields are filled in
     if (username && password) {
 
-        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]);
+        const user = await processQuery("SELECT * FROM `users` WHERE `username` = ?", [username]).catch(err => {
+            console.log(err);
+            return res.json({ msg: "Whoops! Something didn't go as planned" })
+        })
 
         // Check if user exist
         if (!user[0]) {

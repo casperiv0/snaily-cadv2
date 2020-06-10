@@ -40,7 +40,7 @@ router.get("/:citizenId", auth, async (req, res) => {
     if (!citizen[0]) return res.json({ msg: "Citizen Not Found" })
 
     // Check if the citizen is linked to the account
-    if (citizen[0].linked_to !== req.user.username) return res.json({ msg: "Forbidden" })
+    if (citizen[0].linked_to.toLowerCase() !== req.user.username.toLowerCase()) return res.json({ msg: "Forbidden" })
 
 
     // show the citizen information
@@ -98,7 +98,7 @@ router.put("/:citizenId", auth, async (req, res) => {
 
     // Check if the citizen is linked to the account 
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
-    if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
+    if (citizen[0].linked_to.toLowerCase() !== req.user.username.toLowerCase()) return res.sendStatus(403);
 
 
     const { birth, gender, ethnicity, hairColor, eyeColor, address, height, weight, dmv } = req.body
@@ -133,7 +133,7 @@ router.put("/:citizenId", auth, async (req, res) => {
 router.delete("/:citizenId", auth, async (req, res) => {
     // Check if the citizen is linked to the account 
     const citizen = await processQuery("SELECT * FROM `citizens` WHERE `id` = ?", [req.params.citizenId]);
-    if (citizen[0].linked_to !== req.user.username) return res.sendStatus(403);
+    if (citizen[0].linked_to.toLowerCase() !== req.user.username.toLowerCase()) return res.sendStatus(403);
 
     //  Delete the citizen
     processQuery("DELETE FROM `citizens` WHERE `id` = ?", [req.params.citizenId])
