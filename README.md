@@ -10,6 +10,12 @@ View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/
 
 Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
 
+## Requirements
+
+- [Node](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/getting-started/install)
+- [MySQL](https://www.apachefriends.org/download.html)
+
 ## Installation
 
 1. Run `git clone https://github.com/Dev-CasperTheGhost/snaily-cadv2`
@@ -25,15 +31,16 @@ Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
 11. Create a new database, name it `snaily-cad`
 12. Import `snaily-cad.sql` into that database, [Download xampp Here](https://www.apachefriends.org)
 13. Run `npm start` in the root folder (`./snaily-cadv2`)
-14. CAD should be running on [http://localhost/](http://localhost/)
+14. CAD should be running on [http://localhost/](http://localhost/) by default
 
 ## Updating CAD
 
-1. Run `git pull origin master`
-2. Run `cd client`
-3. Run `npm run build` to create the latest build
-4. Run `cd ../`
-5. Run `npm start` to run the CAD again
+1. Stop the CAD
+2. Run `git pull origin master`
+3. Run `cd client`
+4. Run `npm run build` to create the latest build
+5. Run `cd ../`
+6. Run `npm start` to run the CAD again
 
 **If you don't understand any of these steps, let me know so I can help you.**
 
