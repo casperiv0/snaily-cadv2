@@ -21,7 +21,8 @@
     "react-scripts": "3.4.1",
     "reactstrap": "^8.4.1",
     "recharts": "^1.8.5",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,9 +30,6 @@
     "test": "jest --config ./jest.config.json",
     "eject": "react-scripts eject",
     "serve": "serve -s build -l 80"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [

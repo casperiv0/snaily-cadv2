@@ -17,7 +17,7 @@ function auth(req, res, next) {
         next()
     } catch {
         // Invalid token
-        return res.json({msg: "Token was invalid!"})
+        return res.json({msg: "Invalid Token"})
     }
 
 };

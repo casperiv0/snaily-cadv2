@@ -1,18 +1,18 @@
-const router = require("express").Router();
-const { processQuery } = require("../../utils/db");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const auth = require("../../auth/tokenAuth")
+const router = require('express').Router();
+const { processQuery } = require('../../utils/db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('../../auth/tokenAuth');
 const { jwt_secret } = require("../../../config.js");
 
 /*
     @route /register
     @auth Public
 */
-router.post("/register", async (req, res) => {
-    const { username, password, password2 } = req.body;
+router.post('/register', async (req, res) => {
+	const { username, password, password2 } = req.body;
 
-    if (username && password && password2) {
+	if (username && password && password2) {
 
         // Check if password are the same
         if (password !== password2) {
@@ -217,7 +217,7 @@ router.delete("/remove-account", auth, async (req, res) => {
     processQuery("DELETE FROM `registered_weapons` WHERE `linked_to` = ?", [username]).catch(err => console.log(err));
 
     processQuery("DELETE FROM `users` WHERE `id` = ?", [req.user.id]).then(() => {
-        return res.json({ msg: "Deleted" });
+        return res.json({ msg: 'Deleted' });
     }).catch(err => console.log(err));
 })
 

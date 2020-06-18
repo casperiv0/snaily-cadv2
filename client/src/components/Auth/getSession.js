@@ -10,7 +10,11 @@ export const getSession = () => {
             const base64 = base64Url.replace('-', '+').replace('_', '/')
             // what is window.atob ?
             // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/atob
-            session = JSON.parse(window.atob(base64))            
+            session = JSON.parse(window.atob(base64));            
+            if (session === "Invalid Token") {
+                window.location = "/auth/login"
+            }
+            
         }
     } catch (error) {
         console.log(error)

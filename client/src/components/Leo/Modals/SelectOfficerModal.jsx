@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import x from "../../sounds/success.mp3"
 
 export default class SelectOfficerModal extends Component {
   constructor() {
