@@ -1,6 +1,6 @@
 {
   "name": "snailycad-v2",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!",
   "main": "config.js",
   "scripts": {
