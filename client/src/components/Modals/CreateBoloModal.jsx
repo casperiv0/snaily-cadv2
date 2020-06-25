@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { getBolos, createBolo } from '../../actions/boloActions';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
-export default class CreateBoloModal extends Component {
+class CreateBoloModal extends Component {
   constructor() {
     super();
 
@@ -27,31 +26,27 @@ export default class CreateBoloModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url: backendURL + '/global/add-bolo',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        type: this.state.type,
-        description: this.state.boloDescription,
-        plate: this.state.plate,
-        color: this.state.color,
-        name: this.state.name,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Added') {
-          sessionStorage.setItem(this.props.messageType, 'Successfully Added Bolo');
-          return (window.location = this.props.to);
-        }
+    const data = {
+      type: this.state.type,
+      name: this.state.name,
+      plate: this.state.plate,
+      color: this.state.color,
+      boloDescription: this.state.boloDescription,
+    };
+    this.props.createBolo(data);
+    this.props.getBolos();
+    this.clearModal();
+  };
 
-        this.setState({
-          message: res.data.msg,
-        });
-      })
-      .catch((err) => console.log(err));
+  clearModal = () => {
+    this.setState({
+      type: 'person',
+      name: '',
+      plate: '',
+      color: '',
+      boloDescription: '',
+    });
+    document.getElementById('closeCreateBoloModal').click();
   };
 
   render() {
@@ -71,6 +66,7 @@ export default class CreateBoloModal extends Component {
                 Create Bolo
               </h5>
               <button
+                id='closeCreateBoloModal'
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
@@ -157,7 +153,10 @@ export default class CreateBoloModal extends Component {
                   data-dismiss='modal'>
                   Close
                 </button>
-                <button type='submit' disabled={boloDescription === ""} className='btn btn-primary'>
+                <button
+                  type='submit'
+                  disabled={boloDescription === ''}
+                  className='btn btn-primary'>
                   Create Bolo
                 </button>
               </div>
@@ -168,3 +167,12 @@ export default class CreateBoloModal extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  bolos: state.bolos.items,
+  createBolo: state.bolos.items,
+});
+
+export default connect(mapStateToProps, { getBolos, createBolo })(
+  CreateBoloModal
+);

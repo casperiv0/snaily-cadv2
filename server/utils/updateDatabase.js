@@ -1,8 +1,8 @@
 const { processQuery } = require("./db");
 
-
 function updateDatabase() {
     processQuery(`
+    ALTER TABLE \`weapons\` ADD \`default_weapon\` VARCHAR(255) NOT NULL AFTER \`name\`;
     CREATE TABLE \`truck_logs\` (
         \`id\` int(11) NOT NULL,
         \`name\` varchar(255) NOT NULL,
@@ -21,7 +21,7 @@ function updateDatabase() {
      ALTER TABLE \`cad_info\` ADD \`company_whitelisted\` VARCHAR(255) NOT NULL AFTER \`whitelisted\`;
       ALTER TABLE \`bleets\` ADD \`pinned\` VARCHAR(255) NOT NULL AFTER \`file_dir\`;
        ALTER TABLE \`businesses\` ADD \`business_address\` VARCHAR(255) NOT NULL AFTER \`whitelisted\`; `)
-        .then(res => {
+        .then(() => {
             console.log("Updated database for latest version");
         }).catch(err => {
             if (err.code === "ER_TABLE_EXISTS_ERROR" || err.code === "ER_DUP_FIELDNAME") {
@@ -31,6 +31,5 @@ function updateDatabase() {
             };
         });
 };
-
 
 module.exports = updateDatabase

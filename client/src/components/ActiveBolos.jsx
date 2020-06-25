@@ -1,54 +1,20 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { getBolos, removeBolo } from '../actions/boloActions';
 
-export default class ActiveBolos extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      bolos: [],
-    };
-  }
-
-  getBolos = () => {
-    Axios({
-      url: backendURL + '/global/bolos',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        this.setState({
-          bolos: res.data.bolos,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-
+class ActiveBolos extends Component {
   removeBolo = (id) => {
-    Axios({
-      url: backendURL + '/global/bolos/' + id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Deleted Bolo') {
-        sessionStorage.setItem('dispatch-message', 'Successfully Deleted BOLO');
-        return (window.location = this.props.to);
-      }
-    });
+    this.props.removeBolo(id);
+    
+    setTimeout(() => this.props.getBolos(), 100)
   };
 
   componentDidMount() {
-    this.getBolos();
+    this.props.getBolos();
   }
 
   render() {
-    const { bolos } = this.state;
+    const { bolos } = this.props;
     return (
       <ul
         className='list-group mt-3 scroll-bar overflow-auto'
@@ -106,3 +72,10 @@ export default class ActiveBolos extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  bolos: state.bolos.items,
+  removeBolo: state.bolos.items,
+});
+
+export default connect(mapStateToProps, { getBolos, removeBolo })(ActiveBolos);

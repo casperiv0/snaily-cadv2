@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.4
+
+- Preparing for default weapons
+- Adding React-Redux for no reload, already implemented for bolos
+  - You will need to install these by running `yarn add redux react-redux react-thunk` in the client folder.
+
 ## 1.3.3
 
 - Small authentication improvements

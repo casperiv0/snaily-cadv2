@@ -17,12 +17,12 @@ const createAuditLog = require("../../../utils/createAuditLog");
     @Route /weapons/
     @Auth Protected
 */
-router.get("/", auth, (req, res) => {
-    processQuery("SELECT * FROM `weapons`")
-        .then((weapons) => {
-            return res.json({ weapons: weapons})
-        })
-        .catch(err => console.log(err));
+router.get("/", auth, async (req, res) => {
+    // Soon
+    const defaultWeapons = await processQuery("SELECT * FROM `weapons` WHERE `default_weapon` = ?", ["true"]).catch(err => console.log(err));
+    const nonDefaultWeapons = await processQuery("SELECT * FROM `weapons`", ["false"]).catch(err => console.log(err));
+    
+    return res.json({ defaultWeapons, nonDefaultWeapons });
 });
 
 /*

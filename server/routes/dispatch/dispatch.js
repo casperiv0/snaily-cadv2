@@ -3,6 +3,7 @@
     GET /address-search - shows all address found
     PUT /update-aop - updates AOP
     PUT /update-officer/:officerId - update officers status
+    GET /live-map
 */
 
 const router = require("express").Router();
@@ -91,7 +92,5 @@ router.put("/update-ems-fd/:deputyId", auth, dispatchAuth, (req, res) => {
         })
         .catch(err => console.log(err));
 });
-
-
 
 module.exports = router;

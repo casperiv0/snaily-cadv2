@@ -12,7 +12,8 @@ export default class RegisterWeapon extends Component {
       owners: [],
       statuses: [],
       weapons: [],
-      weapon: '',
+      defaultWeapons: '',
+      nonDefaultWeapons: '',
       owner: '',
       weaponStatus: '',
       error: '',
@@ -94,11 +95,10 @@ export default class RegisterWeapon extends Component {
       },
     })
       .then((res) => {
-        if (res.data.weapons) {
-          this.setState({
-            weapons: res.data.weapons,
-          });
-        }
+        this.setState({
+          nonDefaultWeapons: res.data.nonDefaultWeapons,
+          defaultWeapons: res.data.defaultWeapons,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -110,13 +110,14 @@ export default class RegisterWeapon extends Component {
 
   render() {
     const {
-      weapon,
+      defaultWeapons,
+      nonDefaultWeapons,
       weaponStatus,
       owner,
       error,
       statuses,
       owners,
-      weapons,
+      weapon,
     } = this.state;
 
     return (
@@ -136,9 +137,18 @@ export default class RegisterWeapon extends Component {
               className='form-control bg-dark border-dark text-light'
             />
             <datalist id='weapons'>
-              {!weapons[0]
+              {!nonDefaultWeapons[0]
                 ? ''
-                : weapons.map((weapon, index) => {
+                : nonDefaultWeapons.map((weapon, index) => {
+                    return (
+                      <option key={index} value={weapon.name}>
+                        {weapon.name}
+                      </option>
+                    );
+                  })}
+              {!defaultWeapons[0]
+                ? ''
+                : defaultWeapons.map((weapon, index) => {
                     return (
                       <option key={index} value={weapon.name}>
                         {weapon.name}
