@@ -1,0 +1,17 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "parser": "babel-eslint"
+    },
+    "parserOptions": {
+        "jsx": true,
+        "sourceType": "module",
+        "ecmaVersion": 2019,
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    }
+}

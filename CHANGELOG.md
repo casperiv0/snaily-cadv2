@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0
+
+- Fixed few bugs in CAD settings
+- Now page doesn't reload after selecting an officer, changing status, deleting/creating bolos, updating AOP. More coming soon!
+- Fixed few other small bugs
+
 ## 1.3.4
 
 - Preparing for default weapons

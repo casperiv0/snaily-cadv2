@@ -1,49 +1,42 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
-import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import { connect } from 'react-redux';
+import {
+  getCadSettings,
+  updateCadSettings,
+} from '../../actions/cadSettingsActions';
+import { setMessage, getMessage } from '../../actions/messageActions';
 
-export default class CadSettings extends Component {
+class CadSettings extends Component {
   constructor() {
     super();
 
     this.state = {
-      message: sessionStorage.getItem('admin-message'),
-      cadName: '',
-      aop: '',
-      towWhitelisted: '',
-      cadWhitelisted: '',
-      companyWhitelisted: '',
+      cad_name: '',
+      AOP: '',
+      whitelisted: '',
+      tow_whitelisted: '',
+      company_whitelisted: '',
       error: '',
     };
   }
 
-  getCurrentCadInfo = () => {
-    Axios({
-      url: backendURL + '/auth/cad-info',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        
-        this.setState({
-          cadName: res.data.cadInfo[0].cad_name,
-          aop: res.data.cadInfo[0].AOP,
-          cadWhitelisted: res.data.cadInfo[0].whitelisted,
-          towWhitelisted: res.data.cadInfo[0].tow_whitelisted,
-          companyWhitelisted: res.data.cadInfo[0].company_whitelisted,
-        });
-      })
-      .catch((err) => console.log(err));
+  getSettings = () => {
+    this.props.getCadSettings();
+
+    setTimeout(() => {
+      this.setState({
+        cad_name: this.props.settings.cad_name,
+        AOP: this.props.settings.AOP,
+        whitelisted: this.props.settings.whitelisted,
+        tow_whitelisted: this.props.settings.tow_whitelisted,
+        company_whitelisted: this.props.settings.company_whitelisted,
+      });
+    }, 200);
   };
 
   componentDidMount() {
-    this.getCurrentCadInfo();
+    this.getSettings();
     document.title = 'CAD Settings - Admin';
 
     document.addEventListener(
@@ -55,32 +48,21 @@ export default class CadSettings extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url: backendURL + '/admin/edit-cad',
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        cadName: this.state.cadName,
-        newAop: this.state.aop,
-        whitelist: this.state.cadWhitelisted,
-        towWhitelist: this.state.towWhitelisted,
-        companyWhitelisted: this.state.companyWhitelisted,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'CAD Updated') {
-          sessionStorage.setItem('admin-message', 'Successfully Updated CAD');
-          return (window.location = '/admin/cad-settings');
-        }
+    const newSettings = {
+      cadName: this.state.cad_name,
+      newAop: this.state.AOP,
+      whitelist: this.state.whitelisted,
+      towWhitelist: this.state.tow_whitelisted,
+      companyWhitelisted: this.state.company_whitelisted,
+    };
 
-        this.setState({
-          error: res.data.msg,
-        });
-      })
-      .catch((err) => console.log(err));
+    this.props.updateCadSettings(newSettings);
+    this.props.setMessage('Successfully Updated CAD Settings');
+
+    setTimeout(() => this.props.getCadSettings(), 200);
   };
+
+  componentDidUpdate() {}
 
   onChange = (e) => {
     this.setState({
@@ -90,22 +72,18 @@ export default class CadSettings extends Component {
 
   render() {
     const {
-      cadName,
-      aop,
-      cadWhitelisted,
-      towWhitelisted,
-      message,
-      error,
-      companyWhitelisted,
+      cad_name,
+      AOP,
+      whitelisted,
+      tow_whitelisted,
+      company_whitelisted,
     } = this.state;
 
-    console.log(companyWhitelisted);
-    
+    const { message } = this.props;
 
     return (
       <div className='col text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        {error ? <ErrorMessage message={error} dismiss /> : null}
         <h3>CAD Settings</h3>
 
         <div className='card bg-dark border-dark mt-3'>
@@ -131,41 +109,41 @@ export default class CadSettings extends Component {
           <div className='card-body'>
             <form onSubmit={this.onSubmit}>
               <div className='form-group'>
-                <label htmlFor='cadName'>Update CAD Name</label>
+                <label htmlFor='cad_name'>Update CAD Name</label>
                 <input
                   className='form-control bg-secondary border-secondary text-light'
                   type='text'
-                  name='cadName'
-                  id='cadName'
-                  value={cadName}
+                  name='cad_name'
+                  id='cad_name'
+                  value={cad_name}
                   onChange={this.onChange}
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='aop'>Update AOP</label>
+                <label htmlFor='AOP'>Update AOP</label>
                 <input
                   className='form-control bg-secondary border-secondary text-light'
                   type='text'
-                  name='aop'
-                  id='aop'
-                  value={aop}
+                  name='AOP'
+                  id='AOP'
+                  value={AOP}
                   onChange={this.onChange}
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='cadWhitelisted'>CAD whitelisted</label>
+                <label htmlFor='whitelisted'>CAD whitelisted</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
-                  name='cadWhitelisted'
-                  id='cadWhitelisted'
+                  name='whitelisted'
+                  id='whitelisted'
                   onChange={this.onChange}>
                   <option
                     value={
-                      cadWhitelisted
+                      whitelisted
                         ? 'CAD is whitelisted'
                         : 'CAD is not whitelisted'
                     }>
-                    {cadWhitelisted === 'true'
+                    {whitelisted === 'true'
                       ? 'CAD is whitelisted'
                       : 'CAD is not whitelisted'}
                   </option>
@@ -175,19 +153,19 @@ export default class CadSettings extends Component {
                 </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='towWhitelisted'>CAD Tow whitelisted</label>
+                <label htmlFor='tow_whitelisted'>CAD Tow whitelisted</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
-                  name='towWhitelisted'
-                  id='towWhitelisted'
+                  name='tow_whitelisted'
+                  id='tow_whitelisted'
                   onChange={this.onChange}>
                   <option
                     value={
-                      towWhitelisted
+                      tow_whitelisted === "true"
                         ? 'Tow Is whitelisted'
                         : 'Tow is not whitelisted'
                     }>
-                    {towWhitelisted
+                    {tow_whitelisted === "true"
                       ? 'Tow Is whitelisted'
                       : 'Tow is not whitelisted'}
                   </option>
@@ -197,14 +175,14 @@ export default class CadSettings extends Component {
                 </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='companyWhitelisted'>Company whitelisted</label>
+                <label htmlFor='company_whitelisted'>Company whitelisted</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
-                  name='companyWhitelisted'
-                  id='companyWhitelisted'
+                  name='company_whitelisted'
+                  id='company_whitelisted'
                   onChange={this.onChange}>
-                  <option value={companyWhitelisted}>
-                    {companyWhitelisted}
+                  <option value={company_whitelisted}>
+                    {company_whitelisted}
                   </option>
                   <option disabled>--------</option>
                   <option value='true'>true</option>
@@ -227,3 +205,15 @@ export default class CadSettings extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  settings: state.cad.settings,
+  message: state.message.content,
+});
+
+export default connect(mapStateToProps, {
+  getMessage,
+  setMessage,
+  getCadSettings,
+  updateCadSettings,
+})(CadSettings);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBolos, createBolo } from '../../actions/boloActions';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import { setMessage } from '../../actions/messageActions';
 
 class CreateBoloModal extends Component {
   constructor() {
@@ -34,6 +35,7 @@ class CreateBoloModal extends Component {
       boloDescription: this.state.boloDescription,
     };
     this.props.createBolo(data);
+    this.props.setMessage('Successfully Created BOLO');
     this.props.getBolos();
     this.clearModal();
   };
@@ -173,6 +175,6 @@ const mapStateToProps = (state) => ({
   createBolo: state.bolos.items,
 });
 
-export default connect(mapStateToProps, { getBolos, createBolo })(
+export default connect(mapStateToProps, { getBolos, createBolo, setMessage })(
   CreateBoloModal
 );

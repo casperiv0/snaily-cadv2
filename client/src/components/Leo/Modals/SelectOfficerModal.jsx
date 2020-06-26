@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { setOnDuty } from '../../../actions/officerActions';
+import { setMessage } from '../../../actions/messageActions';
 
-export default class SelectOfficerModal extends Component {
+class SelectOfficerModal extends Component {
   constructor() {
     super();
 
@@ -34,26 +37,11 @@ export default class SelectOfficerModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url:
-        backendURL + '/dispatch/update-officer/' + this.state.selectedOfficer,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        status: 'on-duty',
-        status2: '10-8',
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('leo-message', 'Updated Status to: 10-8');
-          Cookies.set('on-duty-officerId', this.state.selectedOfficer);
-          return (window.location = '/leo/dash');
-        }
-      })
-      .catch((err) => console.log(err));
+    const officerId = this.state.selectedOfficer;
+    Cookies.set("on-duty-officerId", officerId);
+    document.getElementById('closeSelectOfficerModal').click();
+    this.props.setOnDuty(officerId);
+    this.props.setMessage('Successfully set status to 10-8');
   };
 
   onChange = (e) => {
@@ -86,6 +74,7 @@ export default class SelectOfficerModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeSelectOfficerModal'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -140,3 +129,8 @@ export default class SelectOfficerModal extends Component {
     );
   }
 }
+
+export default connect(null, {
+  setOnDuty,
+  setMessage
+})(SelectOfficerModal);

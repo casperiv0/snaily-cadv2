@@ -1,39 +1,12 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../../config/config';
-import Cookies from 'js-cookie';
-import LoadingArea from '../../../Partials/LoadingArea';
 import ModalButtons from './ModalButtons';
+import { connect } from 'react-redux';
+import { getAop } from '../../../../actions/otherActions';
 
-export default class TopDispatchArea extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      aop: '',
-    };
-  }
-
-  getCADInfo = () => {
-    Axios({
-      url: backendURL + '/auth/cad-info/',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.cadInfo) {
-          this.setState({
-            aop: res.data.cadInfo[0].AOP,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+class TopDispatchArea extends Component {
 
   componentDidMount() {
-    this.getCADInfo();
+    this.props.getAop();
 
     setInterval(function () {
       let date = document.getElementById('time');
@@ -45,11 +18,7 @@ export default class TopDispatchArea extends Component {
   }
 
   render() {
-    const { aop, loading } = this.state;
-
-    if (loading) {
-      return <LoadingArea />;
-    }
+    const { aop } = this.props;
 
     return (
       <div className='text-light'>
@@ -64,3 +33,9 @@ export default class TopDispatchArea extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  aop: state.aop.aop,
+});
+
+export default connect(mapStateToProps, { getAop, })(TopDispatchArea);

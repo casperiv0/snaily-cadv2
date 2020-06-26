@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBolos, removeBolo } from '../actions/boloActions';
+import { setMessage } from '../actions/messageActions';
 
 class ActiveBolos extends Component {
   removeBolo = (id) => {
     this.props.removeBolo(id);
-    
-    setTimeout(() => this.props.getBolos(), 100)
+    this.props.setMessage('Successfully removed BOLO.');
+
+    setTimeout(() => this.props.getBolos(), 100);
   };
 
   componentDidMount() {
@@ -78,4 +80,8 @@ const mapStateToProps = (state) => ({
   removeBolo: state.bolos.items,
 });
 
-export default connect(mapStateToProps, { getBolos, removeBolo })(ActiveBolos);
+export default connect(mapStateToProps, {
+  getBolos,
+  removeBolo,
+  setMessage,
+})(ActiveBolos);

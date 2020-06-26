@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { backendURL } from '../../../config/config';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { getAop, updateAop } from '../../../actions/otherActions';
+import { setMessage } from '../../../actions/messageActions';
 
-export default class UpdateAop extends Component {
+class UpdateAop extends Component {
   constructor() {
     super();
 
@@ -21,33 +21,15 @@ export default class UpdateAop extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url: backendURL + '/dispatch/update-aop',
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        newAop: this.state.aop,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem(
-            'dispatch-message',
-            'Successfully Updated AOP'
-          );
-          return (window.location = '/dispatch');
-        }
-      })
-      .catch((err) => console.log(err));
+    this.props.updateAop(this.state.aop);
+    this.props.setMessage("Successfully updated AOP");
   };
 
   render() {
     return (
       <div className='col-md-4'>
         <div className='card bg-dark border-dark'>
-          <div className='card-header bg-secondary border-secondaryctive'>
+          <div className='card-header bg-secondary border-secondary'>
             <h5>Update AOP</h5>
           </div>
           <div className='card-body'>
@@ -76,3 +58,8 @@ export default class UpdateAop extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  aop: state.aop.aop,
+});
+
+export default connect(mapStateToProps, { getAop, updateAop, setMessage })(UpdateAop);

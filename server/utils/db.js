@@ -23,7 +23,6 @@ async function processQuery(query, data) {
     const [rows] = await connection.query(query, data);
     connection.end()
     return rows;
-
 }
 
 

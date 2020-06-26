@@ -1,57 +1,29 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
 import EditOfficerStatusModal from './Modals/EditOfficerStatusModal';
 import EditEmsFdStatusModal from './Modals/EditEmsFdStatusModal';
-import LoadingArea from '../../Partials/LoadingArea';
+import { getAllActiveUnits } from '../../../actions/dispatchActions';
 
-export default class ActiveUnits extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      activeEmsFd: [],
-      activeOfficers: [],
-      loading: true
-    };
-  }
-
-  getActiveUnits = () => {
-    Axios({
-      url: backendURL + '/dispatch',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      this.setState({
-        activeEmsFd: res.data.onDutyEMS_FD,
-        activeOfficers: res.data.onDutyOfficers,
-          loading: false
-      });
-    });
-  };
-
+class ActiveUnits extends Component {
   componentDidMount() {
-    this.getActiveUnits();
+    this.props.getAllActiveUnits();
   }
 
   render() {
-    const { activeOfficers, activeEmsFd, loading } = this.state;
-   
-    if (loading) {
-      return <LoadingArea />
-    }
+    const { activeOfficers, activeEmsFd } = this.props;
 
     return (
       <div className='col-md-8'>
-        <div className='list-group overflow-auto' style={{maxHeight: "20rem"}}>
+        <div
+          className='list-group overflow-auto'
+          style={{ maxHeight: '20rem' }}>
           <div className='list-group-item bg-secondary border-secondary sticky-top'>
             <h5>Active Police Officers</h5>
           </div>
           {!activeOfficers[0] ? (
-            <li className='list-group-item bg-dark border-dark mb-3'>No Active Officers</li>
+            <li className='list-group-item bg-dark border-dark mb-3'>
+              No Active Officers
+            </li>
           ) : (
             <table className='table table-dark'>
               <thead>
@@ -80,7 +52,12 @@ export default class ActiveUnits extends Component {
                           Edit Status
                         </button>
                       </td>
-                      <EditOfficerStatusModal id={officer.id} status={officer.status} status2={officer.status2} />
+                      <EditOfficerStatusModal
+                        id={officer.id}
+                        status={officer.status}
+                        status2={officer.status2}
+                        officerName={officer.officer_name}
+                      />
                     </tr>
                   );
                 })}
@@ -88,7 +65,9 @@ export default class ActiveUnits extends Component {
             </table>
           )}
         </div>
-        <div className='list-group overflow-auto mt-3' style={{maxHeight: "20rem"}}>
+        <div
+          className='list-group overflow-auto mt-3'
+          style={{ maxHeight: '20rem' }}>
           <div className='list-group-item bg-secondary border-secondary sticky-top'>
             <h5>Active EMS/FD Deputies</h5>
           </div>
@@ -122,7 +101,11 @@ export default class ActiveUnits extends Component {
                           Edit Status
                         </button>
                       </td>
-                      <EditEmsFdStatusModal id={ems_fd.id} status={ems_fd.status} status2={ems_fd.status2} />
+                      <EditEmsFdStatusModal
+                        id={ems_fd.id}
+                        status={ems_fd.status}
+                        status2={ems_fd.status2}
+                      />
                     </tr>
                   );
                 })}
@@ -134,3 +117,12 @@ export default class ActiveUnits extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  activeEmsFd: state.dispatch.activeEmsFd,
+  activeOfficers: state.dispatch.activeOfficers,
+});
+
+export default connect(mapStateToProps, {
+  getAllActiveUnits,
+})(ActiveUnits);

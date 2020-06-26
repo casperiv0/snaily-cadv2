@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { removeMessage } from '../../../actions/messageActions';
 
-export default class SuccessMessage extends Component {
+class SuccessMessage extends Component {
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.removeMessage();
+    }, 5000);
+  }
+
   render() {
     const { message, dismiss } = this.props;
     return (
       <div className='alert alert-dismissible alert-success'>
         {message}
-        {dismiss ? (
+        {!dismiss ? null : (
           <button
             type='button'
-            className='close'
-            data-dismiss='alert'
+            className='close fade'
+            onClick={this.props.removeMessage}
             aria-label='Close'>
             <span aria-hidden='true'>&times;</span>
           </button>
-        ) : null}
+        )}
       </div>
     );
   }
 }
+
+export default connect(null, {
+  removeMessage,
+})(SuccessMessage);

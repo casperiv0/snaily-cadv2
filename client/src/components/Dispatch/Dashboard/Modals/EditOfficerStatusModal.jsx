@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import {
+  getCurrentOfficerStatus,
+  setOfficerStatus,
+  setOffDuty,
+} from '../../../../actions/officerActions';
+import { getAllActiveUnits } from '../../../../actions/dispatchActions';
+import { setMessage } from '../../../../actions/messageActions';
 
-export default class EditOfficerStatusModal extends Component {
+class EditOfficerStatusModal extends Component {
   constructor() {
     super();
 
@@ -20,38 +26,25 @@ export default class EditOfficerStatusModal extends Component {
   };
 
   onSubmit = (e) => {
-    if (this.state.status === "off-duty") {
-      Cookies.remove("on-duty-officerId");
+    if (this.state.status === 'off-duty') {
+      this.props.setOffDuty(this.props.id);
+      Cookies.remove('on-duty-officerId');
     }
     e.preventDefault();
-    Axios({
-      url: backendURL + '/dispatch/update-officer/' + this.props.id,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        status: this.state.status,
-        status2: this.state.status2,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem(
-            'dispatch-message',
-            'Successfully Updated Officer Status'
-          );
-          return (window.location = '/dispatch');
-        }
-      })
-      .catch((err) => console.log(err));
+
+    document.getElementById('closeEditStatusOfficer' + this.props.id).click();
+    this.props.setOfficerStatus(this.props.id, this.state.status2);
+    this.props.setMessage(
+      `Successfully changed status for ${this.props.officerName}`
+    );
+    this.props.getAllActiveUnits();
   };
 
   componentDidMount() {
     this.setState({
-        status: this.props.status,
-        status2: this.props.status2
-    })
+      status: this.props.status,
+      status2: this.props.status2,
+    });
   }
 
   render() {
@@ -72,6 +65,7 @@ export default class EditOfficerStatusModal extends Component {
               </h5>
               <button
                 type='button'
+                id={'closeEditStatusOfficer' + id}
                 className='close text-light'
                 data-dismiss='modal'
                 aria-label='Close'>
@@ -131,3 +125,11 @@ export default class EditOfficerStatusModal extends Component {
     );
   }
 }
+
+export default connect(null, {
+  getCurrentOfficerStatus,
+  setOfficerStatus,
+  getAllActiveUnits,
+  setMessage,
+  setOffDuty,
+})(EditOfficerStatusModal);

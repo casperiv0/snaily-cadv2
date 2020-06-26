@@ -16,16 +16,15 @@ import SelectOfficerModal from './Modals/SelectOfficerModal';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../config/config';
-import LoadingArea from '../Partials/LoadingArea';
+import { connect } from 'react-redux';
+import { getMessage } from '../../actions/messageActions';
 
-export default class LeoDashboard extends Component {
+class LeoDashboard extends Component {
   constructor() {
     super();
 
     this.state = {
       penalCodes: [],
-      loading: true,
-      message: sessionStorage.getItem('leo-message'),
     };
   }
 
@@ -55,11 +54,7 @@ export default class LeoDashboard extends Component {
   };
 
   render() {
-    const { message, loading } = this.state;
-
-    if (loading) {
-      return <LoadingArea />;
-    }
+    const { message } = this.props;
 
     return (
       <div className='container-fluid text-light mt-3'>
@@ -88,3 +83,11 @@ export default class LeoDashboard extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  message: state.message.content,
+});
+
+export default connect(mapStateToProps, {
+  getMessage,
+})(LeoDashboard);

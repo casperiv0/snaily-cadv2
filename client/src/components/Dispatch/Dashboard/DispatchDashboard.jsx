@@ -6,22 +6,16 @@ import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import DispatchActiveCalls from './DispatchActiveCalls';
 import ActiveBolos from '../../ActiveBolos';
 import CreateBoloModal from '../../Modals/CreateBoloModal';
-import CallEmergencyServicesModal from "../../Modals/CallEmergencyServicesModal"
+import CallEmergencyServicesModal from '../../Modals/CallEmergencyServicesModal';
 import NotepadModal from '../../EMS-FD/EmsFdDashboard/NotepadModal';
 import AddressSearchModal from '../../Modals/AddressSearchModal';
 import NameSearchModal from '../../Modals/NameSearch/NameSearchModal';
 import PlateSearchModal from '../../Modals/PlateSearchModal';
 import WeaponSearchModal from '../../Modals/WeaponSearchModal';
+import { getMessage } from '../../../actions/messageActions';
+import { connect } from 'react-redux';
 
-export default class DispatchDashboard extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      message: sessionStorage.getItem('dispatch-message'),
-    };
-  }
-
+class DispatchDashboard extends Component {
   componentDidMount() {
     document.title = 'Dispatch Dashboard';
 
@@ -32,21 +26,24 @@ export default class DispatchDashboard extends Component {
   }
 
   render() {
-    const { message } = this.state;
+    const { message } = this.props;
     return (
       <div className='container-fluid text-light pb-5'>
-        {message ? <SuccessMessage message={message} dismiss /> : null}
+        {message ? <SuccessMessage message={message} /> : null}
         <TopDispatchArea />
         <div className='row mt-3'>
           <ActiveUnits />
           <UpdateAop />
         </div>
         <DispatchActiveCalls />
-        <ActiveBolos to="/dispatch" />
+        <ActiveBolos to='/dispatch' />
 
         {/* Modals */}
-        <CreateBoloModal  messageType="dispatch-message" to="/dispatch" />
-        <CallEmergencyServicesModal to="/dispatch" messageType="dispatch-message" />
+        <CreateBoloModal messageType='dispatch-message' to='/dispatch' />
+        <CallEmergencyServicesModal
+          to='/dispatch'
+          messageType='dispatch-message'
+        />
         <NotepadModal />
 
         <AddressSearchModal />
@@ -57,3 +54,9 @@ export default class DispatchDashboard extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  message: state.message.content,
+});
+
+export default connect(mapStateToProps, { getMessage })(DispatchDashboard);
