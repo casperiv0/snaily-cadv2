@@ -9,6 +9,11 @@ const checkForUpdates = require("./utils/checkForUpdates")
 const updateDatabase = require("./utils/updateDatabase")
 const helmet = require('helmet');
 
+
+// Run app on port
+let server = app.listen(port);
+let io = require('socket.io')(server);
+
 // Require Routes
 // ADMIN ROUTERS
 const adminRouter = require("./routes/admin/admin");
@@ -31,10 +36,10 @@ const editAccountRouter = require("./routes/editAccountRouter");
 const authRouter = require("./routes/authentication/auth");
 
 //global Router
-const globalRouter = require("./routes/global/global");
+const globalRouter = require("./routes/global/global")(io)
 
 // Dispatch Router
-const dispatchRouter = require('./routes/dispatch/dispatch');
+const dispatchRouter = require('./routes/dispatch/dispatch')(io)
 
 // officers Router
 const officersRouter = require("./routes/officers/officers");
@@ -110,18 +115,9 @@ app.use("/truck-logs", truckLogsRouter);
 
 app.use("/bleeter/", bleeterRouter);
 
-function start() {
-    checkForUpdates();
-
-
-    updateDatabase();
-    // Run connectToDB
-    connectToDatabase().then(() => {
-        console.log("Connected to Database");
-    })
-        .catch(err => console.log(err))
-    // Run app on port
-    app.listen(port);
-};
-
-start();
+checkForUpdates();
+updateDatabase();
+// Run connectToDB
+connectToDatabase().then(() => {
+    console.log("Connected to Database");
+}).catch(err => console.log(err))

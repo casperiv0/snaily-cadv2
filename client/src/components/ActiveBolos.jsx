@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBolos, removeBolo } from '../actions/boloActions';
 import { setMessage } from '../actions/messageActions';
+import io from "socket.io-client";
+import { backendURL } from '../config/config';
+const socket = io(backendURL);
 
 class ActiveBolos extends Component {
   removeBolo = (id) => {
@@ -13,6 +16,8 @@ class ActiveBolos extends Component {
 
   componentDidMount() {
     this.props.getBolos();
+
+    socket.on("updateBolos", this.props.getBolos)
   }
 
   render() {

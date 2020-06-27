@@ -1,56 +1,30 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
-import LoadingArea from '../../Partials/LoadingArea';
+import { connect } from 'react-redux';
+import { getAop } from '../../../actions/otherActions';
+import { getMessage } from '../../../actions/messageActions';
 import EmsFdStatuses from './EmsFdStatuses';
 import SelectEmsFdModal from './Modals/SelectEmsFdModal';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
+import io from "socket.io-client";
+import { backendURL } from '../../../config/config';
+const socket = io(backendURL);
 
-export default class TopArea extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      message: sessionStorage.getItem('ems-fd-message'),
-      aop: '',
-      loading: true,
-    };
-  }
-
-  getCadData = () => {
-    Axios({
-      url: backendURL + '/auth/cad-info',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        this.setState({
-          aop: res.data.cadInfo[0].AOP,
-        });
-      })
-      .catch((err) => console.log(err));
-
-    this.setState({
-      loading: false,
-    });
-  };
-
+class TopArea extends Component {
   componentDidMount() {
-    this.getCadData();
+    this.props.getMessage();
+    this.props.getAop();
 
     document.addEventListener(
       'beforeunload',
       sessionStorage.removeItem('ems-fd-message')
     );
+
+    // Listen for AOP update
+    socket.on("updateAop", this.props.getAop);
   }
 
   render() {
-    const { aop, loading, message } = this.state;
-    if (loading) {
-      return <LoadingArea />;
-    }
+    const { aop, message } = this.props;
     return (
       <div>
         {message ? <SuccessMessage message={message} dismiss /> : null}
@@ -93,3 +67,10 @@ export default class TopArea extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  aop: state.aop.aop,
+  message: state.message.content,
+});
+
+export default connect(mapStateToProps, { getAop, getMessage })(TopArea);

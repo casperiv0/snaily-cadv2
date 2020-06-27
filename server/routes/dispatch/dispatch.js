@@ -3,7 +3,6 @@
     GET /address-search - shows all address found
     PUT /update-aop - updates AOP
     PUT /update-officer/:officerId - update officers status
-    GET /live-map
 */
 
 const router = require("express").Router();
@@ -13,84 +12,97 @@ const { processQuery } = require("../../utils/db");
 const dispatchAuth = require("../../auth/dispatchAuth");
 
 
-/*
-    @Route /dispatch
-    @Auth Protected
-*/
-router.get("/", auth, dispatchAuth, async (req, res) => {
-    const addresses = await processQuery("SELECT address FROM `citizens`").catch(err => console.log(err));
-    // reminder casper: when going on-duty set status = "on-duty" > off-duty => "off-duty" LEO & EMS/FD
-    const onDutyOfficers = await processQuery("SELECT * FROM `officers` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
-    const onDutyEMS_FD = await processQuery("SELECT * FROM `ems-fd` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
+module.exports = function (io) {
 
-    return res.json({ addresses, onDutyOfficers, onDutyEMS_FD });
-});
-
-
-/*
-    @Route /dispatch/address-search
-    @Auth Protected
-*/
-router.post("/address-search", auth, dispatchAuth, (req, res) => {
-    const address = req.body.address.trim();
-
-    processQuery("SELECT * FROM citizens WHERE `citizens`.`address` LIKE ?", ["%" + address + "%"])
-        .then((citizens) => {
-            return res.json({ citizens })
+    io.on("connection", socket => {
+        socket.on("updateAop", (newAop) => {
+            io.sockets.emit("updateAop", newAop);
         })
-        .catch(err => console.log(err));
-});
+    })
 
-/*
-    @Route /dispatch/update-aop
-    @Auth Protected
-*/
-router.put("/update-aop", auth, dispatchAuth, (req, res) => {
-    const { newAop } = req.body;
-    processQuery("UPDATE `cad_info` SET `AOP` = ?", [newAop])
-        .then(() => {
-            return res.json({ msg: "Updated" });
-        })
-        .catch(err => console.log(err));
-});
+    /*
+        @Route /dispatch
+        @Auth Protected
+    */
+    router.get("/", auth, dispatchAuth, async (req, res) => {
+        const addresses = await processQuery("SELECT address FROM `citizens`").catch(err => console.log(err));
+        // reminder casper: when going on-duty set status = "on-duty" > off-duty => "off-duty" LEO & EMS/FD
+        const onDutyOfficers = await processQuery("SELECT * FROM `officers` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
+        const onDutyEMS_FD = await processQuery("SELECT * FROM `ems-fd` WHERE `status` = ?", ["on-duty"]).catch(err => console.log(err));
 
-/*
-    @Route /dispatch/update-officer/:officerId
-    @Auth Protected
-*/
-router.put("/update-officer/:officerId", auth, (req, res) => {
-    const { officerId } = req.params;
-    let { status, status2 } = req.body;
+        return res.json({ addresses, onDutyOfficers, onDutyEMS_FD });
+    });
 
-    if (status.toLowerCase() === "off-duty") {
-        status2 = "--------"
-    }
 
-    processQuery("UPDATE `officers` SET `status` = ?, `status2` = ? WHERE `officers`.`id` = ?", [status, status2, officerId])
-        .then(() => {
-            return res.json({ msg: 'Updated' });
-        })
-        .catch(err => console.log(err));
-});
+    /*
+        @Route /dispatch/address-search
+        @Auth Protected
+    */
+    router.post("/address-search", auth, dispatchAuth, (req, res) => {
+        const address = req.body.address.trim();
 
-/*
-    @Route /dispatch/update-ems-fd/:deputyId
-    @Auth Protected
-*/
+        processQuery("SELECT * FROM citizens WHERE `citizens`.`address` LIKE ?", ["%" + address + "%"])
+            .then((citizens) => {
+                return res.json({ citizens })
+            })
+            .catch(err => console.log(err));
+    });
 
-router.put("/update-ems-fd/:deputyId", auth, dispatchAuth, (req, res) => {
-    const { deputyId } = req.params;
-    let { status, status2 } = req.body;
+    /*
+        @Route /dispatch/update-aop
+        @Auth Protected
+    */
+    router.put("/update-aop", auth, dispatchAuth, (req, res) => {
+        const { newAop } = req.body;
 
-    if (status.toLowerCase() === "off-duty") {
-        status2 = "--------"
-    }
+        processQuery("UPDATE `cad_info` SET `AOP` = ?", [newAop])
+            .then(() => {
+                return res.json({ msg: "Updated" });
+            })
+            .catch(err => console.log(err));
+    });
 
-    processQuery("UPDATE `ems-fd` SET `status` = ?, `status2` = ? WHERE `ems-fd`.`id` = ?", [status, status2, deputyId])
-        .then(() => {
-            return res.json({ msg: 'Updated' });
-        })
-        .catch(err => console.log(err));
-});
+    /*
+        @Route /dispatch/update-officer/:officerId
+        @Auth Protected
+    */
+    router.put("/update-officer/:officerId", auth, async (req, res) => {
+        const { officerId } = req.params;
+        let { status, status2 } = req.body;
 
-module.exports = router;
+        if (status.toLowerCase() === "off-duty") {
+            status2 = "--------"
+        }
+
+        const officer = await processQuery("SELECT * FROM `officers` WHERE `officers`.`id` = ?", [officerId]);
+
+        await processQuery("UPDATE `officers` SET `status` = ?, `status2` = ? WHERE `officers`.`id` = ?", [status, status2, officerId])
+            .then(() => {
+                return res.json({ msg: 'Updated', officerName: officer[0].officer_name });
+            })
+            .catch(err => console.log(err));
+    });
+
+    /*
+        @Route /dispatch/update-ems-fd/:deputyId
+        @Auth Protected
+    */
+
+    router.put("/update-ems-fd/:deputyId", auth, dispatchAuth, (req, res) => {
+        const { deputyId } = req.params;
+        let { status, status2 } = req.body;
+
+        if (status.toLowerCase() === "off-duty") {
+            status2 = "--------"
+        }
+
+        processQuery("UPDATE `ems-fd` SET `status` = ?, `status2` = ? WHERE `ems-fd`.`id` = ?", [status, status2, deputyId])
+            .then(() => {
+                return res.json({ msg: 'Updated' });
+            })
+            .catch(err => console.log(err));
+    });
+
+    return router;
+
+} 

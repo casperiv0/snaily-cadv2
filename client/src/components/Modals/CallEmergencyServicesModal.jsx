@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { create911Call } from '../../actions/911CallsActions';
 
-export default class CallTowModal extends Component {
+class callEmergencyServices extends Component {
   constructor() {
     super();
 
@@ -20,29 +19,13 @@ export default class CallTowModal extends Component {
     });
   };
 
-  callEmergencyServices = (e) => {
-    e.preventDefault();
-
-    Axios({
-      url: backendURL + '/global/create-911-call',
-      headers: { 'x-auth-snailycad-token': Cookies.get('__session') },
-      method: 'POST',
-      data: {
-        description: this.state.description,
-        caller: this.state.caller,
-        location: this.state.location,
-      },
-    }).then((res) => {
-      if (res.data.msg === '911 was called') {
-        sessionStorage.setItem(
-          this.props.messageType,
-          this.props.messageType === 'dispatch-message'
-            ? 'Successfully Created 911 Call'
-            : 'Emergency Services Were Called!'
-        );
-        window.location = this.props.to;
-      }
-    });
+  create911Call = () => {
+    const data = {
+      description: this.state.description,
+      caller: this.state.caller,
+      location: this.state.location,
+    };
+    this.props.create911Call(data);
   };
 
   render() {
@@ -69,7 +52,7 @@ export default class CallTowModal extends Component {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <form onSubmit={this.callEmergencyServices}>
+            <form onSubmit={this.create911Call}>
               <div className='modal-body'>
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Call Description</label>
@@ -129,3 +112,5 @@ export default class CallTowModal extends Component {
     );
   }
 }
+
+export default connect(null, { create911Call })(callEmergencyServices);

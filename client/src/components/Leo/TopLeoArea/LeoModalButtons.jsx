@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
+import Cookies from "js-cookie";
+import { panicStart } from '../../../actions/otherActions';
+import { connect } from 'react-redux';
 
-export default class LeoModalButtons extends Component {
+class LeoModalButtons extends Component {
+
+
+  panicStart = () => {
+    const officerId = Cookies.get("on-duty-officerId");
+
+    const officer = {
+      id: officerId,
+      officerName: this.props.officerName
+    }
+
+    this.props.panicStart(officer)
+  }
+
   render() {
     return (
       <div>
@@ -126,9 +142,24 @@ export default class LeoModalButtons extends Component {
           href='/leo/10-codes'
           className='btn btn-secondary col-md-2 mt-2 ml-1'>
           10 Codes |{' '}
-          <img style={{ width: '25px' }} src='/icons/internal/list.png' alt='10codes' />
+          <img
+            style={{ width: '25px' }}
+            src='/icons/internal/list.png'
+            alt='10codes'
+          />
         </a>
+        <button
+          onClick={this.panicStart}
+          className='btn btn-danger col-md2 mt-2 ml-1'>
+          PANIC BUTTON
+        </button>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  officerName: state.officer.officerName,
+});
+
+export default connect(mapStateToProps, { panicStart })(LeoModalButtons);

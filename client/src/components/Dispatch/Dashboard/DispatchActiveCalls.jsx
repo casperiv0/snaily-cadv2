@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { connect } from 'react-redux';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import Update911Call from './Modals/Update911Call';
+import { get911Calls } from '../../../actions/911CallsActions';
+import io from 'socket.io-client';
+const socket = io(backendURL);
 
-export default class DispatchActiveCalls extends Component {
+
+class DispatchActiveCalls extends Component {
   constructor() {
     super();
 
@@ -13,19 +18,6 @@ export default class DispatchActiveCalls extends Component {
       activeOfficers: [],
     };
   }
-
-  get911Calls = () => {
-    Axios({
-      url: backendURL + '/global/911calls',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      this.setState({
-        calls: res.data.calls,
-      });
-    });
-  };
 
   getActiveOfficers = () => {
     Axios({
@@ -43,12 +35,16 @@ export default class DispatchActiveCalls extends Component {
   };
 
   componentDidMount() {
-    this.get911Calls();
+    this.props.get911Calls();
     this.getActiveOfficers();
+
+    socket.on("update911Calls", this.props.get911Calls);
   }
 
   render() {
-    const { calls, activeOfficers } = this.state;
+    const { activeOfficers } = this.state;
+    const { calls } = this.props;
+
     return (
       <ul
         className='list-group scroll-bar overflow-auto mt-3'
@@ -109,3 +105,9 @@ export default class DispatchActiveCalls extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  calls: state.calls.calls,
+});
+
+export default connect(mapStateToProps, { get911Calls })(DispatchActiveCalls);

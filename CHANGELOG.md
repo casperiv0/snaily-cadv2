@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+- Fixed some officers won't go off-duty in dispatch
+- Added panic button (only for officers, ems/fd to come)
+- AOP now updates without refreshing
+- Calls now update without refreshing
+- `AOP`, `911 calls`, `tow calls` and `bolos` now are synced across all connected clients on the CAD (more coming.)
+
 ## 1.4.0
 
 - Fixed few bugs in CAD settings

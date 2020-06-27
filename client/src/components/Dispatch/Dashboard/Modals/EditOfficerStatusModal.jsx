@@ -26,18 +26,25 @@ class EditOfficerStatusModal extends Component {
   };
 
   onSubmit = (e) => {
-    if (this.state.status === 'off-duty') {
+    e.preventDefault();
+    const { status, status2 } = this.state;
+    console.log(status, status2);
+
+    if (status.toLowerCase() === 'off-duty') {
       this.props.setOffDuty(this.props.id);
       Cookies.remove('on-duty-officerId');
     }
-    e.preventDefault();
+
+    if (status.toLowerCase() === 'on-duty') {
+      this.props.setOfficerStatus(this.props.id, this.state.status2);
+    }
 
     document.getElementById('closeEditStatusOfficer' + this.props.id).click();
-    this.props.setOfficerStatus(this.props.id, this.state.status2);
     this.props.setMessage(
       `Successfully changed status for ${this.props.officerName}`
     );
-    this.props.getAllActiveUnits();
+
+    setTimeout(() => this.props.getAllActiveUnits(), 200);
   };
 
   componentDidMount() {

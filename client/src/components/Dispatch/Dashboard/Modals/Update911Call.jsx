@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { end911Call, get911Calls } from '../../../../actions/911CallsActions';
+import { Socket } from 'socket.io-client';
 
-export default class Update911Call extends Component {
+class Update911Call extends Component {
   constructor() {
     super();
 
@@ -62,22 +65,10 @@ export default class Update911Call extends Component {
       .catch((err) => console.log(err));
   };
 
-  cancelCall = (e) => {
-    Axios({
-      url: backendURL + '/global/911calls/' + this.props.id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Canceled') {
-        sessionStorage.setItem(
-          'dispatch-message',
-          'Successfully Canceled 911 Call'
-        );
-        return (window.location = '/dispatch');
-      }
-    });
+  cancelCall = () => {
+    this.props.end911Call(this.props.id);
+
+    document.getElementById('closeUpdate911Call' + this.props.id).click();
   };
 
   render() {
@@ -101,6 +92,7 @@ export default class Update911Call extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id={'closeUpdate911Call' + id}
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -173,3 +165,5 @@ export default class Update911Call extends Component {
     );
   }
 }
+
+export default connect(null, { end911Call, get911Calls })(Update911Call);

@@ -22,8 +22,7 @@ class LeoStatuses extends Component {
 
   render() {
     const { status, status2 } = this.props;
-    console.log(status, status2);
-
+    
     return (
       <div className='card-footer'>
         <button

@@ -1,85 +1,29 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
-import LoadingArea from '../Partials/LoadingArea';
+import { getAop } from '../../actions/otherActions';
+import { connect } from 'react-redux';
+import { getTowCalls, endTowCall } from '../../actions/towCallActions';
+import { getMessage } from '../../actions/messageActions';
 import TopTowArea from './TopTowArea';
 import TowCallBox from './TowCallBox';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
+import io from 'socket.io-client';
+import { backendURL } from '../../config/config';
+const socket = io(backendURL);
 
-export default class Tow extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      towCalls: [{}],
-      aop: '',
-      loading: true,
-      message: sessionStorage.getItem('tow-message'),
-    };
-  }
-
-  getData = () => {
-    // Get all Tow calls
-    axios({
-      url: backendURL + '/global/tow-calls',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.status === 200) {
-        this.setState({
-          towCalls: res.data.towCalls,
-          loading: false,
-        });
-      }
-    });
-
-    // Get AOP
-    axios({
-      url: backendURL + '/auth/cad-info',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.status === 200) {
-        this.setState({
-          aop: res.data.cadInfo[0].AOP,
-        });
-      }
-    });
-  };
-
+class Tow extends Component {
   componentDidMount() {
     document.title = 'Tow Truckers';
-    this.getData();
+    this.props.getTowCalls();
+
+    socket.on('updateTowCalls', this.props.getTowCalls);
   }
 
-  cancelTowCall = (id, index) => {
-    console.log(index);
-
-    axios({
-      url: backendURL + '/global/tow-calls/' + id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Canceled') {
-          this.getData();
-          this.setState({
-            message: 'Successfully ended the call',
-          });
-        }
-      })
-      .catch((err) => console.log(err));
+  cancelTowCall = (id) => {
+    this.props.endTowCall(id);
   };
 
   render() {
-    const { aop, loading, towCalls, message } = this.state;
-
-    if (loading) return <LoadingArea />;
+    const { aop, towCalls, message } = this.props;
 
     return (
       <div className='container-fluid text-light'>
@@ -110,3 +54,16 @@ export default class Tow extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  aop: state.aop.aop,
+  message: state.message.content,
+  towCalls: state.towCalls.calls,
+});
+
+export default connect(mapStateToProps, {
+  getAop,
+  getMessage,
+  getTowCalls,
+  endTowCall,
+})(Tow);

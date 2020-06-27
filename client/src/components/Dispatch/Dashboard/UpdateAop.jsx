@@ -20,7 +20,7 @@ class UpdateAop extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
+    
     this.props.updateAop(this.state.aop);
     this.props.setMessage("Successfully updated AOP");
   };

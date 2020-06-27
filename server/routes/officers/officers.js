@@ -28,7 +28,7 @@ const officerAuth = require("../../auth/officerAuth");
 router.get("/get-status/:officerId", auth, officerAuth, async (req, res) => {
     processQuery("SELECT * FROM `officers` WHERE `id` = ?", [req.params.officerId]).then((officer) => {
         return res.json({ officer: officer[0] })
-    })
+    }).catch(err => console.log(err));
 });
 
 
@@ -80,7 +80,7 @@ router.post("/myofficers/add", auth, officerAuth, (req, res) => {
     @Auth Protected
 */
 router.delete("/myofficers/del/:officerId", auth, officerAuth, (req, res) => {
-    const {officerId} = req.params;
+    const { officerId } = req.params;
 
     processQuery("DELETE FROM `officers` WHERE `id` = ?", [officerId])
         .then(() => {

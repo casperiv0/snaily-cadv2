@@ -15,8 +15,8 @@ export const setOfficerStatus = (officerId, status) => dispatch => {
             status2: status,
         },
     })
-        .then(() => {
-            dispatch({ type: SET_STATUS, newStatus: status })
+        .then((res) => {
+            dispatch({ type: SET_STATUS, newStatus: status, officerName: res.data.officerName })
         })
         .catch((err) => console.log(err));
 }
@@ -32,7 +32,7 @@ export const getCurrentOfficerStatus = (officerId) => dispatch => {
     })
         .then((res) => {
             if (res.data.officer) {
-                dispatch({ type: GET_CURRENT_OFFICER_STATUS, status: res.data.officer.status, status2: res.data.officer.status2 })
+                dispatch({ type: GET_CURRENT_OFFICER_STATUS, status: res.data.officer.status, status2: res.data.officer.status2, officerName: res.data.officer.officer_name })
             }
         })
         .catch((err) => console.log(err));
@@ -50,8 +50,8 @@ export const setOnDuty = (officerId) => dispatch => {
             status2: "10-8"
         }
     })
-        .then(() => {
-            dispatch({ type: SET_ON_DUTY, status: "on-duty", status2: "10-8" })
+        .then((res) => {
+            dispatch({ type: SET_ON_DUTY, status: "on-duty", status2: "10-8", officerName: res.data.officerName })
         })
         .catch((err) => console.log(err));
 }

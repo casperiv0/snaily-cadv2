@@ -17,7 +17,11 @@ import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../config/config';
 import { connect } from 'react-redux';
-import { getMessage } from '../../actions/messageActions';
+import { getAop } from '../../actions/otherActions';
+import { getMessage, removeMessage } from '../../actions/messageActions';
+
+import io from 'socket.io-client';
+const socket = io(backendURL);
 
 class LeoDashboard extends Component {
   constructor() {
@@ -25,16 +29,10 @@ class LeoDashboard extends Component {
 
     this.state = {
       penalCodes: [],
+      panic: false,
+      panicMessage: '',
+      aop: '',
     };
-  }
-
-  componentDidMount() {
-    document.title = 'LEO Dashboard';
-    this.getPenalCodes();
-    document.addEventListener(
-      'beforeunload',
-      sessionStorage.removeItem('leo-message')
-    );
   }
 
   getPenalCodes = () => {
@@ -53,13 +51,39 @@ class LeoDashboard extends Component {
       .catch((err) => console.log(err));
   };
 
+  componentDidMount() {
+    document.title = 'LEO Dashboard';
+    // Get penal codes
+    this.getPenalCodes();
+    // Get AOP
+    this.props.getAop();
+
+    document.addEventListener('beforeunload', this.props.removeMessage());
+
+    // Listen for panic buttons
+    socket.on('panicStart', (officer) => {
+      this.setState({
+        panic: true,
+        panicMessage: `${officer.officerName.toUpperCase()} STARTED PANIC BUTTON`,
+      });
+    });
+
+    // Listen for AOP update
+    socket.on('updateAop', () => {
+      this.props.getAop();
+    });
+  }
+
   render() {
     const { message } = this.props;
+    const { panic, panicMessage } = this.state;
 
     return (
       <div className='container-fluid text-light mt-3'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <TopLeoArea />
+        {panic ? <SuccessMessage message={panicMessage} dismiss /> : null}
+
+        <TopLeoArea aop={this.props.aop} />
 
         <div className='row mt-3'>
           <div className='col-md-9'>
@@ -86,8 +110,11 @@ class LeoDashboard extends Component {
 
 const mapStateToProps = (state) => ({
   message: state.message.content,
+  aop: state.aop.aop,
 });
 
 export default connect(mapStateToProps, {
   getMessage,
+  getAop,
+  removeMessage,
 })(LeoDashboard);

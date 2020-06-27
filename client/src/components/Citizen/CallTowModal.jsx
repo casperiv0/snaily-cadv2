@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { createTowCall } from '../../actions/towCallActions';
 
-export default class CallTowModal extends Component {
+class CallTowModal extends Component {
   constructor() {
     super();
 
@@ -22,22 +21,13 @@ export default class CallTowModal extends Component {
 
   callTow = (e) => {
     e.preventDefault();
-
-    Axios({
-      url: backendURL + '/global/create-tow-call',
-      headers: { 'x-auth-snailycad-token': Cookies.get('__session') },
-      method: 'POST',
-      data: {
-        description: this.state.towDescription,
-        caller: this.state.towCaller,
-        location: this.state.towLocation,
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Tow Truckers Called') {
-        sessionStorage.setItem('message', 'Tow Truckers Were Called!');
-        window.location = '/citizen';
-      }
-    });
+    const data = {
+      description: this.state.towDescription,
+      caller: this.state.towCaller,
+      location: this.state.towLocation,
+    };
+    document.getElementById("closeCallTow").click()
+    this.props.createTowCall(data);
   };
 
   render() {
@@ -60,6 +50,7 @@ export default class CallTowModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeCallTow'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -124,3 +115,5 @@ export default class CallTowModal extends Component {
     );
   }
 }
+
+export default connect(null, { createTowCall })(CallTowModal);

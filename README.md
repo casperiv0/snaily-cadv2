@@ -117,6 +117,7 @@ You can report bugs [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/is
   - Create Warrants
   - See active 911 calls
   - See active bolos
+  - Panic button
 
 - Dispatch
 

@@ -1,13 +1,11 @@
 export const GET_911_CALLS = 'GET_911_CALLS';
 export const CREATE_911_CALL = 'CREATE_911_CALL';
-export const REMOVE_911_CALL = 'REMOVE_911_CALL';
+export const END_911_CALL = 'END_911_CALL';
 
 // BOLOS
 export const GET_BOLOS = 'GET_BOLOS';
 export const CREATE_BOLO = 'CREATE_BOLO';
 export const REMOVE_BOLO = 'REMOVE_BOLO';
-
-// 
 
 // record
 export const CREATE_WRITTEN_WARNING = 'CREATE_WRITTEN_WARNING'
@@ -41,3 +39,8 @@ export const GET_ACTIVE_UNITS = "GET_ACTIVE_UNITS";
 // CAD_SETTINGS
 export const UPDATE_CAD_SETTINGS = "UPDATE_CAD_SETTINGS"
 export const GET_CAD_SETTINGS = "GET_CAD_SETTINGS"
+
+// TOW CALLS
+export const GET_TOW_CALLS = "GET_TOW_CALLS";
+export const CREATE_TOW_CALL = "CREATE_TOW_CALL";
+export const END_TOW_CALL = "END_TOW_CALL"; 
