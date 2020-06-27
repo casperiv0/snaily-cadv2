@@ -9,13 +9,11 @@ class Active911Calls extends Component {
   componentDidMount() {
     this.props.get911Calls();
 
-    socket.on("update911Calls", this.props.get911Calls);
+    socket.on('update911Calls', this.props.get911Calls);
   }
 
   render() {
     const { calls } = this.props;
-    console.log(calls);
-
     return (
       <ul
         className='list-group scroll-bar overflow-auto'

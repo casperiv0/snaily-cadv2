@@ -15,6 +15,9 @@ class Tow extends Component {
     document.title = 'Tow Truckers';
     this.props.getTowCalls();
 
+    // get aop
+    this.props.getAop();
+
     socket.on('updateTowCalls', this.props.getTowCalls);
   }
 
