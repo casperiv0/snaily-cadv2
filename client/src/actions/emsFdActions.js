@@ -1,13 +1,13 @@
-import { SET_STATUS, GET_CURRENT_OFFICER_STATUS, SET_ON_DUTY, SET_OFF_DUTY } from "./types"
+import { EMS_SET_OFF_DUTY, EMS_GET_STATUS, EMS_SET_ON_DUTY, EMS_SET_STATUS } from "./types"
 import { backendURL } from "../config/config";
 import Cookies from "js-cookie";
 import axios from "axios";
 import io from "socket.io-client";
 const socket = io(backendURL);
 
-export const setOfficerStatus = (officerId, status) => dispatch => {
+export const setEmsFdStatus = (id, status) => dispatch => {
     axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
+        url: backendURL + '/dispatch/update-ems-fd/' + id,
         method: 'PUT',
         headers: {
             'x-auth-snailycad-token': Cookies.get('__session'),
@@ -19,31 +19,32 @@ export const setOfficerStatus = (officerId, status) => dispatch => {
     })
         .then((res) => {
             socket.emit("updateActiveUnits");
-            dispatch({ type: SET_STATUS, newStatus: status, officerName: res.data.officerName })
+            dispatch({ type: EMS_SET_STATUS, newStatus: status, deputyName: res.data.deputyName })
         })
         .catch((err) => console.log(err));
 }
 
 
-export const getCurrentOfficerStatus = (officerId) => dispatch => {
+export const getEmsFdStatus = (id) => dispatch => {
     axios({
-        url: backendURL + '/officers/get-status/' + officerId,
+        url: backendURL + '/ems-fd/get-status/' + id,
         method: 'GET',
         headers: {
             'x-auth-snailycad-token': Cookies.get('__session'),
         },
     })
         .then((res) => {
-            if (res.data.officer) {
-                dispatch({ type: GET_CURRENT_OFFICER_STATUS, status: res.data.officer.status, status2: res.data.officer.status2, officerName: res.data.officer.officer_name })
+            if (res.data.deputy) {
+                dispatch({ type: EMS_GET_STATUS, status: res.data.deputy.status, status2: res.data.deputy.status2, officerName: res.data.deputy.name })
             }
         })
         .catch((err) => console.log(err));
 }
 
-export const setOnDuty = (officerId) => dispatch => {
+
+export const setOnDuty = (id) => dispatch => {
     axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
+        url: backendURL + '/dispatch/update-ems-fd/' + id,
         method: 'PUT',
         headers: {
             'x-auth-snailycad-token': Cookies.get('__session'),
@@ -55,14 +56,14 @@ export const setOnDuty = (officerId) => dispatch => {
     })
         .then((res) => {
             socket.emit("updateActiveUnits");
-            dispatch({ type: SET_ON_DUTY, status: "on-duty", status2: "10-8", officerName: res.data.officerName })
+            dispatch({ type: EMS_SET_ON_DUTY, status: "on-duty", status2: "10-8", deputyName: res.data.deputyName })
         })
         .catch((err) => console.log(err));
 }
 
-export const setOffDuty = (officerId) => dispatch => {
+export const setOffDuty = (id) => dispatch => {
     axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
+        url: backendURL + '/dispatch/update-ems-fd/' + id,
         method: 'PUT',
         headers: {
             'x-auth-snailycad-token': Cookies.get('__session'),
@@ -73,7 +74,7 @@ export const setOffDuty = (officerId) => dispatch => {
     })
         .then(() => {
             socket.emit("updateActiveUnits");
-            dispatch({ type: SET_OFF_DUTY, status: "off-duty", status2: "" })
+            dispatch({ type: EMS_SET_OFF_DUTY, status: "off-duty", status2: "" })
         })
         .catch((err) => console.log(err));
 }

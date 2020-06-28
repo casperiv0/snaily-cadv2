@@ -7,6 +7,7 @@ import dispatchReducer from "./dispatchReducer";
 import cadSettingsReducer from "./cadSettingsReducer";
 import emergencyCallsReducer from "./911CallsReducer"
 import towCallsReducer from "./towCallsReducer";
+import emsFdReducer from "./emsFdReducer";
 
 export default combineReducers({
     bolos: boloReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     dispatch: dispatchReducer,
     cad: cadSettingsReducer,
     calls: emergencyCallsReducer,
-    towCalls: towCallsReducer
+    towCalls: towCallsReducer,
+    ems: emsFdReducer
 });

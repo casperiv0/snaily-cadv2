@@ -2,7 +2,7 @@
     GET / - shows all ems/fd deputies of user
     POST /add - add an ems/fd deputy
     GET /search/:citizenName - shows all medical records of citizen
-    PUT /status/:status - update status
+    GET /get-status/:deputyId - update status
     DELETE /:deputyId - delete deputy
 */
 
@@ -73,9 +73,9 @@ router.delete("/:deputyId", auth, emsFDAuth, (req, res) => {
     @Auth Protected
 */
 router.get("/get-status/:deputyId", auth, emsFDAuth, async (req, res) => {
-    processQuery("SELECT * FROM `ems-fd` WHERE `id` = ?", [req.params.deputyId]).then((emsFd) => {
-        return res.json({ emsFd: emsFd[0] })
-    }).catch(err => console.log(err));
+    const deputy = await processQuery("SELECT * FROM `ems-fd` WHERE `id` = ?", [req.params.deputyId]).catch(e => console.log(e));
+
+    return res.json({ deputy: deputy[0] })
 });
 
 module.exports = router;

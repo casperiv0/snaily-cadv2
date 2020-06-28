@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import EditOfficerStatusModal from './Modals/EditOfficerStatusModal';
 import EditEmsFdStatusModal from './Modals/EditEmsFdStatusModal';
 import { getAllActiveUnits } from '../../../actions/dispatchActions';
+import io from "socket.io-client";
+import { backendURL } from '../../../config/config';
+const socket = io(backendURL);
 
 class ActiveUnits extends Component {
   componentDidMount() {
     this.props.getAllActiveUnits();
+
+    socket.on("updateActiveUnits", () => this.props.getAllActiveUnits());
   }
 
   render() {

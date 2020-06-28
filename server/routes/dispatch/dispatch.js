@@ -3,6 +3,7 @@
     GET /address-search - shows all address found
     PUT /update-aop - updates AOP
     PUT /update-officer/:officerId - update officers status
+    PUT /update-ems-fd/:deputyId - update EMS/FD status
 */
 
 const router = require("express").Router();
@@ -17,6 +18,10 @@ module.exports = function (io) {
     io.on("connection", socket => {
         socket.on("updateAop", (newAop) => {
             io.sockets.emit("updateAop", newAop);
+        })
+
+        socket.on("updateActiveUnits", () => {
+            io.sockets.emit("updateActiveUnits");
         })
     })
 

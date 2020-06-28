@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1
+
+- Officer statuses are now synced across dispatch and officer
+- EMS/FD statuses are now synced across dispatch EMS/FD
+- Fixed `911calls` not synced (now works)
+
 ## 1.5.0
 
 - Fixed some officers won't go off-duty in dispatch

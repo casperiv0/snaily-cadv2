@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { setEmsFdStatus, getEmsFdStatus } from '../../../actions/emsFdActions';
 
-export default class EmsFdStatuses extends Component {
+class EmsFdStatuses extends Component {
   constructor() {
     super();
 
@@ -16,43 +18,13 @@ export default class EmsFdStatuses extends Component {
   updateStatus = (e) => {
     const deputyId = Cookies.get('on-duty-ems-fdId');
 
-    Axios({
-      url: backendURL + '/dispatch/update-ems-fd/' + deputyId,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        status: 'on-duty',
-        status2: e.target.value,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('ems-fd-message', 'Successfully Updated Status');
-          window.location = '/ems-fd';
-        }
-      })
-      .catch((err) => console.log(err));
+    this.props.setEmsFdStatus(deputyId, e.target.value)
   };
 
   getCurrentStatus = () => {
     const deputyId = Cookies.get('on-duty-ems-fdId');
-    Axios({
-      url: backendURL + '/ems-fd/get-status/' + deputyId,
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.emsFd) {
-          this.setState({
-            currentStatus: res.data.emsFd.status2,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
+
+    this.props.getEmsFdStatus(deputyId);
   };
 
   onClick = (e) => {
@@ -67,13 +39,15 @@ export default class EmsFdStatuses extends Component {
   }
 
   render() {
-    const { currentStatus } = this.state;
+    const { status, status2 } = this.props;
+
+
     return (
       <div className='card-footer'>
         <button
           type='button'
           className={
-            '10-8' === currentStatus
+            '10-8' === status2
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }
@@ -82,48 +56,48 @@ export default class EmsFdStatuses extends Component {
           10-8
         </button>
         <button
-          disabled={!currentStatus}
+          disabled={status === "off-duty"}
           onClick={this.updateStatus}
           name='status2'
           value='10-7'
           className={
-            '10-7' === currentStatus
+            '10-7' === status2
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }>
           10-7
         </button>
         <button
-          disabled={!currentStatus}
+          disabled={status === "off-duty"}
           onClick={this.updateStatus}
           name='status2'
           value='10-6'
           className={
-            '10-6' === currentStatus
+            '10-6' === status2
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }>
           10-6
         </button>
         <button
-          disabled={!currentStatus}
+          disabled={status === "off-duty"}
           onClick={this.updateStatus}
           name='status2'
           value='10-5'
           className={
-            '10-5' === currentStatus
+            '10-5' === status2
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }>
           10-5
         </button>
         <button
-          disabled={!currentStatus}
+          disabled={status === "off-duty"}
           onClick={this.updateStatus}
           name='status2'
           value='10-97'
           className={
-            '10-97' === currentStatus
+            '10-97' === status2
               ? 'btn col-sm-1 mr-2 btn-primary'
               : 'btn col-sm-1 mr-2 btn-secondary'
           }>
@@ -133,3 +107,12 @@ export default class EmsFdStatuses extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  status: state.ems.status,
+  status2: state.ems.status2,
+});
+
+export default connect(mapStateToProps, { getEmsFdStatus, setEmsFdStatus })(
+  EmsFdStatuses
+);

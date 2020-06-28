@@ -21,6 +21,7 @@ export const SET_STATUS = "SET_STATUS";
 export const GET_CURRENT_OFFICER_STATUS = "GET_CURRENT_OFFICER_STATUS";
 export const GET_OFFICERS = 'GET_OFFICERS'
 export const SET_ON_DUTY = "SET_ON_DUTY"
+export const SET_OFF_DUTY = "SET_OFF_DUTY"
 export const GET_ALL_OFFICERS = "GET_ALL_OFFICERS"
 
 // OTHER
@@ -43,4 +44,10 @@ export const GET_CAD_SETTINGS = "GET_CAD_SETTINGS"
 // TOW CALLS
 export const GET_TOW_CALLS = "GET_TOW_CALLS";
 export const CREATE_TOW_CALL = "CREATE_TOW_CALL";
-export const END_TOW_CALL = "END_TOW_CALL"; 
+export const END_TOW_CALL = "END_TOW_CALL";
+
+// EMS_FD
+export const EMS_SET_STATUS = "EMS_SET_STATUS";
+export const EMS_GET_STATUS = "EMS_GET_STATUS";
+export const EMS_SET_ON_DUTY = "EMS_SET_ON_DUTY";
+export const EMS_SET_OFF_DUTY = "EMS_SET_OFF_DUTY"; 

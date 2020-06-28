@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { setOnDuty } from '../../../../actions/emsFdActions';
 
-export default class SelectEmsFdModal extends Component {
+class SelectEmsFdModal extends Component {
   constructor() {
     super();
 
     this.state = {
-      deputy: '',
+      deputyId: '',
       deputies: [],
     };
   }
@@ -41,26 +43,9 @@ export default class SelectEmsFdModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url:
-        backendURL + '/dispatch/update-ems-fd/' + this.state.deputy,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        status: 'on-duty',
-        status2: '10-8',
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('ems-fd-message', 'Updated Status to: 10-8');
-          Cookies.set('on-duty-ems-fdId', this.state.deputy);
-          return (window.location = '/ems-fd');
-        }
-      })
-      .catch((err) => console.log(err));
+    Cookies.set('on-duty-ems-fdId', this.state.deputyId);
+    document.getElementById("closeSelectEmsFdModal").click();
+    this.props.setOnDuty(this.state.deputyId);
   };
 
   render() {
@@ -83,53 +68,54 @@ export default class SelectEmsFdModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id="closeSelectEmsFdModal"
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
             <form onSubmit={this.onSubmit}>
-            <div className='modal-body'>
-              <div className='form-group'>
-                <label htmlFor='deputy'>Select EMS/FD Deputy</label>
-                <select
-                  name='deputy'
-                  id='deputy'
-                  className='form-control bg-secondary border-secondary text-light'
-                  onChange={this.onChange}>
-                      <option>Select Deputy..</option>
-                  {!deputies[0] ? (
-                    <option>You don't have any deputies!</option>
-                  ) : (
-                    deputies.map((deputy, index) => {
-                      return (
-                        <option key={index} value={deputy.id}>
-                          {deputy.name}
-                        </option>
-                      );
-                    })
-                  )}
-                </select>
+              <div className='modal-body'>
+                <div className='form-group'>
+                  <label htmlFor='deputyId'>Select EMS/FD Deputy</label>
+                  <select
+                    name='deputyId'
+                    id='deputyId'
+                    className='form-control bg-secondary border-secondary text-light'
+                    onChange={this.onChange}>
+                    <option>Select Deputy..</option>
+                    {!deputies[0] ? (
+                      <option>You don't have any deputies!</option>
+                    ) : (
+                      deputies.map((deputy, index) => {
+                        return (
+                          <option key={index} value={deputy.id}>
+                            {deputy.name}
+                          </option>
+                        );
+                      })
+                    )}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div className='modal-footer'>
-              <button
-                type='button'
-                className='btn btn-secondary'
-                data-dismiss='modal'>
-                Cancel
-              </button>
-              {!deputies[0] ? (
-                <a
-                  href='/ems-fd/deputies/create-deputy'
-                  className='btn btn-primary'>
-                  Create a deputy
-                </a>
-              ) : (
-                <button type='submit' className='btn btn-primary'>
-                  Go on-duty
+              <div className='modal-footer'>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  data-dismiss='modal'>
+                  Cancel
                 </button>
-              )}
-            </div>
+                {!deputies[0] ? (
+                  <a
+                    href='/ems-fd/deputies/create-deputy'
+                    className='btn btn-primary'>
+                    Create a deputy
+                  </a>
+                ) : (
+                  <button type='submit' className='btn btn-primary'>
+                    Go on-duty
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         </div>
@@ -137,3 +123,5 @@ export default class SelectEmsFdModal extends Component {
     );
   }
 }
+
+export default connect(null, { setOnDuty })(SelectEmsFdModal);
