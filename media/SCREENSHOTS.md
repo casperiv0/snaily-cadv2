@@ -1,6 +1,6 @@
 # Screenshots
 
-**These are only brief screenshots!**
+**Video and screenshots can be a little outdated!**
 
 View the video here: [https://www.youtube.com/watch?v=N7J_csax6Jw](https://www.youtube.com/watch?v=N7J_csax6Jw)
 

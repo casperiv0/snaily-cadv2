@@ -4,8 +4,6 @@ SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
 
 ## Information
 
-French version of the CAD: [https://github.com/Dev-CasperTheGhost/snailycad-v2-french](https://github.com/Dev-CasperTheGhost/snailycad-v2-french)
-
 View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/master/media/SCREENSHOTS.md)
 
 Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
