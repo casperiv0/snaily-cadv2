@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { setEmsFdStatus, getEmsFdStatus } from '../../../actions/emsFdActions';

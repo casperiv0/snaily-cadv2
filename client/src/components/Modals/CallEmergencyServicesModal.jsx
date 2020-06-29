@@ -19,13 +19,17 @@ class callEmergencyServices extends Component {
     });
   };
 
-  create911Call = () => {
+  create911Call = (e) => {
+    e.preventDefault();
+
     const data = {
       description: this.state.description,
       caller: this.state.caller,
       location: this.state.location,
     };
     this.props.create911Call(data);
+
+    document.getElementById('closeCall911').click();
   };
 
   render() {
@@ -48,6 +52,7 @@ class callEmergencyServices extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeCall911'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>

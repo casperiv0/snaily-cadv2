@@ -1,4 +1,4 @@
-import { GET_911_CALLS, CREATE_911_CALL, END_911_CALL } from "./types"
+import { GET_911_CALLS, CREATE_911_CALL, END_911_CALL, UPDATE_911_CALL } from "./types"
 import { backendURL } from "../config/config";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -48,4 +48,26 @@ export const end911Call = (callId) => dispatch => {
             dispatch({ type: END_911_CALL });
         }
     });
+}
+
+export const update911Call = (data) => dispatch => {
+    axios({
+        url: backendURL + '/global/911calls/' + data.callId,
+        method: 'PUT',
+        headers: {
+            'x-auth-snailycad-token': Cookies.get('__session'),
+        },
+        data: {
+            location: data.callLocation,
+            description: data.callDescription,
+            assigned_unit: data.assignedUnits,
+        },
+    })
+        .then((res) => {
+            if (res.data.msg === 'Updated') {
+                socket.emit("update911Calls");
+                dispatch({ type: UPDATE_911_CALL });
+            }
+        })
+        .catch((err) => console.log(err));
 }

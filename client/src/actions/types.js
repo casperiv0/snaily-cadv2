@@ -1,6 +1,8 @@
 export const GET_911_CALLS = 'GET_911_CALLS';
 export const CREATE_911_CALL = 'CREATE_911_CALL';
 export const END_911_CALL = 'END_911_CALL';
+export const UPDATE_911_CALL = 'UPDATE_911_CALL';
+
 
 // BOLOS
 export const GET_BOLOS = 'GET_BOLOS';

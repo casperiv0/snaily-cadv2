@@ -3,40 +3,24 @@ import { logOut } from '../Auth/getSession';
 import { Link } from 'react-router-dom';
 import CallTowModal from './CallTowModal';
 import CallEmergencyServicesModal from '../Modals/CallEmergencyServicesModal';
-import Axios from 'axios';
+import { connect } from 'react-redux';
+import { getAop } from '../../actions/otherActions';
+import io from 'socket.io-client';
 import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
+const socket = io(backendURL);
 
-export default class TopButtons extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      aop: '',
-    };
-  }
-
-  getAOP = () => {
-    Axios({
-      url: backendURL + '/auth/cad-info',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.data.cadInfo) {
-        this.setState({
-          aop: res.data.cadInfo[0].AOP,
-        });
-      }
-    });
-  };
-
+class TopButtons extends Component {
   componentDidMount() {
-    this.getAOP();
+    this.props.getAop();
+
+    socket.on('updateAop', () => {
+      this.props.getAop();
+    });
   }
 
   render() {
-    const { aop } = this.state;
+    const { aop } = this.props;
+
     return (
       <div>
         <h3 className='text-light'>Welcome - AOP: {aop}</h3>
@@ -84,3 +68,9 @@ export default class TopButtons extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  aop: state.aop.aop,
+});
+
+export default connect(mapStateToProps, { getAop })(TopButtons);

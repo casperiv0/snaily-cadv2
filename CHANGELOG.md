@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.2
+
+- Fixed EMS/FD status update in dispatch
+- Fixed dispatch create call refresh
+- When updating AOp in CAD settings page, now syncs across all clients
+- AOP now updates on citizen page
+- Moved cancel button from update911Call to left for ease
+
 ## 1.5.1
 
 - Officer statuses are now synced across dispatch and officer

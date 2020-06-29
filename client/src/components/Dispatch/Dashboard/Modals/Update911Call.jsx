@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../../config/config';
-import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import { end911Call, get911Calls } from '../../../../actions/911CallsActions';
-import { Socket } from 'socket.io-client';
+import {
+  end911Call,
+  get911Calls,
+  update911Call,
+} from '../../../../actions/911CallsActions';
 
 class Update911Call extends Component {
   constructor() {
@@ -41,28 +41,16 @@ class Update911Call extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    Axios({
-      url: backendURL + '/global/911calls/' + this.props.id,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        location: this.state.callLocation,
-        description: this.state.callDescription,
-        assigned_unit: this.state.assignedUnits,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem(
-            'dispatch-message',
-            'Successfully Updated 911 call'
-          );
-          return (window.location = '/dispatch');
-        }
-      })
-      .catch((err) => console.log(err));
+    const data = {
+      callId: this.props.id,
+      callLocation: this.state.callLocation,
+      callDescription: this.state.callDescription,
+      assignedUnits: this.state.assignedUnits,
+    };
+
+    this.props.update911Call(data);
+
+    document.getElementById('closeUpdate911Call' + this.props.id).click();
   };
 
   cancelCall = () => {
@@ -143,16 +131,16 @@ class Update911Call extends Component {
               </div>
               <div className='modal-footer'>
                 <button
+                  type='button'
+                  className='btn btn-secondary w-50'
+                  data-dismiss='modal'>
+                  Cancel
+                </button>
+                <button
                   onClick={this.cancelCall}
                   type='button'
                   className='btn btn-danger'>
                   End 911 Call
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-secondary'
-                  data-dismiss='modal'>
-                  Cancel
                 </button>
                 <button type='submit' className='btn btn-primary'>
                   Update Status
@@ -166,4 +154,6 @@ class Update911Call extends Component {
   }
 }
 
-export default connect(null, { end911Call, get911Calls })(Update911Call);
+export default connect(null, { end911Call, get911Calls, update911Call })(
+  Update911Call
+);

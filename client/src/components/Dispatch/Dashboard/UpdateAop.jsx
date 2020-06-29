@@ -47,7 +47,7 @@ class UpdateAop extends Component {
                 />
               </div>
               <div className='form-group'>
-                <button className='btn btn-success container' type='submit'>
+                <button className='btn btn-success w-100' type='submit'>
                   Update Aop
                 </button>
               </div>

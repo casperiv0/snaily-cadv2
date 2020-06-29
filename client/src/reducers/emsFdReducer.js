@@ -28,6 +28,12 @@ export default function (state = initState, action) {
                 status2: action.newStatus,
                 deputyName: action.deputyName
             }
+        case EMS_SET_OFF_DUTY:
+            return {
+                ...state,
+                status2: "",
+                deputyName: "",
+            }
         default: return state;
     }
 }

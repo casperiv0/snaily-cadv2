@@ -2,6 +2,8 @@ import { GET_CAD_SETTINGS, UPDATE_CAD_SETTINGS } from "./types"
 import { backendURL } from "../config/config";
 import Cookies from "js-cookie";
 import axios from "axios";
+import io from "socket.io-client";
+const socket = io(backendURL);
 
 export const getCadSettings = () => dispatch => {
     axios({
@@ -35,6 +37,7 @@ export const updateCadSettings = (newSettings) => dispatch => {
     })
         .then((res) => {
             if (res.data.msg === 'CAD Updated') {
+                socket.emit("updateAop"); // Update AOP
                 dispatch({ type: UPDATE_CAD_SETTINGS, settings: newSettings })
             }
         })

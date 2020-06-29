@@ -14,4 +14,3 @@ export const getAllActiveUnits = () => dispatch => {
         dispatch({ type: GET_ACTIVE_UNITS, officers: res.data.onDutyOfficers, emsFd: res.data.onDutyEMS_FD });
     });
 }
-

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { setEmsFdStatus, setOffDuty } from './../../../../actions/emsFdActions';
+import { setMessage } from './../../../../actions/messageActions';
 
-export default class EditEmsFdStatusModal extends Component {
+class EditEmsFdStatusModal extends Component {
   constructor() {
     super();
 
@@ -21,27 +21,19 @@ export default class EditEmsFdStatusModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    Axios({
-      url: backendURL + '/dispatch/update-ems-fd/' + this.props.id,
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        status: this.state.emsStatus,
-        status2: this.state.emsStatus2,
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Updated') {
-          sessionStorage.setItem(
-            'dispatch-message',
-            'Successfully Updated EMS/FD Status'
-          );
-          return (window.location = '/dispatch');
-        }
-      })
-      .catch((err) => console.log(err));
+
+    const { emsStatus, emsStatus2 } = this.state;
+
+    if (emsStatus.toLowerCase() === 'off-duty') {
+      this.props.setOffDuty(this.props.id);
+    }
+
+    if (emsStatus.toLowerCase() === 'on-duty') {
+      this.props.setEmsFdStatus(this.props.id, emsStatus2);
+    }
+
+    this.props.setMessage('Successfully Updated status');
+    document.getElementById('closeEditStatusEmsFd' + this.props.id).click();
   };
 
   componentDidMount() {
@@ -71,6 +63,7 @@ export default class EditEmsFdStatusModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id={'closeEditStatusEmsFd' + id}
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -127,3 +120,7 @@ export default class EditEmsFdStatusModal extends Component {
     );
   }
 }
+
+export default connect(null, { setEmsFdStatus, setOffDuty, setMessage })(
+  EditEmsFdStatusModal
+);
