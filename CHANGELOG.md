@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.3
+
+- Fixed weapons not showing in admin dashboard
+- Fixed weapons not adding in admin dashboard
+
 ## 1.5.2
 
 - Fixed EMS/FD status update in dispatch

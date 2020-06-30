@@ -21,8 +21,9 @@ router.get("/", auth, async (req, res) => {
     // Soon
     const defaultWeapons = await processQuery("SELECT * FROM `weapons` WHERE `default_weapon` = ?", ["true"]).catch(err => console.log(err));
     const nonDefaultWeapons = await processQuery("SELECT * FROM `weapons`", ["false"]).catch(err => console.log(err));
-    
-    return res.json({ defaultWeapons, nonDefaultWeapons });
+    const weapons = await processQuery("SELECT * FROM `weapons`").catch(e => console.log(e));
+
+    return res.json({ defaultWeapons, nonDefaultWeapons, weapons });
 });
 
 /*
@@ -31,7 +32,7 @@ router.get("/", auth, async (req, res) => {
 */
 router.post("/add", auth, adminAuth, (req, res) => {
     const { weapon } = req.body;
-    processQuery("INSERT INTO `weapons` (`name`) VALUES (?)", [weapon])
+    processQuery("INSERT INTO `weapons` (`name`, `default_weapon`) VALUES (?, ?)", [weapon, "false"])
         .then(() => {
             createAuditLog(`Weapon ${weapon} was added by ${req.user.username}`)
             return res.json({ msg: "Added" });
