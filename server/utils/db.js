@@ -17,7 +17,10 @@ async function connectToDatabase() {
 };
 
 
-// Process all queries
+/**
+ * @param {string} query
+ * @param {Array} data
+*/
 async function processQuery(query, data) {
     const connection = await connectToDatabase();
     const [rows] = await connection.query(query, data);

@@ -1,21 +1,11 @@
 import { UPDATE_AOP, GET_AOP, PANIC_START } from "./types"
 import { backendURL } from "../config/config";
 import io from "socket.io-client";
-import Cookies from "js-cookie";
-import axios from "axios";
+import { handleRequest } from "../functions";
 const socket = io(backendURL);
 
-export const updateAop = (newAop) => dispatch => {    
-    axios({
-        url: backendURL + '/dispatch/update-aop',
-        method: 'PUT',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            newAop: newAop,
-        },
-    })
+export const updateAop = (newAop) => dispatch => {
+    handleRequest("/dispatch/update-aop", "PUT", { newAop })
         .then((res) => {
             if (res.data.msg === 'Updated') {
                 socket.emit("updateAop", newAop);
@@ -27,13 +17,7 @@ export const updateAop = (newAop) => dispatch => {
 
 
 export const getAop = () => dispatch => {
-    axios({
-        url: backendURL + '/auth/cad-info/',
-        method: 'GET',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-    })
+    handleRequest("/auth/cad-info", "GET")
         .then((res) => {
             dispatch({ type: GET_AOP, aop: res.data.cadInfo[0].AOP });
         })

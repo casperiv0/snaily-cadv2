@@ -1,18 +1,11 @@
 import { GET_CAD_SETTINGS, UPDATE_CAD_SETTINGS } from "./types"
 import { backendURL } from "../config/config";
-import Cookies from "js-cookie";
-import axios from "axios";
 import io from "socket.io-client";
+import { handleRequest } from "../functions";
 const socket = io(backendURL);
 
 export const getCadSettings = () => dispatch => {
-    axios({
-        url: backendURL + '/auth/cad-info',
-        method: 'GET',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-    })
+    handleRequest("/auth/cad-info", "GET")
         .then((res) => {
             dispatch({ type: GET_CAD_SETTINGS, settings: res.data.cadInfo[0] });
         })
@@ -21,20 +14,7 @@ export const getCadSettings = () => dispatch => {
 
 
 export const updateCadSettings = (newSettings) => dispatch => {
-    axios({
-        url: backendURL + '/admin/edit-cad',
-        method: 'PUT',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            cadName: newSettings.cadName,
-            newAop: newSettings.newAop,
-            whitelist: newSettings.whitelist,
-            towWhitelist: newSettings.towWhitelist,
-            companyWhitelisted: newSettings.companyWhitelisted,
-        },
-    })
+    handleRequest("/admin/edit-cad", "PUT", newSettings)
         .then((res) => {
             if (res.data.msg === 'CAD Updated') {
                 socket.emit("updateAop"); // Update AOP

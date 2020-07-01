@@ -8,8 +8,6 @@
 const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
-const multer = require('multer');
-const upload = multer();
 
 
 /*

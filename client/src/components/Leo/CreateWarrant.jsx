@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
-import Axios from 'axios';
+import { connect } from 'react-redux';
+import { setMessage } from '../../actions/messageActions';
+import { createWarrant } from '../../actions/recordActions';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 
-export default class CreateWarrant extends Component {
+class CreateWarrant extends Component {
   constructor() {
     super();
 
@@ -24,31 +24,16 @@ export default class CreateWarrant extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const data = {
+      fullName: this.state.fullName,
+      status: this.state.status,
+      details: this.state.details,
+    };
+    this.props.createWarrant(data);
 
-    Axios({
-      url: backendURL + '/officers/create-warrant',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        fullName: this.state.fullName,
-        status: this.state.status,
-        details: this.state.details,
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Added') {
-        sessionStorage.setItem(
-          'leo-message',
-          'Successfully Created Warrant, Target Name: ' + this.state.fullName
-        );
-        return (window.location = '/leo/dash');
-      }
-
-      this.setState({
-        error: res.data.msg,
-      });
-    });
+    this.props.setMessage(
+      `Successfully created warrant, Target name: ${this.state.fullName}`
+    );
   };
 
   render() {
@@ -98,11 +83,15 @@ export default class CreateWarrant extends Component {
               onChange={this.onChange}
             />
           </div>
-          <div className="form-group">
-              <button type='submit' className="btn btn-success container">Create Warrant</button>
+          <div className='form-group'>
+            <button type='submit' className='btn btn-success container'>
+              Create Warrant
+            </button>
           </div>
         </form>
       </div>
     );
   }
 }
+
+export default connect(null, { setMessage, createWarrant })(CreateWarrant);

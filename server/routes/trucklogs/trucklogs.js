@@ -1,7 +1,7 @@
 /*
     GET /truck-logs - Shows all truck logs linked to an account
     POST /truck-logs/create - create a truck log
-    DELETE /truck-logs/delete - delete a truck log
+    DELETE /truck-logs/:logId - delete a truck log
 */
 
 

@@ -25,16 +25,13 @@ const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 
 // This is to check if the user has the right permissions (dispatch or police)
-const emrAuth = require("../../auth/emrAuth");
+const { emrAuth } = require("../../auth/authFunctions");
+
 
 
 module.exports = function (io) {
 
 
-    /*
-        @Route panic
-        @Auth Protected
-    */
     io.on("connection", socket => {
         // console.log(socket);
         socket.on("panicStart", (data) => {
@@ -53,6 +50,7 @@ module.exports = function (io) {
             io.sockets.emit("updateBolos")
         });
 
+        // tow calls
         socket.on("updateTowCalls", () => {
             io.sockets.emit("updateTowCalls");
         });

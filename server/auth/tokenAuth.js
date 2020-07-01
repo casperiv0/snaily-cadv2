@@ -14,7 +14,7 @@ function auth(req, res, next) {
 
         req.user = verifiedToken;
     
-        next()
+        next();
     } catch {
         // Invalid token
         return res.json({msg: "Invalid Token"})

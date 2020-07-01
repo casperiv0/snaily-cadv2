@@ -4,7 +4,6 @@
 */
 
 const router = require("express").Router();
-const fs = require("fs");
 const bcrypt = require("bcrypt");
 const auth = require("../auth/tokenAuth");
 const { processQuery } = require("../utils/db");
@@ -44,15 +43,5 @@ router.put("/edit", auth, async (req, res) => {
         return res.json({ msg: "Please fill in all fields" })
     }
 });
-
-
-/*
-    @Route /account-summary
-    @Auth Protected
-*/
-// router.get("/account-summary", auth, async (req, res) => {
-//     const totalRegisteredVehicles = await processQuery("SELECT id FROM `registered_cars` WHERE `linked_to` = ?", [req.user.username]).catch(err => console.log(err));
-//     const totalRegisteredWeapons = await processQuery("SELECT id FROM `registered_weapons` WHERE `linked_to` = ?", [req.user.username]).catch(err => console.log(err));
-// });
 
 module.exports = router;

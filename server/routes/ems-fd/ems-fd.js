@@ -10,7 +10,7 @@ const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 // emsFDAuth is to check if user has EMS_FD permissions
-const emsFDAuth = require("../../auth/ems-fdAuth");
+const { emsFDAuth } = require("../../auth/authFunctions");
 
 /*
     @Route /ems-fd/

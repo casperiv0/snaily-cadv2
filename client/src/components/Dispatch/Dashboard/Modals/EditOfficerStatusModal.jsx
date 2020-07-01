@@ -27,8 +27,7 @@ class EditOfficerStatusModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { status, status2 } = this.state;
-    console.log(status, status2);
+    const { status } = this.state;
 
     if (status.toLowerCase() === 'off-duty') {
       this.props.setOffDuty(this.props.id);

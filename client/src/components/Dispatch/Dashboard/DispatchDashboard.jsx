@@ -14,8 +14,20 @@ import PlateSearchModal from '../../Modals/PlateSearchModal';
 import WeaponSearchModal from '../../Modals/WeaponSearchModal';
 import { getMessage } from '../../../actions/messageActions';
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
+import { backendURL } from '../../../config/config';
+const socket = io(backendURL);
 
 class DispatchDashboard extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      panic: false,
+      panicMessage: '',
+    };
+  }
+
   componentDidMount() {
     document.title = 'Dispatch Dashboard';
 
@@ -23,13 +35,22 @@ class DispatchDashboard extends Component {
       'beforeunload',
       sessionStorage.removeItem('dispatch-message')
     );
+
+    socket.on('panicStart', (officer) => {
+      this.setState({
+        panic: true,
+        panicMessage: `${officer.officerName.toUpperCase()} STARTED PANIC BUTTON`,
+      });
+    });
   }
 
   render() {
+    const { panic, panicMessage } = this.state;
     const { message } = this.props;
     return (
       <div className='container-fluid text-light pb-5'>
         {message ? <SuccessMessage message={message} /> : null}
+        {panic ? <SuccessMessage message={panicMessage} /> : null}
         <TopDispatchArea />
         <div className='row mt-3'>
           <ActiveUnits />

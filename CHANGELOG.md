@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.4
+
+- Refactored some code
+- Updated `snaily-cad.sql`, You do not need to re-import this file if you already have the CAD setup.
+- Panic button alert now shows on dispatch page
+
 ## 1.5.3
 
 - Fixed weapons not showing in admin dashboard

@@ -10,7 +10,7 @@ const router = require("express").Router();
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 // Dispatch Auth is too see if the user has the right permissions
-const dispatchAuth = require("../../auth/dispatchAuth");
+const { dispatchAuth } = require("../../auth/authFunctions");
 
 
 module.exports = function (io) {

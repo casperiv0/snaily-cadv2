@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2020 at 09:22 AM
+-- Generation Time: Jun 30, 2020 at 05:29 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -78,7 +78,7 @@ CREATE TABLE `bleets` (
   `uploaded_at` varchar(255) NOT NULL,
   `file_dir` text NOT NULL,
   `pinned` varchar(255) NOT NULL,
-  `likes` VARCHAR(255) NOT NULL
+  `likes` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -319,6 +319,22 @@ CREATE TABLE `tow_calls` (
   `description` varchar(1800) NOT NULL,
   `name` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `truck_logs`
+--
+
+CREATE TABLE `truck_logs` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `timestamp` varchar(255) NOT NULL,
+  `co_driver` varchar(255) NOT NULL,
+  `start_time` varchar(255) NOT NULL,
+  `plate` varchar(255) NOT NULL,
+  `linked_to` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -830,7 +846,8 @@ CREATE TABLE `warrants` (
 
 CREATE TABLE `weapons` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `default_weapon` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -974,6 +991,12 @@ ALTER TABLE `tow_calls`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `truck_logs`
+--
+ALTER TABLE `truck_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1011,7 +1034,7 @@ ALTER TABLE `written_warnings`
 -- AUTO_INCREMENT for table `911calls`
 --
 ALTER TABLE `911calls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `action_logs`
@@ -1089,7 +1112,7 @@ ALTER TABLE `in_statuses`
 -- AUTO_INCREMENT for table `leo_tickets`
 --
 ALTER TABLE `leo_tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `medical_records`
@@ -1125,7 +1148,13 @@ ALTER TABLE `registered_weapons`
 -- AUTO_INCREMENT for table `tow_calls`
 --
 ALTER TABLE `tow_calls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `truck_logs`
+--
+ALTER TABLE `truck_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1137,7 +1166,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vehicles`
 --
 ALTER TABLE `vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=459;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=460;
 
 --
 -- AUTO_INCREMENT for table `warrants`

@@ -39,6 +39,7 @@ export default class Account extends Component {
       },
     })
       .then((res) => {
+        Cookies.remove("__session");
         if (res.data.msg === 'Deleted') {
           sessionStorage.getItem(
             'home-message',

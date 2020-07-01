@@ -19,7 +19,7 @@ const router = require("express").Router();
 const fs = require("fs");
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
-const officerAuth = require("../../auth/officerAuth");
+const {officerAuth} = require("../../auth/authFunctions");
 
 /*
     @Route /officers
@@ -237,17 +237,12 @@ router.get("/search/plate/:plate", auth, officerAuth, async (req, res) => {
 router.get("/search/weapon/:serialNumber", auth, officerAuth, async (req, res) => {
     const { serialNumber } = req.params;
 
+    // check if weapon exists
     const foundWeapon = await processQuery("SELECT * FROM `registered_weapons` WHERE `serial_number` = ?", [serialNumber]);
-
-
     if (!foundWeapon[0]) return res.json({ msg: "Weapon Not Found" });
-
 
     return res.json({ weapon: foundWeapon });
 })
-
-
-
 
 
 

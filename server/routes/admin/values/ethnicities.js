@@ -9,7 +9,7 @@
 const router = require("express").Router();
 const auth = require("../../../auth/tokenAuth");
 const { processQuery } = require("../../../utils/db");
-const adminAuth = require("../../../auth/adminAuth");
+const { adminAuth } = require("../../../auth/authFunctions");
 const createAuditLog = require("../../../utils/createAuditLog");
 
 /*

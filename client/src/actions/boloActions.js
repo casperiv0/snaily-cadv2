@@ -1,18 +1,11 @@
 import { GET_BOLOS, CREATE_BOLO, REMOVE_BOLO } from "./types"
 import { backendURL } from "../config/config";
-import Cookies from "js-cookie";
-import axios from "axios";
 import io from "socket.io-client";
+import { handleRequest } from "../functions";
 const socket = io(backendURL);
 
 export const getBolos = () => dispatch => {
-    axios({
-        url: backendURL + '/global/bolos',
-        method: 'GET',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-    })
+    handleRequest("/global/bolos", "GET")
         .then((res) => {
             dispatch({ type: GET_BOLOS, bolos: res.data.bolos });
         })
@@ -20,36 +13,19 @@ export const getBolos = () => dispatch => {
 }
 
 export const removeBolo = (boloId) => dispatch => {
-    axios({
-        url: backendURL + '/global/bolos/' + boloId,
-        method: 'DELETE',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-    }).then((res) => {
-        if (res.data.msg === 'Deleted Bolo') {
-            socket.emit("updateBolos")
-            dispatch({ type: REMOVE_BOLO, bolos: getBolos })
-        }
-    });
+    handleRequest("/global/bolos/" + boloId, "DELETE")
+        .then((res) => {
+            if (res.data.msg === 'Deleted Bolo') {
+                socket.emit("updateBolos")
+                dispatch({ type: REMOVE_BOLO, bolos: getBolos })
+            }
+        })
+        .catch(e => console.log(e));
 }
 
 export const createBolo = (data) => dispatch => {
     const { type, boloDescription, plate, color, name } = data;
-    axios({
-        url: backendURL + '/global/add-bolo',
-        method: 'POST',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            type: type,
-            description: boloDescription,
-            plate: plate,
-            color: color,
-            name: name
-        },
-    })
+    handleRequest("/global/add-bolo", "POST", { type, description: boloDescription, plate, color, name })
         .then((res) => {
             if (res.data.msg === 'Added') {
                 socket.emit("updateBolos")

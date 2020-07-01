@@ -1,22 +1,11 @@
 import { SET_STATUS, GET_CURRENT_OFFICER_STATUS, SET_ON_DUTY, SET_OFF_DUTY } from "./types"
 import { backendURL } from "../config/config";
-import Cookies from "js-cookie";
-import axios from "axios";
 import io from "socket.io-client";
+import { handleRequest } from "../functions";
 const socket = io(backendURL);
 
 export const setOfficerStatus = (officerId, status) => dispatch => {
-    axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
-        method: 'PUT',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            status: 'on-duty',
-            status2: status,
-        },
-    })
+    handleRequest("/dispatch/update-officer/" + officerId, "PUT", { status: "on-duty", status2: status })
         .then((res) => {
             socket.emit("updateActiveUnits");
             dispatch({ type: SET_STATUS, newStatus: status, officerName: res.data.officerName })
@@ -26,13 +15,7 @@ export const setOfficerStatus = (officerId, status) => dispatch => {
 
 
 export const getCurrentOfficerStatus = (officerId) => dispatch => {
-    axios({
-        url: backendURL + '/officers/get-status/' + officerId,
-        method: 'GET',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-    })
+    handleRequest("/officers/get-status/" + officerId, "GET")
         .then((res) => {
             if (res.data.officer) {
                 dispatch({ type: GET_CURRENT_OFFICER_STATUS, status: res.data.officer.status, status2: res.data.officer.status2, officerName: res.data.officer.officer_name })
@@ -42,17 +25,7 @@ export const getCurrentOfficerStatus = (officerId) => dispatch => {
 }
 
 export const setOnDuty = (officerId) => dispatch => {
-    axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
-        method: 'PUT',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            status: 'on-duty',
-            status2: "10-8"
-        }
-    })
+    handleRequest("/dispatch/update-officer/" + officerId, "PUT", { status: "on-duty", status2: "10-8" })
         .then((res) => {
             socket.emit("updateActiveUnits");
             dispatch({ type: SET_ON_DUTY, status: "on-duty", status2: "10-8", officerName: res.data.officerName })
@@ -61,16 +34,7 @@ export const setOnDuty = (officerId) => dispatch => {
 }
 
 export const setOffDuty = (officerId) => dispatch => {
-    axios({
-        url: backendURL + '/dispatch/update-officer/' + officerId,
-        method: 'PUT',
-        headers: {
-            'x-auth-snailycad-token': Cookies.get('__session'),
-        },
-        data: {
-            status: 'off-duty',
-        }
-    })
+    handleRequest("/dispatch/update-officer/" + officerId, "PUT", { status: "off-duty" })
         .then(() => {
             socket.emit("updateActiveUnits");
             dispatch({ type: SET_OFF_DUTY, status: "off-duty", status2: "" })
