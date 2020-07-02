@@ -88,6 +88,7 @@ module.exports = function (io) {
             processQuery("INSERT INTO `911calls` (`description`, `name`, `location`, `status`, `assigned_unit`) VALUES (?, ?, ?, ?, ?)",
                 [description, caller, location, "Not Assigned", "none"])
                 .then(() => {
+                    io.sockets.emit("update911Calls");
                     return res.json({ msg: "911 was called" });
                 })
                 .catch(err => console.log(err));
@@ -158,6 +159,7 @@ module.exports = function (io) {
         if (description && caller && location) {
             processQuery("INSERT INTO `tow_calls` (`description`, `name`, `location`) VALUES (?, ?, ?)", [description, caller, location])
                 .then(() => {
+                    io.sockets.emit("updateTowCalls");
                     return res.json({ msg: "Tow Truckers Called" });
                 })
                 .catch(err => console.log(err));

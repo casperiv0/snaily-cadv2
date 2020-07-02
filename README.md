@@ -1,8 +1,8 @@
-![license](https://img.shields.io/badge/license-MIT-green)  ![version](https://img.shields.io/badge/version-1.5.3-orange)
+![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.3-orange)
 
-# SnailyCAD v2
+# SnailyCADv2
 
-SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!
+SnailyCAD is a Free, Realtime and secure NodeJS CAD/MDT for your community!
 
 ## Information
 

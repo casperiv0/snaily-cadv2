@@ -26,7 +26,7 @@ AddEventHandler("towCallUpdate", function(street, name, description)
     PerformHttpRequest(URL_TO_CAD .. ":" .. PORT .. '/global/create-tow-call',
                        function(err, text, headers) end, 'POST', json.encode(
                            {
-            name = name,
+            caller = name,
             location = street,
             description = table.concat(description, ' ')
         }), {["Content-Type"] = 'application/json'})
