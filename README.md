@@ -1,4 +1,4 @@
-![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.3-orange)
+![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.4-orange)
 
 # SnailyCADv2
 
