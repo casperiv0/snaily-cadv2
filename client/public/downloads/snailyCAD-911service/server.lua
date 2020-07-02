@@ -14,7 +14,6 @@ RegisterServerEvent("chatMessage")
 RegisterCommand("call911", function(source, args)
     CancelEvent()
     local name = GetPlayerName(source)
-    print(name)
     local description = args
     TriggerClientEvent("911Call", source, name, description)
 end)
