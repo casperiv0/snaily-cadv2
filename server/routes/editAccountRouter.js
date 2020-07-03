@@ -1,6 +1,5 @@
 /*
     PUT /edit - edit account
-    GET /account-summary
 */
 
 const router = require("express").Router();
@@ -8,9 +7,10 @@ const bcrypt = require("bcrypt");
 const auth = require("../auth/tokenAuth");
 const { processQuery } = require("../utils/db");
 
-/*
-    @Route /account/edit
-    @Auth Protected
+
+/**
+ * @Route /account/edit
+ * @Auth Protected
 */
 router.put("/edit", auth, async (req, res) => {
     const { oldPassword, newPassword, newPassword2 } = req.body;

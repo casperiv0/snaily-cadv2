@@ -18,7 +18,8 @@ export const create911Call = (data) => dispatch => {
         location: data.location,
     }).then((res) => {
         if (res.data.msg === '911 was called') {
-            socket.emit("update911Calls")
+            socket.emit("update911Calls");
+            socket.emit("new911Call");
             dispatch({ type: CREATE_911_CALL, calls: get911Calls })
         }
     });

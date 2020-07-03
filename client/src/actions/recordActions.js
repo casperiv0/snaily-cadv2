@@ -1,4 +1,4 @@
-import { CREATE_WARRANT } from "./types"
+import { CREATE_WARRANT, CREATE_ARREST_REPORT, CREATE_TICKET, CREATE_WRITTEN_WARNING } from "./types"
 import { handleRequest } from "../functions";
 
 export const createWarrant = (data) => dispatch => {
@@ -12,3 +12,34 @@ export const createWarrant = (data) => dispatch => {
         })
         .catch(e => console.log(e));
 };
+
+export const createArrestReport = (data) => dispatch => {
+    handleRequest("/officers/create-arrest-report", "POST", data)
+        .then(res => {
+            if (res.data.msg === 'Added') {
+                return dispatch({ type: CREATE_ARREST_REPORT });
+            }
+
+            console.log(res.data.msg)
+        })
+}
+export const createTicket = data => dispatch => {
+    handleRequest("/officers/create-ticket", "POST", data)
+        .then(res => {
+            if (res.data.msg === 'Added') {
+                return dispatch({ type: CREATE_TICKET });
+            }
+
+            console.log(res.data.msg);
+        })
+}
+
+export const createWrittenWarning = data => dispatch => {
+    handleRequest("/officers/create-written-warning", "POST", data)
+        .then(res => {
+            if (res.data.msg === "Added") {
+                return dispatch({ type: CREATE_WRITTEN_WARNING });
+            }
+            console.log(res.data.msg)
+        })
+}

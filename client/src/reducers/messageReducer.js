@@ -1,4 +1,4 @@
-import { SET_MESSAGE, REMOVE_MESSAGE, GET_MESSAGE } from "../actions/types"
+import { SET_MESSAGE, REMOVE_MESSAGE } from "../actions/types"
 
 const initState = {
     content: "",
@@ -6,11 +6,6 @@ const initState = {
 
 export default function (state = initState, action) {
     switch (action.type) {
-        case GET_MESSAGE:
-            return {
-                ...state,
-                content: action.message
-            }
         case SET_MESSAGE:
             return {
                 ...state,

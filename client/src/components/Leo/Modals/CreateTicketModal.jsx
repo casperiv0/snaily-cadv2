@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { createTicket } from '../../../actions/recordActions';
+import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import { connect } from 'react-redux';
 
-export default class CreateTicketModal extends Component {
+class CreateTicketModal extends Component {
   constructor() {
     super();
 
@@ -20,31 +20,26 @@ export default class CreateTicketModal extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-    Axios({
-      url: backendURL + '/officers/create-ticket',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        name: this.state.name2,
-        officer_name: this.state.officerName2,
-        postal: this.state.postal2,
-        notes: this.state.notes2,
-        violations: this.state.violations,
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Added') {
-        sessionStorage.setItem(
-          'leo-message',
-          'Successfully Created Ticket, Target Name: ' + this.state.name2
-        );
-        return (window.location = '/leo/dash');
-      }
 
-      this.setState({
-        error: res.data.msg,
-      });
+    const data = {
+      name: this.state.name2,
+      officer_name: this.state.officerName2,
+      postal: this.state.postal2,
+      notes: this.state.notes2,
+      violations: this.state.violations,
+    };
+    document.getElementById('closeCreateTicket').click();
+    this.props.setMessage(
+      `Successfully created ticket, Target name: ${this.state.name2}`
+    );
+    this.props.createTicket(data);
+
+    this.setState({
+      name2: '',
+      officerName2: '',
+      postal2: '',
+      notes2: '',
+      violations: '',
     });
   };
 
@@ -89,6 +84,7 @@ export default class CreateTicketModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeCreateTicket'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -180,3 +176,5 @@ export default class CreateTicketModal extends Component {
     );
   }
 }
+
+export default connect(null, { createTicket, setMessage })(CreateTicketModal);

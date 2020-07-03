@@ -9,7 +9,12 @@ class Active911Calls extends Component {
   componentDidMount() {
     this.props.get911Calls();
 
-    socket.on('update911Calls', this.props.get911Calls);
+    socket.on('update911Calls', () => this.props.get911Calls());
+
+    socket.on('new911Call', () => {
+      const audio = new Audio('/sounds/new-call.mp3');
+      audio.play();
+    });
   }
 
   render() {

@@ -6,7 +6,6 @@
 
 
 const router = require("express").Router();
-const fs = require("fs");
 const auth = require("../../auth/tokenAuth");
 const { processQuery } = require("../../utils/db");
 

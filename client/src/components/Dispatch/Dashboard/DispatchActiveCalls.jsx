@@ -8,7 +8,6 @@ import { get911Calls } from '../../../actions/911CallsActions';
 import io from 'socket.io-client';
 const socket = io(backendURL);
 
-
 class DispatchActiveCalls extends Component {
   constructor() {
     super();
@@ -38,7 +37,11 @@ class DispatchActiveCalls extends Component {
     this.props.get911Calls();
     this.getActiveOfficers();
 
-    socket.on("update911Calls", this.props.get911Calls);
+    socket.on('update911Calls', () => this.props.get911Calls());
+    socket.on('new911Call', () => {
+      const audio = new Audio('/sounds/new-call.mp3');
+      audio.play();
+    });
   }
 
   render() {

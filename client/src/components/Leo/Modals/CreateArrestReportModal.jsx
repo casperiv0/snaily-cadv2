@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { createArrestReport } from '../../../actions/recordActions';
+import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import { connect } from 'react-redux';
 
-export default class CreateArrestReportModal extends Component {
+class CreateArrestReportModal extends Component {
   constructor() {
     super();
 
@@ -20,31 +20,27 @@ export default class CreateArrestReportModal extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-    Axios({
-      url: backendURL + '/officers/create-arrest-report',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        arresteeName: this.state.arresteeName,
-        officer_name: this.state.officerName,
-        postal: this.state.postal,
-        notes: this.state.notes,
-        charges: this.state.charges,
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Added') {
-        sessionStorage.setItem(
-          'leo-message',
-          'Successfully Created Arrest Report, Target Name: ' + this.state.arresteeName
-        );
-        return (window.location = '/leo/dash');
-      }
 
-      this.setState({
-        error: res.data.msg,
-      });
+    const data = {
+      arresteeName: this.state.arresteeName,
+      officer_name: this.state.officerName,
+      postal: this.state.postal,
+      notes: this.state.notes,
+      charges: this.state.charges,
+    };
+    document.getElementById('closeCreateArrestReport').click();
+    this.props.createArrestReport(data);
+    this.props.setMessage(
+      'Successfully created arrest report, Target name: ' +
+        this.state.arresteeName
+    );
+
+    this.setState({
+      arresteeName: '',
+      officerName: '',
+      postal: '',
+      notes: '',
+      charges: '',
     });
   };
 
@@ -57,7 +53,7 @@ export default class CreateArrestReportModal extends Component {
   componentDidMount() {
     this.setState({
       penalCodes: this.props.penalCodes,
-    })
+    });
   }
 
   render() {
@@ -88,6 +84,7 @@ export default class CreateArrestReportModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeCreateArrestReport'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -179,3 +176,7 @@ export default class CreateArrestReportModal extends Component {
     );
   }
 }
+
+export default connect(null, { createArrestReport, setMessage })(
+  CreateArrestReportModal
+);

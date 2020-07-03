@@ -54,7 +54,7 @@ class EmsFdStatuses extends Component {
           10-8
         </button>
         <button
-          disabled={status === "off-duty"}
+          disabled={status === "off-duty" || !status}
           onClick={this.updateStatus}
           name='status2'
           value='10-7'
@@ -66,7 +66,7 @@ class EmsFdStatuses extends Component {
           10-7
         </button>
         <button
-          disabled={status === "off-duty"}
+          disabled={status === "off-duty" || !status}
           onClick={this.updateStatus}
           name='status2'
           value='10-6'
@@ -78,7 +78,7 @@ class EmsFdStatuses extends Component {
           10-6
         </button>
         <button
-          disabled={status === "off-duty"}
+          disabled={status === "off-duty" || !status}
           onClick={this.updateStatus}
           name='status2'
           value='10-5'
@@ -90,7 +90,7 @@ class EmsFdStatuses extends Component {
           10-5
         </button>
         <button
-          disabled={status === "off-duty"}
+          disabled={status === "off-duty" || !status}
           onClick={this.updateStatus}
           name='status2'
           value='10-97'

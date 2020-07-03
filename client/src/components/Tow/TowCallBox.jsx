@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 export default class TowCallBox extends Component {
   cancelTowCall = () => {
     const id = this.props.id;
-    const index = this.props.index;
-    this.props.cancelTowCall(id, index);
+    this.props.cancelTowCall(id);
   };
 
   render() {

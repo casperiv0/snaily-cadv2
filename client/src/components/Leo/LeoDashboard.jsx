@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { backendURL } from '../../config/config';
 import { connect } from 'react-redux';
 import { getAop } from '../../actions/otherActions';
-import { getMessage, removeMessage } from '../../actions/messageActions';
+import { removeMessage } from '../../actions/messageActions';
 
 import io from 'socket.io-client';
 const socket = io(backendURL);
@@ -114,7 +114,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getMessage,
   getAop,
   removeMessage,
 })(LeoDashboard);

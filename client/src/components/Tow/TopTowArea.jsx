@@ -3,7 +3,7 @@ import NotepadModal from '../EMS-FD/EmsFdDashboard/NotepadModal';
 
 export default class TopTowArea extends Component {
   refresh = () => {
-    document.location.reload();
+    this.props.refresh();
   };
   render() {
     const { children } = this.props;

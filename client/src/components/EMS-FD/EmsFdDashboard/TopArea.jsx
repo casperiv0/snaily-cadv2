@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAop } from '../../../actions/otherActions';
-import { getMessage } from '../../../actions/messageActions';
 import EmsFdStatuses from './EmsFdStatuses';
 import SelectEmsFdModal from './Modals/SelectEmsFdModal';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
@@ -11,7 +10,6 @@ const socket = io(backendURL);
 
 class TopArea extends Component {
   componentDidMount() {
-    this.props.getMessage();
     this.props.getAop();
 
     document.addEventListener(
@@ -73,4 +71,4 @@ const mapStateToProps = (state) => ({
   message: state.message.content,
 });
 
-export default connect(mapStateToProps, { getAop, getMessage })(TopArea);
+export default connect(mapStateToProps, { getAop })(TopArea);

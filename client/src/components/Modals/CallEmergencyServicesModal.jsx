@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setMessage } from '../../actions/messageActions';
 import { create911Call } from '../../actions/911CallsActions';
 
 class callEmergencyServices extends Component {
@@ -30,6 +31,14 @@ class callEmergencyServices extends Component {
     this.props.create911Call(data);
 
     document.getElementById('closeCall911').click();
+
+    this.props.setMessage('Successfully created 911 call');
+
+    this.setState({
+      description: '',
+      caller: '',
+      location: '',
+    });
   };
 
   render() {
@@ -118,4 +127,4 @@ class callEmergencyServices extends Component {
   }
 }
 
-export default connect(null, { create911Call })(callEmergencyServices);
+export default connect(null, { create911Call, setMessage })(callEmergencyServices);

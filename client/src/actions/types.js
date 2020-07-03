@@ -32,7 +32,6 @@ export const UPDATE_AOP = "UPDATE_AOP"
 export const GET_AOP = "GET_AOP"
 
 // MESSAGE
-export const GET_MESSAGE = "GET_MESSAGE"
 export const SET_MESSAGE = "SET_MESSAGE"
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE"
 

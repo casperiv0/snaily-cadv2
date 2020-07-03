@@ -34,6 +34,12 @@ class CreateWarrant extends Component {
     this.props.setMessage(
       `Successfully created warrant, Target name: ${this.state.fullName}`
     );
+
+    this.setState({
+      fullName: '',
+      status: 'Active',
+      details: '',
+    });
   };
 
   render() {

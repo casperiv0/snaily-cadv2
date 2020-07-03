@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import { connect } from 'react-redux';
+import { createWrittenWarning } from '../../../actions/recordActions';
 
-export default class CreateWrittenWarningModal extends Component {
+class CreateWrittenWarningModal extends Component {
   constructor() {
     super();
 
@@ -21,33 +21,20 @@ export default class CreateWrittenWarningModal extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-    Axios({
-      url: backendURL + '/officers/create-written-warning',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        name: this.state.name3,
-        officer_name: this.state.officerName3,
-        postal: this.state.postal3,
-        notes: this.state.notes3,
-        infractions: this.state.infractions,
-      },
-    }).then((res) => {
-      if (res.data.msg === 'Added') {
-        sessionStorage.setItem(
-          'leo-message',
-          'Successfully Created Written Warning, Target Name: ' +
-            this.state.name3
-        );
-        return (window.location = '/leo/dash');
-      }
 
-      this.setState({
-        error: res.data.msg,
-      });
-    });
+    const data = {
+      name: this.state.name3,
+      officer_name: this.state.officerName3,
+      postal: this.state.postal3,
+      notes: this.state.notes3,
+      infractions: this.state.infractions,
+    };
+
+    this.props.createWrittenWarning(data);
+    this.props.setMessage(
+      `Successfully created written warning, Target name: ${this.state.name3}`
+    );
+    document.getElementById('closeCreateWrittenWarning').click();
   };
 
   onChange = (e) => {
@@ -91,6 +78,7 @@ export default class CreateWrittenWarningModal extends Component {
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
+                id='closeCreateWrittenWarning'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -181,3 +169,7 @@ export default class CreateWrittenWarningModal extends Component {
     );
   }
 }
+
+export default connect(null, { setMessage, createWrittenWarning })(
+  CreateWrittenWarningModal
+);

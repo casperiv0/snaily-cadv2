@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.5
+
+- When getting a new 911 call, a sounds will be played to notify you
+- Fixed alert message showing on other pages
+- Fixed ems-fd status buttons not disabled when no deputies are found
+- Small improvements
+- Fixed small bugs
+
 ## 1.5.4
 
 - Refactored some code

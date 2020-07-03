@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { getAop } from '../../actions/otherActions';
 import { connect } from 'react-redux';
 import { getTowCalls, endTowCall } from '../../actions/towCallActions';
-import { getMessage } from '../../actions/messageActions';
 import TopTowArea from './TopTowArea';
 import TowCallBox from './TowCallBox';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
@@ -25,6 +24,10 @@ class Tow extends Component {
     this.props.endTowCall(id);
   };
 
+  refresh = () => {
+    socket.emit("updateTowCalls")
+  }
+
   render() {
     const { aop, towCalls, message } = this.props;
 
@@ -33,7 +36,7 @@ class Tow extends Component {
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <h2>Tow Dashboard - AOP: {aop} </h2>
         <ul className='list-group'>
-          <TopTowArea>
+          <TopTowArea refresh={this.refresh} >
             {!towCalls[0] ? (
               <li className='list-group-item bg-dark border-secondary'>
                 No Active Calls
@@ -66,7 +69,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getAop,
-  getMessage,
   getTowCalls,
   endTowCall,
 })(Tow);

@@ -5,7 +5,7 @@ import {
   getCadSettings,
   updateCadSettings,
 } from '../../actions/cadSettingsActions';
-import { setMessage, getMessage } from '../../actions/messageActions';
+import { setMessage } from '../../actions/messageActions';
 
 class CadSettings extends Component {
   constructor() {
@@ -212,7 +212,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getMessage,
   setMessage,
   getCadSettings,
   updateCadSettings,

@@ -12,7 +12,6 @@ import AddressSearchModal from '../../Modals/AddressSearchModal';
 import NameSearchModal from '../../Modals/NameSearch/NameSearchModal';
 import PlateSearchModal from '../../Modals/PlateSearchModal';
 import WeaponSearchModal from '../../Modals/WeaponSearchModal';
-import { getMessage } from '../../../actions/messageActions';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { backendURL } from '../../../config/config';
@@ -80,4 +79,4 @@ const mapStateToProps = (state) => ({
   message: state.message.content,
 });
 
-export default connect(mapStateToProps, { getMessage })(DispatchDashboard);
+export default connect(mapStateToProps)(DispatchDashboard);

@@ -54,6 +54,10 @@ module.exports = function (io) {
         socket.on("updateTowCalls", () => {
             io.sockets.emit("updateTowCalls");
         });
+
+        socket.on("new911Call", () => {
+            io.sockets.emit("new911Call");
+        })
     });
 
     /*

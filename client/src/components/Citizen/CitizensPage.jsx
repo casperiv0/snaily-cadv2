@@ -7,15 +7,16 @@ import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
 import LoadingArea from '../Partials/LoadingArea';
+import { connect } from 'react-redux';
+import { removeMessage } from '../../actions/messageActions';
 
-export default class CitizensPage extends Component {
+class CitizensPage extends Component {
   constructor() {
     super();
 
     this.state = {
       loading: true,
       citizens: [],
-      message: sessionStorage.getItem('message'),
     };
   }
 
@@ -46,22 +47,18 @@ export default class CitizensPage extends Component {
   };
 
   componentDidUpdate() {
-    document.addEventListener(
-      'beforeunload',
-      sessionStorage.removeItem('message')
-    );
+    document.addEventListener('beforeunload', this.props.removeMessage);
   }
 
   render() {
-    const { citizens, loading, message } = this.state;
+    const { citizens, loading } = this.state;
+    const { message } = this.props;
     if (loading) {
       return <LoadingArea />;
     }
     return (
       <div className='container pb-5'>
-        {this.state.message ? (
-          <SuccessMessage message={message} dismiss />
-        ) : null}
+        {message ? <SuccessMessage message={message} dismiss /> : null}
         <TopButtons />
 
         <ul className='list-group mt-2'>
@@ -84,3 +81,9 @@ export default class CitizensPage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  message: state.message.content,
+});
+
+export default connect(mapStateToProps, { removeMessage })(CitizensPage);
