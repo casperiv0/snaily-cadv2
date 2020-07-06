@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import { handleRequest } from '../../../functions';
 
 export default class AuditLogs extends Component {
   constructor() {
@@ -10,23 +8,17 @@ export default class AuditLogs extends Component {
 
     this.state = {
       logs: [],
-      loading: true
+      loading: true,
     };
   }
 
   getAuditLogs = () => {
-    Axios({
-      url: backendURL + '/admin/action-logs/',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/admin/action-logs', 'GET')
       .then((res) => {
         if (res.data.action_logs) {
           this.setState({
             logs: res.data.action_logs,
-            loading: false
+            loading: false,
           });
         }
       })
@@ -34,15 +26,15 @@ export default class AuditLogs extends Component {
   };
 
   componentDidMount() {
-    document.title = "Audit Logs - Admin"
+    document.title = 'Audit Logs - Admin';
     this.getAuditLogs();
   }
 
   render() {
     const { logs, loading } = this.state;
-    
+
     if (loading) {
-      return <LoadingArea />
+      return <LoadingArea />;
     }
 
     return (

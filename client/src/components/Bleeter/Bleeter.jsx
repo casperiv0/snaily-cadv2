@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
 import BleetBox from './BleetBox';
 import LoadingArea from '../Partials/LoadingArea';
+import { handleRequest } from '../../functions';
 
 export default class Bleeter extends Component {
   constructor() {
@@ -16,13 +14,7 @@ export default class Bleeter extends Component {
   }
 
   getBleets = () => {
-    Axios({
-      url: backendURL + '/bleeter',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/bleeter', 'GET')
       .then((res) => {
         this.setState({
           bleets: res.data.bleets,
@@ -41,7 +33,7 @@ export default class Bleeter extends Component {
     const { bleets, loading } = this.state;
 
     if (loading) {
-      return <LoadingArea />
+      return <LoadingArea />;
     }
 
     return (

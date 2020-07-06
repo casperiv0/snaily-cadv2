@@ -20,9 +20,12 @@ class UpdateAop extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    
+
     this.props.updateAop(this.state.aop);
-    this.props.setMessage("Successfully updated AOP");
+    this.props.setMessage('Successfully updated AOP');
+    this.setState({
+      aop: '',
+    });
   };
 
   render() {
@@ -44,6 +47,7 @@ class UpdateAop extends Component {
                   onChange={this.onChange}
                   placeholder='Enter new Area of Roleplay'
                   required
+                  value={this.state.aop}
                 />
               </div>
               <div className='form-group'>
@@ -62,4 +66,6 @@ const mapStateToProps = (state) => ({
   aop: state.aop.aop,
 });
 
-export default connect(mapStateToProps, { getAop, updateAop, setMessage })(UpdateAop);
+export default connect(mapStateToProps, { getAop, updateAop, setMessage })(
+  UpdateAop
+);

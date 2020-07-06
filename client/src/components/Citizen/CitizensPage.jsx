@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import TopButtons from './TopButtons';
-import axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
 import NoCitizensMessage from '../Partials/Messages/NoCitizensMessage';
 import CitizenBox from './CitizenBox';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
-import LoadingArea from '../Partials/LoadingArea';
 import { connect } from 'react-redux';
 import { removeMessage } from '../../actions/messageActions';
+import { getCitizensByAcc } from '../../actions/citizenActions';
 
 class CitizensPage extends Component {
   constructor() {
@@ -26,24 +23,7 @@ class CitizensPage extends Component {
   }
 
   getCitizens = () => {
-    axios({
-      url: backendURL + '/citizen',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      if (res.data.citizens) {
-        this.setState({
-          citizens: res.data.citizens,
-          loading: false,
-        });
-      }
-
-      this.setState({
-        loading: false,
-      });
-    });
+    this.props.getCitizensByAcc();
   };
 
   componentDidUpdate() {
@@ -51,11 +31,8 @@ class CitizensPage extends Component {
   }
 
   render() {
-    const { citizens, loading } = this.state;
-    const { message } = this.props;
-    if (loading) {
-      return <LoadingArea />;
-    }
+    const { message, citizens } = this.props;
+
     return (
       <div className='container pb-5'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
@@ -84,6 +61,9 @@ class CitizensPage extends Component {
 
 const mapStateToProps = (state) => ({
   message: state.message.content,
+  citizens: state.citizens.citizens,
 });
 
-export default connect(mapStateToProps, { removeMessage })(CitizensPage);
+export default connect(mapStateToProps, { removeMessage, getCitizensByAcc })(
+  CitizensPage
+);

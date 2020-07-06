@@ -1,4 +1,4 @@
-![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.5-orange)
+![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.6-orange)
 
 # SnailyCADv2
 
@@ -32,14 +32,15 @@ demo: [http://demo-cad.caspertheghost.me/](http://demo-cad.caspertheghost.me/)
 4. Modify `config.js` where needed
 5. Go to `client/src/config/` and modify `config.js` where needed
 6. Run `npm install` to install the first part of the dependencies
-7. Run `npm run create`
-8. Run `cd client`
-9. Run `npm run build` To create a build folder
-10. Run `yarn global add serve` to add the serve command
-11. Create a new database, name it `snaily-cad`
-12. Import `snaily-cad.sql` into that database, [Download xampp Here](https://www.apachefriends.org)
-13. Run `npm start` in the root folder (`./snaily-cadv2`)
-14. CAD should be running on [http://localhost/](http://localhost/) by default
+7. Run `cd client && yarn` to install the client dependencies
+8. Run `yarn build` in that same folder(client folder)
+9. Run `yarn global add serve` to add the serve command
+10. Run `cd ../` to go back
+11. Run `cd server && npm install` to install the server dependencies
+12. Create a new database, name it `snaily-cad`, [Download xampp Here](https://www.apachefriends.org)
+13. Import `snaily-cad.sql` into that database
+14. Run `npm start` in the root folder (`./snaily-cadv2`)
+15. CAD should be running on [http://localhost/](http://localhost/) by default
 
 ## Updating CAD
 

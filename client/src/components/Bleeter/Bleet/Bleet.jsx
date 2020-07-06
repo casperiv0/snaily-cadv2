@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
 import ReactMarkdown from 'react-markdown';
 import LoadingArea from '../../Partials/LoadingArea';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import { getSession } from '../../Auth/getSession';
+import { handleRequest } from '../../../functions';
 
 export default class Bleet extends Component {
   constructor() {
@@ -19,29 +18,19 @@ export default class Bleet extends Component {
   }
 
   getBleet = () => {
-    axios({
-      url: backendURL + '/bleeter/' + this.props.match.params.bleetId,
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    }).then((res) => {
-      this.setState({
-        bleet: res.data.bleet[0],
-        loading: false,
-      });
-      document.title = res.data.bleet[0].title + ' - Bleeter';
-    });
+    handleRequest(`/bleeter/${this.props.match.params.bleetId}`, 'GET')
+      .then((res) => {
+        this.setState({
+          bleet: res.data.bleet[0],
+          loading: false,
+        });
+        document.title = res.data.bleet[0].title + ' - Bleeter';
+      })
+      .catch((e) => console.log(e));
   };
 
   likeBleet = () => {
-    axios({
-      url: backendURL + '/bleeter/' + this.props.match.params.bleetId + '/like',
-      method: 'POST',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest(`/bleeter/${this.props.match.params.bleetId}/like`, 'POST')
       .then((res) => {
         if (res.data.msg === 'Liked') {
           this.getBleet();

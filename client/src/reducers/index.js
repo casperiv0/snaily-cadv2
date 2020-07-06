@@ -9,6 +9,7 @@ import emergencyCallsReducer from "./911CallsReducer"
 import towCallsReducer from "./towCallsReducer";
 import emsFdReducer from "./emsFdReducer";
 import recordReducer from "./recordReducer";
+import citizenReducer from "./citizenReducer";
 
 export default combineReducers({
     bolos: boloReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     calls: emergencyCallsReducer,
     towCalls: towCallsReducer,
     ems: emsFdReducer,
-    record: recordReducer
+    record: recordReducer,
+    citizens: citizenReducer,
 });

@@ -90,7 +90,7 @@ const Credits = () => {
         <a href='https://www.paypal.me/caspertheghosty'>here</a>
       </p>
       <p>
-        <a href='https://dev-caspertheghost.github.io/'>CasperTheGhost</a> |
+        <a href='https://caspertheghost.me'>CasperTheGhost</a> |
         Thanks for choosing SnailyCAD!
       </p>
     </div>

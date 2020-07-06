@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.6
+
+- Small bug fixes
+- Improvements
+- Updated installation guide in README.md
+
 ## 1.5.5
 
 - When getting a new 911 call, a sounds will be played to notify you

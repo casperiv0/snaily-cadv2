@@ -1,6 +1,6 @@
 {
   "name": "snailycad-v2",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "SnailyCAD is a Free and secure NodeJS CAD/MDT for your community!",
   "main": "config.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "client": "npm run serve --prefix client",
     "build": "npm run build --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "create": "npm install --prefix client && npm install --prefix server"
+    "create": "echo please read README.md to view updated installation guide."
   },
   "repository": {
     "type": "git",

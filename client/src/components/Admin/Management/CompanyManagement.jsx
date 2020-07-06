@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { backendURL } from '../../../config/config';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../Partials/LoadingArea';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
+import { handleRequest } from '../../../functions';
 
 export default class CompanyManagement extends Component {
   constructor() {
@@ -41,13 +39,7 @@ export default class CompanyManagement extends Component {
   };
 
   deleteCompany = (id, companyName) => {
-    Axios({
-      url: backendURL + '/admin/companies/' + id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/admin/companies' + id, 'DELETE')
       .then((res) => {
         if (res.data.msg === 'Company Deleted') {
           sessionStorage.setItem(
@@ -61,13 +53,7 @@ export default class CompanyManagement extends Component {
   };
 
   getCompanies = () => {
-    Axios({
-      url: backendURL + '/company/',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/company', 'GET')
       .then((res) => {
         if (res.data.companies) {
           this.setState({

@@ -52,3 +52,10 @@ export const EMS_SET_STATUS = "EMS_SET_STATUS";
 export const EMS_GET_STATUS = "EMS_GET_STATUS";
 export const EMS_SET_ON_DUTY = "EMS_SET_ON_DUTY";
 export const EMS_SET_OFF_DUTY = "EMS_SET_OFF_DUTY"; 
+
+// citizen
+export const GET_CITIZENS_BY_ACC = "GET_CITIZENS_BY_ACC"; 
+export const GET_CITIZENS_BY_ID = "GET_CITIZENS_BY_ID"; 
+export const UPDATE_CITIZEN_BY_ID = "UPDATE_CITIZEN_BY_ID"; 
+export const DELETE_CITIZEN_BY_ID = "DELETE_CITIZEN_BY_ID"; 
+export const GET_ALL_CITIZENS = "GET_ALL_CITIZENS"; 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
-import Axios from 'axios';
-import { backendURL } from '../../config/config';
-import Cookies from 'js-cookie';
+import { handleRequest } from '../../functions';
 import { CircularProgress } from '@material-ui/core';
 
 export default class EditAccountModal extends Component {
@@ -30,17 +28,10 @@ export default class EditAccountModal extends Component {
       loading: true,
     });
 
-    Axios({
-      url: backendURL + '/account/edit',
-      method: 'PUT',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        oldPassword: this.state.oldPassword,
-        newPassword: this.state.newPassword,
-        newPassword2: this.state.newPassword2,
-      },
+    handleRequest('/account/edit', 'PUT', {
+      oldPassword: this.state.oldPassword,
+      newPassword: this.state.newPassword,
+      newPassword2: this.state.newPassword2,
     })
       .then((res) => {
         if (res.data.msg === 'Updated') {

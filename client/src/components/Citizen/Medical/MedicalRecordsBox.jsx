@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { handleRequest } from '../../../functions';
 
 export default class MedicalRecordsBox extends Component {
   constructor() {
@@ -13,13 +11,7 @@ export default class MedicalRecordsBox extends Component {
   }
 
   getMedicalRecords = () => {
-    axios({
-      url: backendURL + '/medical/' + this.props.fullName,
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest(`/medical/${this.props.fullName}`, 'GET')
       .then((res) => {
         this.setState({
           records: res.data.records,
@@ -53,10 +45,7 @@ export default class MedicalRecordsBox extends Component {
         </div>
         {!records[0] ? (
           <div className='list-group-item bg-dark border-dark'>
-            No medical records, Stay Healthy{' '}
-            <span aria-label='smiley' role='img'>
-              🙂
-            </span>
+            No medical records, Stay Healthy
           </div>
         ) : (
           <table className='table table-dark'>

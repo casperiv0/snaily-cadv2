@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
-import { backendURL } from '../../config/config';
 import { Link } from 'react-router-dom';
 import EditPasswordModal from './EditPasswordModal';
 import LoadingArea from '../Partials/LoadingArea';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
+import { handleRequest } from '../../functions';
 
 export default class Account extends Component {
   constructor() {
@@ -31,15 +31,9 @@ export default class Account extends Component {
   };
 
   deleteAccount = () => {
-    Axios({
-      url: backendURL + '/auth/remove-account',
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/auth/remove-account', 'DELETE')
       .then((res) => {
-        Cookies.remove("__session");
+        Cookies.remove('__session');
         if (res.data.msg === 'Deleted') {
           sessionStorage.getItem(
             'home-message',
@@ -60,13 +54,7 @@ export default class Account extends Component {
   }
 
   getAccountData = () => {
-    Axios({
-      url: backendURL + '/auth/user',
-      method: 'GET',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
+    handleRequest('/auth/user', 'GET')
       .then((res) => {
         this.setState({
           account: res.data.user[0],

@@ -1,46 +1,38 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import { handleRequest } from '../../../functions';
+import { connect } from 'react-redux';
+import { setMessage } from '../../../actions/messageActions';
 
-export default class AddMedicalRecords extends Component {
+class AddMedicalRecords extends Component {
   constructor() {
     super();
 
     this.state = {
       type: '',
       shortInfo: '',
-      error: ""
+      error: '',
     };
   }
 
   addMedicalRecord = (e) => {
     e.preventDefault();
 
-    Axios({
-      url: `${backendURL}/medical/${this.props.match.params.citizenId}-${this.props.match.params.fullName}/add`,
-      method: "POST",
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-      data: {
-        type: this.state.type,
-        shortInfo: this.state.shortInfo,
-      },
-    })
+    const url = `/medical/${this.props.match.params.citizenId}-${this.props.match.params.fullName}/add`;
+    const data = {
+      type: this.state.type,
+      shortInfo: this.state.shortInfo,
+    };
+    handleRequest(url, 'POST', data)
       .then((res) => {
         if (res.data.msg === 'Record Added') {
-          sessionStorage.setItem(
-            'message',
-            'Successfully Added Medical Record'
-          );
-          return window.location = '/citizen';
+          this.props.setMessage('Successfully added medical record');
+          return (window.location = '/citizen');
         }
 
         this.setState({
-            error: res.data.msg
-        })
+          error: res.data.msg,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -57,10 +49,7 @@ export default class AddMedicalRecords extends Component {
       <form
         onSubmit={this.addMedicalRecord}
         className='container mt-3 text-light'>
-            {
-                error ?
-                <ErrorMessage message={error} /> : null
-            }
+        {error ? <ErrorMessage message={error} /> : null}
         <div className='form-group'>
           <label htmlFor='type'>Select Type</label>
           <select
@@ -68,9 +57,7 @@ export default class AddMedicalRecords extends Component {
             className='form-control bg-secondary border-secondary text-light'
             onChange={this.onChange}>
             <option value=''>Select Type...</option>
-            <option value='Allergy'>
-              Allergy
-            </option>
+            <option value='Allergy'>Allergy</option>
             <option value='Medication'>Medication</option>
             <option value='Health Problem'>Health Problem</option>
           </select>
@@ -87,11 +74,19 @@ export default class AddMedicalRecords extends Component {
             rows='5'></textarea>
         </div>
 
-        <div className="form-group float-right">
-            <a href={"/citizen/"+this.props.match.params.citizenId} className="btn btn-danger">Cancel</a>
-            <button type="submit" className="btn btn-primary ml-2">Add Medical Record</button>
+        <div className='form-group float-right'>
+          <a
+            href={'/citizen/' + this.props.match.params.citizenId}
+            className='btn btn-danger'>
+            Cancel
+          </a>
+          <button type='submit' className='btn btn-primary ml-2'>
+            Add Medical Record
+          </button>
         </div>
       </form>
     );
   }
 }
+
+export default connect(null, { setMessage })(AddMedicalRecords);

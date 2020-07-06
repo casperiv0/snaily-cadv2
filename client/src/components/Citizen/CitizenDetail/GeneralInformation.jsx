@@ -1,26 +1,11 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import { backendURL } from '../../../config/config';
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { deleteCitizenById } from '../../../actions/citizenActions';
 
-export default class GeneralInformation extends Component {
+class GeneralInformation extends Component {
   deleteCitizen = () => {
-    Axios({
-      url: backendURL + '/citizen/' + this.props.id,
-      method: 'DELETE',
-      headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
-      },
-    })
-      .then((res) => {
-        if (res.data.msg === 'Deleted') {
-          sessionStorage.setItem('message', 'Successfully Deleted citizen');
-          return (window.location = '/citizen');
-        } else {
-          console.log('There was an error deleting your citizen');
-        }
-      })
-      .catch((err) => console.log(err));
+    this.props.deleteCitizenById(this.props.id);
   };
 
   render() {
@@ -51,7 +36,12 @@ export default class GeneralInformation extends Component {
               src={backendURL + '/citizen-pictures/' + this.props.picture}
               alt={this.props.picture}
               className='rounded-circle'
-              style={{ width: '100px', height: '100px', objectFit: "cover", backgroundPosition: "center" }}
+              style={{
+                width: '100px',
+                height: '100px',
+                objectFit: 'cover',
+                backgroundPosition: 'center',
+              }}
             />
             <div className='ml-5'>
               {/* full Name */}
@@ -147,3 +137,5 @@ export default class GeneralInformation extends Component {
     );
   }
 }
+
+export default connect(null, { deleteCitizenById })(GeneralInformation);
