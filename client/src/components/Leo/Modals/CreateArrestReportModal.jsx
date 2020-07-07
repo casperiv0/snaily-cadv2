@@ -3,6 +3,7 @@ import { createArrestReport } from '../../../actions/recordActions';
 import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { connect } from 'react-redux';
+import lang from '../../../language.json';
 
 class CreateArrestReportModal extends Component {
   constructor() {
@@ -31,8 +32,7 @@ class CreateArrestReportModal extends Component {
     document.getElementById('closeCreateArrestReport').click();
     this.props.createArrestReport(data);
     this.props.setMessage(
-      'Successfully created arrest report, Target name: ' +
-        this.state.arresteeName
+      `${lang.record.created_arrest_report} ${this.state.arresteeName}`
     );
 
     this.setState({
@@ -78,7 +78,7 @@ class CreateArrestReportModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='createTicketModal'>
-                Create Arrest Report
+                {lang.global.create_arrest_report}
               </h5>
               <button
                 type='button'
@@ -93,7 +93,9 @@ class CreateArrestReportModal extends Component {
               <div className='modal-body'>
                 {error ? <ErrorMessage message={error} /> : null}
                 <div className='form-group'>
-                  <label htmlFor='arresteeName'>Enter Arrestee Name</label>
+                  <label htmlFor='arresteeName'>
+                    {lang.record.enter_arrestee_name}
+                  </label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -104,7 +106,9 @@ class CreateArrestReportModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='officerName'>Enter Officer Name</label>
+                  <label htmlFor='officerName'>
+                    {lang.record.officer_name}
+                  </label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -115,7 +119,7 @@ class CreateArrestReportModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='charges'>Charges</label>
+                  <label htmlFor='charges'>{lang.record.charges}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -136,7 +140,7 @@ class CreateArrestReportModal extends Component {
                   </datalist>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='postal'>Nearest Postal</label>
+                  <label htmlFor='postal'>{lang.record.postal}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -147,7 +151,7 @@ class CreateArrestReportModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='notes'>Notes</label>
+                  <label htmlFor='notes'>{lang.global.notes}</label>
                   <textarea
                     rows='5'
                     className='form-control bg-secondary border-secondary text-light'
@@ -163,10 +167,10 @@ class CreateArrestReportModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Create Arrest Report
+                  {lang.global.create_arrest_report}
                 </button>
               </div>
             </form>

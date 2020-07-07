@@ -3,6 +3,7 @@ import { createTicket } from '../../../actions/recordActions';
 import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { connect } from 'react-redux';
+import lang from '../../../language.json';
 
 class CreateTicketModal extends Component {
   constructor() {
@@ -30,7 +31,7 @@ class CreateTicketModal extends Component {
     };
     document.getElementById('closeCreateTicket').click();
     this.props.setMessage(
-      `Successfully created ticket, Target name: ${this.state.name2}`
+      `${lang.record.created_ticket} ${this.state.name2}`
     );
     this.props.createTicket(data);
 
@@ -78,7 +79,7 @@ class CreateTicketModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='createTicketModal'>
-                Create Ticket
+                {lang.global.create_ticket}
               </h5>
               <button
                 type='button'
@@ -93,7 +94,7 @@ class CreateTicketModal extends Component {
               <div className='modal-body'>
                 {error ? <ErrorMessage message={error} /> : null}
                 <div className='form-group'>
-                  <label htmlFor='name'>Enter Name</label>
+                  <label htmlFor='name'>{lang.record.enter_full_name}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -104,7 +105,9 @@ class CreateTicketModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='officerName2'>Enter Officer Name</label>
+                  <label htmlFor='officerName2'>
+                    {lang.record.officer_name}
+                  </label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -115,7 +118,7 @@ class CreateTicketModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='violations'>Violations</label>
+                  <label htmlFor='violations'>{lang.record.violations}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -136,7 +139,7 @@ class CreateTicketModal extends Component {
                   </datalist>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='postal2'>Nearest Postal</label>
+                  <label htmlFor='postal2'>{lang.record.postal}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -147,7 +150,7 @@ class CreateTicketModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='notes2'>Notes</label>
+                  <label htmlFor='notes2'>{lang.global.notes}</label>
                   <textarea
                     rows='5'
                     className='form-control bg-secondary border-secondary text-light'
@@ -163,10 +166,10 @@ class CreateTicketModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Create Ticket
+                  {lang.global.create_ticket}
                 </button>
               </div>
             </form>

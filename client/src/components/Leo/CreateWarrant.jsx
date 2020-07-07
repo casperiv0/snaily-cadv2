@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setMessage } from '../../actions/messageActions';
 import { createWarrant } from '../../actions/recordActions';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from "../../language.json"
 
 class CreateWarrant extends Component {
   constructor() {
@@ -10,7 +11,7 @@ class CreateWarrant extends Component {
 
     this.state = {
       fullName: '',
-      status: 'Active',
+      status: lang.record.active,
       details: '',
       error: '',
     };
@@ -30,14 +31,10 @@ class CreateWarrant extends Component {
       details: this.state.details,
     };
     this.props.createWarrant(data);
-
-    this.props.setMessage(
-      `Successfully created warrant, Target name: ${this.state.fullName}`
-    );
-
+    
     this.setState({
       fullName: '',
-      status: 'Active',
+      status: lang.record.active,
       details: '',
     });
   };
@@ -47,14 +44,14 @@ class CreateWarrant extends Component {
     return (
       <div className='col-md-3 list-group'>
         <div className='list-group-item bg-secondary border-secondary text-light'>
-          Create Warrant
+          {lang.global.create_warrant}
         </div>
         <form
           className='list-group-item bg-dark border-dark'
           onSubmit={this.onSubmit}>
           {error ? <ErrorMessage message={error} /> : null}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Full Name</label>
+            <label htmlFor='fullName'>{lang.record.enter_full_name}</label>
             <input
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -66,20 +63,20 @@ class CreateWarrant extends Component {
           </div>
 
           <div className='form-group'>
-            <label htmlFor='status'>Select Status</label>
+            <label htmlFor='status'>{lang.record.select_status}</label>
             <select
               className='form-control bg-secondary border-secondary text-light'
               value={status}
               name='status'
               id='status'
               onChange={this.onChange}>
-              <option value='active'>Active</option>
-              <option value='inactive'>Inactive</option>
+              <option value='active'>{lang.record.active} </option>
+              <option value='inactive'>{lang.record.inactive}</option>
             </select>
           </div>
 
           <div className='form-group'>
-            <label htmlFor='details'>Enter Details</label>
+            <label htmlFor='details'>{lang.record.enter_details}</label>
             <input
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -91,7 +88,7 @@ class CreateWarrant extends Component {
           </div>
           <div className='form-group'>
             <button type='submit' className='btn btn-success container'>
-              Create Warrant
+              {lang.global.create_warrant}
             </button>
           </div>
         </form>

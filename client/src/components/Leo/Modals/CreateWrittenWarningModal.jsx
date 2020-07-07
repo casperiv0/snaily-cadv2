@@ -3,6 +3,7 @@ import { setMessage } from '../../../actions/messageActions';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { connect } from 'react-redux';
 import { createWrittenWarning } from '../../../actions/recordActions';
+import lang from '../../../language.json';
 
 class CreateWrittenWarningModal extends Component {
   constructor() {
@@ -31,9 +32,7 @@ class CreateWrittenWarningModal extends Component {
     };
 
     this.props.createWrittenWarning(data);
-    this.props.setMessage(
-      `Successfully created written warning, Target name: ${this.state.name3}`
-    );
+    this.props.setMessage(`${lang.record.created_warning} ${this.state.name3}`);
     document.getElementById('closeCreateWrittenWarning').click();
   };
 
@@ -72,7 +71,7 @@ class CreateWrittenWarningModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Create Written Warning
+                {lang.global.create_written_warning}
               </h5>
               <button
                 type='button'
@@ -87,7 +86,7 @@ class CreateWrittenWarningModal extends Component {
               <div className='modal-body'>
                 {error ? <ErrorMessage message={error} /> : null}
                 <div className='form-group'>
-                  <label htmlFor='name'>Enter Name</label>
+                  <label htmlFor='name'>{lang.record.enter_full_name}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -98,7 +97,7 @@ class CreateWrittenWarningModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='officerName3'>Enter Officer Name</label>
+                  <label htmlFor='officerName3'>{lang.record.officer_name}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -109,7 +108,7 @@ class CreateWrittenWarningModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='infractions'>Infractions</label>
+                  <label htmlFor='infractions'>{lang.record.infractions}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -130,7 +129,7 @@ class CreateWrittenWarningModal extends Component {
                   </datalist>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='postal3'>Nearest Postal</label>
+                  <label htmlFor='postal3'>{lang.record.postal}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -141,7 +140,7 @@ class CreateWrittenWarningModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='notes3'>Notes</label>
+                  <label htmlFor='notes3'>{lang.global.notes}</label>
                   <textarea
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -156,10 +155,10 @@ class CreateWrittenWarningModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Create Written Warning
+                  {lang.global.create_written_warning}
                 </button>
               </div>
             </form>

@@ -43,7 +43,6 @@
     },
     "global": {
         "utility_panel": "Utility Panel",
-        "my_officers": "My Officers",
         "name_search": "Name Search",
         "plate_search": "Plate Search",
         "weapon_search": "Weapon Search",
@@ -70,6 +69,7 @@
         "color": "Color",
         "enter_date": "Enter Date",
         "cancel": "Cancel",
+        "close": "Close",
         "actions": "Actions",
         "delete": "Delete",
         "refresh": "Refresh",
@@ -81,7 +81,12 @@
         "rank": "Rank",
         "image": "Image (Not Required)",
         "like": "Like",
-        "likes": "Likes"
+        "likes": "Likes",
+        "notes": "Notes",
+        "go_on_duty": "Go on-duty",
+        "go_off_duty": "Go off-duty",
+        "back_to_dashboard": "Back to Dashboard",
+        "changed_status": "Successfully changed status to: "
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -143,5 +148,36 @@
         "no_bleet": "No bleets found",
         "update_bleet": "Update Bleet",
         "update_bleet_success": "Successfully updated bleet"
+    },
+    "record": {
+        "enter_full_name": "Enter Full Name",
+        "enter_arrestee_name": "Enter Arrestee Name",
+        "select_status": "Select Status",
+        "enter_details": "Enter Details",
+        "officer_name": "Enter Officer Name",
+        "infractions": "Infractions",
+        "charges": "Charges",
+        "violations": "Violations",
+        "postal": "Nearest Postal",
+        "created_ticket": "Successfully created ticket, Target name:",
+        "created_arrest_report": "Successfully created Arrest Report, Target name:",
+        "created_warning": "Successfully created written warning, Target name:",
+        "active": "Active",
+        "inactive": "Inactive",
+        "created_warrant": "Successfully created warrant, Target name:"
+    },
+    "officers": {
+        "my_officers": "My Officers",
+        "select_officer_msg": "Please select an officer before continuing",
+        "select_officer": "Select an officer to go on-duty",
+        "select_officer2": "Select Officer..",
+        "no_officers": "You don't have any officers",
+        "create_an_officer": "Create An Officer",
+        "create_officer": "Create Officer",
+        "on_duty_success": "Successfully set status to 10-8",
+        "delete_officer_success": "Successfully deleted:",
+        "select_department": "Select Department",
+        "no_departments": "There are no departments Found.",
+        "create_officer_success": "Successfully created: "
     }
 }
