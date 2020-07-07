@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotepadModal from '../EMS-FD/EmsFdDashboard/NotepadModal';
+import lang from '../../language.json';
 
 export default class TopTowArea extends Component {
   refresh = () => {
@@ -11,16 +12,16 @@ export default class TopTowArea extends Component {
       <ul className='list-group'>
         <div className='list-group-item bg-secondary border-secondary'>
           <div>
-            Active Calls
+            {lang.tow.active_tow_calls}
             <div className='float-right'>
               <button
                 data-toggle='modal'
                 data-target='#notepad'
                 className='btn btn-success'>
-                Notepad
+                {lang.global.notepad}
               </button>
               <button className='ml-2 btn btn-success' onClick={this.refresh}>
-                Refresh
+                {lang.global.refresh}
               </button>
             </div>
           </div>

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import LoadingArea from '../Partials/LoadingArea';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
+import lang from '../../language.json';
 
 export default class TruckerLogs extends Component {
   constructor() {
@@ -48,8 +49,8 @@ export default class TruckerLogs extends Component {
         if (res.data.msg === 'Deleted') {
           this.getTruckLogs();
           this.setState({
-            message: "Successfully deleted truck log"
-          })
+            message: lang.truck_logs.deleted_truck_log,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -76,9 +77,9 @@ export default class TruckerLogs extends Component {
       <div className='container-fluid text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='d-flex justify-content-between mb-3'>
-          <h3>Truck Logs</h3>
+          <h3>{lang.nav.trucklogs}</h3>
           <a className='btn btn-secondary' href='/truck-logs/create'>
-            Create a truck log
+            {lang.truck_logs.create_truck_log}
           </a>
         </div>
 
@@ -89,12 +90,12 @@ export default class TruckerLogs extends Component {
             <thead>
               <tr>
                 <th scope='col'>#</th>
-                <th scope='col'>Name</th>
-                <th scope='col'>Co-Driver</th>
-                <th scope='col'>Date</th>
-                <th scope='col'>Starting Time</th>
-                <th scope='col'>Vehicle Plate</th>
-                <th scope='col'>Actions</th>
+                <th scope='col'>{lang.global.name}</th>
+                <th scope='col'>{lang.truck_logs.co_driver}</th>
+                <th scope='col'>{lang.truck_logs.date}</th>
+                <th scope='col'>{lang.truck_logs.start_time}</th>
+                <th scope='col'>{lang.truck_logs.vehicle_plate}</th>
+                <th scope='col'>{lang.global.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -108,14 +109,13 @@ export default class TruckerLogs extends Component {
                     <td>{log.start_time}</td>
                     <td>{log.plate}</td>
                     <td>
-                      {' '}
                       <button
                         onClick={() => {
                           this.deleteTruckLog(log.id);
                         }}
                         className='btn btn-danger'>
-                        Delete
-                      </button>{' '}
+                        {lang.global.delete}
+                      </button>
                     </td>
                   </tr>
                 );

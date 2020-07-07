@@ -4,6 +4,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import { getSession, logOut } from '../Auth/getSession';
 import { Avatar } from '@material-ui/core';
+import lang from "../../language.json";
 
 export default class NavigationBar extends Component {
   constructor() {
@@ -85,7 +86,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/leo/dash' ? 'nav-link active' : 'nav-link'
                 }
                 href='/leo/dash'>
-                Police Dept{' '}
+                {lang.nav.police_dept}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/Police_Dept.png'
@@ -99,7 +100,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/dispatch' ? 'nav-link active' : 'nav-link'
                 }
                 href='/dispatch'>
-                Dispatch{' '}
+                 {lang.nav.dispatch}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/Dispatch.png'
@@ -113,7 +114,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/ems-fd' ? 'nav-link active' : 'nav-link'
                 }
                 href='/ems-fd'>
-                EMS/FD{' '}
+                 {lang.nav.ems_fd}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/fire.png'
@@ -127,7 +128,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/citizen' ? 'nav-link active' : 'nav-link'
                 }
                 href='/citizen'>
-                Citizen{' '}
+                {lang.nav.citizen}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/citizen.png'
@@ -141,7 +142,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/tow' ? 'nav-link active' : 'nav-link'
                 }
                 href='/tow'>
-                Tow{' '}
+                {lang.nav.tow}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/tow.png'
@@ -157,7 +158,7 @@ export default class NavigationBar extends Component {
                     : 'nav-link'
                 }
                 href='/truck-logs'>
-                Truck Logs{' '}
+                {lang.nav.trucklogs}{' '}
                 <img
                   style={{ maxHeight: '20px', width: '20px' }}
                   src='/icons/internal/truck-logs.svg'
@@ -171,7 +172,7 @@ export default class NavigationBar extends Component {
                   currentPath === '/bleeter' ? 'nav-link active' : 'nav-link'
                 }
                 href='/bleeter'>
-                Bleeter{' '}
+                {lang.nav.bleeter}{' '}
                 <img
                   style={{ maxHeight: '20px' }}
                   src='/icons/internal/bleeter.png'
@@ -186,7 +187,7 @@ export default class NavigationBar extends Component {
                     currentPath === '/admin' ? 'nav-link active' : 'nav-link'
                   }
                   href='/admin'>
-                  Admin{' '}
+                  {lang.nav.admin}{' '}
                   <img
                     style={{ maxHeight: '20px' }}
                     src='/icons/internal/gear.png'
@@ -214,13 +215,13 @@ export default class NavigationBar extends Component {
                   <a
                     className='dropdown-item bg-dark border-secondary text-light'
                     href='/account'>
-                    Account
+                    {lang.auth.account}
                   </a>
                   <div className='dropdown-divider bg-dark border-secondary'></div>
                   <button
                     onClick={logOut}
                     className='dropdown-item bg-dark border-secondary text-light'>
-                    Logout
+                    {lang.auth.logout}
                   </button>
                 </div>
               </div>
