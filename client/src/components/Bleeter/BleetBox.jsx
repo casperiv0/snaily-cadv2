@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import lang from "../../language.json"
 
 export default class BleetBox extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class BleetBox extends Component {
           {title}
           <div>
           <a className='btn btn-primary' href={'/bleet/' + id}>
-            View Bleet
+            {lang.bleeter.view_bleet}
           </a>
           </div>
         </div>

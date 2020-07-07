@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
-import ErrorMessage from "../Partials/Messages/ErrorMessage"
+import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from '../../language.json';
 
 export default class CreateBleet extends Component {
   constructor() {
@@ -49,7 +50,7 @@ export default class CreateBleet extends Component {
         if (res.data.msg === 'Created') {
           sessionStorage.setItem(
             'bleeter-message',
-            'Successfully Created bleet!'
+            lang.bleeter.create_bleet_success
           );
           return (window.location = '/bleet/' + res.data.bleetId);
         }
@@ -69,10 +70,10 @@ export default class CreateBleet extends Component {
     const { title, bleet, error } = this.state;
     return (
       <div className='container mt-3 text-light'>
-        {error ? <ErrorMessage  message={error} dismiss /> : null}
+        {error ? <ErrorMessage message={error} dismiss /> : null}
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label htmlFor='title'>Image (Not Required)</label>
+            <label htmlFor='title'>{lang.global.image}</label>
             <input
               type='file'
               name='image'
@@ -82,7 +83,7 @@ export default class CreateBleet extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='title'>Enter Bleet Title</label>
+            <label htmlFor='title'>{lang.bleeter.bleet_title}</label>
             <input
               type='text'
               name='title'
@@ -93,7 +94,7 @@ export default class CreateBleet extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='bleet'>Enter Bleet</label>
+            <label htmlFor='bleet'>{lang.bleeter.bleet_body}</label>
             <textarea
               type='text'
               name='bleet'
@@ -105,10 +106,10 @@ export default class CreateBleet extends Component {
           </div>
           <div className='form-group float-right'>
             <a className='btn btn-danger' href='/bleeter'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button type='submit' className='btn btn-primary ml-2'>
-              Create Bleet
+              {lang.bleeter.create_bleet}
             </button>
           </div>
         </form>

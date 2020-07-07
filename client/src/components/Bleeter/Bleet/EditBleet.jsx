@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import lang from '../../../language.json';
 
 export default class EditBleet extends Component {
   constructor() {
@@ -65,7 +66,7 @@ export default class EditBleet extends Component {
         if (res.data.msg === 'Updated') {
           sessionStorage.setItem(
             'bleeter-message',
-            'Successfully Created bleet!'
+            lang.bleeter.update_bleet_success
           );
           window.location = '/bleet/' + this.props.match.params.bleetId;
         }
@@ -86,7 +87,7 @@ export default class EditBleet extends Component {
       <div className='container text-light mt-3 pb-5'>
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label htmlFor='title'>Image (Not Required)</label>
+            <label htmlFor='title'>{lang.global.image}</label>
             <input
               type='file'
               name='image'
@@ -94,10 +95,9 @@ export default class EditBleet extends Component {
               className='form-control-file text-light'
               onChange={this.onFileChange}
             />
-            <small>If none selected this will NOT overwrite your old image</small>
           </div>
           <div className='form-group'>
-            <label htmlFor='title'>Enter Title</label>
+            <label htmlFor='title'>{lang.bleeter.bleet_title}</label>
             <input
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -108,7 +108,7 @@ export default class EditBleet extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='title'>Enter Bleet</label>
+            <label htmlFor='title'>{lang.bleeter.bleet_body}</label>
             <textarea
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -118,9 +118,15 @@ export default class EditBleet extends Component {
               value={bleet}
               rows='20'></textarea>
           </div>
-          <div className="form-group float-right">
-              <a className="btn btn-danger mr-2" href={"/bleet/"+this.props.match.params.bleetId}>Cancel</a>
-              <button className="btn btn-primary" type="submit">Update Bleet</button>
+          <div className='form-group float-right'>
+            <a
+              className='btn btn-danger mr-2'
+              href={'/bleet/' + this.props.match.params.bleetId}>
+              {lang.global.cancel}
+            </a>
+            <button className='btn btn-primary' type='submit'>
+              {lang.bleeter.update_bleet}
+            </button>
           </div>
         </form>
       </div>

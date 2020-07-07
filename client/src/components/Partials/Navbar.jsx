@@ -215,7 +215,7 @@ export default class NavigationBar extends Component {
                   <a
                     className='dropdown-item bg-dark border-secondary text-light'
                     href='/account'>
-                    {lang.auth.account}
+                    {lang.auth.account.account}
                   </a>
                   <div className='dropdown-divider bg-dark border-secondary'></div>
                   <button

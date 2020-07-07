@@ -10,8 +10,24 @@
         "has_acc": "Already have an account?",
         "register": "Register",
         "logout": "Logout",
-        "account": "Account",
-        "welcome": "Welcome Back"
+        "welcome": "Welcome Back",
+        "account": {
+            "account": "Account",
+            "account_info": "Account Information",
+            "random_fact": "Random Fact",
+            "police_access": "Police Access",
+            "dispatch_access": "Dispatch Access",
+            "ems_fd_access": "EMS/FD Access",
+            "tow_access": "Tow Access",
+            "changelog": "See CAD Changelog",
+            "new_feature": "Request a new feature",
+            "report_a_bug": "Report a bug",
+            "edit_password": "Edit Password",
+            "delete_acc": "Delete My Account",
+            "delete_acc_confirm": "Are you sure you want to delete your account? All your data will be lost and removed and cannot be undone.",
+            "confirm_delete_acc": "Yes, Delete my account",
+            "delete_acc_success": "Successfully deleted your account"
+        }
     },
     "nav": {
         "home": "Home",
@@ -61,7 +77,11 @@
         "location": "Location",
         "caller": "Caller",
         "accept": "Accept",
-        "decline": "Decline"
+        "decline": "Decline",
+        "rank": "Rank",
+        "image": "Image (Not Required)",
+        "like": "Like",
+        "likes": "Likes"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -111,5 +131,17 @@
             "vehicles": "Vehicles",
             "weapons": "Weapons"
         }
+    },
+    "bleeter": {
+        "go_back": "Go Back",
+        "create_bleet": "Create bleet",
+        "view_bleet": "View Bleet",
+        "edit_bleet": "Edit bleet",
+        "bleet_title": "Enter bleet title",
+        "bleet_body": "Enter bleet",
+        "create_bleet_success": "Successfully created bleet",
+        "no_bleet": "No bleets found",
+        "update_bleet": "Update Bleet",
+        "update_bleet_success": "Successfully updated bleet"
     }
 }
