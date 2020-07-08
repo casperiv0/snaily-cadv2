@@ -3,6 +3,7 @@ import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../Partials/LoadingArea';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import { handleRequest } from '../../../functions';
+import lang from '../../../language.json';
 
 export default class CompanyManagement extends Component {
   constructor() {
@@ -38,13 +39,13 @@ export default class CompanyManagement extends Component {
     });
   };
 
-  deleteCompany = (id, companyName) => {
-    handleRequest('/admin/companies' + id, 'DELETE')
+  deleteCompany = (id) => {
+    handleRequest('/admin/companies/' + id, 'DELETE')
       .then((res) => {
         if (res.data.msg === 'Company Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Company: ' + companyName
+            `${lang.admin.company.delete_success}`
           );
           return (window.location = '/admin/manage/companies');
         }
@@ -80,24 +81,23 @@ export default class CompanyManagement extends Component {
     return (
       <div className='col container text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h3>Company Management</h3>
+        <h3>{lang.admin.company_management}</h3>
         <div className='form-group'>
-          <label htmlFor='search'>Filter by company name</label>
+          <label htmlFor='search'>{lang.admin.filter_by_name}</label>
           <input
             className='form-control bg-dark border-secondary text-light'
             type='search'
             name='search'
             id='search'
-            placeholder='Enter Company Name..'
             onChange={this.handleSearch}
           />
         </div>
 
         <ul className='list-group'>
           {!companies[0] ? (
-            <ErrorMessage message='No Companies were found for this CAD.' />
+            <ErrorMessage message={lang.admin.company.no_companies} />
           ) : !filteredCompanies[0] ? (
-            <ErrorMessage message='No Company Found with that name' />
+            <ErrorMessage message={lang.admin.company.no_companies_by_name} />
           ) : (
             filteredCompanies.map((company, index) => {
               return (
@@ -107,10 +107,12 @@ export default class CompanyManagement extends Component {
                   <div>
                     {++index} | {company.business_name}
                     <div className='mt-2'>
-                      <span className='font-weight-bold'>Company Name: </span>{' '}
+                      <span className='font-weight-bold'>
+                        {lang.admin.company.name}:{' '}
+                      </span>{' '}
                       {company.business_name} <br />
                       <span className='font-weight-bold'>
-                        Company Owner:{' '}
+                        {lang.admin.company.owner}:{' '}
                       </span>{' '}
                       {company.business_owner}
                     </div>
@@ -120,9 +122,9 @@ export default class CompanyManagement extends Component {
                       className='btn btn-danger ml-2'
                       type='button'
                       onClick={() => {
-                        this.deleteCompany(company.id, company.business_name);
+                        this.deleteCompany(company.id);
                       }}>
-                      Delete Company
+                      {lang.admin.company.delete_company}
                     </button>
                   </div>
                 </li>

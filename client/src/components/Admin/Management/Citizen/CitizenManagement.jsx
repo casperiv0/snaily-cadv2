@@ -6,6 +6,7 @@ import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../../Partials/LoadingArea';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
 import DeleteCitizenModal from './DeleteCitizenModal';
+import lang from "../../../../language.json"
 
 export default class CitizenManagement extends Component {
   constructor() {
@@ -83,7 +84,7 @@ export default class CitizenManagement extends Component {
       <div className='container col text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='form-group'>
-          <label htmlFor='search'>Filter by citizen name</label>
+          <label htmlFor='search'>{lang.admin.filter_by_name}</label>
           <input
             className='form-control bg-dark border-secondary text-light'
             type='search'
@@ -95,10 +96,10 @@ export default class CitizenManagement extends Component {
 
         <ul className='list-group'>
           {!citizens[0] ? (
-            <ErrorMessage message='This CAD does not have any citizens' />
+            <ErrorMessage message={lang.citizen.no_citizens_cad} />
           ) : null}
           {!filteredCitizens[0] ? (
-            <ErrorMessage message='No citizens found with that name' />
+            <ErrorMessage message={lang.citizen.citizen_not_found_by_name} />
           ) : (
             filteredCitizens.map((citizen, index) => {
               return (
@@ -109,43 +110,43 @@ export default class CitizenManagement extends Component {
                     <h5 className='font-weight-bold'>
                       {++index} | {citizen.full_name}
                     </h5>
-                    <span className='font-weight-bold'>Linked To: </span>
+                    <span className='font-weight-bold'>{lang.citizen.linked_to}: </span>
                     {citizen.linked_to}
                     <div className='collapse' id={'citizenInfo' + citizen.id}>
-                      <span className='font-weight-bold'>Full Name:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.full_name}:</span>{' '}
                       {citizen.full_name} <br />
                       <span className='font-weight-bold'>
                         Date of Birth:
                       </span>{' '}
                       {citizen.birth} <br />
-                      <span className='font-weight-bold'>Gender:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.gender}:</span>{' '}
                       {citizen.gender} <br />
-                      <span className='font-weight-bold'>Ethnicity:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.ethnicity}:</span>{' '}
                       {citizen.ethnicity} <br />
-                      <span className='font-weight-bold'>Hair Color:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.hair_color}:</span>{' '}
                       {citizen.hair_color} <br />
-                      <span className='font-weight-bold'>Eye Color:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.eye_color}:</span>{' '}
                       {citizen.eye_color} <br />
-                      <span className='font-weight-bold'>Address:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.address}:</span>{' '}
                       {citizen.address} <br />
-                      <span className='font-weight-bold'>Height:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.height}:</span>{' '}
                       {citizen.height} <br />
-                      <span className='font-weight-bold'>Weight:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.weight}:</span>{' '}
                       {citizen.weight} <br />
-                      <span className='font-weight-bold'>Employer:</span>{' '}
+                      <span className='font-weight-bold'>{lang.citizen.employer}:</span>{' '}
                       {citizen.business} <br />
                       <div className='d-flex mt-2'>
                         <a
                           href={'/admin/manage/citizens/edit/' + citizen.id}
                           className='btn btn-primary mr-2'>
-                          Edit Citizen Info
+                          {lang.citizen.edit_info}
                         </a>
                         <button
                           type='button'
                           className='btn btn-danger'
                           data-toggle='modal'
                           data-target={'#deleteCitizen'+citizen.id}>
-                          Delete Citizen
+                          {lang.citizen.delete_citizen}
                         </button>
                       </div>
                     </div>
@@ -158,7 +159,7 @@ export default class CitizenManagement extends Component {
                       data-target={'#citizenInfo' + citizen.id}
                       aria-expanded='false'
                       aria-controls={'citizenInfo' + citizen.id}>
-                      Toggle Info
+                      {lang.admin.toggle_info}
                     </button>
                     <DeleteCitizenModal id={citizen.id} fullName={citizen.full_name} />
                   </div>

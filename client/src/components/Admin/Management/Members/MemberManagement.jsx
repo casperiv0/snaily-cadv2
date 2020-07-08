@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class MemberManagement extends Component {
   constructor() {
@@ -28,8 +29,8 @@ export default class MemberManagement extends Component {
       .then((res) => {
         if (res.data.msg === 'Forbidden') {
           return this.setState({
-            message: "Only admins+ are allowed to manage members",
-          })
+            message: 'Only admins+ are allowed to manage members',
+          });
         }
 
         if (res.data.members) {
@@ -69,7 +70,7 @@ export default class MemberManagement extends Component {
             role='tab'
             aria-controls='nav-home'
             aria-selected='true'>
-            All Members
+            {lang.admin.all_members}
           </a>
           <a
             className='nav-item nav-link bg-dark text-light border-secondary'
@@ -79,7 +80,7 @@ export default class MemberManagement extends Component {
             role='tab'
             aria-controls='nav-contact'
             aria-selected='false'>
-            Pending Members
+            {lang.admin.pending_members}
             <div className='badge badge-primary ml-2'>
               {this.state.pendingMembers.length}
             </div>

@@ -26,7 +26,9 @@
             "delete_acc": "Delete My Account",
             "delete_acc_confirm": "Are you sure you want to delete your account? All your data will be lost and removed and cannot be undone.",
             "confirm_delete_acc": "Yes, Delete my account",
-            "delete_acc_success": "Successfully deleted your account"
+            "delete_acc_success": "Successfully deleted your account",
+            "banned": "Banned",
+            "ban_reason": "Ban Reason"
         }
     },
     "nav": {
@@ -86,7 +88,11 @@
         "go_on_duty": "Go on-duty",
         "go_off_duty": "Go off-duty",
         "back_to_dashboard": "Back to Dashboard",
-        "changed_status": "Successfully changed status to: "
+        "changed_status": "Successfully changed status to: ",
+        "yes": "Yes",
+        "no": "No",
+        "title": "Title",
+        "timestamp": "Timestamp"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -125,8 +131,19 @@
         "pending_members": "Pending Members",
         "toggle_info": "Toggle Info",
         "manage_perms": "Manage Permissions",
+        "update_perms": "Update Permissions",
         "filter_by_name": "Filter by name",
         "no_pending": "There're no pending members",
+        "no_members_cad": "This CAD does not have any members",
+        "no_member_found_by_name": "No members found with that name",
+        "declined_member": "Successfully declined member, removing account..",
+        "accepted_member": "Successfully Accepted Member",
+        "ban_user": "Ban User",
+        "un_ban_user": "Revoke Ban",
+        "enter_ban_reason": "Enter ban Reason",
+        "ban_success": "Successfully banned",
+        "un_ban_success": "Successfully Unbanned",
+        "reason": "Reason",
         "values": {
             "values": "Values",
             "departments": "Departments",
@@ -135,6 +152,21 @@
             "legal_status": "Legal Statuses",
             "vehicles": "Vehicles",
             "weapons": "Weapons"
+        },
+        "member": {
+            "remove_rank": "Remove Rank",
+            "moderator": "Moderator",
+            "admin": "Admin",
+            "owner": "You can't modify the owners rank",
+            "own_rank": "You can't modify your own rank"
+        },
+        "company": {
+            "no_companies": "No Companies were found for this CAD.",
+            "no_companies_by_name": "No Company Found with that name",
+            "name": "Company Name",
+            "owner": "Company Owner",
+            "delete_company": "Delete Company",
+            "delete_success": "Successfully deleted company"
         }
     },
     "bleeter": {
@@ -179,5 +211,28 @@
         "select_department": "Select Department",
         "no_departments": "There are no departments Found.",
         "create_officer_success": "Successfully created: "
+    },
+    "citizen": {
+        "citizen": "Citizen",
+        "linked_to": "Linked To",
+        "full_name": "Full Name",
+        "date_of_birth": "Date of Birth",
+        "gender": "Gender",
+        "ethnicity": "Ethnicity",
+        "hair_color": "Hair Color",
+        "eye_color": "Eye Color",
+        "address": "Address",
+        "height": "Height",
+        "weight": "Weight",
+        "employer": "Employer",
+        "edit_info": "Edit citizen info",
+        "delete_citizen": "Delete Citizen",
+        "no_citizens_cad": "This CAD does not have any citizens",
+        "citizen_not_found_by_name": "No citizens found with that name",
+        "deleted_citizen": "Successfully Deleted Citizen",
+        "delete_citizen_msg": "Are you sure you want to delete:",
+        "confirm_delete": "Yes, delete citizen",
+        "update_citizen": "Update Citizen",
+        "update_success": "Successfully Updated: "
     }
 }

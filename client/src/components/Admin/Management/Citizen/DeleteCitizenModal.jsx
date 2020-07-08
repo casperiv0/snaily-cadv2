@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../../../language.json';
 
 export default class DeleteCitizenModal extends Component {
   deleteCitizen = () => {
@@ -14,10 +15,7 @@ export default class DeleteCitizenModal extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Citizen Deleted') {
-          sessionStorage.setItem(
-            'admin-message',
-            'Successfully Deleted Citizen'
-          );
+          sessionStorage.setItem('admin-message', lang.citizen.deleted_citizen);
           return (window.location = '/admin/manage/citizens');
         }
       })
@@ -37,7 +35,7 @@ export default class DeleteCitizenModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Delete Citizen?
+                {lang.citizen.delete_citizen}?
               </h5>
               <button
                 type='button'
@@ -48,7 +46,7 @@ export default class DeleteCitizenModal extends Component {
               </button>
             </div>
             <div className='modal-body'>
-              Are you sure you want to delete{' '}
+              {lang.citizen.delete_citizen_msg}
               <span className='font-weight-bold'> {this.props.fullName}</span>?
             </div>
             <div className='modal-footer'>
@@ -56,13 +54,13 @@ export default class DeleteCitizenModal extends Component {
                 type='button'
                 className='btn btn-secondary'
                 data-dismiss='modal'>
-                Close
+                {lang.global.close}
               </button>
               <button
                 type='button'
                 onClick={this.deleteCitizen}
                 className='btn btn-danger'>
-                Yes, Delete Citizen
+                {lang.citizen.confirm_delete}
               </button>
             </div>
           </div>

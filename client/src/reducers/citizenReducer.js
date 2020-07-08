@@ -1,8 +1,8 @@
 import { DELETE_CITIZEN_BY_ID, GET_CITIZENS_BY_ACC, GET_CITIZENS_BY_ID, GET_ALL_CITIZENS } from "../actions/types"
 
 const initState = {
-    citizens: {},
-    citizen: [],
+    citizens: [],
+    citizen: {},
 };
 
 export default function (state = initState, action) {
