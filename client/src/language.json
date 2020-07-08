@@ -125,7 +125,6 @@
         "member_management": "Member Management",
         "citizen_management": "Citizen Management",
         "company_management": "Company Management",
-        "cad_settings": "CAD Settings",
         "all_members": "All Members",
         "all_citizens": "All Citizens",
         "pending_members": "Pending Members",
@@ -167,6 +166,27 @@
             "owner": "Company Owner",
             "delete_company": "Delete Company",
             "delete_success": "Successfully deleted company"
+        },
+        "cad_settings": {
+            "cad_settings": "CAD Settings",
+            "downloads": "Available Downloads",
+            "general_info": "General Information",
+            "cad_name": "Update CAD Name",
+            "update_aop": "Update AOP",
+            "cad_wl": "CAD Whitelist",
+            "tow_wl": "Tow Whitelist",
+            "company_wl": "Company Whitelist",
+            "update_cad": "Update CAD"
+        },
+        "info": {
+            "tot_mem": "Total members",
+            "tot_cit": "Total Citizens",
+            "reg_weapons": "Registered Weapons",
+            "reg_vehicles": "Registered Vehicles",
+            "reg_companies": "Registered Companies",
+            "tot_tick": "Total Tickets",
+            "tot_arr_rep": "Total Arrest Reports",
+            "tot_bol": "Total Bolos"
         }
     },
     "bleeter": {

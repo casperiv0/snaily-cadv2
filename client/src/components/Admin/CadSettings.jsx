@@ -6,6 +6,7 @@ import {
   updateCadSettings,
 } from '../../actions/cadSettingsActions';
 import { setMessage } from '../../actions/messageActions';
+import lang from "../../language.json"
 
 class CadSettings extends Component {
   constructor() {
@@ -84,10 +85,10 @@ class CadSettings extends Component {
     return (
       <div className='col text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h3>CAD Settings</h3>
+        <h3>{lang.admin.cad_settings.cad_settings}</h3>
 
         <div className='card bg-dark border-dark mt-3'>
-          <h4 className='card-header'>Available Downloads</h4>
+          <h4 className='card-header'>{lang.admin.cad_settings.downloads}</h4>
           <div className='card-body'>
             <a
               download
@@ -105,11 +106,11 @@ class CadSettings extends Component {
         </div>
 
         <div className='card bg-dark border-dark mt-3'>
-          <h4 className='card-header'>General Information</h4>
+          <h4 className='card-header'>{lang.admin.cad_settings.general_info}</h4>
           <div className='card-body'>
             <form onSubmit={this.onSubmit}>
               <div className='form-group'>
-                <label htmlFor='cad_name'>Update CAD Name</label>
+                <label htmlFor='cad_name'>{lang.admin.cad_settings.cad_name}</label>
                 <input
                   className='form-control bg-secondary border-secondary text-light'
                   type='text'
@@ -120,7 +121,7 @@ class CadSettings extends Component {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='AOP'>Update AOP</label>
+                <label htmlFor='AOP'>{lang.admin.cad_settings.update_aop}</label>
                 <input
                   className='form-control bg-secondary border-secondary text-light'
                   type='text'
@@ -131,7 +132,7 @@ class CadSettings extends Component {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='whitelisted'>CAD whitelisted</label>
+                <label htmlFor='whitelisted'>{lang.admin.cad_settings.cad_wl}</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
                   name='whitelisted'
@@ -140,20 +141,20 @@ class CadSettings extends Component {
                   <option
                     value={
                       whitelisted
-                        ? 'CAD is whitelisted'
-                        : 'CAD is not whitelisted'
+                        ? lang.global.yes
+                        : lang.global.no
                     }>
                     {whitelisted === 'true'
-                      ? 'CAD is whitelisted'
-                      : 'CAD is not whitelisted'}
+                      ? lang.global.yes
+                      : lang.global.no}
                   </option>
                   <option disabled>--------</option>
-                  <option value='true'>CAD is whitelisted</option>
-                  <option value='false'>CAD is not whitelisted</option>
+                  <option value='true'>{lang.global.yes}</option>
+                  <option value='false'>{lang.global.no}</option>
                 </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='tow_whitelisted'>CAD Tow whitelisted</label>
+                <label htmlFor='tow_whitelisted'>{lang.admin.cad_settings.tow_wl}</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
                   name='tow_whitelisted'
@@ -162,20 +163,20 @@ class CadSettings extends Component {
                   <option
                     value={
                       tow_whitelisted === "true"
-                        ? 'Tow Is whitelisted'
-                        : 'Tow is not whitelisted'
+                        ? lang.global.yes
+                        : lang.global.no
                     }>
                     {tow_whitelisted === "true"
-                      ? 'Tow Is whitelisted'
-                      : 'Tow is not whitelisted'}
+                      ? lang.global.yes
+                      : lang.global.no}
                   </option>
                   <option disabled>--------</option>
-                  <option value='true'>Tow is whitelisted</option>
-                  <option value='false'>Tow is not whitelisted</option>
+                  <option value='true'>{lang.global.yes}</option>
+                  <option value='false'>{lang.global.no}</option>
                 </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='company_whitelisted'>Company whitelisted</label>
+                <label htmlFor='company_whitelisted'>{lang.admin.cad_settings.company_wl}</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
                   name='company_whitelisted'
@@ -185,8 +186,8 @@ class CadSettings extends Component {
                     {company_whitelisted}
                   </option>
                   <option disabled>--------</option>
-                  <option value='true'>true</option>
-                  <option value='false'>false</option>
+                  <option value='true'>{lang.global.yes}</option>
+                  <option value='false'>{lang.global.no}</option>
                 </select>
                 <small>
                   If selected true, Only moderators and above are able to create
@@ -195,7 +196,7 @@ class CadSettings extends Component {
               </div>
               <div className='form-group'>
                 <button className='btn btn-primary col' type='submit'>
-                  Update CAD
+                  {lang.admin.cad_settings.update_cad}
                 </button>
               </div>
             </form>

@@ -13,7 +13,7 @@ export default class AdminSideHeader extends Component {
           <a className="text-light text-decoration-none" href='/admin/manage/members'>{lang.admin.member_management}</a>
           <a className="text-light text-decoration-none" href='/admin/manage/citizens'>{lang.admin.citizen_management}</a>
           <a className="text-light text-decoration-none" href='/admin/manage/companies'>{lang.admin.company_management}</a>
-          <a className="text-light text-decoration-none" href='/admin/cad-settings'>{lang.admin.cad_settings}</a>
+          <a className="text-light text-decoration-none" href='/admin/cad-settings'>{lang.admin.cad_settings.cad_settings}</a>
         </div>
         <div className='admin-header-icon mt-3'>
           <h3 className="text-light">{lang.admin.values.values}</h3>

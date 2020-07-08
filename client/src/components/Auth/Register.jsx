@@ -13,6 +13,7 @@ import {
 import Alert from '@material-ui/lab/Alert';
 import { logIn } from './getSession';
 import { backendURL } from '../../config/config';
+import lang from '../../language.json';
 
 export default class Register extends Component {
   constructor() {
@@ -94,7 +95,7 @@ export default class Register extends Component {
         <div>
           <Avatar style={{ transform: 'scale(1)' }} />
         </div>
-        <h1>Create an account</h1>
+        <h1>{lang.auth.create_account}</h1>
 
         {error ? (
           <Alert className='alert-box' variant='filled' severity='warning'>
@@ -104,7 +105,7 @@ export default class Register extends Component {
 
         {/* Username */}
         <FormControl fullWidth style={{ marginTop: '40px' }}>
-          <InputLabel htmlFor='username'>Please Enter your username</InputLabel>
+          <InputLabel htmlFor='username'>{lang.auth.enter_username}</InputLabel>
           <Input
             type='text'
             id='username'
@@ -116,7 +117,7 @@ export default class Register extends Component {
 
         {/* Password */}
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-          <InputLabel htmlFor='password'>Please Enter your password</InputLabel>
+          <InputLabel htmlFor='password'>{lang.auth.enter_password}</InputLabel>
           <Input
             type='password'
             id='password'
@@ -129,7 +130,7 @@ export default class Register extends Component {
         {/* Password */}
         <FormControl fullWidth style={{ marginTop: '20px' }}>
           <InputLabel htmlFor='password2'>
-            Please Confirm your password
+            {lang.auth.confirm_password}
           </InputLabel>
           <Input
             type='password'
@@ -139,9 +140,9 @@ export default class Register extends Component {
             onChange={this.handleChange}
           />
           <div style={{ marginTop: '5px' }}>
-            Already have an account?{' '}
+           {lang.auth.has_acc}{' '}
             <Link href='/auth/login' color='primary'>
-              Login Here
+              {lang.auth.login}
             </Link>
           </div>
         </FormControl>
@@ -154,7 +155,7 @@ export default class Register extends Component {
               type='submit'
               variant='contained'
               color='primary'>
-              Create Account
+              {lang.auth.create_account}
             </Button>
             {loading ? <CircularProgress className='loader' size={24} /> : null}
           </div>
