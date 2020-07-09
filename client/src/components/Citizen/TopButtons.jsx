@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getAop } from '../../actions/otherActions';
 import io from 'socket.io-client';
 import { backendURL } from '../../config/config';
+import lang from '../../language.json';
 const socket = io(backendURL);
 
 class TopButtons extends Component {
@@ -23,10 +24,12 @@ class TopButtons extends Component {
 
     return (
       <div>
-        <h3 className='text-light'>Welcome - AOP: {aop}</h3>
+        <h3 className='text-light'>
+          {lang.auth.welcome} - AOP: {aop}
+        </h3>
         <div className='d-flex'>
           <button onClick={logOut} className='col btn btn-danger'>
-            Logout
+            {lang.auth.logout}
           </button>
           <Link to='/account' className='col ml-1 btn btn-primary'>
             Account
@@ -35,31 +38,31 @@ class TopButtons extends Component {
 
         <div className='d-flex mt-1'>
           <Link to='/citizen/create' className='col btn btn-primary'>
-            Create new Citizen
+            {lang.citizen.create_new_citizen}
           </Link>
           <Link to='/vehicles/register' className='col ml-1 btn btn-primary'>
-            Register a New Vehicle
+            {lang.citizen.reg_new_vehicle}
           </Link>
           <Link to='/weapons/register' className='col ml-1 btn btn-primary'>
-            Register a New Weapon
+            {lang.citizen.reg_new_weapon}
           </Link>
         </div>
 
         <div className='d-flex mt-1'>
           <Link to='/manage-company-employment' className='col btn btn-primary'>
-            Manage Employment Status
+            {lang.citizen.employment_status}
           </Link>
           <button
             data-toggle='modal'
             data-target='#callTow'
             className='col ml-1 btn btn-primary'>
-            Call Tow Service
+            {lang.citizen.call_tow}
           </button>
           <button
             data-toggle='modal'
             data-target='#call911'
             className='col ml-1 btn btn-primary'>
-            Call Emergency Services
+            {lang.citizen.call_911}
           </button>
         </div>
         <CallTowModal />

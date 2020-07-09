@@ -11,6 +11,7 @@
         "register": "Register",
         "logout": "Logout",
         "welcome": "Welcome Back",
+        "still_pending": "Successfully Created Account, This account is currently pending access",
         "account": {
             "account": "Account",
             "account_info": "Account Information",
@@ -253,6 +254,30 @@
         "delete_citizen_msg": "Are you sure you want to delete:",
         "confirm_delete": "Yes, delete citizen",
         "update_citizen": "Update Citizen",
-        "update_success": "Successfully Updated: "
+        "update_success": "Successfully Updated: ",
+        "create_new_citizen": "Create new citizen",
+        "create_citizen": "Create Citizen",
+        "reg_new_vehicle": "Register a new vehicle",
+        "reg_new_weapon": "Register a new weapon",
+        "employment_status": "Manage employment status",
+        "call_tow": "Call Tow Service",
+        "call_911": "Call Emergency Services",
+        "more_info": "More Info",
+        "created": "Successfully created: ",
+        "select_ethnicity": "Select Ethnicity..",
+        "select_gender": "Select Gender..",
+        "licenses": "Licenses",
+        "drivers_license": "Enter Drivers License",
+        "firearms_license": "Enter Firearms License",
+        "pilot_license": "Enter Pilot License",
+        "ccw": "Enter CCW",
+        "select_license": "Select License..",
+        "not_working": "Not Working Anywhere",
+        "edit_citizen": "Edit citizen"
+    },
+    "calls": {
+        "description": "Call Description",
+        "call": "Call",
+        "tow_service": "Call Tow Service"
     }
 }

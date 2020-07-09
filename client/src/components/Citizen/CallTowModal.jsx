@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createTowCall } from '../../actions/towCallActions';
+import lang from '../../language.json';
 
 class CallTowModal extends Component {
   constructor() {
@@ -26,7 +27,7 @@ class CallTowModal extends Component {
       caller: this.state.towCaller,
       location: this.state.towLocation,
     };
-    document.getElementById("closeCallTow").click()
+    document.getElementById('closeCallTow').click();
     this.props.createTowCall(data);
   };
 
@@ -44,7 +45,7 @@ class CallTowModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Call Tow Service
+                {lang.calls.tow_service}
               </h5>
               <button
                 type='button'
@@ -58,7 +59,9 @@ class CallTowModal extends Component {
             <form onSubmit={this.callTow}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputEmail1'>Call Description</label>
+                  <label htmlFor='exampleInputEmail1'>
+                    {lang.global.description}
+                  </label>
                   <textarea
                     name='towDescription'
                     id='towDescription'
@@ -71,7 +74,9 @@ class CallTowModal extends Component {
                     required></textarea>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputEmail1'>Caller Name</label>
+                  <label htmlFor='exampleInputEmail1'>
+                    {lang.global.caller}
+                  </label>
                   <input
                     type='text'
                     className='form-control bg-secondary border-secondary text-light'
@@ -84,7 +89,9 @@ class CallTowModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputPassword1'>Caller Location</label>
+                  <label htmlFor='exampleInputPassword1'>
+                    {lang.global.location}
+                  </label>
                   <input
                     required
                     type='text'
@@ -102,10 +109,10 @@ class CallTowModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Call
+                  {lang.calls.call}
                 </button>
               </div>
             </form>

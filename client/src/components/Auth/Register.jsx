@@ -63,7 +63,7 @@ export default class Register extends Component {
       if (msg === 'Pending') {
         sessionStorage.setItem(
           'home-message',
-          'Successfully Created Account, This account is currently pending access'
+          lang.auth.still_pending
         );
         return (window.location = '/citizen');
       }

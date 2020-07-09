@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from '../../language.json';
 
 export default class CreateCitizen extends Component {
   constructor() {
@@ -117,7 +118,7 @@ export default class CreateCitizen extends Component {
         if (res.data.msg === 'Citizen Created') {
           sessionStorage.setItem(
             'message',
-            'Successfully Created ' + this.state.fullName
+            `${lang.citizen.created} ${this.state.fullName}`
           );
           return (window.location = '/citizen');
         }
@@ -162,7 +163,7 @@ export default class CreateCitizen extends Component {
         <form onSubmit={this.createCitizen}>
           {/* Picture */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Select Image</label>
+            <label htmlFor='image'>{lang.global.image}</label>
             <input
               type='file'
               onChange={this.handleFileChange}
@@ -174,7 +175,7 @@ export default class CreateCitizen extends Component {
 
           {/* Full Name */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Full Name</label>
+            <label htmlFor='fullName'>{lang.record.enter_full_name}</label>
             <input
               value={fullName}
               onChange={this.handleChange}
@@ -186,7 +187,7 @@ export default class CreateCitizen extends Component {
 
           {/* Date of Birth */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Date of Birth</label>
+            <label htmlFor='fullName'>{lang.citizen.date_of_birth}</label>
             <input
               value={birth}
               onChange={this.handleChange}
@@ -198,13 +199,13 @@ export default class CreateCitizen extends Component {
 
           {/* Ethnicity */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Ethnicity</label>
+            <label htmlFor='fullName'>{lang.citizen.ethnicity}</label>
             <select
               name='ethnicity'
               value={ethnicity}
               className='form-control bg-dark border-dark text-light'
               onChange={this.handleChange}>
-              <option defaultChecked>Select Ethnicity..</option>
+              <option defaultChecked>{lang.citizen.select_ethnicity}</option>
               <option disabled>--------</option>
               {ethnicities.map((ethnicity, index) => (
                 <option key={index} value={ethnicity.name}>
@@ -216,14 +217,14 @@ export default class CreateCitizen extends Component {
 
           {/* Gender */}
           <div className='form-group'>
-            <label htmlFor='gender'>Enter Gender</label>
+            <label htmlFor='gender'>{lang.citizen.gender}</label>
             <select
               name='gender'
               id='gender'
               className='form-control bg-dark border-dark text-light'
               value={gender}
               onChange={this.handleChange}>
-              <option defaultChecked>Select Gender..</option>
+              <option defaultChecked>{lang.citizen.select_gender}</option>
               <option disabled>--------</option>
 
               {genders.map((gender, index) => (
@@ -236,7 +237,7 @@ export default class CreateCitizen extends Component {
 
           {/* Hair Color */}
           <div className='form-group'>
-            <label htmlFor='hairColor'>Enter Hair Color</label>
+            <label htmlFor='hairColor'>{lang.citizen.hair_color}</label>
             <input
               value={hairColor}
               name='hairColor'
@@ -248,7 +249,7 @@ export default class CreateCitizen extends Component {
 
           {/* Eyes Color */}
           <div className='form-group'>
-            <label htmlFor='eyeColor'>Enter Eye Color</label>
+            <label htmlFor='eyeColor'>{lang.citizen.eye_color}</label>
             <input
               value={eyeColor}
               name='eyeColor'
@@ -260,7 +261,7 @@ export default class CreateCitizen extends Component {
 
           {/* Address */}
           <div className='form-group'>
-            <label htmlFor='address'>Enter Address</label>
+            <label htmlFor='address'>{lang.citizen.address}</label>
             <input
               value={address}
               name='address'
@@ -272,7 +273,7 @@ export default class CreateCitizen extends Component {
 
           {/* Height */}
           <div className='form-group'>
-            <label htmlFor='height'>Enter Height</label>
+            <label htmlFor='height'>{lang.citizen.height}</label>
             <input
               value={height}
               name='height'
@@ -284,7 +285,7 @@ export default class CreateCitizen extends Component {
 
           {/* Weight */}
           <div className='form-group'>
-            <label htmlFor='weight'>Enter Weight</label>
+            <label htmlFor='weight'>{lang.citizen.weight}</label>
             <input
               value={weight}
               name='weight'
@@ -294,19 +295,19 @@ export default class CreateCitizen extends Component {
             />
           </div>
 
-          <h1 className='border-bottom'>Licenses</h1>
+          <h1 className='border-bottom'>{lang.citizen.licenses}</h1>
 
           <div className='form-row'>
             {/* DMV */}
             <div className='form-group col-md-3'>
-              <label htmlFor='dmv'>Enter Drivers License</label>
+              <label htmlFor='dmv'>{lang.citizen.drivers_license}</label>
               <select
                 name='dmv'
                 id='dmv'
                 className='form-control bg-dark border-dark text-light'
                 value={dmv}
                 onChange={this.handleChange}>
-                <option defaultChecked>Select Licenses Status..</option>
+                <option defaultChecked>{lang.citizen.select_license}</option>
                 <option disabled>--------</option>
                 {!statuses[0]
                   ? ''
@@ -320,14 +321,14 @@ export default class CreateCitizen extends Component {
 
             {/* Firearms License */}
             <div className='form-group col-md-3'>
-              <label htmlFor='dmv'>Enter Firearms License</label>
+              <label htmlFor='dmv'>{lang.citizen.firearms_license}</label>
               <select
                 name='firearmsLicense'
                 id='firearmsLicense'
                 className='form-control bg-dark border-dark text-light'
                 value={firearmsLicense}
                 onChange={this.handleChange}>
-                <option defaultChecked>Select Licenses Status..</option>
+                <option defaultChecked>{lang.citizen.select_license}</option>
                 <option disabled>--------</option>
 
                 {statuses.map((status, index) => (
@@ -340,14 +341,14 @@ export default class CreateCitizen extends Component {
 
             {/* Pilots License */}
             <div className='form-group col-md-3'>
-              <label htmlFor='dmv'>Enter Pilots License</label>
+              <label htmlFor='dmv'>{lang.citizen.pilot_license}</label>
               <select
                 name='pilotLicense'
                 id='pilotLicense'
                 className='form-control bg-dark border-dark text-light'
                 value={pilotLicense}
                 onChange={this.handleChange}>
-                <option defaultChecked>Select Licenses Status..</option>
+                <option defaultChecked>{lang.citizen.select_license}</option>
                 <option disabled>--------</option>
 
                 {statuses.map((status, index) => (
@@ -360,14 +361,14 @@ export default class CreateCitizen extends Component {
 
             {/* CCW  */}
             <div className='form-group col-md-3'>
-              <label htmlFor='dmv'>Enter CCW</label>
+              <label htmlFor='dmv'>{lang.citizen.ccw}</label>
               <select
                 name='ccw'
                 id='ccw'
                 className='form-control bg-dark border-dark text-light'
                 value={ccw}
                 onChange={this.handleChange}>
-                <option defaultChecked>Select Licenses Status..</option>
+                <option defaultChecked>{lang.citizen.select_license}</option>
                 <option disabled>--------</option>
                 {statuses.map((status, index) => (
                   <option key={index} value={status.status}>
@@ -380,10 +381,10 @@ export default class CreateCitizen extends Component {
 
           <div className='form-group float-right'>
             <a className='btn btn-danger mr-2' href='/citizen'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary' type='submit'>
-              Create Citizen
+              {lang.citizen.create_citizen}
             </button>
           </div>
         </form>
