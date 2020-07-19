@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.7
+
+- Fixed 2/4 licenses not showing in client detail
+
 ## 1.5.6
 
 - Small bug fixes
