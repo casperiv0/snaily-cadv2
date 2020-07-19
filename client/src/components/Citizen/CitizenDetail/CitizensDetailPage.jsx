@@ -58,8 +58,8 @@ class CitizensDetailPage extends Component {
           citizenId={citizen.id}
           dmv={citizen.dmv}
           ccw={citizen.ccw}
-          firearmsLicense={citizen.firearmsLicense}
-          pilotLicense={citizen.pilotLicense}
+          firearmsLicense={citizen.fire_license}
+          pilotLicense={citizen.pilot_license}
         />
 
         {/* Medical Records */}
