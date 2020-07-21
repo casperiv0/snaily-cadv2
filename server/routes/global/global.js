@@ -86,9 +86,14 @@ module.exports = function (io) {
         @Auth Public
     */
     router.post("/create-911-call", (req, res) => {
-        const { description, caller, location } = req.body;
+        let { description, caller, location } = req.body;
 
-        if (description && caller && location) {
+        if (!description) {
+            description = "Not specified"
+        }
+
+        if (caller && location) {
+
             processQuery("INSERT INTO `911calls` (`description`, `name`, `location`, `status`, `assigned_unit`) VALUES (?, ?, ?, ?, ?)",
                 [description, caller, location, "Not Assigned", "none"])
                 .then(() => {
@@ -158,9 +163,13 @@ module.exports = function (io) {
         @Auth Public
     */
     router.post("/create-tow-call", (req, res) => {
-        const { description, caller, location } = req.body;
+        let { description, caller, location } = req.body;
 
-        if (description && caller && location) {
+        if (!description) {
+            description = "Not specified"
+        }
+
+        if (caller && location) {
             processQuery("INSERT INTO `tow_calls` (`description`, `name`, `location`) VALUES (?, ?, ?)", [description, caller, location])
                 .then(() => {
                     io.sockets.emit("updateTowCalls");

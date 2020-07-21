@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.8
+
+- Fixed typo (Thanks to [tomasalves8](https://github.com/Dev-CasperTheGhost/snaily-cadv2/pull/25) ♥
+- description is not required anymore for `/call911` and `/calltow`
+
 ## 1.5.7
 
 - Fixed 2/4 licenses not showing in client detail
