@@ -48,7 +48,7 @@ class TopArea extends Component {
               className='btn btn-secondary bg-secondary text-light mt-2 ml-2'
               data-target='#searchMedicalRecords'
               data-toggle='modal'>
-              Search Person Medial Record
+              Search Person Medical Record
             </button>
 
             <button
