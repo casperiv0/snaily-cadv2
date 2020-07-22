@@ -93,7 +93,9 @@
         "yes": "Yes",
         "no": "No",
         "title": "Title",
-        "timestamp": "Timestamp"
+        "timestamp": "Timestamp",
+        "edit": "Edit",
+        "update": "Update"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -143,6 +145,9 @@
         "enter_ban_reason": "Enter ban Reason",
         "ban_success": "Successfully banned",
         "un_ban_success": "Successfully Unbanned",
+        "banned_for": " This user was banned for",
+        "ban_owner": "You can't ban the owner!",
+        "ban_yourself": "You can't ban yourself!",
         "reason": "Reason",
         "values": {
             "values": "Values",
@@ -151,7 +156,64 @@
             "genders": "Genders",
             "legal_status": "Legal Statuses",
             "vehicles": "Vehicles",
-            "weapons": "Weapons"
+            "weapons": "Weapons",
+            "department": {
+                "add_dept": "Add Department",
+                "manage_dept": "Manage Departments",
+                "enter_name": "Enter department name",
+                "no_dept": "There are no departments found",
+                "delete_dept": "Successfully Deleted Department",
+                "update_dept": "Successfully updated department",
+                "added_dept": "Successfully added department"
+            },
+            "ethnicity": {
+                "add_eth": "Add Ethnicity",
+                "manage_eth": "Manage Ethnicities",
+                "enter_name": "Enter Ethnicity Name",
+                "no_eth": "There are no ethnicities found",
+                "delete_eth": "Successfully Deleted ethnicity",
+                "update_eth": "Successfully updated ethnicity",
+                "added_eth": "Successfully added ethnicity"
+            },
+            "gender": {
+                "add_gen": "Add Gender",
+                "manage_gen": "Manage Genders",
+                "enter_name": "Enter Gender Name",
+                "no_gen": "There are no genders found",
+                "delete_gen": "Successfully Deleted gender",
+                "update_gen": "Successfully updated gender",
+                "added_gen": "Successfully added gender"
+            },
+            "legal": {
+                "add_ls": "Add Legal Status",
+                "manage_ls": "Manage Legal Statuses",
+                "enter_name": "Enter Legal Status",
+                "no_ls": "There are no legal statuses found",
+                "delete_ls": "Successfully Deleted legal status",
+                "update_ls": "Successfully updated legal status",
+                "added_ls": "Successfully added legal status"
+            },
+            "vehicle": {
+                "add_veh": "Add Vehicle",
+                "manage_veh": "Manage Vehicles",
+                "default_veh": "Default Vehicles",
+                "show_default_veh": "Show default vehicles",
+                "custom_veh": "Custom added vehicles",
+                "enter_name": "Enter vehicle name",
+                "no_veh": "There are no vehicles found",
+                "delete_veh": "Successfully Deleted vehicle",
+                "update_veh": "Successfully updated vehicle",
+                "added_veh": "Successfully added vehicle"
+            },
+            "weapon": {
+                "add_wea": "Add weapon",
+                "manage_wea": "Manage weapons",
+                "enter_name": "Enter weapon Name",
+                "no_wea": "There are no weapons found",
+                "delete_wea": "Successfully Deleted weapon",
+                "update_wea": "Successfully updated weapon",
+                "added_wea": "Successfully added weapon"
+            }
         },
         "member": {
             "remove_rank": "Remove Rank",

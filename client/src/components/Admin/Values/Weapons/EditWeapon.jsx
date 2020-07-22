@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../language.json';
 
 export default class EditWeapon extends Component {
   constructor() {
@@ -18,10 +19,7 @@ export default class EditWeapon extends Component {
     e.preventDefault();
 
     Axios({
-      url:
-        backendURL +
-        '/admin/weapons/edit/' +
-        this.props.match.params.id,
+      url: backendURL + '/admin/weapons/edit/' + this.props.match.params.id,
       method: 'PUT',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
@@ -34,7 +32,7 @@ export default class EditWeapon extends Component {
         if (res.data.msg === 'Updated') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Updated Weapon'
+            lang.admin.values.weapon.update_wea
           );
           return (window.location = '/admin/weapons');
         }
@@ -59,7 +57,7 @@ export default class EditWeapon extends Component {
         console.log(res.data);
 
         this.setState({
-            weapon: res.data.weapon[0].name,
+          weapon: res.data.weapon[0].name,
         });
       })
       .catch((err) => console.log(err));
@@ -83,7 +81,7 @@ export default class EditWeapon extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <div className='form-group'>
-          <label htmlFor='weapon'>Enter Weapon Name</label>
+          <label htmlFor='weapon'>{lang.admin.values.weapon.enter_name}</label>
           <input
             type='text'
             name='weapon'
@@ -95,10 +93,10 @@ export default class EditWeapon extends Component {
         </div>
         <div className='form-group float-right'>
           <a href='/admin/weapons' className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button className='btn btn-primary ml-2' type='submit'>
-            Update Weapon
+            {lang.global.update}
           </button>
         </div>
       </form>

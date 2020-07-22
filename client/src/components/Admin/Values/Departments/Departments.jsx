@@ -4,13 +4,14 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class Departments extends Component {
   constructor() {
     super();
     this.state = {
       departments: [],
-      message: sessionStorage.getItem("admin-message")
+      message: sessionStorage.getItem('admin-message'),
     };
   }
 
@@ -43,7 +44,7 @@ export default class Departments extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Department'
+            lang.admin.values.department.delete_dept
           );
           return (window.location = '/admin/departments');
         }
@@ -64,20 +65,19 @@ export default class Departments extends Component {
   }
 
   render() {
-    const { departments,message } = this.state;
-    
+    const { departments, message } = this.state;
+
     return (
       <div className='text-light container col'>
-          {
-              message ? <SuccessMessage dismiss message={message} /> : null 
-          }
+        {message ? <SuccessMessage dismiss message={message} /> : null}
         <h3>
-          Manage Departments - <a href='/admin/departments/add'>+</a>
+          {lang.admin.values.department.manage_dept} -{' '}
+          <a href='/admin/departments/add'>+</a>
         </h3>
 
         <ul className='list-group mt-3'>
           {!departments[0] ? (
-            <ErrorMessage message="You Don't have any Departments, Add one by clicking the plus symbol above" />
+            <ErrorMessage message={lang.admin.values.department.no_dept} />
           ) : (
             departments.map((department, index) => {
               return (
@@ -89,14 +89,14 @@ export default class Departments extends Component {
                     <a
                       href={'/admin/departments/edit/' + department.id}
                       className='btn btn-success mr-2'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       onClick={() => {
                         this.deleteDepartment(department.id);
                       }}
                       className='btn btn-danger'>
-                      Delete
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

@@ -4,13 +4,14 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class Genders extends Component {
   constructor() {
     super();
     this.state = {
       genders: [],
-      message: sessionStorage.getItem("admin-message")
+      message: sessionStorage.getItem('admin-message'),
     };
   }
 
@@ -43,7 +44,7 @@ export default class Genders extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Gender'
+            lang.admin.values.gender.delete_gen
           );
           return (window.location = '/admin/genders');
         }
@@ -64,20 +65,18 @@ export default class Genders extends Component {
   }
 
   render() {
-    const { genders,message } = this.state;
-    
+    const { genders, message } = this.state;
+
     return (
       <div className='container text-light col-md-9'>
-          {
-              message ? <SuccessMessage dismiss message={message} /> : null 
-          }
+        {message ? <SuccessMessage dismiss message={message} /> : null}
         <h3>
-          Manage Genders - <a href='/admin/genders/add'>+</a>
+          {lang.admin.values.gender.manage_gen} - <a href='/admin/genders/add'>+</a>
         </h3>
 
         <ul className='list-group mt-3'>
           {!genders[0] ? (
-            <ErrorMessage message="You Don't have any genders, Add one by clicking the plus symbol above" />
+            <ErrorMessage message={lang.admin.values.gender.no_gen} />
           ) : (
             genders.map((gender, index) => {
               return (
@@ -89,14 +88,14 @@ export default class Genders extends Component {
                     <a
                       href={'/admin/genders/edit/' + gender.id}
                       className='btn btn-success mr-2'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       onClick={() => {
                         this.deleteGender(gender.id);
                       }}
                       className='btn btn-danger'>
-                      Delete
+                       {lang.global.delete}
                     </button>
                   </div>
                 </li>

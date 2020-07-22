@@ -66,9 +66,9 @@ export default class BanHammerArea extends Component {
     let message2 = '';
 
     if (rank === 'owner') {
-      message2 = "You can't ban the owner!";
+      message2 = lang.admin.ban_owner;
     } else if (username === currentUsername) {
-      message2 = "You can't ban yourself!";
+      message2 = lang.admin.ban_yourself;
     }
 
     return (
@@ -81,7 +81,7 @@ export default class BanHammerArea extends Component {
         ) : banned === 'true' ? (
           <div className='card-body'>
             <div className='card-title'>
-              Unban this user. <br /> This user was banned for: {ban_reason}
+             {lang.admin.banned_for}: {ban_reason}
             </div>
             <button
               onClick={this.unbanUser}
