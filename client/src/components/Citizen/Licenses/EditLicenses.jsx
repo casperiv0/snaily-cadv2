@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../../language.json';
 
 export default class componentName extends Component {
   constructor() {
@@ -69,7 +70,7 @@ export default class componentName extends Component {
     }).then((res) => {
       if (res.data.msg === 'Updated') {
         sessionStorage.setItem('message', 'Successfully Updated Licenses');
-        return window.location = '/citizen/'
+        return (window.location = '/citizen/');
       }
     });
   };
@@ -79,7 +80,7 @@ export default class componentName extends Component {
     return (
       <form className='container text-light' onSubmit={this.editLicenses}>
         <div className='form-group'>
-          <label htmlFor='dmv'>Edit Drivers License</label>
+          <label htmlFor='dmv'>{lang.citizen.drivers_license}</label>
           <select
             type='text'
             name='dmv'
@@ -103,7 +104,7 @@ export default class componentName extends Component {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='dmv'>Edit Firearms License</label>
+          <label htmlFor='dmv'>{lang.citizen.firearms_license}</label>
           <select
             type='text'
             name='firearmsLicense'
@@ -127,7 +128,7 @@ export default class componentName extends Component {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='dmv'>Edit Pilots License</label>
+          <label htmlFor='dmv'>{lang.citizen.pilot_license}</label>
           <select
             type='text'
             name='pilotLicense'
@@ -152,7 +153,7 @@ export default class componentName extends Component {
 
         {/* CCW */}
         <div className='form-group'>
-          <label htmlFor='dmv'>Edit CCW</label>
+          <label htmlFor='dmv'>{lang.citizen.ccw}</label>
           <select
             type='text'
             name='ccw'
@@ -179,10 +180,10 @@ export default class componentName extends Component {
           <a
             href={'/citizen/' + this.props.match.params.citizenId}
             className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button type='submit' className='btn btn-primary ml-2'>
-            Edit Licenses
+            {lang.global.update}
           </button>
         </div>
       </form>

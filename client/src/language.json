@@ -335,7 +335,14 @@
         "ccw": "Enter CCW",
         "select_license": "Select License..",
         "not_working": "Not Working Anywhere",
-        "edit_citizen": "Edit citizen"
+        "edit_citizen": "Edit citizen",
+        "license": {
+            "edit": "Edit Licenses",
+            "dmv": "Driver License",
+            "firearms": "Firearms License",
+            "pilot": "Pilot License",
+            "ccw": "CCW License"
+        }
     },
     "calls": {
         "description": "Call Description",
