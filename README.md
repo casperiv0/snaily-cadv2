@@ -1,4 +1,4 @@
-![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.6-orange)
+![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.8-orange)
 
 # SnailyCADv2 - Dev branch - Alpha
 

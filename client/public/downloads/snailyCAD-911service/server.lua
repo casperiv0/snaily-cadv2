@@ -25,7 +25,7 @@ RegisterServerEvent("911CallUpdate")
 AddEventHandler("911CallUpdate", function(street, name, description)
     PerformHttpRequest(URL_TO_CAD .. ":" .. PORT .. '/global/create-911-call',
                        function(err, text, headers) end, 'POST',
-                       json.encode({name = name, location = street, description = table.concat(description, ' ')}),
+                       json.encode({caller = name, location = street, description = table.concat(description, ' ')}),
                        {["Content-Type"] = 'application/json'})
 
     CancelEvent()
