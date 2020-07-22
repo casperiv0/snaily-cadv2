@@ -3,7 +3,7 @@ const package = require("../../package.json");
 const chalk = require("chalk");
 
 async function checkForUpdates() {
-    const result = await fetch("https://dev-caspertheghost.github.io/api/version").then(res => res.json());
+    const result = await fetch("https://dev-caspertheghost.github.io/version").then(res => res.json());
     
     if (result.snailycad !== package.version) {
         console.log(chalk.red.bold(`
