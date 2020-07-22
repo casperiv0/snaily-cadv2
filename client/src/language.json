@@ -336,12 +336,22 @@
         "select_license": "Select License..",
         "not_working": "Not Working Anywhere",
         "edit_citizen": "Edit citizen",
+        "medical_records": "Medical Records",
         "license": {
             "edit": "Edit Licenses",
             "dmv": "Driver License",
             "firearms": "Firearms License",
             "pilot": "Pilot License",
             "ccw": "CCW License"
+        },
+        "medical": {
+            "add": "Add medical record",
+            "no_med": "No Medical records",
+            "type": "Select Type",
+            "desc": "Enter short description",
+            "add_med": "Successfully added medical record",
+            "type2": "Type",
+            "short_info": "Short information"
         }
     },
     "calls": {
