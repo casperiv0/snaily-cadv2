@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setEmsFdStatus, setOffDuty } from './../../../../actions/emsFdActions';
 import { setMessage } from './../../../../actions/messageActions';
+import lang from '../../../../language.json';
 
 class EditEmsFdStatusModal extends Component {
   constructor() {
@@ -32,7 +33,7 @@ class EditEmsFdStatusModal extends Component {
       this.props.setEmsFdStatus(this.props.id, emsStatus2);
     }
 
-    this.props.setMessage('Successfully Updated status');
+    this.props.setMessage(lang.dispatch.updated_status_2);
     document.getElementById('closeEditStatusEmsFd' + this.props.id).click();
   };
 
@@ -57,7 +58,7 @@ class EditEmsFdStatusModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Update Officer Status
+                {lang.dispatch.update_status}
               </h5>
               <button
                 type='button'
@@ -71,7 +72,9 @@ class EditEmsFdStatusModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='status'>Set On-duty Or Off-duty</label>
+                  <label htmlFor='status'>
+                    {lang.dispatch.set_on_off_duty}
+                  </label>
                   <select
                     name='emsStatus'
                     id='emsStatus'
@@ -84,7 +87,7 @@ class EditEmsFdStatusModal extends Component {
                   </select>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='status'>Update Global Status</label>
+                  <label htmlFor='status'>{lang.dispatch.global_status}</label>
                   <select
                     name='emsStatus2'
                     id='emsStatus2'
@@ -107,10 +110,10 @@ class EditEmsFdStatusModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Update Status
+                  {lang.dispatch.update_status}
                 </button>
               </div>
             </form>

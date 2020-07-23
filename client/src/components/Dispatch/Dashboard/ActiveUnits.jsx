@@ -5,6 +5,7 @@ import EditEmsFdStatusModal from './Modals/EditEmsFdStatusModal';
 import { getAllActiveUnits } from '../../../actions/dispatchActions';
 import io from "socket.io-client";
 import { backendURL } from '../../../config/config';
+import lang from "../../../language.json"
 const socket = io(backendURL);
 
 class ActiveUnits extends Component {
@@ -23,21 +24,21 @@ class ActiveUnits extends Component {
           className='list-group overflow-auto'
           style={{ maxHeight: '20rem' }}>
           <div className='list-group-item bg-secondary border-secondary sticky-top'>
-            <h5>Active Police Officers</h5>
+            <h5>{lang.global.active_officers}</h5>
           </div>
           {!activeOfficers[0] ? (
             <li className='list-group-item bg-dark border-dark mb-3'>
-              No Active Officers
+              {lang.global.no_officers}
             </li>
           ) : (
             <table className='table table-dark'>
               <thead>
                 <tr>
                   <th scope='col'>#</th>
-                  <th scope='col'>Officer Name</th>
-                  <th scope='col'>Officer Department</th>
-                  <th scope='col'>Status</th>
-                  <th scope='col'>Actions</th>
+                  <th scope='col'>{lang.dispatch.officer_name}</th>
+                  <th scope='col'>{lang.dispatch.officer_dept}</th>
+                  <th scope='col'>{lang.dispatch.status}</th>
+                  <th scope='col'>{lang.global.actions}</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +55,7 @@ class ActiveUnits extends Component {
                           className='btn btn-primary'
                           data-toggle='modal'
                           data-target={'#editStatusOfficer' + officer.id}>
-                          Edit Status
+                          {lang.dispatch.edit_status}
                         </button>
                       </td>
                       <EditOfficerStatusModal
@@ -74,20 +75,20 @@ class ActiveUnits extends Component {
           className='list-group overflow-auto mt-3'
           style={{ maxHeight: '20rem' }}>
           <div className='list-group-item bg-secondary border-secondary sticky-top'>
-            <h5>Active EMS/FD Deputies</h5>
+            <h5>{lang.global.active_ems_fd}</h5>
           </div>
           {!activeEmsFd[0] ? (
             <li className='list-group-item bg-dark border-dark'>
-              No Active EMS/FD Deputies
+              {lang.global.no_ems_fd}
             </li>
           ) : (
             <table className='table table-dark'>
               <thead>
                 <tr>
                   <th scope='col'>#</th>
-                  <th scope='col'>Deputy Name</th>
-                  <th scope='col'>Status</th>
-                  <th scope='col'>Actions</th>
+                  <th scope='col'>{lang.dispatch.dept_name}</th>
+                  <th scope='col'>{lang.dispatch.status}</th>
+                  <th scope='col'>{lang.global.actions}</th>
                 </tr>
               </thead>
               <tbody>
@@ -103,7 +104,7 @@ class ActiveUnits extends Component {
                           className='btn btn-primary'
                           data-toggle='modal'
                           data-target={'#editStatusEmsFd' + ems_fd.id}>
-                          Edit Status
+                          {lang.dispatch.edit_status}
                         </button>
                       </td>
                       <EditEmsFdStatusModal

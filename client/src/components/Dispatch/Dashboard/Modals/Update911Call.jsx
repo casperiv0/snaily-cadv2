@@ -5,6 +5,8 @@ import {
   get911Calls,
   update911Call,
 } from '../../../../actions/911CallsActions';
+import { setMessage } from '../../../../actions/messageActions';
+import lang from '../../../../language.json';
 
 class Update911Call extends Component {
   constructor() {
@@ -49,6 +51,7 @@ class Update911Call extends Component {
     };
 
     this.props.update911Call(data);
+    this.props.setMessage(lang.dispatch.call_updated);
 
     document.getElementById('closeUpdate911Call' + this.props.id).click();
   };
@@ -74,7 +77,7 @@ class Update911Call extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Update 911 Call
+                {lang.dispatch.update_911_call}
               </h5>
               <button
                 type='button'
@@ -88,7 +91,7 @@ class Update911Call extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='status'>Location</label>
+                  <label htmlFor='callLocation'>{lang.global.location}</label>
                   <input
                     name='callLocation'
                     id='callLocation'
@@ -98,7 +101,9 @@ class Update911Call extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='callDescription'>Description</label>
+                  <label htmlFor='callDescription'>
+                    {lang.global.description}
+                  </label>
                   <input
                     name='callDescription'
                     id='callDescription'
@@ -108,9 +113,9 @@ class Update911Call extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='status'>Assigned Units</label>
+                  <label htmlFor='status'>{lang.dispatch.assigned_unit}</label>
                   {!activeOfficers[0] ? (
-                    <p>There are no officers active</p>
+                    <p>{lang.dispatch.no_units}</p>
                   ) : (
                     activeOfficers.map((officer, index) => {
                       return (
@@ -134,16 +139,16 @@ class Update911Call extends Component {
                   type='button'
                   className='btn btn-secondary w-50'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button
                   onClick={this.cancelCall}
                   type='button'
                   className='btn btn-danger'>
-                  End 911 Call
+                  {lang.tow.end_call}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Update Status
+                  {lang.dispatch.update_call}
                 </button>
               </div>
             </form>
@@ -154,6 +159,6 @@ class Update911Call extends Component {
   }
 }
 
-export default connect(null, { end911Call, get911Calls, update911Call })(
+export default connect(null, { end911Call, get911Calls, update911Call, setMessage })(
   Update911Call
 );

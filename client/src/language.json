@@ -55,6 +55,7 @@
         "create_arrest_report": "Create Arrest Report",
         "create_warrant": "Create Warrant",
         "create_bolo": "Create Bolo",
+        "create_911_call": "Create 911 Call",
         "notepad": "Open Notepad",
         "penal_codes": "Penal Codes",
         "codes_10": "10 Codes",
@@ -404,5 +405,29 @@
         "description": "Call Description",
         "call": "Call",
         "tow_service": "Call Tow Service"
+    },
+    "dispatch": {
+        "officer_name": "Officer name",
+        "dept_name": "Deputy Name",
+        "officer_dept": "Officer Department",
+        "status": "Status",
+        "edit_status": "Edit Status",
+        "update_status": "Update Status",
+        "global_status": "Update global status",
+        "set_on_off_duty": "Set on-duty or off-duty",
+        "caller_name": "Caller name",
+        "caller_location": "Caller Location",
+        "call_desc": "Call description",
+        "assigned_unit": "Assigned units",
+        "update_call": "Update Call",
+        "enter_new_aop": "Enter new AOP",
+        "update_aop": "Update AOP",
+        "aop": "Enter new Area of Roleplay",
+        "updated_status": "Successfully changed status for",
+        "updated_status_2": "Successfully changed status",
+        "updated_aop": "Successfully updated AOP",
+        "update_911_call": "Update 911 Call",
+        "no_units": "No active units",
+        "call_updated": "Successfully Updated Call"
     }
 }

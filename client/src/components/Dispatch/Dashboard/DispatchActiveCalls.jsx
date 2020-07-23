@@ -5,6 +5,7 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import Update911Call from './Modals/Update911Call';
 import { get911Calls } from '../../../actions/911CallsActions';
+import lang from '../../../language.json';
 import io from 'socket.io-client';
 const socket = io(backendURL);
 
@@ -53,23 +54,23 @@ class DispatchActiveCalls extends Component {
         className='list-group scroll-bar overflow-auto mt-3'
         style={{ maxHeight: '25rem' }}>
         <div className='bg-secondary border-secondary list-group-item text-light sticky-top'>
-          Active 911 Calls
+          {lang.global.active_erm_calls}
         </div>
         {!calls[0] ? (
           <li className='list-group-item bg-dark text-light'>
-            There're no active calls.
+            {lang.global.no_calls}
           </li>
         ) : (
           <table className='table table-dark'>
             <thead>
               <tr>
                 <th scope='col'>#</th>
-                <th scope='col'>Caller Name</th>
-                <th scope='col'>Caller Location</th>
-                <th scope='col'>Call Description</th>
-                <th scope='col'>Status</th>
-                <th scope='col'>Assigned Units</th>
-                <th scope='col'>Actions</th>
+                <th scope='col'>{lang.dispatch.caller_name}</th>
+                <th scope='col'>{lang.dispatch.caller_location}</th>
+                <th scope='col'>{lang.dispatch.call_desc}</th>
+                <th scope='col'>{lang.dispatch.status}</th>
+                <th scope='col'>{lang.dispatch.assigned_unit}</th>
+                <th scope='col'>{lang.global.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -88,7 +89,7 @@ class DispatchActiveCalls extends Component {
                         className='btn btn-primary'
                         data-toggle='modal'
                         data-target={'#update911Call' + call.id}>
-                        Update Call
+                        {lang.dispatch.update_call}
                       </button>
                     </td>
                     <Update911Call
