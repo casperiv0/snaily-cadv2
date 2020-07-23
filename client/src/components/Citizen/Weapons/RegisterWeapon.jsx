@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import lang from "../../../language.json"
 
 export default class RegisterWeapon extends Component {
   constructor() {
@@ -37,7 +38,7 @@ export default class RegisterWeapon extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Registered') {
-          sessionStorage.setItem('message', 'Weapon Successfully Registered!');
+          sessionStorage.setItem('message', lang.citizen.weapon.added_weapon);
           return (window.location = '/citizen');
         }
 
@@ -127,7 +128,7 @@ export default class RegisterWeapon extends Component {
         <div className='form-row mt-4'>
           {/* Weapon */}
           <div className='form-group col-md-4'>
-            <label htmlFor='weapon'>Enter Weapon</label>
+            <label htmlFor='weapon'>{lang.citizen.weapon.enter_weapon}</label>
             <input
               value={weapon}
               onChange={this.handleChange}
@@ -160,7 +161,7 @@ export default class RegisterWeapon extends Component {
 
           {/* Owner */}
           <div className='form-group col-md-4'>
-            <label htmlFor='owner'>Select Weapon Owner</label>
+            <label htmlFor='owner'>{lang.citizen.weapon.enter_owner}</label>
             <input
               type='text'
               list='owners'
@@ -172,7 +173,7 @@ export default class RegisterWeapon extends Component {
             />
             <datalist id='owners'>
               {!owners[0] ? (
-                <option value='No Owners Found'>No Owners Found</option>
+                <option value={lang.citizen.no_owners}>{lang.citizen.no_owners}</option>
               ) : (
                 owners.map((owner, index) => {
                   return (
@@ -187,7 +188,7 @@ export default class RegisterWeapon extends Component {
 
           {/* In Status */}
           <div className='form-group col-md-4'>
-            <label htmlFor='weaponStatus'>Select Weapon Status</label>
+            <label htmlFor='weaponStatus'>{lang.citizen.weapon.status}</label>
             <input
               type='text'
               list='statuses'
