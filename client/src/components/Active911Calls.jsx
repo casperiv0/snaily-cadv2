@@ -36,11 +36,11 @@ class Active911Calls extends Component {
             <thead>
               <tr>
                 <th scope='col'>#</th>
-                <th scope='col'>Caller Name</th>
-                <th scope='col'>Caller Location</th>
-                <th scope='col'>Call Description</th>
-                <th scope='col'>Status</th>
-                <th scope='col'>Assigned Units</th>
+                <th scope='col'>{language.dispatch.caller_name}</th>
+                <th scope='col'>{language.dispatch.caller_location}</th>
+                <th scope='col'>{language.dispatch.call_desc}</th>
+                <th scope='col'>{language.dispatch.status}</th>
+                <th scope='col'>{language.dispatch.assigned_unit}</th>
               </tr>
             </thead>
             <tbody>
