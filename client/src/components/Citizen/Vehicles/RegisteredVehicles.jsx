@@ -3,6 +3,7 @@ import { backendURL } from '../../../config/config';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import lang from '../../../language.json';
 
 export default class RegisteredVehicles extends Component {
   constructor() {
@@ -48,7 +49,7 @@ export default class RegisteredVehicles extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Deleted') {
-          sessionStorage.setItem('message', 'Successfully Deleted Vehicle!');
+          sessionStorage.setItem('message', lang.citizen.vehicle.deleted_veh);
           return (window.location = '/citizen');
         }
       })
@@ -67,7 +68,7 @@ export default class RegisteredVehicles extends Component {
         if (res.data.msg === 'Reported') {
           sessionStorage.setItem(
             'message',
-            'Successfully Report Vehicle as stolen'
+            lang.citizen.vehicle.reported_stolen
           );
           return (window.location = '/citizen');
         }
@@ -91,13 +92,13 @@ export default class RegisteredVehicles extends Component {
 
     return (
       <div className='list-group-item list-group-item-action bg-dark text-light border-dark mt-1'>
-        <h5 className='mb-1'>Registered Vehicles:</h5>
+        <h5 className='mb-1'>{lang.citizen.vehicle.reged_vehicle}:</h5>
 
         {!vehicles[0] ? (
           <li className='list-group-item bg-secondary border-secondary mt-2 d-flex justify-content-between'>
-            No Vehicles Registered
+            {lang.citizen.vehicle.no_veh}
             <a href='/vehicles/register' className='btn btn-primary'>
-              Register a Vehicle
+              {lang.citizen.vehicle.reg_a_vehicle}
             </a>
           </li>
         ) : (
@@ -109,7 +110,7 @@ export default class RegisteredVehicles extends Component {
               data-target='#registeredVehicles'
               aria-expanded='false'
               aria-controls='collapseExample'>
-              Toggle Registered Vehicles
+              {lang.citizen.vehicle.toggle_veh}
             </button>
             <div className='collapse mt-2' id='registeredVehicles'>
               {vehicles.map((vehicle, index) => (
@@ -121,23 +122,33 @@ export default class RegisteredVehicles extends Component {
                     <span className='font-weight-bold'>{vehicle.vehicle}</span>
                     <br />
                     {/* Plate */}
-                    <span className='font-weight-bold'>Plate: </span>
+                    <span className='font-weight-bold'>
+                      {lang.global.plate}:{' '}
+                    </span>
                     <span className='uppercase font-weight-normal'>
                       {vehicle.plate.toUpperCase()}
                     </span>
                     <br />
                     {/* Insurance */}
-                    <span className='font-weight-bold'>Insurance Status:</span>
+                    <span className='font-weight-bold'>
+                      {lang.citizen.vehicle.status}:
+                    </span>
                     <span> {vehicle.in_status}</span> <br />
                     {/* Color */}
-                    <span className='font-weight-bold'>Color: </span>
+                    <span className='font-weight-bold'>
+                      {lang.global.color}:{' '}
+                    </span>
                     {vehicle.color}
                     <br />
                     {/* VIN Number */}
-                    <span className='font-weight-bold'>VIN: </span>
+                    <span className='font-weight-bold'>
+                      {lang.citizen.vehicle.vin}:{' '}
+                    </span>
                     {vehicle.vin_number} <br />
                     {/* Company */}
-                    <span className='font-weight-bold'>Company: </span>
+                    <span className='font-weight-bold'>
+                      {lang.citizen.vehicle.company}:{' '}
+                    </span>
                     {vehicle.company} <br />
                   </div>
 
@@ -146,25 +157,25 @@ export default class RegisteredVehicles extends Component {
                     <a
                       href={'/vehicles/transfer/' + vehicle.id}
                       className='btn btn-dark mr-2'>
-                      Transfer Vehicle
+                      {lang.citizen.vehicle.transfer}
                     </a>
                     {vehicle.in_status === 'Reported as stolen' ? null : (
                       <button
                         onClick={() => this.reportAsStolen(vehicle.id)}
                         className='btn btn-dark mr-2'>
-                        Report As Stolen
+                        {lang.citizen.vehicle.report_stolen}
                       </button>
                     )}
                     <a
                       href={'/vehicles/edit/' + vehicle.id}
                       className='btn btn-success'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       href='#deleteVehicle'
                       onClick={() => this.deleteVehicle(vehicle.id)}
                       className='btn btn-danger ml-2'>
-                      Delete
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

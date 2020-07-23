@@ -4,6 +4,7 @@ import { backendURL } from '../../../config/config';
 import LoadingArea from '../../Partials/LoadingArea';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import lang from '../../../language.json';
 
 export default class TransferVehicle extends Component {
   constructor() {
@@ -82,9 +83,9 @@ export default class TransferVehicle extends Component {
       if (res.data.msg === 'Transferred') {
         sessionStorage.setItem(
           'message',
-          'Successfully Transferred Vehicle to ' + this.state.newOwner
+          `${lang.citizen.vehicle.transferred} ${this.state.newOwner}`
         );
-        return window.location = '/citizen';
+        return (window.location = '/citizen');
       }
 
       this.setState({
@@ -115,7 +116,7 @@ export default class TransferVehicle extends Component {
         <form onSubmit={this.onSubmit}>
           {error ? <ErrorMessage message={error} /> : null}
           <div className='form-group'>
-            <label htmlFor='vehiclePlate'>Vehicle Plate</label>
+            <label htmlFor='vehiclePlate'>{lang.global.plate}</label>
             <input
               type='text'
               className='form-control bg-secondary border-secondary text-light'
@@ -127,7 +128,7 @@ export default class TransferVehicle extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='newOwner'>Transfer To</label>
+            <label htmlFor='newOwner'>{lang.citizen.vehicle.transfer_to}</label>
             <input
               type='text'
               className='form-control bg-secondary border-secondary text-light'
@@ -149,10 +150,10 @@ export default class TransferVehicle extends Component {
           </div>
           <div className='form-group float-right'>
             <a className='btn btn-danger mr-2' href='/citizen'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary' type='submit'>
-              Transfer Vehicle
+              {lang.citizen.vehicle.transfer_veh}
             </button>
           </div>
         </form>

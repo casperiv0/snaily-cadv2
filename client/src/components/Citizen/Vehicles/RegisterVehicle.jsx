@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
-import LoadingArea from "../../Partials/LoadingArea"
+import LoadingArea from '../../Partials/LoadingArea';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import lang from '../../../language.json';
 
 export default class RegisterVehicle extends Component {
   constructor() {
@@ -22,7 +23,7 @@ export default class RegisterVehicle extends Component {
       error: '',
       nonDefaultVehicles: [],
       defaultVehicles: [],
-      loading: true
+      loading: true,
     };
   }
 
@@ -52,7 +53,7 @@ export default class RegisterVehicle extends Component {
       },
     }).then((res) => {
       if (res.data.msg === 'Registered') {
-        sessionStorage.setItem('message', 'Vehicle Successfully Registered!');
+        sessionStorage.setItem('message', lang.citizen.vehicle.added_veh);
         return (window.location = '/citizen');
       }
 
@@ -129,7 +130,7 @@ export default class RegisterVehicle extends Component {
           this.setState({
             defaultVehicles: res.data.defaultVehicles,
             nonDefaultVehicles: res.data.nonDefaultVehicles,
-            loading: false
+            loading: false,
           });
         }
       })
@@ -155,24 +156,21 @@ export default class RegisterVehicle extends Component {
       companies,
       nonDefaultVehicles,
       defaultVehicles,
-      loading
+      loading,
     } = this.state;
 
-
     if (loading) {
-      return <LoadingArea />
+      return <LoadingArea />;
     }
 
     return (
       <form className='container text-light' onSubmit={this.register}>
-        {error ? (
-          <ErrorMessage message={error} dismiss />
-        ) : null}
+        {error ? <ErrorMessage message={error} dismiss /> : null}
 
         <div className='form-row mt-4'>
           {/* Plate */}
           <div className='form-group col-md-4'>
-            <label htmlFor='plate'>Enter Plate</label>
+            <label htmlFor='plate'>{lang.citizen.vehicle.enter_plate}</label>
             <input
               value={plate.toUpperCase()}
               onChange={this.handleChange}
@@ -186,7 +184,7 @@ export default class RegisterVehicle extends Component {
 
           {/* Color */}
           <div className='form-group col-md-4'>
-            <label htmlFor='color'>Enter Color</label>
+            <label htmlFor='color'>{lang.citizen.vehicle.enter_color}</label>
             <input
               value={color}
               onChange={this.handleChange}
@@ -198,32 +196,42 @@ export default class RegisterVehicle extends Component {
 
           {/* Vehicle */}
           <div className='form-group col-md-4'>
-            <label htmlFor='vehicle'>Enter Vehicle</label>
+            <label htmlFor='vehicle'>
+              {lang.citizen.vehicle.enter_vehicle}
+            </label>
             <input
               value={vehicle}
               onChange={this.handleChange}
               name='vehicle'
               id='vehicle'
               className='form-control bg-dark border-dark text-light'
-              list="vehiclesList"
+              list='vehiclesList'
             />
-            <datalist id="vehiclesList">
-              {
-                !nonDefaultVehicles[0] ? "" : nonDefaultVehicles.map((vehicle, index) => {
-                  return <option key={index} value={vehicle.cname}>{vehicle.cname}</option>
-                })
-              }
-              {
-                !defaultVehicles[0] ? "" : defaultVehicles.map((vehicle, index) => {
-                  return <option key={index} value={vehicle.cname}>{vehicle.cname}</option>
-                })
-              }
+            <datalist id='vehiclesList'>
+              {!nonDefaultVehicles[0]
+                ? ''
+                : nonDefaultVehicles.map((vehicle, index) => {
+                    return (
+                      <option key={index} value={vehicle.cname}>
+                        {vehicle.cname}
+                      </option>
+                    );
+                  })}
+              {!defaultVehicles[0]
+                ? ''
+                : defaultVehicles.map((vehicle, index) => {
+                    return (
+                      <option key={index} value={vehicle.cname}>
+                        {vehicle.cname}
+                      </option>
+                    );
+                  })}
             </datalist>
           </div>
 
           {/* Owner */}
           <div className='form-group col-md-4'>
-            <label htmlFor='owner'>Select Vehicle Owner</label>
+            <label htmlFor='owner'>{lang.citizen.vehicle.select_owner}</label>
             <input
               type='text'
               list='owners'
@@ -235,7 +243,9 @@ export default class RegisterVehicle extends Component {
             />
             <datalist id='owners'>
               {!owners[0] ? (
-                <option value='No Owners Found'>No Owners Found</option>
+                <option value={lang.citizen.no_owners}>
+                  {lang.citizen.no_owners}
+                </option>
               ) : (
                 owners.map((owner, index) => {
                   return (
@@ -250,7 +260,9 @@ export default class RegisterVehicle extends Component {
 
           {/* In Status */}
           <div className='form-group col-md-4'>
-            <label htmlFor='insuranceStatus'>Select Insurance Status</label>
+            <label htmlFor='insuranceStatus'>
+              {lang.citizen.vehicle.select_status}
+            </label>
             <input
               type='text'
               list='statuses'
@@ -276,7 +288,7 @@ export default class RegisterVehicle extends Component {
           {/* Company */}
           <div className='form-group col-md-4'>
             <label htmlFor='company'>
-              (If Selected Company) Enter Company Name
+              {lang.citizen.vehicle.enter_company}
             </label>
             <input
               disabled={
@@ -291,7 +303,7 @@ export default class RegisterVehicle extends Component {
               list='companies'
               className='form-control bg-dark border-dark text-light'
             />
-            <small>You are able to type in the field if the Insurance Status is set to "Company"</small>
+            <small>{lang.citizen.vehicle.company_small}</small>
             <datalist id='companies'>
               {!companies[0]
                 ? ''
@@ -307,10 +319,10 @@ export default class RegisterVehicle extends Component {
         </div>
         <div className='form-group float-right'>
           <a href='/citizen' className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button onClick={this.register} className='ml-2 btn btn-primary'>
-            Register Vehicle
+            {lang.citizen.vehicle.reg_vehicle}
           </button>
         </div>
       </form>
