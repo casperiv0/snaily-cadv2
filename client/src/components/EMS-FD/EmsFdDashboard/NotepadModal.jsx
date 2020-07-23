@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import lang from "../../../language.json"
 
 export default class NotepadModal extends Component {
 
@@ -30,7 +31,7 @@ export default class NotepadModal extends Component {
               <div className='modal-content  bg-dark border-dark text-light'>
                 <div className='modal-header'>
                   <h5 className='modal-title' id='exampleModalLabel'>
-                    Notepad
+                    {lang.ems_fd.notepad}
                   </h5>
                   <button
                     type='button'
@@ -56,7 +57,7 @@ export default class NotepadModal extends Component {
                     type='button'
                     className='container btn btn-secondary'
                     data-dismiss='modal'>
-                    Close
+                    {lang.global.close}
                   </button>
                 </div>
               </div>

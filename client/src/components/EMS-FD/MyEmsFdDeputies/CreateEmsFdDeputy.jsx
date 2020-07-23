@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../../language.json';
 
 export default class CreateEmsFdDeputy extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export default class CreateEmsFdDeputy extends Component {
       if (res.data.msg === 'Added Deputy') {
         sessionStorage.setItem(
           'ems-fd-message',
-          'Successfully Created ' + this.state.deputyName
+          `${lang.ems_fd.created_ems} ${this.state.deputyName}`
         );
         return (window.location = '/ems-fd/deputies');
       }
@@ -50,10 +51,10 @@ export default class CreateEmsFdDeputy extends Component {
     return (
       <form onSubmit={this.onSubmit} className='container text-light'>
         <div className='form-group'>
-          <label htmlFor='deputyName'>Enter Deputy Name</label>
+          <label htmlFor='deputyName'>{lang.ems_fd.enter_name}</label>
           <input
             className='form-control text-light bg-dark border-secondary'
-            placeholder='Deputy Name'
+            placeholder={lang.ems_fd.dep_name}
             type='text'
             name='deputyName'
             id='deputyName'
@@ -64,10 +65,10 @@ export default class CreateEmsFdDeputy extends Component {
 
         <div className='form-group float-right'>
           <a className='btn btn-danger' href='/ems-fd/deputies'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button className='btn btn-primary ml-2' type='submit'>
-            Create Deputy
+            {lang.ems_fd.create_ems}
           </button>
         </div>
       </form>

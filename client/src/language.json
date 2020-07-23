@@ -50,6 +50,7 @@
         "plate_search": "Plate Search",
         "weapon_search": "Weapon Search",
         "address_search": "Address Search",
+        "medical_search": "Search Person Medical Record",
         "create_written_warning": "Create Written Warning",
         "create_ticket": "Create Ticket",
         "create_arrest_report": "Create Arrest Report",
@@ -96,7 +97,8 @@
         "title": "Title",
         "timestamp": "Timestamp",
         "edit": "Edit",
-        "update": "Update"
+        "update": "Update",
+        "search": "Search"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -429,5 +431,24 @@
         "update_911_call": "Update 911 Call",
         "no_units": "No active units",
         "call_updated": "Successfully Updated Call"
+    },
+    "ems_fd": {
+        "my_deputies": "EMS/FD - My Deputies",
+        "my_ems_fd": "My EMS/FD Deputies",
+        "create_ems": "Create Deputy",
+        "notepad": "Notepad",
+        "search_med_rec": "Search Medical Records",
+        "type": "Type",
+        "short_info": "Short information",
+        "select_dept": "Please select a EMS/FD Deputy before continuing",
+        "select_dept_2": "Select EMS/FD Deputy",
+        "no_dept": "You don't have any deputies!",
+        "enter_name": "Enter Deputy Name",
+        "dep_name": "Deputy Name",
+        "created_ems": "Successfully created ",
+        "ems_dash": "EMS-FD Dashboard",
+        "create_a_dept": "Create a Deputy",
+        "no_ems": "You Don't have any EMS deputies.",
+        "deleted_dept": "Successfully Deleted "
     }
 }

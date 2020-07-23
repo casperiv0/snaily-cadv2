@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
+import lang from '../../../language.json';
 
 export default class SearchMedicalRecordModal extends Component {
   constructor() {
@@ -63,7 +64,7 @@ export default class SearchMedicalRecordModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Search Medical Records
+                {lang.ems_fd.search_med_rec}
               </h5>
               <button
                 type='button'
@@ -91,9 +92,9 @@ export default class SearchMedicalRecordModal extends Component {
                     <thead>
                       <tr>
                         <th scope='col'>#</th>
-                        <th scope='col'>Type</th>
-                        <th scope='col'>Short Information</th>
-                        <th scope='col'>Name</th>
+                        <th scope='col'>{lang.ems_fd.type}</th>
+                        <th scope='col'>{lang.ems_fd.short_info}</th>
+                        <th scope='col'>{lang.global.name}</th>
                       </tr>
                     </thead>
 
@@ -117,10 +118,10 @@ export default class SearchMedicalRecordModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Search
+                  {lang.global.search}{' '}
                 </button>
               </div>
             </form>
