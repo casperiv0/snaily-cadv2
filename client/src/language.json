@@ -98,7 +98,11 @@
         "timestamp": "Timestamp",
         "edit": "Edit",
         "update": "Update",
-        "search": "Search"
+        "search": "Search",
+        "call": "Call",
+        "person": "Person",
+        "vehicle": "Vehicle",
+        "other": "Other"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -282,7 +286,31 @@
         "created_warning": "Successfully created written warning, Target name:",
         "active": "Active",
         "inactive": "Inactive",
-        "created_warrant": "Successfully created warrant, Target name:"
+        "created_warrant": "Successfully created warrant, Target name:",
+        "updated_warrant": "Successfully changed status on warrant",
+        "enter_name": "Enter citizen name",
+        "no_citizen": "No Citizen Found With That Name",
+        "has_warrant": "WARNING: Person has 1 or more warrants",
+        "warnings": "Written Warnings",
+        "warrants": "Warrants",
+        "tickets": "Tickets",
+        "arr_rep": "Arrest reports",
+        "no_war": "Person Doesn't have any written warnings.",
+        "no_warrants": "Person Doesn't have any warrants.",
+        "no_arr_rep": "Person Doesn't have any arrest reports.",
+        "no_tick": "Person Doesn't have any tickets.",
+        "given_on": "Given On",
+        "given_by": "Given By",
+        "change_status": "Change Status",
+        "no_weapons": "Person Doesn't have any registered weapons.",
+        "no_vehicles": "Person Doesn't have any registered vehicles.",
+        "owner": "Owner",
+        "vehicle": "Vehicle",
+        "vin_number": "VIN Number",
+        "weapon": "Weapon",
+        "enter_per_name": "Enter Person Name",
+        "enter_plate": "Enter vehicle  plate",
+        "enter_color": "Enter vehicle color"
     },
     "officers": {
         "my_officers": "My Officers",
@@ -296,7 +324,9 @@
         "delete_officer_success": "Successfully deleted:",
         "select_department": "Select Department",
         "no_departments": "There are no departments Found.",
-        "create_officer_success": "Successfully created: "
+        "create_officer_success": "Successfully created: ",
+        "codes": "10 Codes",
+        "back_to_dash": "Back to dashboard"
     },
     "citizen": {
         "citizen": "Citizen",
@@ -327,6 +357,7 @@
         "employment_status": "Manage employment status",
         "call_tow": "Call Tow Service",
         "call_911": "Call Emergency Services",
+        "call_created": "Successfully Called 911",
         "more_info": "More Info",
         "created": "Successfully created: ",
         "select_ethnicity": "Select Ethnicity..",
@@ -341,6 +372,9 @@
         "edit_citizen": "Edit citizen",
         "medical_records": "Medical Records",
         "no_owners": "No owners found",
+        "hei_wei": "Height / Weight",
+        "toggle_record": "Toggle Record",
+        "toggle_veh_wea": "Toggle Registered Vehicles & Weapons",
         "license": {
             "edit": "Edit Licenses",
             "dmv": "Driver License",
@@ -430,7 +464,9 @@
         "updated_aop": "Successfully updated AOP",
         "update_911_call": "Update 911 Call",
         "no_units": "No active units",
-        "call_updated": "Successfully Updated Call"
+        "call_updated": "Successfully Updated Call",
+        "enter_address": "Enter Address",
+        "add_not_found": "No Citizens Found With That Address"
     },
     "ems_fd": {
         "my_deputies": "EMS/FD - My Deputies",
