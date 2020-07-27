@@ -4,7 +4,9 @@
         "login_2": "Please Login",
         "enter_username": "Please enter your username",
         "enter_password": "Please enter your password",
+        "enter_old_password": "Enter Old Password",
         "confirm_password": "Please confirm your password",
+        "update_password": "Update Password",
         "no_acc": "Don't have an account?",
         "create_account": "Create Account",
         "has_acc": "Already have an account?",
@@ -102,7 +104,8 @@
         "call": "Call",
         "person": "Person",
         "vehicle": "Vehicle",
-        "other": "Other"
+        "other": "Other",
+        "weapon": "Weapon"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -310,7 +313,9 @@
         "weapon": "Weapon",
         "enter_per_name": "Enter Person Name",
         "enter_plate": "Enter vehicle  plate",
-        "enter_color": "Enter vehicle color"
+        "enter_color": "Enter vehicle color",
+        "no_plate": "Plate Was not found",
+        "no_weapon": "Weapon was not found with that serial number"
     },
     "officers": {
         "my_officers": "My Officers",

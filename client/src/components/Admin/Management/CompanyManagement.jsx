@@ -39,7 +39,7 @@ export default class CompanyManagement extends Component {
     });
   };
 
-  deleteCompany = (id, companyName) => {
+  deleteCompany = (id) => {
     handleRequest('/admin/companies/' + id, 'DELETE')
       .then((res) => {
         if (res.data.msg === 'Company Deleted') {

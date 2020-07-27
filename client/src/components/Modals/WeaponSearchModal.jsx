@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from '../../language.json';
 
 export default class WeaponSearchModal extends Component {
   constructor() {
@@ -59,7 +60,7 @@ export default class WeaponSearchModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='weaponSearchModal'>
-                Weapon Search
+                {lang.global.weapon_search}
               </h5>
               <button
                 type='button'
@@ -72,7 +73,9 @@ export default class WeaponSearchModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='weapon'>Enter Serial Number</label>
+                  <label htmlFor='weapon'>
+                    {lang.citizen.weapon.serial_number}
+                  </label>
                   <input
                     required
                     className='form-control bg-secondary border-secondary text-light'
@@ -86,17 +89,17 @@ export default class WeaponSearchModal extends Component {
 
                 {/* Results */}
                 {notFound ? (
-                  <ErrorMessage message='Weapon was not found with that serial number' />
+                  <ErrorMessage message={lang.record.no_weapon} />
                 ) : null}
                 {!results.weapon ? null : (
                   <div className='mt-3'>
-                    <span className='font-weight-bold'>Weapon: </span>
+                    <span className='font-weight-bold'>{lang.global.weapon}: </span>
                     {results.weapon} <br />
-                    <span className='font-weight-bold'>Owner: </span>
+                    <span className='font-weight-bold'>{lang.record.owner}: </span>
                     {results.owner} <br />
-                    <span className='font-weight-bold'>Serial Number: </span>
+                    <span className='font-weight-bold'>{lang.citizen.weapon.serial_number}: </span>
                     {results.serial_number} <br />
-                    <span className='font-weight-bold'>Weapon Status: </span>
+                    <span className='font-weight-bold'>{lang.citizen.weapon.status}: </span>
                     {results.status} <br />
                   </div>
                 )}
@@ -106,10 +109,10 @@ export default class WeaponSearchModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Search
+                  {lang.global.search}
                 </button>
               </div>
             </form>

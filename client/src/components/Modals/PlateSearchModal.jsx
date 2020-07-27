@@ -4,6 +4,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import LoadingArea from '../Partials/LoadingArea';
+import lang from '../../language.json';
 
 export default class PlateSearchModal extends Component {
   constructor() {
@@ -69,7 +70,7 @@ export default class PlateSearchModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Plate Search
+                {lang.global.plate_search}
               </h5>
               <button
                 type='button'
@@ -82,7 +83,7 @@ export default class PlateSearchModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='plate'>Enter Plate</label>
+                  <label htmlFor='plate'>{lang.global.plate}</label>
                   <input
                     className='form-control bg-secondary border-secondary text-light'
                     type='text'
@@ -97,23 +98,23 @@ export default class PlateSearchModal extends Component {
                 {/* results */}
                 {loading ? <LoadingArea /> : null}
                 {plateNotFound ? (
-                  <ErrorMessage message='Plate Was not found' />
+                  <ErrorMessage message={lang.record.no_plate} />
                 ) : null}
                 {!plateResults.plate ? null : (
                   <div className=' mt-3'>
-                    <span className='font-weight-bold'>Plate: </span>{' '}
+                    <span className='font-weight-bold'>{lang.global.plate}: </span>{' '}
                     {plateResults.plate.toUpperCase()} <br />
-                    <span className='font-weight-bold'>Vehicle: </span>{' '}
+                    <span className='font-weight-bold'>{lang.global.vehicle}: </span>{' '}
                     {plateResults.vehicle} <br />
-                    <span className='font-weight-bold'>Owner: </span>{' '}
+                    <span className='font-weight-bold'>{lang.record.owner}: </span>{' '}
                     {plateResults.owner} <br />
-                    <span className='font-weight-bold'>VIN Number: </span>{' '}
+                    <span className='font-weight-bold'>{lang.record.vin_number}: </span>{' '}
                     {plateResults.vin_number} <br />
-                    <span className='font-weight-bold'>Color: </span>{' '}
+                    <span className='font-weight-bold'>{lang.global.color}: </span>{' '}
                     {plateResults.color} <br />
-                    <span className='font-weight-bold'>Insurance Status: </span>
+                    <span className='font-weight-bold'>{lang.citizen.vehicle.status}: </span>
                     {plateResults.in_status} <br />
-                    <span className='font-weight-bold'>Company: </span>{' '}
+                    <span className='font-weight-bold'>{lang.citizen.weapon.company}: </span>{' '}
                     {plateResults.company} <br />
                   </div>
                 )}
@@ -123,10 +124,10 @@ export default class PlateSearchModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Search
+                  {lang.global.search}
                 </button>
               </div>
             </form>

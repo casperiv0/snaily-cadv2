@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import { handleRequest } from '../../functions';
 import { CircularProgress } from '@material-ui/core';
-
+import lang from "../../language.json"
 export default class EditAccountModal extends Component {
   constructor() {
     super();
@@ -70,7 +70,7 @@ export default class EditAccountModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Edit Password
+                {lang.auth.account.edit_password}
               </h5>
               <button
                 type='button'
@@ -84,7 +84,7 @@ export default class EditAccountModal extends Component {
               <div className='modal-body'>
                 {error ? <ErrorMessage message={error} /> : null}
                 <div className='form-group'>
-                  <label htmlFor='oldPassword'>Enter Old Password</label>
+                  <label htmlFor='oldPassword'>{lang.auth.enter_old_password}</label>
                   <input
                     type='password'
                     value={oldPassword}
@@ -95,7 +95,7 @@ export default class EditAccountModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='oldPassword'>Enter new Password</label>
+                  <label htmlFor='oldPassword'>{lang.auth.enter_password}</label>
                   <input
                     type='password'
                     value={newPassword}
@@ -106,7 +106,7 @@ export default class EditAccountModal extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='oldPassword'>Confirm Password</label>
+                  <label htmlFor='oldPassword'>{lang.auth.confirm_password}</label>
                   <input
                     type='password'
                     value={newPassword2}
@@ -122,14 +122,14 @@ export default class EditAccountModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <div className='loading-wrapper'>
                   <button
                     disabled={loading}
                     type='submit'
                     className='btn btn-primary'>
-                    Update Password
+                    {lang.auth.update_password}
                   </button>
                   {loading ? (
                     <CircularProgress
