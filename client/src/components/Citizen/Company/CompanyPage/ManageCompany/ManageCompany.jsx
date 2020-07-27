@@ -5,6 +5,7 @@ import CompanyVehicles from './CompanyVehicles';
 import CompanyPending from './CompanyPending';
 import SuccessMessage from "../../../../Partials/Messages/SuccessMessage"
 import EditCompany from "./EditCompany"
+import lang from "../../../../../language.json"
 
 export default class ManageCompany extends Component {
   constructor() {
@@ -31,7 +32,7 @@ export default class ManageCompany extends Component {
     return (
       <div className='container text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h3>Manage Company</h3>
+        <h3>{lang.citizen.company.manage_company}</h3>
 
         <ul className='nav nav-tabs mt-3' id='myTab' role='tablist'>
           <li className='nav-item mr-1' role='presentation'>
@@ -43,7 +44,7 @@ export default class ManageCompany extends Component {
               role='tab'
               aria-controls='home'
               aria-selected='true'>
-              Employees
+              {lang.citizen.company.employees}
             </a>
           </li>
           <li className='nav-item mr-1' role='presentation'>
@@ -55,7 +56,7 @@ export default class ManageCompany extends Component {
               role='tab'
               aria-controls='profile'
               aria-selected='false'>
-              Vehicles
+              {lang.admin.values.vehicles}
             </a>
           </li>
           <li className='nav-item mr-1' role='presentation'>
@@ -67,7 +68,7 @@ export default class ManageCompany extends Component {
               role='tab'
               aria-controls='contact'
               aria-selected='false'>
-              Pending Citizens
+              {lang.citizen.company.pending}
             </a>
           </li>
           <li className='nav-item mr-1' role='presentation'>
@@ -79,7 +80,7 @@ export default class ManageCompany extends Component {
               role='tab'
               aria-controls='contact'
               aria-selected='false'>
-              Edit Company
+              {lang.citizen.company.edit_company}
             </a>
           </li>
         </ul>

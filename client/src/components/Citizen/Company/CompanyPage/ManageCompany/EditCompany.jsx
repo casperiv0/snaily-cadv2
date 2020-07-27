@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../../language.json';
 
 export default class EditCompany extends Component {
   constructor() {
@@ -49,11 +50,8 @@ export default class EditCompany extends Component {
       },
     }).then((res) => {
       if (res.data.msg === 'Updated') {
-        sessionStorage.setItem(
-          'message',
-          'Successfully Updated Company'
-        );
-        return (window.location = "/citizen");
+        sessionStorage.setItem('message', lang.citizen.company.updated_company);
+        return (window.location = '/citizen');
       }
 
       this.setState({
@@ -71,7 +69,7 @@ export default class EditCompany extends Component {
       },
     }).then((res) => {
       if (res.data.msg === 'Deleted') {
-        sessionStorage.setItem('message', 'Successfully Deleted Your Company');
+        sessionStorage.setItem('message', lang.citizen.company.deleted_company);
         return (window.location = '/citizen');
       }
     });
@@ -94,7 +92,7 @@ export default class EditCompany extends Component {
         <form className='mt-2' onSubmit={this.onSubmit}>
           {error ? <ErrorMessage message={error} dismiss /> : null}
           <div className='form-group'>
-            <label htmlFor='business_name'>Company Name</label>
+            <label htmlFor='business_name'>{lang.citizen.company.name}</label>
             <input
               value={business_name}
               onChange={this.onChange}
@@ -104,7 +102,9 @@ export default class EditCompany extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='whitelisted'>Company whitelisted</label>
+            <label htmlFor='whitelisted'>
+              {lang.citizen.company.whitelisted}
+            </label>
             <select
               onChange={this.onChange}
               className='form-control bg-secondary border-secondary text-light'
@@ -112,12 +112,14 @@ export default class EditCompany extends Component {
               id='whitelisted'>
               <option value={current.whitelisted}>{current.whitelisted}</option>
               <option disabled>--------</option>
-              <option value='true'>Yes</option>
-              <option value='false'>No</option>
+              <option value='true'>{lang.global.yes}</option>
+              <option value='false'>{lang.global.no}</option>
             </select>
           </div>
           <div className='form-group'>
-            <label htmlFor='business_address'>Company Address</label>
+            <label htmlFor='business_address'>
+              {lang.citizen.company.address}
+            </label>
             <input
               onChange={this.onChange}
               className='form-control bg-secondary border-secondary text-light'
@@ -128,7 +130,7 @@ export default class EditCompany extends Component {
           </div>
           <div className='form-group float-right'>
             <button className='btn btn-primary' type='submit'>
-              Update Company
+              {lang.citizen.company.update_company}
             </button>
           </div>
         </form>
@@ -136,52 +138,9 @@ export default class EditCompany extends Component {
         <button
           type='button'
           className='btn btn-danger'
-          data-toggle='modal'
-          data-target='#deleteCompanyModal'>
-          Delete Company
+          onClick={this.deleteCompany}>
+          {lang.admin.company.delete_company}
         </button>
-
-        <div
-          className='modal fade'
-          id='deleteCompanyModal'
-          tabIndex='-1'
-          role='dialog'
-          aria-labelledby='deleteCompanyModal'
-          aria-hidden='true'>
-          <div className='modal-dialog'>
-            <div className='modal-content bg-dark border-dark text-light'>
-              <div className='modal-header'>
-                <h5 className='modal-title' id='deleteCompanyModal'>
-                  Delete Company "{current.business_name}"
-                </h5>
-                <button
-                  type='button'
-                  className='close text-light'
-                  data-dismiss='modal'
-                  aria-label='Close'>
-                  <span aria-hidden='true'>&times;</span>
-                </button>
-              </div>
-              <div className='modal-body'>
-                Are you sure you want to delete your company?
-              </div>
-              <div className='modal-footer'>
-                <button
-                  type='button'
-                  className='btn btn-secondary'
-                  data-dismiss='modal'>
-                  Cancel
-                </button>
-                <button
-                  type='button'
-                  onClick={this.deleteCompany}
-                  className='btn btn-danger'>
-                  Yes, Delete my company
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }

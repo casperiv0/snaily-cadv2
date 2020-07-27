@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import lang from "../../../../../language.json"
 
 export default class CompanyPostsArea extends Component {
   render() {
@@ -6,7 +7,7 @@ export default class CompanyPostsArea extends Component {
     return (
       <div className='mt-3 pb-5'>
         {!posts[0] ? (
-          <p>No Posts Found</p>
+          <p>{lang.citizen.company.no_posts}</p>
         ) : (
           posts.map((post, index) => {
             return (
@@ -14,9 +15,9 @@ export default class CompanyPostsArea extends Component {
                 <div className='card-header'>{post.title}</div>
                 <div className='card-body'>{post.description}</div>
                 <div className='card-footer'>
-                  <span className='font-weight-bold'>Uploaded At: </span>
+                  <span className='font-weight-bold'>{lang.citizen.company.uploaded_at}: </span>
                   {post.uploadedAt} |{' '}
-                  <span className='font-weight-bold'>Uploaded By: </span>
+                  <span className='font-weight-bold'>{lang.citizen.company.uploaded_by}: </span>
                   {post.uploadedBy}
                 </div>
               </div>
