@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.9
+
+- Fixed delete companies in admin panel
+
 ## 1.5.8
 
 - Fixed typo (Thanks to [tomasalves8](https://github.com/Dev-CasperTheGhost/snaily-cadv2/pull/25) ♥
