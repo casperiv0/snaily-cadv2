@@ -105,7 +105,9 @@
         "person": "Person",
         "vehicle": "Vehicle",
         "other": "Other",
-        "weapon": "Weapon"
+        "weapon": "Weapon",
+        "on_duty": "On-Duty",
+        "off_duty": "Off-Duty"
     },
     "bolos": {
         "remove_bolo": "Remove BOLO",
@@ -473,7 +475,15 @@
             "post_desc": "Enter Post Description",
             "created_post": "Successfully Created Post",
             "join": "Join Company",
-            "create": "Create Company"
+            "create": "Create Company",
+            "created_company": "Successfully created company",
+            "select_owner": "Select Owner",
+            "no_cit": "You don't have any citizens",
+            "joined": "Successfully Joined Company",
+            "awaiting": "You are awaiting access for this company",
+            "select_cit": "Select citizen",
+            "select_com": "Select Company",
+            "no_com": "There are no companies"
         }
     },
     "calls": {

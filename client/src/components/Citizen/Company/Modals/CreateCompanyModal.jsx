@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { backendURL } from '../../../../config/config';
-import Cookies from 'js-cookie';
-import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import React, { Component } from "react";
+import axios from "axios";
+import { backendURL } from "../../../../config/config";
+import Cookies from "js-cookie";
+import ErrorMessage from "../../../Partials/Messages/ErrorMessage";
+import lang from "../../../../language.json";
 
 export default class CreateCompanyModal extends Component {
   constructor() {
     super();
 
     this.state = {
-      companyName: '',
-      companyOwner: '',
-      whitelisted: 'false',
-      address: '',
+      companyName: "",
+      companyOwner: "",
+      whitelisted: "false",
+      address: "",
       loading: true,
-      error: '',
-      companyWhitelisted: '',
+      error: "",
+      companyWhitelisted: "",
     };
   }
 
@@ -29,10 +30,10 @@ export default class CreateCompanyModal extends Component {
     e.preventDefault();
 
     axios({
-      url: backendURL + '/company/create',
-      method: 'POST',
+      url: backendURL + "/company/create",
+      method: "POST",
       headers: {
-        'x-auth-snailycad-token': Cookies.get('__session'),
+        "x-auth-snailycad-token": Cookies.get("__session"),
       },
       data: {
         companyName: this.state.companyName,
@@ -43,12 +44,12 @@ export default class CreateCompanyModal extends Component {
     }).then((res) => {
       console.log(res.data);
 
-      if (res.data.msg === 'Company Created') {
+      if (res.data.msg === "Company Created") {
         sessionStorage.setItem(
-          'message',
-          'Successfully Created Company: ' + this.state.companyName
+          "message",
+          `${lang.citizen.company.created_company} ${this.state.companyName}`
         );
-        return (window.location = '/citizen');
+        return (window.location = "/citizen");
       }
 
       this.setState({
@@ -58,64 +59,67 @@ export default class CreateCompanyModal extends Component {
   };
 
   render() {
-    const { companyName, error, address,  } = this.state;
+    const { companyName, error, address } = this.state;
     return (
       <div
-        className='modal fade'
-        id='createCompanyModal'
-        tabIndex='-1'
-        role='dialog'
-        aria-labelledby='createCompanyModal'
-        aria-hidden='true'>
-        <div className='modal-dialog'>
-          <div className='modal-content bg-dark border-dark text-light'>
-            <div className='modal-header'>
-              <h5 className='modal-title' id='createCompanyModal'>
-                Create Company
+        className="modal fade"
+        id="createCompanyModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="createCompanyModal"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark border-dark text-light">
+            <div className="modal-header">
+              <h5 className="modal-title" id="createCompanyModal">
+                {lang.citizen.company.create}
               </h5>
               <button
-                type='button'
-                className='close text-light'
-                data-dismiss='modal'
-                aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
+                type="button"
+                className="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <form onSubmit={this.onSubmit}>
-              <div className='modal-body'>
+              <div className="modal-body">
                 {error ? <ErrorMessage message={error} /> : null}
-                <div className='form-group'>
-                  <label htmlFor='companyName'>Enter Company Name</label>
+                <div className="form-group">
+                  <label htmlFor="companyName">{lang.citizen.company.name}</label>
                   <input
-                    className='form-control bg-secondary border-secondary text-light'
-                    type='text'
-                    name='companyName'
-                    id='companyName'
+                    className="form-control bg-secondary border-secondary text-light"
+                    type="text"
+                    name="companyName"
+                    id="companyName"
                     value={companyName}
                     onChange={this.onChange}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='address'>Enter Company Address</label>
+                <div className="form-group">
+                  <label htmlFor="address">{lang.citizen.company.address}</label>
                   <input
-                    className='form-control bg-secondary border-secondary text-light'
-                    type='text'
-                    name='address'
-                    id='address'
+                    className="form-control bg-secondary border-secondary text-light"
+                    type="text"
+                    name="address"
+                    id="address"
                     value={address}
                     onChange={this.onChange}
                   />
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='companyName'>Select Company Owner</label>
+                <div className="form-group">
+                  <label htmlFor="companyName">{lang.citizen.company.select_owner}</label>
                   <select
-                    className='form-control bg-secondary border-secondary text-light'
-                    name='companyOwner'
+                    className="form-control bg-secondary border-secondary text-light"
+                    name="companyOwner"
                     onChange={this.onChange}
-                    id='companyOwner'>
-                    <option>Select Owner..</option>
+                    id="companyOwner"
+                  >
+                    <option>{lang.citizen.company.select_owner}..</option>
                     {!this.props.owners[0] ? (
-                      <option>You don't have any citizens!</option>
+                      <option>{lang.citizen.company.no_cit}</option>
                     ) : (
                       this.props.owners.map((owner, index) => {
                         return (
@@ -127,27 +131,29 @@ export default class CreateCompanyModal extends Component {
                     )}
                   </select>
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='whitelisted'>Company Whitelisted</label>
+                <div className="form-group">
+                  <label htmlFor="whitelisted">{lang.citizen.company.whitelisted}</label>
                   <select
-                    className='form-control bg-secondary border-secondary text-light'
-                    name='whitelisted'
-                    id='whitelisted'
-                    onChange={this.onChange}>
-                    <option value='false'>No</option>
-                    <option value='true'>Yes</option>
+                    className="form-control bg-secondary border-secondary text-light"
+                    name="whitelisted"
+                    id="whitelisted"
+                    onChange={this.onChange}
+                  >
+                    <option value="false">{lang.global.no}</option>
+                    <option value="true">{lang.global.yes}</option>
                   </select>
                 </div>
               </div>
-              <div className='modal-footer'>
+              <div className="modal-footer">
                 <button
-                  type='button'
-                  className='btn btn-secondary'
-                  data-dismiss='modal'>
-                  Cancel
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  {lang.global.cancel}
                 </button>
-                <button type='submit' className='btn btn-primary'>
-                  Create Company
+                <button type="submit" className="btn btn-primary">
+                  {lang.citizen.company.create}
                 </button>
               </div>
             </form>

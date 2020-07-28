@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import lang from "../../../../language.json";
 
 export default class JoinCompanyModal extends Component {
   constructor() {
@@ -38,11 +39,11 @@ export default class JoinCompanyModal extends Component {
       if (res.data.msg === 'pending') {
         sessionStorage.setItem(
           'message',
-          'You are awaiting access for this company.'
+          lang.citizen.company.awaiting
         );
         window.location = '/citizen';
       } else if (res.data.msg === 'Joined') {
-        sessionStorage.setItem('message', 'Successfully Joined Company!');
+        sessionStorage.setItem('message', lang.citizen.company.joined);
         window.location = '/citizen';
       } else {
         this.setState({
@@ -66,7 +67,7 @@ export default class JoinCompanyModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='joinCompanyModal'>
-                Join Company
+                {lang.citizen.company.join}
               </h5>
               <button
                 type='button'
@@ -80,15 +81,15 @@ export default class JoinCompanyModal extends Component {
             <div className='modal-body'>
               {error ? <ErrorMessage message={error} /> : null}
               <div className='form-group'>
-                <label htmlFor='citizen'>Select Citizen</label>
+                <label htmlFor='citizen'>{lang.citizen.company.select_cit}</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
                   name='citizenName'
                   id='citizenName'
                   onChange={this.onChange}>
-                  <option>Select Citizen..</option>
+                  <option>{lang.citizen.company.select_cit}</option>
                   {!this.props.citizens[0] ? (
-                    <option>You don't have any citizens!</option>
+                    <option>{lang.citizen.company.no_cit}!</option>
                   ) : (
                     this.props.citizens.map((citizen, index) => {
                       return (
@@ -101,15 +102,15 @@ export default class JoinCompanyModal extends Component {
                 </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='company'>Select Company</label>
+                <label htmlFor='company'>{lang.citizen.company.select_com}</label>
                 <select
                   className='form-control bg-secondary border-secondary text-light'
                   name='company'
                   id='company'
                   onChange={this.onChange}>
-                  <option>Select Company..</option>
+                  <option>{lang.citizen.company.select_com}</option>
                   {!this.props.companies[0] ? (
-                    <option>There are no companies!</option>
+                    <option>{lang.citizen.company.no_com}!</option>
                   ) : (
                     this.props.companies.map((company, index) => {
                       return (
@@ -127,10 +128,10 @@ export default class JoinCompanyModal extends Component {
                 type='button'
                 className='btn btn-secondary'
                 data-dismiss='modal'>
-                Cancel
+                {lang.global.cancel}
               </button>
               <button type='submit' className='btn btn-primary'>
-                Join Company
+                {lang.citizen.company.join}
               </button>
             </div>
             </form>

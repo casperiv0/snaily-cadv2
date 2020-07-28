@@ -92,8 +92,8 @@ class EditOfficerStatusModal extends Component {
                     onChange={this.onChange}>
                     <option value={status}>{status}</option>
                     <option disabled>--------</option>
-                    <option value='on-duty'>On-duty</option>
-                    <option value='off-duty'>Off-duty</option>
+                    <option value='on-duty'>{lang.global.on_duty}</option>
+                    <option value='off-duty'>{lang.global.off_duty}</option>
                   </select>
                 </div>
                 <div className='form-group'>
