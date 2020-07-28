@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { backendURL } from '../../../../../../config/config';
+import lang from '../../../../../../language.json';
 
 export default class EditEmployee extends Component {
   constructor() {
@@ -41,7 +42,7 @@ export default class EditEmployee extends Component {
         if (res.data.msg === 'Updated') {
           sessionStorage.setItem(
             'company-message',
-            'Successfully Updated ' + this.state.current.full_name
+            `${lang.citizen.company.update_em} ${this.state.current.full_name}`
           );
           return (window.location = `/company/${this.props.match.params.citizenId}/${this.props.match.params.company}/manage`);
         } else {
@@ -83,14 +84,14 @@ export default class EditEmployee extends Component {
     let message;
 
     if (current.rank === 'owner') {
-      message = "You can't modify the owners rank!";
+      message = `${lang.citizen.company.owner_rank}!`;
     }
 
     return (
       <div className='container mt-3 text-light'>
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label htmlFor='employeeRank'>Select Rank</label>
+            <label htmlFor='employeeRank'>{lang.global.rank}</label>
             {message ? (
               <p>{message}</p>
             ) : (
@@ -103,14 +104,18 @@ export default class EditEmployee extends Component {
                 onChange={this.onChange}>
                 <option value={current.rank}>{current.rank}</option>
                 <option value='--------'>--------</option>
-                <option value='manager'>Manager</option>
-                <option value='employee'>Employee</option>
+                <option value='manager'>{lang.citizen.company.manager}</option>
+                <option value='employee'>
+                  {lang.citizen.company.employee}
+                </option>
               </select>
             )}
           </div>
 
           <div className='form-group'>
-            <label htmlFor='vehicleReg'>Can Register Company Vehicles</label>
+            <label htmlFor='vehicleReg'>
+              {lang.citizen.company.can_reg_veh}
+            </label>
             <select
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -120,13 +125,15 @@ export default class EditEmployee extends Component {
               onChange={this.onChange}>
               <option value={current.vehicle_reg}>{current.vehicle_reg}</option>
               <option value='--------'>--------</option>
-              <option value='true'>Yes</option>
-              <option value='false'>No</option>
+              <option value='true'>{lang.global.yes}</option>
+              <option value='false'>{lang.global.no}</option>
             </select>
           </div>
 
           <div className='form-group'>
-            <label htmlFor='vehicleReg'>Can Create Company Posts</label>
+            <label htmlFor='vehicleReg'>
+              {lang.citizen.company.can_create_post}
+            </label>
             <select
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -136,8 +143,8 @@ export default class EditEmployee extends Component {
               onChange={this.onChange}>
               <option value={current.posts}>{current.posts}</option>
               <option value='--------'>--------</option>
-              <option value='true'>Yes</option>
-              <option value='false'>No</option>
+              <option value='true'>{lang.global.yes}</option>
+              <option value='false'>{lang.global.no}</option>
             </select>
           </div>
 
@@ -145,10 +152,10 @@ export default class EditEmployee extends Component {
             <a
               className='btn btn-danger'
               href={`/company/${this.props.match.params.citizenId}/${this.props.match.params.company}/manage`}>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary ml-2' type='submit'>
-              Update Employee
+              {lang.global.update}
             </button>
           </div>
         </form>

@@ -25,6 +25,7 @@ class CitizensDetailPage extends Component {
       this.setState({
         loading: false,
       });
+      document.title = `Viewing ${this.props.citizen.full_name}`;
     }, 100);
   }
 
@@ -32,8 +33,8 @@ class CitizensDetailPage extends Component {
     const { loading } = this.state;
     const citizen = this.props.citizen;
 
-    if(loading) {
-      return <LoadingArea />
+    if (loading) {
+      return <LoadingArea />;
     }
 
     return (

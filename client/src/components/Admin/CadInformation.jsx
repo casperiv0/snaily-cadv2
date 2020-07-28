@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../language.json';
 
 export default class CadInformation extends Component {
   constructor() {
@@ -62,26 +63,26 @@ export default class CadInformation extends Component {
       <div className='text-light col-md-9'>
         <div className='row'>
           <div className='col-6 text-center'>
-            <h4>Total Members </h4>
+            <h4>{lang.admin.info.tot_mem}</h4>
             <h3>{users}</h3>
           </div>
           <div className='col-6 text-center'>
-            <h4>Total Citizens </h4>
+            <h4>{lang.admin.info.tot_cit}</h4>
             <h3>{citizens}</h3>
           </div>
         </div>
 
         <div className='row mt-5'>
           <div className='col-4 text-center'>
-            <h4>Registered Weapons</h4>
+            <h4>{lang.admin.info.reg_weapons}</h4>
             <h3>{weapons}</h3>
           </div>
           <div className='col-4 text-center'>
-            <h4>Registered Vehicles</h4>
+            <h4>{lang.admin.info.reg_vehicles}</h4>
             <h3>{vehicles}</h3>
           </div>
           <div className='col-4 text-center'>
-            <h4>Registered Companies</h4>
+            <h4>{lang.admin.info.reg_companies}</h4>
             <h3>{companies}</h3>
           </div>
         </div>
@@ -89,15 +90,15 @@ export default class CadInformation extends Component {
         {/* 3rd Row */}
         <div className='row  mt-5 '>
           <div className='col-4 text-center'>
-            <h4>Total Tickets</h4>
+            <h4>{lang.admin.info.tot_tick}</h4>
             <h3>{tickets}</h3>
           </div>
           <div className='col-4 text-center'>
-            <h4>Total Arrest Reports</h4>
+            <h4>{lang.admin.info.tot_arr_rep}</h4>
             <h3>{arrestReports}</h3>
           </div>
           <div className='col-4 text-center'>
-            <h4>Total Bolos</h4>
+            <h4>{lang.admin.info.tot_bol}</h4>
             <h3>{bolos}</h3>
           </div>
         </div>

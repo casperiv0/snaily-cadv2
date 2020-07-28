@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../../Partials/LoadingArea';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class Vehicles extends Component {
   constructor() {
@@ -47,7 +48,7 @@ export default class Vehicles extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Gender'
+            lang.admin.values.vehicle.delete_veh
           );
           return (window.location = '/admin/vehicles');
         }
@@ -87,11 +88,11 @@ export default class Vehicles extends Component {
       <div className='container text-light col-md-9'>
         {message ? <SuccessMessage dismiss message={message} /> : null}
         <h3>
-          Manage Vehicles - <a href='/admin/vehicles/add'>+</a>
+          {lang.admin.values.vehicle.manage_veh} - <a href='/admin/vehicles/add'>+</a>
         </h3>
 
         <div className='mt-3'>
-          <h5>Default Vehicles ({defaultVehicles.length}) </h5>
+          <h5>{lang.admin.values.vehicle.default_veh} ({defaultVehicles.length}) </h5>
           <button
             className='btn btn-primary col mb-2'
             type='button'
@@ -99,7 +100,7 @@ export default class Vehicles extends Component {
             data-target='#collapseExample'
             aria-expanded='false'
             aria-controls='collapseExample'>
-            Show Default Vehicles
+            {lang.admin.values.vehicle.show_default_veh}
           </button>
           <div className='collapse' id='collapseExample'>
             {defaultVehicles.map((vehicle, index) => {
@@ -116,10 +117,10 @@ export default class Vehicles extends Component {
         </div>
 
         <div className='mt-5'>
-          <h5>Custom Added Vehicles ({nonDefaultVehicles.length})</h5>
+          <h5>{lang.admin.values.vehicle.custom_veh} ({nonDefaultVehicles.length})</h5>
           <ul className='list-group mt-3' id='nonDefaultVehicles'>
             {!nonDefaultVehicles[0] ? (
-              <ErrorMessage message="You Don't have any vehicles, Add one by clicking the plus symbol above" />
+              <ErrorMessage message={lang.admin.values.vehicle.no_veh} />
             ) : (
               nonDefaultVehicles.map((vehicle, index) => {
                 return (
@@ -133,14 +134,14 @@ export default class Vehicles extends Component {
                       <a
                         href={'/admin/vehicles/edit/' + vehicle.id}
                         className='btn btn-success mr-2'>
-                        Edit
+                        {lang.global.edit}
                       </a>
                       <button
                         onClick={() => {
                           this.deleteVehicle(vehicle.id);
                         }}
                         className='btn btn-danger'>
-                        Delete
+                         {lang.global.delete}
                       </button>
                     </div>
                   </li>

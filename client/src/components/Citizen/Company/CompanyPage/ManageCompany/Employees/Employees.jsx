@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import LoadingArea from '../../../../../Partials/LoadingArea';
+import lang from '../../../../../../language.json';
 
 export default class Employees extends Component {
   constructor() {
@@ -63,7 +64,7 @@ export default class Employees extends Component {
     return (
       <ul className='list-group mt-2'>
         {!employees[0] ? (
-          <p>No Employees Found</p>
+          <p>{lang.citizen.company.no_em}</p>
         ) : (
           employees.map((employee, index) => {
             return (
@@ -73,18 +74,20 @@ export default class Employees extends Component {
                 <div>
                   {++index} | {employee.full_name}
                   <div>
-                    <span className='font-weight-bold'>Rank: </span>
+                    <span className='font-weight-bold'>
+                      {lang.global.rank}:{' '}
+                    </span>
                     {employee.rank}
                   </div>
                   <div>
                     <span className='font-weight-bold'>
-                      Can Register Company Vehicles:{' '}
+                      {lang.citizen.company.can_reg_veh}:{' '}
                     </span>
                     {employee.vehicle_reg}
                   </div>
                   <div>
                     <span className='font-weight-bold'>
-                      Can Create Company Posts:{' '}
+                      {lang.citizen.company.can_create_post}:{' '}
                     </span>
                     {employee.posts}
                   </div>
@@ -93,7 +96,7 @@ export default class Employees extends Component {
                   <a
                     className='btn btn-success '
                     href={this.props.companyURL + '/manage/' + employee.id}>
-                    Manage Employee
+                    {lang.citizen.company.manage_em}
                   </a>
                   {employee.rank === 'employee' ? (
                     <button
@@ -102,7 +105,7 @@ export default class Employees extends Component {
                       onClick={() => {
                         this.fireEmployee(employee.id, employee.full_name);
                       }}>
-                      Fire Employee
+                      {lang.citizen.company.fire_em}
                     </button>
                   ) : null}
                 </div>

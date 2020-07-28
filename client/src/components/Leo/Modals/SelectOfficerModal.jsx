@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { setOnDuty } from '../../../actions/officerActions';
 import { setMessage } from '../../../actions/messageActions';
+import lang from "../../../language.json";
 
 class SelectOfficerModal extends Component {
   constructor() {
@@ -41,7 +42,7 @@ class SelectOfficerModal extends Component {
     Cookies.set("on-duty-officerId", officerId);
     document.getElementById('closeSelectOfficerModal').click();
     this.props.setOnDuty(officerId);
-    this.props.setMessage('Successfully set status to 10-8');
+    this.props.setMessage(lang.officers.on_duty_success);
   };
 
   onChange = (e) => {
@@ -68,7 +69,7 @@ class SelectOfficerModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='selectOfficerModal'>
-                Please select an officer before continuing
+                {lang.officers.select_officer_msg}
               </h5>
               <button
                 type='button'
@@ -83,16 +84,16 @@ class SelectOfficerModal extends Component {
               <div className='modal-body'>
                 <div className='form-group'>
                   <label htmlFor='selectedOfficer'>
-                    Select an officer to go on-duty
+                    {lang.officers.select_officer}
                   </label>
                   <select
                     className='form-control bg-secondary border-secondary text-light'
                     name='selectedOfficer'
                     id='selectedOfficer'
                     onChange={this.onChange}>
-                    <option value=''>Select Officer</option>
+                    <option value=''>{lang.officers.select_officer2}</option>
                     {!officers[0] ? (
-                      <option>You don't have any officers.</option>
+                      <option>{lang.officers.no_officers}</option>
                     ) : (
                       officers.map((officer, index) => {
                         return (
@@ -110,15 +111,15 @@ class SelectOfficerModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 {!officers[0] ? (
                   <a href='/leo/myofficers/create' className='btn btn-primary'>
-                    Create an officer
+                    {lang.officers.create_an_officer}
                   </a>
                 ) : (
                   <button type='submit' className='btn btn-primary'>
-                    Go on-duty
+                    {lang.global.go_on_duty}
                   </button>
                 )}
               </div>
@@ -132,5 +133,5 @@ class SelectOfficerModal extends Component {
 
 export default connect(null, {
   setOnDuty,
-  setMessage
+  setMessage,
 })(SelectOfficerModal);

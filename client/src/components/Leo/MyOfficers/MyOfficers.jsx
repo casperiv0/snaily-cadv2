@@ -4,6 +4,7 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
+import lang from "../../../language.json"
 
 export default class MyOfficers extends Component {
   constructor() {
@@ -42,7 +43,7 @@ export default class MyOfficers extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'leo-message',
-            'Successfully Deleted ' + officerName
+            `${lang.officers.delete_officer_success} ${officerName}`
           );
           return (window.location = '/leo/myofficers');
         }
@@ -65,14 +66,14 @@ export default class MyOfficers extends Component {
     return (
       <div className='container text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h3>My Officers</h3>
+        <h3>{lang.officers.my_officers}</h3>
         <a className='btn btn-primary container' href='/leo/dash'>
-          Back to dashboard
+          {lang.global.back_to_dashboard}
         </a>
         <a
           className='btn btn-primary container mt-2 mb-2'
           href='/leo/myofficers/create'>
-          Create Officer
+          {lang.officers.create_an_officer}
         </a>
 
         <ul className='list-group'>
@@ -93,7 +94,7 @@ export default class MyOfficers extends Component {
                       onClick={() => {
                         this.deleteOfficer(officer.id, officer.officer_name);
                       }}>
-                      Delete Officer
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

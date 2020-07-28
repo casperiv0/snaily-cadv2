@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { backendURL } from '../../../../config/config';
 import BanHammerArea from './BanHammerArea';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class AdminEditMember extends Component {
   constructor() {
@@ -23,7 +24,7 @@ export default class AdminEditMember extends Component {
       message2: '',
       banned: '',
       ban_reason: '',
-      id: 0
+      id: 0,
     };
   }
 
@@ -38,10 +39,9 @@ export default class AdminEditMember extends Component {
       .then((res) => {
         if (res.data.msg === 'Not Found') {
           sessionStorage.setItem('admin-message', "Member wasn't found.");
-          window.location = "/admin/manage/members";
-        };
+          window.location = '/admin/manage/members';
+        }
 
-        
         const user = res.data.user[0];
         this.setState({
           rank: user.rank,
@@ -53,7 +53,7 @@ export default class AdminEditMember extends Component {
           currentUsername: res.data.current,
           banned: user.banned,
           ban_reason: user.ban_reason,
-          id: user.id
+          id: user.id,
         });
         document.title = 'Editing: ' + res.data.user[0].username;
       })
@@ -142,18 +142,18 @@ export default class AdminEditMember extends Component {
     let message2 = '';
 
     if (rank === 'owner') {
-      message2 = "You can't modify the owners rank";
+      message2 = lang.admin.member.owner;
     } else if (username === currentUsername) {
-      message2 = "You can't modify your own rank";
+      message2 = lang.admin.member.own_rank;
     }
 
     return (
       <div className='container-fluid col text-light'>
-        {message ?  <SuccessMessage message={message} dismiss /> : null}
+        {message ? <SuccessMessage message={message} dismiss /> : null}
 
-        <form onSubmit={this.onSubmit} className="pb-5">
+        <form onSubmit={this.onSubmit} className='pb-5'>
           <div className='form-group'>
-            <label htmlFor='rank'>User Rank</label>
+            <label htmlFor='rank'>{lang.global.rank}</label>
             {/* Validate */}
             {message2 ? (
               <p> {message2} </p>
@@ -167,14 +167,14 @@ export default class AdminEditMember extends Component {
                 <option disabled value=''>
                   --------
                 </option>
-                <option value='No Rank'>Remove Rank</option>
-                <option value='moderator'>Moderator</option>
-                <option value='admin'>Admin</option>
+                <option value='No Rank'>{lang.admin.member.remove_rank}</option>
+                <option value='moderator'>{lang.admin.member.moderator}</option>
+                <option value='admin'>{lang.admin.member.admin}</option>
               </select>
             )}
           </div>
           <div className='form-group'>
-            <label htmlFor='leo'>Police Access</label>
+            <label htmlFor='leo'>{lang.auth.account.police_access}</label>
             <select
               name='leo'
               id='leo'
@@ -184,12 +184,12 @@ export default class AdminEditMember extends Component {
               <option disabled value=''>
                 --------
               </option>
-              <option value='yes'>Yes</option>
-              <option value='no'>No</option>
+              <option value='yes'>{lang.global.yes}</option>
+              <option value='no'>{lang.global.no}</option>
             </select>
           </div>
           <div className='form-group'>
-            <label htmlFor='ems_fd'>EMS/FD Access</label>
+            <label htmlFor='ems_fd'>{lang.auth.account.ems_fd_access}</label>
             <select
               name='ems_fd'
               id='ems_fd'
@@ -199,12 +199,14 @@ export default class AdminEditMember extends Component {
               <option disabled value=''>
                 --------
               </option>
-              <option value='yes'>Yes</option>
-              <option value='no'>No</option>
+              <option value='yes'>{lang.global.yes}</option>
+              <option value='no'>{lang.global.no}</option>
             </select>
           </div>
           <div className='form-group'>
-            <label htmlFor='dispatch'>Dispatch Access</label>
+            <label htmlFor='dispatch'>
+              {lang.auth.account.dispatch_access}
+            </label>
             <select
               name='dispatch'
               id='dispatch'
@@ -214,14 +216,14 @@ export default class AdminEditMember extends Component {
               <option disabled value=''>
                 --------
               </option>
-              <option value='yes'>Yes</option>
-              <option value='no'>No</option>
+              <option value='yes'>{lang.global.yes}</option>
+              <option value='no'>{lang.global.no}</option>
             </select>
           </div>
 
           {cad.tow_whitelisted === 'false' ? null : (
             <div className='form-group'>
-              <label htmlFor='tow'>Tow Access</label>
+              <label htmlFor='tow'>{lang.auth.account.tow_access}</label>
               <select
                 name='tow'
                 id='tow'
@@ -231,32 +233,32 @@ export default class AdminEditMember extends Component {
                 <option disabled value=''>
                   --------
                 </option>
-                <option value='yes'>Yes</option>
-                <option value='no'>No</option>
+                <option value='yes'>{lang.global.yes}</option>
+                <option value='no'>{lang.global.no}</option>
               </select>
             </div>
           )}
 
           <div className='form-group float-right'>
             <a className='btn btn-danger mr-2' href='/admin/manage/members'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button type='submit' className='btn btn-primary'>
-              Update Permissions
+              {lang.admin.update_perms}
             </button>
           </div>
         </form>
 
         {/* Ban Hammer Area */}
-        <div className="mt-5">
-        <BanHammerArea
-          username={username}
-          currentUsername={currentUsername}
-          rank={rank}
-          banned={this.state.banned}
-          ban_reason={this.state.ban_reason}
-          id={this.state.id}
-        />
+        <div className='mt-5'>
+          <BanHammerArea
+            username={username}
+            currentUsername={currentUsername}
+            rank={rank}
+            banned={this.state.banned}
+            ban_reason={this.state.ban_reason}
+            id={this.state.id}
+          />
         </div>
       </div>
     );

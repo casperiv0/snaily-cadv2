@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import lang from "../../language.json"
 
 export default class CitizenBox extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class CitizenBox extends Component {
           {fullName}
 
           <div className="float-right">
-              <Link to={"/citizen/"+id} className="btn btn-primary">More Info</Link>
+              <Link to={"/citizen/"+id} className="btn btn-primary">{lang.citizen.more_info}</Link>
           </div>
       </div>
     );

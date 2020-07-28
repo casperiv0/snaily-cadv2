@@ -3,6 +3,7 @@ import { backendURL } from '../../../config/config';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import LoadingArea from "../../Partials/LoadingArea"
+import lang from "../../../language.json"
 
 export default class RegisteredWeapons extends Component {
   constructor() {
@@ -42,7 +43,7 @@ export default class RegisteredWeapons extends Component {
       },
     }).then((res) => {
       if (res.data.msg === 'Deleted Weapon') {
-        sessionStorage.setItem('message', 'Successfully Deleted Weapon!');
+        sessionStorage.setItem('message', lang.citizen.weapon.deleted_weapon);
         return (window.location = '/citizen');
       }
     });
@@ -63,14 +64,14 @@ export default class RegisteredWeapons extends Component {
     return (
       <div className='list-group-item list-group-item-action bg-dark text-light border-dark mt-1'>
         <div className='d-flex'>
-          <h5 className='mb-1'>Registered Weapons:</h5>
+          <h5 className='mb-1'>{lang.citizen.weapon.reged_weapons}:</h5>
         </div>
 
         {!weapons[0] ? (
           <li className='list-group-item bg-secondary border-secondary mt-2 d-flex justify-content-between'>
-            No Weapons Registered
+            {lang.citizen.weapon.no_weapons}
             <a href='/weapons/register' className='btn btn-primary'>
-              Register a Weapon
+              {lang.citizen.weapon.reg_a_weapon}
             </a>
           </li>
         ) : (
@@ -82,7 +83,7 @@ export default class RegisteredWeapons extends Component {
               data-target='#registeredWeapons'
               aria-expanded='false'
               aria-controls='collapseExample'>
-              Toggle Registered Weapons
+              {lang.citizen.weapon.toggle_weapon}
             </button>
             <div className='collapse mt-2' id='registeredWeapons'>
               {weapons.map((weapon, index) => (
@@ -94,23 +95,23 @@ export default class RegisteredWeapons extends Component {
                     <span className='font-weight-bold'>{weapon.weapon}</span>
                     <br />
                     {/* Serial Number */}
-                    <span className='font-weight-bold'>Serial Number: </span>
+                    <span className='font-weight-bold'>{lang.citizen.weapon.serial_number}: </span>
                     <span className='uppercase font-weight-normal'>
                       {weapon.serial_number}
                     </span>
                     <br />
                     {/* Status */}
-                    <span className='font-weight-bold'>Weapon Status:</span>
+                    <span className='font-weight-bold'>{lang.citizen.weapon.status}:</span>
                     <span> {weapon.status}</span> <br />
                   </div>
 
                   {/* actions */}
-                  <div className=''>
+                  <div>
                     <a
                       href='#deleteWeapon'
                       onClick={() => this.deleteWeapon(weapon.id)}
                       className='btn btn-danger ml-2'>
-                      Delete
+                      {lang.global.delete}
                     </a>
                   </div>
                 </li>

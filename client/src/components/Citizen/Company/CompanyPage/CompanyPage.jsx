@@ -4,6 +4,7 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../../Partials/LoadingArea';
 import CompanyPostsArea from './Posts/CompanyPostsArea';
+import lang from "../../../../language.json"
 
 export default class CompanyPage extends Component {
   constructor() {
@@ -88,11 +89,11 @@ export default class CompanyPage extends Component {
             <a
               className='btn btn-primary mr-2'
               href={companyUrl + '/create-post'}>
-              Create A Post
+              {lang.citizen.company.create_a_post}
             </a>
             {citizen.rank === 'manager' || citizen.rank === 'owner' ? (
               <a className='btn btn-secondary' href={companyUrl + '/manage'}>
-                Manage Company
+                {lang.citizen.company.manage_company}
               </a>
             ) : null}
           </div>

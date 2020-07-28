@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setMessage } from '../../actions/messageActions';
 import { create911Call } from '../../actions/911CallsActions';
+import lang from '../../language.json';
 
 class callEmergencyServices extends Component {
   constructor() {
@@ -32,7 +33,7 @@ class callEmergencyServices extends Component {
 
     document.getElementById('closeCall911').click();
 
-    this.props.setMessage('Successfully created 911 call');
+    this.props.setMessage(lang.citizen.call_created);
 
     this.setState({
       description: '',
@@ -55,7 +56,7 @@ class callEmergencyServices extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Call Emergency Services
+                {lang.citizen.call_911}
               </h5>
               <button
                 type='button'
@@ -69,7 +70,9 @@ class callEmergencyServices extends Component {
             <form onSubmit={this.create911Call}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputEmail1'>Call Description</label>
+                  <label htmlFor='exampleInputEmail1'>
+                    {lang.dispatch.call_desc}
+                  </label>
                   <textarea
                     name='description'
                     id='description'
@@ -82,7 +85,9 @@ class callEmergencyServices extends Component {
                     required></textarea>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputEmail1'>Caller Name</label>
+                  <label htmlFor='exampleInputEmail1'>
+                    {lang.dispatch.caller_name}
+                  </label>
                   <input
                     type='text'
                     className='form-control bg-secondary border-secondary text-light'
@@ -95,7 +100,9 @@ class callEmergencyServices extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='exampleInputPassword1'>Caller Location</label>
+                  <label htmlFor='exampleInputPassword1'>
+                    {lang.dispatch.caller_location}
+                  </label>
                   <input
                     required
                     type='text'
@@ -113,10 +120,10 @@ class callEmergencyServices extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Call
+                  {lang.global.call}
                 </button>
               </div>
             </form>
@@ -127,4 +134,6 @@ class callEmergencyServices extends Component {
   }
 }
 
-export default connect(null, { create911Call, setMessage })(callEmergencyServices);
+export default connect(null, { create911Call, setMessage })(
+  callEmergencyServices
+);

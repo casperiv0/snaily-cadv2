@@ -4,13 +4,14 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class LegalStatuses extends Component {
   constructor() {
     super();
     this.state = {
       statuses: [],
-      message: sessionStorage.getItem("admin-message")
+      message: sessionStorage.getItem('admin-message'),
     };
   }
 
@@ -43,7 +44,7 @@ export default class LegalStatuses extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Legal Status'
+            lang.admin.values.legal.delete_ls
           );
           return (window.location = '/admin/legal-statuses');
         }
@@ -64,20 +65,18 @@ export default class LegalStatuses extends Component {
   }
 
   render() {
-    const { statuses,message } = this.state;
-    
+    const { statuses, message } = this.state;
+
     return (
       <div className='container text-light col-md-9'>
-          {
-              message ? <SuccessMessage dismiss message={message} /> : null 
-          }
+        {message ? <SuccessMessage dismiss message={message} /> : null}
         <h3>
-          Manage Legal Statuses - <a href='/admin/legal-statuses/add'>+</a>
+          {  lang.admin.values.legal.manage_ls} - <a href='/admin/legal-statuses/add'>+</a>
         </h3>
 
         <ul className='list-group mt-3'>
           {!statuses[0] ? (
-            <ErrorMessage message="You Don't have any legal statuses, Add one by clicking the plus symbol above" />
+            <ErrorMessage message={lang.admin.values.legal.no_ls} />
           ) : (
             statuses.map((status, index) => {
               return (
@@ -89,14 +88,14 @@ export default class LegalStatuses extends Component {
                     <a
                       href={'/admin/legal-statuses/edit/' + status.id}
                       className='btn btn-success mr-2'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       onClick={() => {
                         this.deleteLegalStatus(status.id);
                       }}
                       className='btn btn-danger'>
-                      Delete
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

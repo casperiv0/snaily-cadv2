@@ -3,6 +3,7 @@ import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { handleRequest } from '../../../functions';
 import { connect } from 'react-redux';
 import { setMessage } from '../../../actions/messageActions';
+import lang from '../../../language.json';
 
 class AddMedicalRecords extends Component {
   constructor() {
@@ -26,7 +27,7 @@ class AddMedicalRecords extends Component {
     handleRequest(url, 'POST', data)
       .then((res) => {
         if (res.data.msg === 'Record Added') {
-          this.props.setMessage('Successfully added medical record');
+          this.props.setMessage(lang.citizen.medical.add_med);
           return (window.location = '/citizen');
         }
 
@@ -51,19 +52,19 @@ class AddMedicalRecords extends Component {
         className='container mt-3 text-light'>
         {error ? <ErrorMessage message={error} /> : null}
         <div className='form-group'>
-          <label htmlFor='type'>Select Type</label>
+          <label htmlFor='type'>{lang.citizen.medical.type}</label>
           <select
             name='type'
             className='form-control bg-secondary border-secondary text-light'
             onChange={this.onChange}>
-            <option value=''>Select Type...</option>
+            <option value=''>{lang.citizen.medical.type}</option>
             <option value='Allergy'>Allergy</option>
             <option value='Medication'>Medication</option>
             <option value='Health Problem'>Health Problem</option>
           </select>
         </div>
         <div className='form-group'>
-          <label htmlFor='shortInfo'>Enter Short Description</label>
+          <label htmlFor='shortInfo'>{lang.citizen.medical.desc}</label>
           <textarea
             name='shortInfo'
             onChange={this.onChange}
@@ -78,10 +79,10 @@ class AddMedicalRecords extends Component {
           <a
             href={'/citizen/' + this.props.match.params.citizenId}
             className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button type='submit' className='btn btn-primary ml-2'>
-            Add Medical Record
+            {lang.citizen.medical.add}
           </button>
         </div>
       </form>

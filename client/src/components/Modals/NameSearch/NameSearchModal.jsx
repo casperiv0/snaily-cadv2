@@ -5,6 +5,7 @@ import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import LoadingArea from '../../Partials/LoadingArea';
+import lang from '../../../language.json';
 
 export default class NameSearchModal extends Component {
   constructor() {
@@ -93,19 +94,19 @@ export default class NameSearchModal extends Component {
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
-    }).then(res => {
-      if (res.data.msg === "Updated") {
-        sessionStorage.setItem("leo-message", "Successfully changed status on warrant");
-        return window.location = "/leo/dash"
+    }).then((res) => {
+      if (res.data.msg === 'Updated') {
+        sessionStorage.setItem('leo-message', lang.record.updated_warrant);
+        return (window.location = '/leo/dash');
       }
-    })
-  }
+    });
+  };
 
   updateName = (name) => {
     this.setState({
-      name: name
-    })
-  }
+      name: name,
+    });
+  };
 
   render() {
     const {
@@ -132,7 +133,7 @@ export default class NameSearchModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Name Search
+                {lang.global.name_search}
               </h5>
               <button
                 type='button'
@@ -145,7 +146,7 @@ export default class NameSearchModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='namSearchInput'>Enter Citizen Name</label>
+                  <label htmlFor='namSearchInput'>{lang.record.enter_name}</label>
                   <input
                     id='namSearchInput'
                     type='text'
@@ -157,7 +158,7 @@ export default class NameSearchModal extends Component {
                   />
                 </div>
                 {notFound ? (
-                  <ErrorMessage message='No Citizen Found With That Name' />
+                  <ErrorMessage message={lang.record.no_citizen} />
                 ) : null}
                 {loading ? <LoadingArea /> : null}
                 {!generalInfo.full_name ? null : (
@@ -178,10 +179,13 @@ export default class NameSearchModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
-                <button type='submit' id="nameSearchSubmitBtn" className='btn btn-primary'>
-                  Search
+                <button
+                  type='submit'
+                  id='nameSearchSubmitBtn'
+                  className='btn btn-primary'>
+                  {lang.global.search}
                 </button>
               </div>
             </form>

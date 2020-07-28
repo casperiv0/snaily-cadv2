@@ -4,13 +4,14 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class Weapons extends Component {
   constructor() {
     super();
     this.state = {
       weapons: [],
-      message: sessionStorage.getItem("admin-message")
+      message: sessionStorage.getItem('admin-message'),
     };
   }
 
@@ -43,7 +44,7 @@ export default class Weapons extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Weapon'
+            lang.admin.values.weapon.delete_wea
           );
           return (window.location = '/admin/weapons');
         }
@@ -64,20 +65,19 @@ export default class Weapons extends Component {
   }
 
   render() {
-    const { weapons,message } = this.state;
-    
+    const { weapons, message } = this.state;
+
     return (
       <div className='container text-light col-md-9'>
-          {
-              message ? <SuccessMessage dismiss message={message} /> : null 
-          }
+        {message ? <SuccessMessage dismiss message={message} /> : null}
         <h3>
-          Manage Weapons - <a href='/admin/weapons/add'>+</a>
+          {lang.admin.values.weapon.manage_wea} -{' '}
+          <a href='/admin/weapons/add'>+</a>
         </h3>
 
         <ul className='list-group mt-3'>
           {!weapons[0] ? (
-            <ErrorMessage message="You Don't have any weapons, Add one by clicking the plus symbol above" />
+            <ErrorMessage message={lang.admin.values.weapon.no_wea} />
           ) : (
             weapons.map((weapon, index) => {
               return (
@@ -89,14 +89,14 @@ export default class Weapons extends Component {
                     <a
                       href={'/admin/weapons/edit/' + weapon.id}
                       className='btn btn-success mr-2'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       onClick={() => {
                         this.deleteWeapon(weapon.id);
                       }}
                       className='btn btn-danger'>
-                      Delete
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

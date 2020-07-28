@@ -6,6 +6,7 @@ import SelectEmsFdModal from './Modals/SelectEmsFdModal';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import io from "socket.io-client";
 import { backendURL } from '../../../config/config';
+import lang from "../../../language.json";
 const socket = io(backendURL);
 
 class TopArea extends Component {
@@ -28,34 +29,34 @@ class TopArea extends Component {
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div className='card bg-dark mx-auto mb-4'>
           <div className='card-header text-light bolder d-flex justify-content-between'>
-            <h3>Utility Panel - AOP: {aop}</h3>
+            <h3>{lang.global.utility_panel} - AOP: {aop}</h3>
             <button
               onClick={() => {
                 document.location.reload();
               }}
               className='btn btn-secondary'>
-              Refresh
+              {lang.global.refresh}
             </button>
           </div>
           <div className='card-body row'>
             <a
               className='btn btn-primary bg-primary text-light mt-2'
               href='/ems-fd/deputies'>
-              My EMS/FD Deputies
+              {lang.ems_fd.my_ems_fd}
             </a>
 
             <button
               className='btn btn-secondary bg-secondary text-light mt-2 ml-2'
               data-target='#searchMedicalRecords'
               data-toggle='modal'>
-              Search Person Medical Record
+              {lang.global.medical_search}
             </button>
 
             <button
               className='btn text-light btn-secondary bg-secondary  ml-2 mt-2'
               data-target='#notepad'
               data-toggle='modal'>
-              Notepad
+              {lang.global.notepad}
             </button>
           </div>
           <EmsFdStatuses />

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../language.json';
 
 export default class AdminEditCitizen extends Component {
   constructor() {
@@ -108,7 +109,7 @@ export default class AdminEditCitizen extends Component {
         if (res.data.msg === 'Updated Citizen') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Updated ' + this.state.fullName
+            `${lang.citizen.update_success} ${this.state.fullName}`
           );
           return (window.location = '/admin/manage/citizens');
         }
@@ -142,7 +143,7 @@ export default class AdminEditCitizen extends Component {
         <form onSubmit={this.updateCitizen}>
           {/* Full Name */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Full Name</label>
+            <label htmlFor='fullName'>{lang.citizen.full_name}</label>
             <input
               disabled
               value={fullName}
@@ -153,7 +154,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Date of Birth */}
           <div className='form-group'>
-            <label htmlFor='fullName'> Date of Birth</label>
+            <label htmlFor='fullName'>{lang.citizen.date_of_birth}</label>
             <input
               value={birth}
               onChange={this.handleChange}
@@ -165,7 +166,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Ethnicity */}
           <div className='form-group'>
-            <label htmlFor='fullName'> Ethnicity</label>
+            <label htmlFor='fullName'>{lang.citizen.ethnicity}</label>
             <select
               name='ethnicity'
               value={ethnicity}
@@ -183,7 +184,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Gender */}
           <div className='form-group'>
-            <label htmlFor='gender'>Gender</label>
+            <label htmlFor='gender'>{lang.citizen.gender}</label>
             <select
               name='gender'
               id='gender'
@@ -203,7 +204,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Hair Color */}
           <div className='form-group'>
-            <label htmlFor='hairColor'> Hair Color</label>
+            <label htmlFor='hairColor'>{lang.citizen.hair_color}</label>
             <input
               value={hairColor}
               name='hairColor'
@@ -215,7 +216,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Eyes Color */}
           <div className='form-group'>
-            <label htmlFor='eyeColor'> Eye Color</label>
+            <label htmlFor='eyeColor'>{lang.citizen.eye_color}</label>
             <input
               value={eyeColor}
               name='eyeColor'
@@ -227,7 +228,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Address */}
           <div className='form-group'>
-            <label htmlFor='address'> Address</label>
+            <label htmlFor='address'>{lang.citizen.address}</label>
             <input
               value={address}
               name='address'
@@ -239,7 +240,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Height */}
           <div className='form-group'>
-            <label htmlFor='height'> Height</label>
+            <label htmlFor='height'>{lang.citizen.height}</label>
             <input
               value={height}
               name='height'
@@ -251,7 +252,7 @@ export default class AdminEditCitizen extends Component {
 
           {/* Weight */}
           <div className='form-group'>
-            <label htmlFor='weight'> Weight</label>
+            <label htmlFor='weight'>{lang.citizen.weight}</label>
             <input
               value={weight}
               name='weight'
@@ -262,13 +263,11 @@ export default class AdminEditCitizen extends Component {
           </div>
 
           <div className='form-group float-right'>
-            <a
-              className='btn btn-danger mr-2'
-              href='/admin/manage/citizens'>
-              Cancel
+            <a className='btn btn-danger mr-2' href='/admin/manage/citizens'>
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary' type='submit'>
-              Update Citizen
+              {lang.citizen.update_citizen}
             </button>
           </div>
         </form>

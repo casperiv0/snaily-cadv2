@@ -1,4 +1,4 @@
-![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-1.5.8-orange)
+![license](https://img.shields.io/badge/license-MIT-green) ![version](https://img.shields.io/badge/version-2.0.0-orange)
 
 # SnailyCADv2
 
@@ -69,6 +69,7 @@ You can report bugs [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/is
 - Tow Dashboard
 - Trucker Logs
 - Bleeter
+- Translate with ease
 
 - Administration
 

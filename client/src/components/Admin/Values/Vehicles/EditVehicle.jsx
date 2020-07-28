@@ -3,13 +3,14 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../language.json';
 
 export default class EditVehicle extends Component {
   constructor() {
     super();
 
     this.state = {
-        vehicle: '',
+      vehicle: '',
       error: '',
     };
   }
@@ -18,10 +19,7 @@ export default class EditVehicle extends Component {
     e.preventDefault();
 
     Axios({
-      url:
-        backendURL +
-        '/admin/vehicles/edit/' +
-        this.props.match.params.id,
+      url: backendURL + '/admin/vehicles/edit/' + this.props.match.params.id,
       method: 'PUT',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
@@ -34,7 +32,7 @@ export default class EditVehicle extends Component {
         if (res.data.msg === 'Updated') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Updated Gender'
+            lang.admin.values.vehicle.update_veh
           );
           return (window.location = '/admin/vehicles');
         }
@@ -59,7 +57,7 @@ export default class EditVehicle extends Component {
         console.log(res.data);
 
         this.setState({
-            vehicle: res.data.vehicle[0].cname,
+          vehicle: res.data.vehicle[0].cname,
         });
       })
       .catch((err) => console.log(err));
@@ -83,7 +81,9 @@ export default class EditVehicle extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <div className='form-group'>
-          <label htmlFor='vehicle'>Enter Vehicle</label>
+          <label htmlFor='vehicle'>
+            {lang.admin.values.vehicle.enter_name}
+          </label>
           <input
             type='text'
             name='vehicle'
@@ -95,10 +95,10 @@ export default class EditVehicle extends Component {
         </div>
         <div className='form-group float-right'>
           <a href='/admin/vehicles' className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button className='btn btn-primary ml-2' type='submit'>
-            Update Vehicle
+            {lang.global.update}
           </button>
         </div>
       </form>

@@ -3,6 +3,7 @@ import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../../../language.json';
 
 export default class PendingMembers extends Component {
   constructor() {
@@ -28,19 +29,14 @@ export default class PendingMembers extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'User Accepted') {
-          sessionStorage.setItem(
-            'admin-message',
-            'Successfully Accepted Member'
-          );
-          return window.location = "/admin/manage/members"
+          sessionStorage.setItem('admin-message', lang.admin.accepted_member);
+          return (window.location = '/admin/manage/members');
         }
       })
       .catch((err) => console.log(err));
   };
 
   declineUser = (memberId) => {
-    console.log(memberId);
-    
     Axios({
       url: backendURL + '/admin/members/decline/' + memberId,
       method: 'POST',
@@ -50,11 +46,8 @@ export default class PendingMembers extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'User Declined') {
-          sessionStorage.setItem(
-            'admin-message',
-            'Successfully Declined Member, Removing Account..'
-          );
-          return window.location = "/admin/manage/members";
+          sessionStorage.setItem('admin-message', lang.admin.declined_member);
+          return (window.location = '/admin/manage/members');
         }
       })
       .catch((err) => console.log(err));
@@ -65,13 +58,13 @@ export default class PendingMembers extends Component {
 
     return (
       <div className='mt-2'>
-        <h3>Pending Members</h3>
+        <h3>{lang.admin.pending_members}</h3>
 
         <ul className='list-group'>
           {!pendingMembers[0] ? (
-            <ErrorMessage message="There're no pending members " />
+            <ErrorMessage message={lang.admin.no_pending} />
           ) : (
-            pendingMembers.map((member, index) => {              
+            pendingMembers.map((member, index) => {
               return (
                 <li
                   key={index}
@@ -85,10 +78,10 @@ export default class PendingMembers extends Component {
                     <button
                       className='btn btn-success'
                       type='button'
-                      onClick={() => {                        
+                      onClick={() => {
                         this.acceptUser(member.id);
                       }}>
-                      Accept User
+                      {lang.global.accept}
                     </button>
                     <button
                       className='btn btn-danger ml-2'
@@ -96,7 +89,7 @@ export default class PendingMembers extends Component {
                       onClick={() => {
                         this.declineUser(member.id);
                       }}>
-                      Decline User
+                      {lang.global.decline}
                     </button>
                   </div>
                 </li>

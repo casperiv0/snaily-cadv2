@@ -7,6 +7,7 @@ import TowCallBox from './TowCallBox';
 import SuccessMessage from '../Partials/Messages/SuccessMessage';
 import io from 'socket.io-client';
 import { backendURL } from '../../config/config';
+import lang from "../../language.json";
 const socket = io(backendURL);
 
 class Tow extends Component {
@@ -34,12 +35,12 @@ class Tow extends Component {
     return (
       <div className='container-fluid text-light'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h2>Tow Dashboard - AOP: {aop} </h2>
+        <h2>{lang.tow.tow_dashboard} - AOP: {aop} </h2>
         <ul className='list-group'>
           <TopTowArea refresh={this.refresh} >
             {!towCalls[0] ? (
               <li className='list-group-item bg-dark border-secondary'>
-                No Active Calls
+                {lang.tow.no_calls}
               </li>
             ) : (
               towCalls.map((call, index) => (

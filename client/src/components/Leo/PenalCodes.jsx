@@ -5,6 +5,7 @@ import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import ReactMarkdown from 'react-markdown';
+import lang from "../../language.json"
 
 export default class PenalCodes extends Component {
   constructor() {
@@ -71,8 +72,8 @@ export default class PenalCodes extends Component {
     return (
       <div className='container-fluid mt-3 text-light'>
         <div className="d-flex justify-content-between mb-2">
-        <h3>Penal Codes</h3>
-        <a href="/leo/dash" className="btn btn-secondary">Back to Dashboard</a>
+        <h3>{lang.global.penal_codes}</h3>
+        <a href="/leo/dash" className="btn btn-secondary">{lang.officers.back_to_dash}</a>
         </div>
         <ul className='list-group'>
           <input

@@ -1,5 +1,5 @@
 import { handleRequest } from "../functions"
-import { GET_CITIZENS_BY_ACC, SET_MESSAGE, GET_CITIZENS_BY_ID } from "./types"
+import { GET_CITIZENS_BY_ACC, SET_MESSAGE, GET_CITIZENS_BY_ID, GET_ALL_CITIZENS } from "./types"
 
 export const getCitizensByAcc = () => dispatch => {
     handleRequest("/citizen", "GET")
@@ -44,5 +44,16 @@ export const deleteCitizenById = id => dispatch => {
             }
 
             console.log('There was an error deleting your citizen');
+        })
+}
+
+export const getAllCitizens = () => dispatch => {
+    handleRequest("/admin/citizens", "GET")
+        .then(res => {
+            if (res.data.citizens) {
+                return dispatch({ type: GET_ALL_CITIZENS, citizens: res.data.citizens })
+            }
+
+            console.log(res.data.msg);
         })
 }

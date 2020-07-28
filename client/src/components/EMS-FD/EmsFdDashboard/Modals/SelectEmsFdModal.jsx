@@ -4,6 +4,7 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { setOnDuty } from '../../../../actions/emsFdActions';
+import lang from '../../../../language.json';
 
 class SelectEmsFdModal extends Component {
   constructor() {
@@ -44,7 +45,7 @@ class SelectEmsFdModal extends Component {
     e.preventDefault();
 
     Cookies.set('on-duty-ems-fdId', this.state.deputyId);
-    document.getElementById("closeSelectEmsFdModal").click();
+    document.getElementById('closeSelectEmsFdModal').click();
     this.props.setOnDuty(this.state.deputyId);
   };
 
@@ -62,13 +63,13 @@ class SelectEmsFdModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='selectEmsFdModal'>
-                Please select a EMS/FD Deputy before continuing
+                {lang.ems_fd.select_dept}
               </h5>
               <button
                 type='button'
                 className='close text-light'
                 data-dismiss='modal'
-                id="closeSelectEmsFdModal"
+                id='closeSelectEmsFdModal'
                 aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -76,7 +77,7 @@ class SelectEmsFdModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='deputyId'>Select EMS/FD Deputy</label>
+                  <label htmlFor='deputyId'>{lang.ems_fd.select_dept_2}</label>
                   <select
                     name='deputyId'
                     id='deputyId'
@@ -84,7 +85,7 @@ class SelectEmsFdModal extends Component {
                     onChange={this.onChange}>
                     <option>Select Deputy..</option>
                     {!deputies[0] ? (
-                      <option>You don't have any deputies!</option>
+                      <option>{lang.ems_fd.no_dept} </option>
                     ) : (
                       deputies.map((deputy, index) => {
                         return (
@@ -102,17 +103,17 @@ class SelectEmsFdModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 {!deputies[0] ? (
                   <a
                     href='/ems-fd/deputies/create-deputy'
                     className='btn btn-primary'>
-                    Create a deputy
+                    {lang.ems_fd.create_ems}
                   </a>
                 ) : (
                   <button type='submit' className='btn btn-primary'>
-                    Go on-duty
+                    {lang.global.go_on_duty}
                   </button>
                 )}
               </div>

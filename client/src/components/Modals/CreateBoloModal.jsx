@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getBolos, createBolo } from '../../actions/boloActions';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
 import { setMessage } from '../../actions/messageActions';
+import lang from '../../language.json';
 
 class CreateBoloModal extends Component {
   constructor() {
@@ -65,7 +66,7 @@ class CreateBoloModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Create Bolo
+                {lang.global.create_bolo}
               </h5>
               <button
                 id='closeCreateBoloModal'
@@ -80,19 +81,19 @@ class CreateBoloModal extends Component {
               <div className='modal-body'>
                 {message ? <ErrorMessage message={message} dismiss /> : null}
                 <div className='form-group'>
-                  <label htmlFor='type'>Select Type</label>
+                  <label htmlFor='type'>{lang.citizen.medical.type}</label>
                   <select
                     className='form-control bg-secondary border-secondary text-light'
                     name='type'
                     id='type'
                     onChange={this.onChange}>
-                    <option value='person'>Person</option>
-                    <option value='vehicle'>Vehicle</option>
-                    <option value='other'>Other</option>
+                    <option value='person'>{lang.global.person}</option>
+                    <option value='vehicle'>{lang.global.vehicle}</option>
+                    <option value='other'>{lang.global.other}</option>
                   </select>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='name'>Enter Description</label>
+                  <label htmlFor='name'>{lang.global.description}</label>
                   <textarea
                     type='text'
                     name='boloDescription'
@@ -106,7 +107,7 @@ class CreateBoloModal extends Component {
                 {type === 'person' ? (
                   <div className='form-group'>
                     <label htmlFor='name'>
-                      Enter Person Name (If Possible)
+                      {lang.record.enter_per_name}
                     </label>
                     <input
                       type='text'
@@ -121,7 +122,7 @@ class CreateBoloModal extends Component {
                   <div>
                     <div className='form-group'>
                       <label htmlFor='plate'>
-                        Enter Vehicle Plate (If Possible)
+                        {lang.record.enter_plate}
                       </label>
                       <input
                         type='text'
@@ -134,7 +135,7 @@ class CreateBoloModal extends Component {
                     </div>
                     <div className='form-group'>
                       <label htmlFor='color'>
-                        Enter Vehicle Color (If Possible)
+                        {lang.record.enter_color}
                       </label>
                       <input
                         type='text'
@@ -153,13 +154,13 @@ class CreateBoloModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button
                   type='submit'
                   disabled={boloDescription === ''}
                   className='btn btn-primary'>
-                  Create Bolo
+                  {lang.global.create_bolo}
                 </button>
               </div>
             </form>

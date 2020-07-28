@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import lang from '../../../language.json';
 
 export default class MyDeputiesList extends Component {
   constructor() {
@@ -39,7 +40,7 @@ export default class MyDeputiesList extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'ems-fd-message',
-            'Successfully Deleted ' + deputyName
+            `${lang.ems_fd.deleted_dept} ${deputyName}`
           );
           return (window.location = '/ems-fd/deputies');
         }
@@ -65,8 +66,7 @@ export default class MyDeputiesList extends Component {
     if (!deputies[0]) {
       return (
         <div className='list-group-item mt-2 text-light bg-dark border-dark'>
-          You Don't have any EMS deputies. Create one{' '}
-          <a href='/ems-fd/deputies/create-deputy'>here</a>
+          {lang.ems_fd.no_ems}
         </div>
       );
     }
@@ -86,7 +86,7 @@ export default class MyDeputiesList extends Component {
                     this.deleteDeputy(deputy.id, deputy.name);
                   }}
                   type='button'>
-                  Delete Deputy
+                  {lang.global.delete}
                 </button>
               </div>
             </li>

@@ -3,7 +3,7 @@ import LoadingArea from '../../../../Partials/LoadingArea';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import ErrorMessage from "../../../../Partials/Messages/ErrorMessage"
-
+import lang from "../../../../../language.json"
 export default class CompanyVehicles extends Component {
   constructor() {
     super();
@@ -44,7 +44,7 @@ export default class CompanyVehicles extends Component {
     return (
       <ul className='list-group mt-2'>
         {!vehicles[0] ? (
-          <ErrorMessage message='There were no vehicles found.' />
+          <ErrorMessage message={lang.citizen.company.no_veh} />
         ) : (
           vehicles.map((vehicle, index) => {
             return (
@@ -54,11 +54,11 @@ export default class CompanyVehicles extends Component {
                 <div>
                   {++index} | {vehicle.vehicle}
                   <div>
-                    <span className='font-weight-bold'>Plate: </span>
+                    <span className='font-weight-bold'>{lang.global.plate}: </span>
                     {vehicle.plate.toUpperCase()}
                   </div>
                   <div>
-                    <span className='font-weight-bold'>Status: </span>
+                    <span className='font-weight-bold'>{lang.citizen.vehicle.status}: </span>
                     {vehicle.in_status}
                   </div>
                 </div>

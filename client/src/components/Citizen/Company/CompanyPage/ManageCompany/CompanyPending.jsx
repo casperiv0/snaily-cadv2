@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import LoadingArea from '../../../../Partials/LoadingArea';
 import ErrorMessage from '../../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../../language.json';
 
 export default class CompanyPending extends Component {
   constructor() {
@@ -42,12 +43,12 @@ export default class CompanyPending extends Component {
       },
     }).then((res) => {
       console.log(res.data);
-      if (res.data.msg === "Accepted") {
+      if (res.data.msg === 'Accepted') {
         sessionStorage.setItem(
           'company-message',
-          'Successfully Accepted ' + employeeName
+          `${lang.citizen.company.accepted} ${employeeName}`
         );
-        window.location = this.props.companyURL+"/manage"
+        window.location = this.props.companyURL + '/manage';
       }
     });
   };
@@ -61,13 +62,13 @@ export default class CompanyPending extends Component {
       },
     }).then((res) => {
       console.log(res.data);
-      
+
       if (res.data.msg === 'Declined') {
         sessionStorage.setItem(
           'company-message',
-          'Successfully Declined ' + employeeName
+          `${lang.citizen.company.declined} ${employeeName}`
         );
-        window.location = this.props.companyURL+"/manage"
+        window.location = this.props.companyURL + '/manage';
       }
     });
   };
@@ -86,7 +87,7 @@ export default class CompanyPending extends Component {
     return (
       <ul className='list-group mt-2'>
         {!pendingCitizens[0] ? (
-          <ErrorMessage message='There are no pending citizens.' />
+          <ErrorMessage message={lang.citizen.company.no_cit_pen} />
         ) : (
           pendingCitizens.map((citizen, index) => {
             return (
@@ -102,14 +103,14 @@ export default class CompanyPending extends Component {
                     onClick={() => {
                       this.declineCitizen(citizen.id, citizen.full_name);
                     }}>
-                    Decline
+                    {lang.global.decline}
                   </button>
                   <button
                     className='btn btn-success ml-2'
                     onClick={() => {
                       this.acceptCitizen(citizen.id, citizen.full_name);
                     }}>
-                    Accept
+                    {lang.global.accept}
                   </button>
                 </div>
               </li>

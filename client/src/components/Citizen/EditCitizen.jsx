@@ -3,6 +3,7 @@ import axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from '../../language.json';
 
 export default class EditCitizen extends Component {
   constructor() {
@@ -188,7 +189,7 @@ export default class EditCitizen extends Component {
 
         <form onSubmit={this.updateCitizen}>
           <div className='form-group'>
-            <label htmlFor='fullName'>Select Image</label>
+            <label htmlFor='image'>{lang.global.image}</label>
             <input
               type='file'
               onChange={this.handleFileChange}
@@ -196,12 +197,11 @@ export default class EditCitizen extends Component {
               id='image'
               className='form-control-file'
             />
-            <small>If none selected this will NOT overwrite your old one</small>
           </div>
 
           {/* Full Name */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Full Name</label>
+            <label htmlFor='fullName'>{lang.record.enter_full_name}</label>
             <input
               disabled
               value={fullName}
@@ -212,7 +212,7 @@ export default class EditCitizen extends Component {
 
           {/* Date of Birth */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Date of Birth</label>
+            <label htmlFor='fullName'>{lang.citizen.date_of_birth}</label>
             <input
               value={birth}
               onChange={this.handleChange}
@@ -224,7 +224,7 @@ export default class EditCitizen extends Component {
 
           {/* Ethnicity */}
           <div className='form-group'>
-            <label htmlFor='fullName'>Enter Ethnicity</label>
+            <label htmlFor='fullName'>{lang.citizen.ethnicity}</label>
             <select
               name='ethnicity'
               value={ethnicity}
@@ -242,7 +242,7 @@ export default class EditCitizen extends Component {
 
           {/* Gender */}
           <div className='form-group'>
-            <label htmlFor='gender'>Enter Gender</label>
+            <label htmlFor='gender'>{lang.citizen.gender}</label>
             <select
               name='gender'
               id='gender'
@@ -262,7 +262,7 @@ export default class EditCitizen extends Component {
 
           {/* Hair Color */}
           <div className='form-group'>
-            <label htmlFor='hairColor'>Enter Hair Color</label>
+            <label htmlFor='hairColor'>{lang.citizen.hair_color}</label>
             <input
               value={hairColor}
               name='hairColor'
@@ -274,7 +274,7 @@ export default class EditCitizen extends Component {
 
           {/* Eyes Color */}
           <div className='form-group'>
-            <label htmlFor='eyeColor'>Enter Eye Color</label>
+            <label htmlFor='eyeColor'>{lang.citizen.eye_color}</label>
             <input
               value={eyeColor}
               name='eyeColor'
@@ -286,7 +286,7 @@ export default class EditCitizen extends Component {
 
           {/* Address */}
           <div className='form-group'>
-            <label htmlFor='address'>Enter Address</label>
+            <label htmlFor='address'>{lang.citizen.address}</label>
             <input
               value={address}
               name='address'
@@ -298,7 +298,7 @@ export default class EditCitizen extends Component {
 
           {/* Height */}
           <div className='form-group'>
-            <label htmlFor='height'>Enter Height</label>
+            <label htmlFor='height'>{lang.citizen.height}</label>
             <input
               value={height}
               name='height'
@@ -310,7 +310,7 @@ export default class EditCitizen extends Component {
 
           {/* Weight */}
           <div className='form-group'>
-            <label htmlFor='weight'>Enter Weight</label>
+          <label htmlFor='weight'>{lang.citizen.weight}</label>
             <input
               value={weight}
               name='weight'
@@ -324,10 +324,10 @@ export default class EditCitizen extends Component {
             <a
               className='btn btn-danger mr-2'
               href={'/citizen/' + this.props.match.params.citizenId}>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary' type='submit'>
-              Update Citizen
+              {lang.citizen.update_citizen}
             </button>
           </div>
         </form>

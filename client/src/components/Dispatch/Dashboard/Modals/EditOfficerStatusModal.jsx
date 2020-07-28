@@ -8,6 +8,7 @@ import {
 } from '../../../../actions/officerActions';
 import { getAllActiveUnits } from '../../../../actions/dispatchActions';
 import { setMessage } from '../../../../actions/messageActions';
+import lang from '../../../../language.json';
 
 class EditOfficerStatusModal extends Component {
   constructor() {
@@ -40,7 +41,7 @@ class EditOfficerStatusModal extends Component {
 
     document.getElementById('closeEditStatusOfficer' + this.props.id).click();
     this.props.setMessage(
-      `Successfully changed status for ${this.props.officerName}`
+      `${lang.dispatch.updated_status} ${this.props.officerName}`
     );
 
     setTimeout(() => this.props.getAllActiveUnits(), 200);
@@ -67,7 +68,7 @@ class EditOfficerStatusModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Update Officer Status
+                {lang.dispatch.update_status}
               </h5>
               <button
                 type='button'
@@ -81,7 +82,9 @@ class EditOfficerStatusModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='status'>Set On-duty Or Off-duty</label>
+                  <label htmlFor='status'>
+                    {lang.dispatch.set_on_off_duty}
+                  </label>
                   <select
                     name='status'
                     id='status'
@@ -89,12 +92,12 @@ class EditOfficerStatusModal extends Component {
                     onChange={this.onChange}>
                     <option value={status}>{status}</option>
                     <option disabled>--------</option>
-                    <option value='on-duty'>On-duty</option>
-                    <option value='off-duty'>Off-duty</option>
+                    <option value='on-duty'>{lang.global.on_duty}</option>
+                    <option value='off-duty'>{lang.global.off_duty}</option>
                   </select>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='status'>Update Global Status</label>
+                  <label htmlFor='status'>{lang.dispatch.global_status}</label>
                   <select
                     name='status2'
                     id='status2'
@@ -118,10 +121,10 @@ class EditOfficerStatusModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Cancel
+                  {lang.global.cancel}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Update Status
+                  {lang.dispatch.update_status}
                 </button>
               </div>
             </form>

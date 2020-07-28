@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from '../../language.json';
 
 export default class AddressSearchModal extends Component {
   constructor() {
@@ -62,7 +63,7 @@ export default class AddressSearchModal extends Component {
           <div className='modal-content bg-dark border-dark text-light'>
             <div className='modal-header'>
               <h5 className='modal-title' id='exampleModalLabel'>
-                Address Search
+                {lang.global.address_search}
               </h5>
               <button
                 type='button'
@@ -75,9 +76,7 @@ export default class AddressSearchModal extends Component {
             <form onSubmit={this.onSubmit}>
               <div className='modal-body'>
                 <div className='form-group'>
-                  <label htmlFor='address'>
-                    Enter Address (Full or part of the address)
-                  </label>
+                  <label htmlFor='address'>{lang.dispatch.enter_address}</label>
                   <input
                     required
                     type='text'
@@ -90,7 +89,7 @@ export default class AddressSearchModal extends Component {
                 </div>
                 <div className='list-group'>
                   {noneFound ? (
-                    <ErrorMessage message='No Citizens Found With That Address' />
+                    <ErrorMessage message={lang.dispatch.add_not_found} />
                   ) : null}
                   {!addresses[0] ? (
                     <p></p>
@@ -103,7 +102,7 @@ export default class AddressSearchModal extends Component {
                           <div>
                             {address.address} |{' '}
                             <span className='font-weight-bold'>
-                              Home Owner:{' '}
+                              {lang.record.owner}:{' '}
                             </span>{' '}
                             {address.full_name}
                           </div>
@@ -118,10 +117,10 @@ export default class AddressSearchModal extends Component {
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'>
-                  Close
+                  {lang.global.close}
                 </button>
                 <button type='submit' className='btn btn-primary'>
-                  Search
+                  {lang.global.search}
                 </button>
               </div>
             </form>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { backendURL } from '../../config/config';
 import SuccessMessage from './Messages/SuccessMessage';
 import Cookies from 'js-cookie';
+import lang from "../../language.json";
 
 export default class HomePage extends Component {
   componentDidMount() {
@@ -65,18 +66,18 @@ const NotLoggedInSection = () => {
   return (
     <div className='container mt-3 text-light'>
       {message ? <SuccessMessage message={message} dismiss /> : null}
-      <h2>Welcome Back!</h2>
+      <h2>{lang.auth.welcome}!</h2>
       <Link
         className='btn btn-primary mb-2'
         style={{ width: '100%' }}
         to='/auth/login'>
-        Login
+        {lang.auth.login}
       </Link>
       <Link
         className='btn btn-primary'
         style={{ width: '100%' }}
         to='/auth/register'>
-        Register
+        {lang.auth.register}
       </Link>
     </div>
   );

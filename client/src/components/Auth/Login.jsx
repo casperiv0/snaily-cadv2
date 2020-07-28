@@ -13,6 +13,7 @@ import { Alert } from '@material-ui/lab';
 import './Auth.css';
 import { logIn } from './getSession';
 import { backendURL } from '../../config/config';
+import lang from '../../language.json';
 
 export default class Login extends Component {
   constructor() {
@@ -77,7 +78,7 @@ export default class Login extends Component {
         <div>
           <Avatar style={{ transform: 'scale(1)' }} />
         </div>
-        <h1>Please Login</h1>
+        <h1>{lang.auth.login}</h1>
 
         {error ? (
           <Alert className='alert-box' variant='filled' severity='warning'>
@@ -87,7 +88,7 @@ export default class Login extends Component {
 
         {/* Username */}
         <FormControl fullWidth style={{ marginTop: '40px' }}>
-          <InputLabel htmlFor='username'>Please Enter your username</InputLabel>
+          <InputLabel htmlFor='username'>{lang.auth.enter_username}</InputLabel>
           <Input
             type='text'
             id='username'
@@ -99,7 +100,7 @@ export default class Login extends Component {
 
         {/* Password */}
         <FormControl fullWidth style={{ marginTop: '20px' }}>
-          <InputLabel htmlFor='password'>Please Enter your password</InputLabel>
+          <InputLabel htmlFor='password'>{lang.auth.enter_password}</InputLabel>
           <Input
             type='password'
             id='password'
@@ -108,9 +109,9 @@ export default class Login extends Component {
             onChange={this.handleChange}
           />
           <div style={{ marginTop: '5px' }}>
-            Don't have an account?{' '}
+            {lang.auth.no_acc}{" "}
             <Link href='/auth/register' color='primary'>
-              Register Here
+               {lang.auth.register}
             </Link>
           </div>
         </FormControl>
@@ -122,7 +123,7 @@ export default class Login extends Component {
               type='submit'
               variant='contained'
               color='primary'>
-              Log In
+              {lang.auth.login}
             </Button>
             {loading ? <CircularProgress className='loader' size={24} /> : null}
           </div>

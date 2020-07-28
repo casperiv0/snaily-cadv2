@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import lang from "../../language.json"
 
 export default class Codes10 extends Component {
   render() {
     return (
       <div className='container-fluid pb-5 text-light'>
         <div className='d-flex justify-content-between'>
-          <h2>10 Codes</h2>
+          <h2>{lang.officers.codes}</h2>
           <a href='/leo/dash' className='btn btn-secondary mb-2'>
-            Back To Dashboard
+            {lang.officers.back_to_dash}
           </a>
         </div>
         <div className='row'>

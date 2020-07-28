@@ -5,6 +5,7 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../../Partials/LoadingArea';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class AllMembersList extends Component {
   constructor() {
@@ -74,9 +75,9 @@ export default class AllMembersList extends Component {
     return (
       <div className='mt-2'>
         {message ? <SuccessMessage message={message} dismiss /> : null}
-        <h3>All Members</h3>
+        <h3>{lang.admin.management}</h3>
         <div className='form-group'>
-          <label htmlFor='search'>Filter member by name</label>
+          <label htmlFor='search'>{lang.admin.filter_by_name}</label>
           <input
             className='form-control bg-dark border-secondary text-light'
             type='search'
@@ -87,11 +88,9 @@ export default class AllMembersList extends Component {
         </div>
 
         <ul className='list-group'>
-          {!members[0] ? (
-            <ErrorMessage message='This CAD does not have any members' />
-          ) : null}
+          {!members[0] ? <ErrorMessage message={lang.no_members_cad} /> : null}
           {!filteredMembers[0] ? (
-            <ErrorMessage message='No members found with that name' />
+            <ErrorMessage message={lang.admin.no_member_found_by_name} />
           ) : (
             filteredMembers.map((member, index) => {
               return (
@@ -105,33 +104,31 @@ export default class AllMembersList extends Component {
                     <div
                       className='collapse mt-2'
                       id={'memberInfo' + member.id}>
-                      <span className='font-weight-bold'>Rank:</span>{' '}
+                      <span className='font-weight-bold'>{lang.global.rank}:</span>{' '}
                       {member.rank} <br />
                       <span className='font-weight-bold'>
-                        Police Access:
+                        {lang.auth.account.police_access}:
                       </span>{' '}
                       {member.leo} <br />
                       <span className='font-weight-bold'>
-                        Dispatch Access:
+                      {lang.auth.account.dispatch_access}:
                       </span>{' '}
                       {member.dispatch} <br />
                       <span className='font-weight-bold'>
-                        EMS/FD Access:
+                      {lang.auth.account.ems_fd_access}:
                       </span>{' '}
                       {member.ems_fd} <br />
-                      <span className='font-weight-bold'>Tow Access:</span>{' '}
+                      <span className='font-weight-bold'>{lang.auth.account.tow_access}:</span>{' '}
                       {member.tow} <br />
-
                       {/* Ban */}
-                      <span className='font-weight-bold'>Banned:</span>{' '}
+                      <span className='font-weight-bold'>{lang.auth.account.banned}:</span>{' '}
                       {member.banned} <br />
                       {member.banned === 'true' ? (
                         <div>
-                          <span className='font-weight-bold'>Ban Reason:</span>{' '}
+                          <span className='font-weight-bold'>{lang.auth.account.ban_reason}:</span>{' '}
                           {member.ban_reason}
                         </div>
                       ) : null}
-
                     </div>
                   </div>
                   <div>
@@ -142,12 +139,12 @@ export default class AllMembersList extends Component {
                       data-target={'#memberInfo' + member.id}
                       aria-expanded='false'
                       aria-controls={'memberInfo' + member.id}>
-                      Toggle Info
+                      {lang.admin.toggle_info}
                     </button>
                     <a
                       className='btn btn-success ml-2'
                       href={'/admin/manage/members/edit/' + member.id}>
-                      Manage Permissions
+                      {lang.admin.manage_perms}
                     </a>
                   </div>
                 </li>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { get911Calls } from '../actions/911CallsActions';
 import io from 'socket.io-client';
 import { backendURL } from '../config/config';
+import language from '../language.json';
 const socket = io(backendURL);
 
 class Active911Calls extends Component {
@@ -24,22 +25,22 @@ class Active911Calls extends Component {
         className='list-group scroll-bar overflow-auto'
         style={{ maxHeight: '25rem' }}>
         <div className='bg-secondary border-secondary list-group-item text-light sticky-top'>
-          Active 911 Calls
+          {language.global.active_erm_calls}
         </div>
         {!calls[0] ? (
           <li className='list-group-item bg-dark text-light'>
-            There're no active calls.
+            {language.global.no_calls}
           </li>
         ) : (
           <table className='table table-dark'>
             <thead>
               <tr>
                 <th scope='col'>#</th>
-                <th scope='col'>Caller Name</th>
-                <th scope='col'>Caller Location</th>
-                <th scope='col'>Call Description</th>
-                <th scope='col'>Status</th>
-                <th scope='col'>Assigned Units</th>
+                <th scope='col'>{language.dispatch.caller_name}</th>
+                <th scope='col'>{language.dispatch.caller_location}</th>
+                <th scope='col'>{language.dispatch.call_desc}</th>
+                <th scope='col'>{language.dispatch.status}</th>
+                <th scope='col'>{language.dispatch.assigned_unit}</th>
               </tr>
             </thead>
             <tbody>

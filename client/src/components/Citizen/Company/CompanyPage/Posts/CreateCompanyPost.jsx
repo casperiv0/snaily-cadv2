@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../../language.json';
 
 export default class CreateCompanyPost extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export default class CreateCompanyPost extends Component {
         if (res.data.msg === 'Created') {
           sessionStorage.setItem(
             'company-message',
-            'Successfully Created Post'
+            lang.citizen.company.created_post
           );
           return (window.location = `/company/${this.props.match.params.citizenId}/${this.props.match.params.company}/`);
         }
@@ -52,8 +53,8 @@ export default class CreateCompanyPost extends Component {
     });
   };
 
-  componentDidMount(){
-    document.title = "Create Company Post - Company"
+  componentDidMount() {
+    document.title = 'Create Company Post - Company';
   }
 
   render() {
@@ -63,7 +64,9 @@ export default class CreateCompanyPost extends Component {
         <form onSubmit={this.onSubmit}>
           {error ? <ErrorMessage message={error} /> : null}
           <div className='form-group'>
-            <label htmlFor='companyPostTitle'>Enter Post Title</label>
+            <label htmlFor='companyPostTitle'>
+              {lang.citizen.company.post_title}
+            </label>
             <input
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -75,7 +78,9 @@ export default class CreateCompanyPost extends Component {
           </div>
 
           <div className='form-group'>
-            <label htmlFor='companyPostTitle'>Enter Post Description</label>
+            <label htmlFor='companyPostTitle'>
+              {lang.citizen.company.post_desc}
+            </label>
             <textarea
               rows='7'
               className='form-control bg-secondary border-secondary text-light'
@@ -89,10 +94,10 @@ export default class CreateCompanyPost extends Component {
             <a
               className='btn btn-danger mr-2'
               href={`/company/${this.props.match.params.citizenId}/${this.props.match.params.company}/`}>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary' type='submit'>
-              Create Post
+              {lang.citizen.company.create_post}
             </button>
           </div>
         </form>

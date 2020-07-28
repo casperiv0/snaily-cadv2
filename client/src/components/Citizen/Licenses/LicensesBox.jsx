@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import lang from '../../../language.json';
 
 export default class componentName extends Component {
   render() {
@@ -7,22 +8,24 @@ export default class componentName extends Component {
       <div className='card bg-dark border-dark mt-3 text-light'>
         <div className='card-header'>
           <h3>
-            Licenses
+            {lang.citizen.licenses}
             <a
               href={`/licenses/edit/${this.props.citizenId}`}
               className='btn btn-primary float-right'>
-              Edit Licenses
+              {lang.citizen.license.edit}
             </a>
           </h3>
         </div>
 
         <div className='card-body'>
-          <span className='font-weight-bold'>Driver License:</span>
+          <span className='font-weight-bold'>{lang.citizen.license.dmv}:</span>
           <span id='dmv'> {dmv}</span> <br />
-          <span className='font-weight-bold'> Firearms License: </span> {firearmsLicense}
+          <span className='font-weight-bold'>{lang.citizen.license.firearms}: </span>{' '}
+          {firearmsLicense}
           <br />
-          <span className='font-weight-bold'>Pilot License: </span> {pilotLicense} <br />
-          <span className='font-weight-bold'> CCW License:</span> {ccw} <br />
+          <span className='font-weight-bold'>{lang.citizen.license.pilot}: </span>{' '}
+          {pilotLicense} <br />
+          <span className='font-weight-bold'>{lang.citizen.license.ccw}:</span> {ccw} <br />
         </div>
       </div>
     );

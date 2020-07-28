@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ErrorMessage from '../../Partials/Messages/ErrorMessage';
 import { backendURL } from '../../../config/config';
+import lang from '../../../language.json';
 
 export default class NamSearchResults extends Component {
   updateWarrantStatus = (warrantId) => {
@@ -20,58 +21,71 @@ export default class NamSearchResults extends Component {
     return (
       <div className=''>
         {!warrants[0] ? null : (
-          <ErrorMessage
-            color='danger'
-            message='WARNING: Person has 1 or more warrants'
-          />
+          <ErrorMessage color='danger' message={lang.record.has_warrant} />
         )}
         <div className='row'>
           <div className='col-md-6'>
             <h5 className='card-title bolder text-light'>
-              General Information
+              {lang.admin.cad_settings.general_info}
             </h5>
             <div id='generalInformation' className='text-light list-group'>
               <div>
-                <span className='font-weight-bold'>Full Name:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.full_name}:
+                </span>{' '}
                 {generalInfo.full_name}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Date Of Birth:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.date_of_birth}:
+                </span>{' '}
                 {generalInfo.birth}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Gender:</span>{' '}
+                <span className='font-weight-bold'>{lang.citizen.gender}:</span>{' '}
                 {generalInfo.gender}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Ethnicity:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.ethnicity}:
+                </span>{' '}
                 {generalInfo.ethnicity}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Hair Color:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.hair_color}:
+                </span>{' '}
                 {generalInfo.hair_color}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Eye Color:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.eye_color}:
+                </span>{' '}
                 {generalInfo.eye_color}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Address:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.address}:
+                </span>{' '}
                 {generalInfo.address}
                 <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Height / Weight:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.hei_wei}:
+                </span>{' '}
                 {generalInfo.height} / {generalInfo.weight} <br />
               </div>
               <div>
-                <span className='font-weight-bold'>Employer:</span>{' '}
+                <span className='font-weight-bold'>
+                  {lang.citizen.employer}:
+                </span>{' '}
                 {generalInfo.business} <br />
               </div>
               <img
@@ -87,22 +101,32 @@ export default class NamSearchResults extends Component {
             </div>
           </div>
           <div className='col-md-6'>
-            <h5 className='card-title bolder text-light'>Licenses</h5>
+            <h5 className='card-title bolder text-light'>
+              {lang.citizen.licenses}
+            </h5>
             <div id='generalInformation' className='list-group'>
               <div>
-                <span className='font-weight-bold'>Drivers License: </span>
+                <span className='font-weight-bold'>
+                  {lang.citizen.license.dmv}:{' '}
+                </span>
                 {generalInfo.dmv}
               </div>
               <div>
-                <span className='font-weight-bold'>Firearms License: </span>
+                <span className='font-weight-bold'>
+                  {lang.citizen.license.firearms}:{' '}
+                </span>
                 {generalInfo.fire_license}
               </div>
               <div>
-                <span className='font-weight-bold'>Pilots License: </span>
+                <span className='font-weight-bold'>
+                  {lang.citizen.license.pilot}:{' '}
+                </span>
                 {generalInfo.pilot_license}
               </div>
               <div>
-                <span className='font-weight-bold'>CCW: </span>
+                <span className='font-weight-bold'>
+                  {lang.citizen.license.ccw}:{' '}
+                </span>
                 {generalInfo.ccw}
               </div>
             </div>
@@ -116,7 +140,7 @@ export default class NamSearchResults extends Component {
             data-target='#record'
             aria-expanded='false'
             aria-controls='record'>
-            Toggle Record
+            {lang.citizen.toggle_record}
           </button>
           <button
             className='btn btn-primary col-md-6 ml-2 mt-3'
@@ -125,21 +149,21 @@ export default class NamSearchResults extends Component {
             data-target='#registered'
             aria-expanded='false'
             aria-controls='registered'>
-            Toggle Registered Vehicles & Weapons
+            {lang.citizen.toggle_veh_wea}
           </button>
         </div>
         <div className='collapse' id='record'>
           <div className='row mt-3'>
             <div className='col'>
               <h5 className='card-title bolder text-light'>
-                Written Warnings ({warnings.length})
+                {lang.record.warnings} ({warnings.length})
               </h5>
               <div
                 className='list-group scroll-bar overflow-auto'
                 style={{ maxHeight: '18rem' }}>
                 {!warnings[0] ? (
                   <div className='list-group-item  border-dark text-dark'>
-                    Person Doesn't have any written warnings.
+                    {lang.record.no_war}
                   </div>
                 ) : (
                   warnings.map((warning, index) => {
@@ -147,21 +171,29 @@ export default class NamSearchResults extends Component {
                       <li
                         key={index}
                         className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Infractions: </span>{' '}
+                        <span className='font-weight-bold'>
+                          {lang.record.infractions}:{' '}
+                        </span>{' '}
                         {warning.infractions}
                         <br />
-                        <span className='font-weight-bold'>Given On: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_on}:{' '}
+                        </span>
                         {warning.date}
                         <br />
-                        <span className='font-weight-bold'>Given By: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_by}:{' '}
+                        </span>
                         {warning.officer_name}
                         <br />
                         <span className='font-weight-bold'>
-                          Nearest Postal:{' '}
+                          {lang.record.postal}:{' '}
                         </span>
                         {warning.postal}
                         <br />
-                        <span className='font-weight-bold'>Notes: </span>
+                        <span className='font-weight-bold'>
+                          {lang.global.notes}:{' '}
+                        </span>
                         {warning.notes}
                         <br />
                       </li>
@@ -181,7 +213,7 @@ export default class NamSearchResults extends Component {
                 style={{ maxHeight: '18rem' }}>
                 {!tickets[0] ? (
                   <div className='list-group-item border-dark text-dark'>
-                    Person Doesn't have any tickets.
+                    {lang.record.no_tick}
                   </div>
                 ) : (
                   tickets.map((ticket, index) => {
@@ -189,21 +221,29 @@ export default class NamSearchResults extends Component {
                       <li
                         key={index}
                         className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Violations: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.violations}:{' '}
+                        </span>
                         {ticket.violations}
                         <br />
-                        <span className='font-weight-bold'>Given On: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_on}:{' '}
+                        </span>
                         {ticket.date}
                         <br />
-                        <span className='font-weight-bold'>Given By: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_by}:{' '}
+                        </span>
                         {ticket.officer_name}
                         <br />
                         <span className='font-weight-bold'>
-                          Nearest Postal:{' '}
+                          {lang.record.postal}:{' '}
                         </span>
                         {ticket.postal}
                         <br />
-                        <span className='font-weight-bold'>Notes: </span>
+                        <span className='font-weight-bold'>
+                          {lang.global.notes}:{' '}
+                        </span>
                         {ticket.notes}
                         <br />
                       </li>
@@ -216,14 +256,14 @@ export default class NamSearchResults extends Component {
           <div className='row mt-3'>
             <div className='col'>
               <h5 className='card-title bolder text-light'>
-                Arrest Reports ({arrestReports.length})
+                {lang.record.arr_rep} ({arrestReports.length})
               </h5>
               <div
                 className='list-group scroll-bar overflow-auto'
                 style={{ maxHeight: '18rem' }}>
                 {!arrestReports[0] ? (
                   <div className='list-group-item border-dark text-dark'>
-                    Person Doesn't have any arrest reports.
+                    {lang.record.no_arr_rep}
                   </div>
                 ) : (
                   arrestReports.map((report, index) => {
@@ -231,20 +271,28 @@ export default class NamSearchResults extends Component {
                       <li
                         key={index}
                         className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Charges: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.charges}:{' '}
+                        </span>
                         {report.charges} <br />
-                        <span className='font-weight-bold'>Given On: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_on}:{' '}
+                        </span>
                         {report.date}
                         <br />
-                        <span className='font-weight-bold'>Given By: </span>
+                        <span className='font-weight-bold'>
+                          {lang.record.given_by}:{' '}
+                        </span>
                         {report.officer_name}
                         <br />
                         <span className='font-weight-bold'>
-                          Nearest Postal:{' '}
+                          {lang.record.postal}:{' '}
                         </span>
                         {report.postal}
                         <br />
-                        <span className='font-weight-bold'>Notes: </span>
+                        <span className='font-weight-bold'>
+                          {lang.global.notes}:{' '}
+                        </span>
                         {report.notes}
                         <br />
                       </li>
@@ -257,14 +305,14 @@ export default class NamSearchResults extends Component {
           <div className='row mt-3'>
             <div className='col'>
               <h5 className='card-title bolder text-light'>
-                Warrants ({warrants.length})
+                {lang.record.warrants} ({warrants.length})
               </h5>
               <div
                 className='list-group scroll-bar overflow-auto'
                 style={{ maxHeight: '18rem' }}>
                 {!warrants[0] ? (
                   <div className='list-group-item border-dark text-dark'>
-                    Person Doesn't have any warrants.
+                    {lang.record.no_warrants}
                   </div>
                 ) : (
                   warrants.map((warrant, index) => {
@@ -275,7 +323,9 @@ export default class NamSearchResults extends Component {
                         <div>
                           <span className='font-weight-bold'>Warrant: </span>
                           {warrant.reason} <br />
-                          <span className='font-weight-bold'>Status: </span>
+                          <span className='font-weight-bold'>
+                            {lang.dispatch.status}:{' '}
+                          </span>
                           {warrant.status}
                         </div>
                         <button
@@ -283,7 +333,7 @@ export default class NamSearchResults extends Component {
                             this.updateWarrantStatus(warrant.id);
                           }}
                           className='btn btn-primary'>
-                          Change Status
+                          {lang.record.change_status}
                         </button>
                       </li>
                     );
@@ -297,14 +347,15 @@ export default class NamSearchResults extends Component {
           <div className='row mt-3'>
             <div className='col'>
               <h5 className='card-title bolder text-light'>
-                Registered Vehicles ({registeredVehicles.length})
+                {lang.citizen.vehicle.reged_vehicle} (
+                {registeredVehicles.length})
               </h5>
               <div
                 className='list-group scroll-bar overflow-auto'
                 style={{ maxHeight: '25rem' }}>
                 {!registeredVehicles[0] ? (
                   <div className='list-group-item border-dark text-dark'>
-                    Person Doesn't have any registered vehicles.
+                    {lang.record.no_vehicles}
                   </div>
                 ) : (
                   registeredVehicles.map((vehicle, index) => {
@@ -312,17 +363,17 @@ export default class NamSearchResults extends Component {
                       <li
                         key={index}
                         className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Vehicle: </span>
+                        <span className='font-weight-bold'>{lang.record.vehicle}: </span>
                         {vehicle.vehicle} <br />
-                        <span className='font-weight-bold'>Owner: </span>
+                        <span className='font-weight-bold'>{lang.record.owner}: </span>
                         {vehicle.owner} <br />
-                        <span className='font-weight-bold'>VIN Number: </span>
+                        <span className='font-weight-bold'>{lang.record.vin_number}: </span>
                         {vehicle.vin_number} <br />
-                        <span className='font-weight-bold'>Status: </span>
+                        <span className='font-weight-bold'>{lang.dispatch.status}: </span>
                         {vehicle.in_status} <br />
-                        <span className='font-weight-bold'>Plate: </span>
+                        <span className='font-weight-bold'>{lang.global.plate}: </span>
                         {vehicle.plate.toUpperCase()} <br />
-                        <span className='font-weight-bold'>Color: </span>
+                        <span className='font-weight-bold'>{lang.global.color}: </span>
                         {vehicle.color}
                       </li>
                     );
@@ -334,14 +385,14 @@ export default class NamSearchResults extends Component {
           <div className='row mt-3'>
             <div className='col'>
               <h5 className='card-title bolder text-light'>
-                Registered Weapons ({registeredWeapons.length})
+                {lang.citizen.weapon.reged_weapons} ({registeredWeapons.length})
               </h5>
               <div
                 className='list-group scroll-bar overflow-auto'
                 style={{ maxHeight: '25rem' }}>
                 {!registeredWeapons[0] ? (
                   <div className='list-group-item border-dark text-dark'>
-                    Person Doesn't have any registered weapons.
+                    {lang.record.no_weapons}
                   </div>
                 ) : (
                   registeredWeapons.map((weapon, index) => {
@@ -349,15 +400,15 @@ export default class NamSearchResults extends Component {
                       <li
                         key={index}
                         className='list-group-item border-dark text-dark'>
-                        <span className='font-weight-bold'>Weapon: </span>
+                        <span className='font-weight-bold'>{lang.record.weapon}: </span>
                         {weapon.weapon} <br />
-                        <span className='font-weight-bold'>Owner: </span>
+                        <span className='font-weight-bold'>{lang.record.owner}: </span>
                         {weapon.owner} <br />
                         <span className='font-weight-bold'>
-                          Serial Number:{' '}
+                          {lang.citizen.weapon.serial_number}:{' '}
                         </span>
                         {weapon.serial_number} <br />
-                        <span className='font-weight-bold'>Status: </span>
+                        <span className='font-weight-bold'>{lang.dispatch.status}: </span>
                         {weapon.status} <br />
                       </li>
                     );

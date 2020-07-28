@@ -5,6 +5,8 @@ import LoadingArea from '../../Partials/LoadingArea';
 import SuccessMessage from '../../Partials/Messages/SuccessMessage';
 import { getSession } from '../../Auth/getSession';
 import { handleRequest } from '../../../functions';
+import lang from '../../../language.json';
+
 
 export default class Bleet extends Component {
   constructor() {
@@ -66,7 +68,7 @@ export default class Bleet extends Component {
             src='/icons/internal/go_back.svg'
             alt='go_back'
           />
-          Go Back
+          {lang.bleeter.go_back}
         </a>
         {message ? <SuccessMessage message={message} dismiss /> : null}
         <div>
@@ -79,20 +81,20 @@ export default class Bleet extends Component {
                   href={'/bleet/' + this.props.match.params.bleetId + '/edit'}
                   className='btn btn-success'
                   type='button'>
-                  Edit Bleet
+                  {lang.bleeter.edit_bleet}
                 </a>
               ) : (
                 <button
                   className='btn btn-primary ml-2'
                   onClick={this.likeBleet}>
-                  Like
+                  {lang.global.like}
                 </button>
               )}
             </div>
           </h3>
           <span className='float-right'>
             {bleet.uploaded_at} | @{bleet.uploaded_by} | {bleet.likes}
-            {bleet.likes === 1 ? ' Like' : ' Likes'}
+            {bleet.likes === 1 ? ` ${lang.global.like}` : ` ${lang.global.likes}`}
           </span>
         </div>
         <div className='mt-5'>

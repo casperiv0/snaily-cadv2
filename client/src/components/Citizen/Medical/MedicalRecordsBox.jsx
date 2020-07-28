@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { handleRequest } from '../../../functions';
+import lang from '../../../language.json';
 
 export default class MedicalRecordsBox extends Component {
   constructor() {
@@ -30,7 +31,7 @@ export default class MedicalRecordsBox extends Component {
       <div className='card bg-dark border-dark mt-3 text-light'>
         <div className='card-header'>
           <h4>
-            Medical Records{' '}
+            {lang.citizen.medical_records}
             <a
               href={
                 '/medical-records/add/' +
@@ -39,21 +40,21 @@ export default class MedicalRecordsBox extends Component {
                 this.props.fullName
               }
               className='btn btn-primary float-right'>
-              Add Medical Record
+              {lang.citizen.medical.add}
             </a>
           </h4>
         </div>
         {!records[0] ? (
           <div className='list-group-item bg-dark border-dark'>
-            No medical records, Stay Healthy
+            {lang.citizen.medical.no_med}
           </div>
         ) : (
           <table className='table table-dark'>
             <thead>
               <tr>
                 <th scope='col'>#</th>
-                <th scope='col'>Type</th>
-                <th scope='col'>Short Information</th>
+                <th scope='col'>{lang.citizen.medical.type2}</th>
+                <th scope='col'>{lang.citizen.medical.short_info}</th>
               </tr>
             </thead>
             <tbody>

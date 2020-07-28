@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import { backendURL } from '../../../../config/config';
+import lang from '../../../../language.json';
 
 export default class BanHammerArea extends Component {
   constructor() {
@@ -27,10 +28,7 @@ export default class BanHammerArea extends Component {
         const message = this.state.reason ? this.state.reason : 'Not Specified';
         sessionStorage.setItem(
           'admin-message',
-          'Successfully Banned User: ' +
-            this.props.username +
-            ', Reason: ' +
-            message
+          `${lang.admin.ban_success}: ${this.props.username}, ${lang.admin.reason}: ${message}`
         );
         return (window.location =
           '/admin/manage/members/edit/' + this.props.id);
@@ -49,7 +47,7 @@ export default class BanHammerArea extends Component {
       if (res.data.msg === 'User Unbanned') {
         sessionStorage.setItem(
           'admin-message',
-          'Successfully Unbanned User: ' + this.props.username
+          `${lang.admin.un_ban_success}: ${this.props.username}`
         );
         return (window.location =
           '/admin/manage/members/edit/' + this.props.id);
@@ -68,9 +66,9 @@ export default class BanHammerArea extends Component {
     let message2 = '';
 
     if (rank === 'owner') {
-      message2 = "You can't ban the owner!";
+      message2 = lang.admin.ban_owner;
     } else if (username === currentUsername) {
-      message2 = "You can't ban yourself!";
+      message2 = lang.admin.ban_yourself;
     }
 
     return (
@@ -79,37 +77,34 @@ export default class BanHammerArea extends Component {
           <h5>Use the ban hammer</h5>
         </div>
         {message2 ? (
-          <h5 className="card-body"> {message2} </h5>
+          <h5 className='card-body'> {message2} </h5>
         ) : banned === 'true' ? (
           <div className='card-body'>
             <div className='card-title'>
-              Unban this user. <br /> This user was banned for: {ban_reason}
+             {lang.admin.banned_for}: {ban_reason}
             </div>
             <button
               onClick={this.unbanUser}
               className='btn btn-success mb-2 col'>
-              Revoke Ban
+              {lang.admin.un_ban_user}
             </button>
           </div>
         ) : (
           <div className='card-body'>
             <div className='form-group'>
               <label htmlFor='reason' className='text-light'>
-                Enter Ban Reason
+                {lang.admin.enter_ban_reason}
               </label>
               <input
                 type='text'
                 name='reason'
-                placeholder='Reason'
                 className='form-control bg-dark border-secondary text-light'
                 maxLength='999'
                 onChange={this.onChange}
               />
             </div>
-            <button
-              onClick={this.banUser}
-              className='btn col btn-danger mb-2'>
-              ban user
+            <button onClick={this.banUser} className='btn col btn-danger mb-2'>
+              {lang.admin.ban_user}
             </button>
           </div>
         )}

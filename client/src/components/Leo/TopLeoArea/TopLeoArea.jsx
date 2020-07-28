@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LeoModalButtons from './LeoModalButtons';
 import LeoStatuses from './LeoStatuses';
+import lang from "../../../language.json"
 
 class TopLeoArea extends Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class TopLeoArea extends Component {
     return (
       <div className='card mt-3 bg-dark border-dark text-light'>
         <div className='card-header d-flex justify-content-between'>
-          <h4>Utility Panel - AOP: {aop}</h4>
+          <h4>{lang.global.utility_panel} - AOP: {aop}</h4>
           <span id='leo-time'></span>
         </div>
         <div className='card-body'>

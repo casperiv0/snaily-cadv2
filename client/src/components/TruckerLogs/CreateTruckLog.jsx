@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../Partials/Messages/ErrorMessage';
+import lang from "../../language.json";
 
 export default class CreateTruckLog extends Component {
   constructor() {
@@ -38,7 +39,7 @@ export default class CreateTruckLog extends Component {
       if (res.data.msg === 'Created') {
         sessionStorage.setItem(
           'truck-message',
-          'Successfully created truck log'
+          lang.truck_logs.created_truck_log
         );
         return (window.location = '/truck-logs');
       }
@@ -56,7 +57,7 @@ export default class CreateTruckLog extends Component {
   };
 
   componentDidMount() {
-    document.title = 'Create Truck Log';
+    document.title = lang.truck_logs.create_truck_log;
   }
 
   render() {
@@ -67,7 +68,7 @@ export default class CreateTruckLog extends Component {
           {error ? <ErrorMessage message={error} dismiss /> : null}
           {/* Name */}
           <div className='form-group'>
-            <label htmlFor='name'>Enter Trucker Name</label>
+            <label htmlFor='name'>{lang.truck_logs.enter_trucker_name}</label>
             <input
               type='text'
               name='name'
@@ -80,7 +81,7 @@ export default class CreateTruckLog extends Component {
 
           {/* Co driver */}
           <div className='form-group'>
-            <label htmlFor='name'>Enter Co-Driver Name</label>
+            <label htmlFor='name'>{lang.truck_logs.enter_co_driver}</label>
             <input
               type='text'
               name='co_driver'
@@ -93,7 +94,7 @@ export default class CreateTruckLog extends Component {
 
           {/* Date */}
           <div className='form-group'>
-            <label htmlFor='date'>Enter Date</label>
+            <label htmlFor='date'>{lang.global.enter_date}</label>
             <input
               type='date'
               name='date'
@@ -106,7 +107,7 @@ export default class CreateTruckLog extends Component {
 
           {/* Start Time */}
           <div className='form-group'>
-            <label htmlFor='start_time'>Enter Starting time</label>
+            <label htmlFor='start_time'>{lang.truck_logs.enter_starting_time}</label>
             <input
               type='text'
               name='start_time'
@@ -119,7 +120,7 @@ export default class CreateTruckLog extends Component {
 
           {/* Plate */}
           <div className='form-group'>
-            <label htmlFor='plate'>Enter Vehicle Plate</label>
+            <label htmlFor='plate'>{lang.truck_logs.enter_vehicle_plate}</label>
             <input
               type='text'
               name='plate'
@@ -132,10 +133,10 @@ export default class CreateTruckLog extends Component {
 
           <div className='form-group float-right'>
             <a className='btn btn-danger' href='/truck-logs'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary ml-2' type='submit'>
-              Create Truck Log
+              {lang.truck_logs.create_truck_log}
             </button>
           </div>
         </form>

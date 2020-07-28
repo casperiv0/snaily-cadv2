@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
-
+import lang from '../../../../language.json';
 
 export default class AddWeapon extends Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class AddWeapon extends Component {
 
     this.state = {
       weapon: '',
-      error: ""
+      error: '',
     };
   }
 
@@ -20,7 +20,7 @@ export default class AddWeapon extends Component {
 
     Axios({
       url: backendURL + '/admin/weapons/add',
-      method: "POST",
+      method: 'POST',
       headers: {
         'x-auth-snailycad-token': Cookies.get('__session'),
       },
@@ -28,51 +28,56 @@ export default class AddWeapon extends Component {
         weapon: this.state.weapon,
       },
     })
-    .then(res => {
-        if (res.data.msg === "Added") {
-            sessionStorage.setItem("admin-message", "Successfully Added Weapon");
-            return window.location = "/admin/weapons";
+      .then((res) => {
+        if (res.data.msg === 'Added') {
+          sessionStorage.setItem(
+            'admin-message',
+            lang.admin.values.weapon.added_wea
+          );
+          return (window.location = '/admin/weapons');
         }
 
         this.setState({
-            error: res.data.msg
-        })
-    })
-    .catch(err => console.log(err));
+          error: res.data.msg,
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   onChange = (e) => {
-      this.setState({
-          [e.target.name]: e.target.value
-      })
-  }
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   componentDidMount() {
-      document.title = "Add Weapon - Admin"
+    document.title = 'Add Weapon - Admin';
   }
 
   render() {
     const { weapon, error } = this.state;
     return (
-      <form className="col-md-9 container text-light" onSubmit={this.onSubmit}>
-        {
-            error ? <ErrorMessage message={error} /> : null
-        }
+      <form className='col-md-9 container text-light' onSubmit={this.onSubmit}>
+        {error ? <ErrorMessage message={error} /> : null}
 
         <div className='form-group'>
-          <label htmlFor='vehicle'>Enter Weapon</label>
+          <label htmlFor='vehicle'>{lang.admin.values.weapon.enter_name}</label>
           <input
             type='text'
             name='weapon'
             id='weapon'
-            className="form-control bg-dark border-dark text-light"
+            className='form-control bg-dark border-dark text-light'
             value={weapon}
             onChange={this.onChange}
           />
         </div>
-        <div className="form-group float-right">
-            <a href="/admin/weapons" className="btn btn-danger">Cancel</a>
-            <button className="btn btn-primary ml-2" type="submit">Add Weapon</button>
+        <div className='form-group float-right'>
+          <a href='/admin/weapons' className='btn btn-danger'>
+            {lang.global.cancel}
+          </a>
+          <button className='btn btn-primary ml-2' type='submit'>
+            {lang.admin.values.weapon.add_wea}
+          </button>
         </div>
       </form>
     );

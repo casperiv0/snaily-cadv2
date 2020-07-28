@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
 import LoadingArea from '../../Partials/LoadingArea';
+import lang from '../../../language.json';
 
 export default class EditRegisteredVehicle extends Component {
   constructor() {
@@ -15,7 +16,7 @@ export default class EditRegisteredVehicle extends Component {
       company: '',
       statuses: [],
       companies: [],
-      loading: true
+      loading: true,
     };
   }
 
@@ -28,7 +29,7 @@ export default class EditRegisteredVehicle extends Component {
       },
     }).then((res) => {
       if (res.data.msg === 'Vehicle Not Found') {
-        sessionStorage.setItem('message', "Vehicle Wasn't found!");
+        sessionStorage.setItem('message', lang.citizen.vehicle.not_found);
         return (window.location = '/citizen');
       }
 
@@ -72,7 +73,7 @@ export default class EditRegisteredVehicle extends Component {
         if (res.data.statuses) {
           this.setState({
             statuses: res.data.statuses,
-            loading: false
+            loading: false,
           });
         }
       })
@@ -108,7 +109,7 @@ export default class EditRegisteredVehicle extends Component {
     })
       .then((res) => {
         if (res.data.msg === 'Updated') {
-          sessionStorage.setItem('message', 'Successfully Updated Vehicle');
+          sessionStorage.setItem('message', lang.citizen.vehicle.updated_veh);
           window.location = '/citizen';
         }
       })
@@ -116,16 +117,24 @@ export default class EditRegisteredVehicle extends Component {
   };
 
   render() {
-    const { plate, color, status, company, statuses, companies, loading } = this.state;
+    const {
+      plate,
+      color,
+      status,
+      company,
+      statuses,
+      companies,
+      loading,
+    } = this.state;
 
     if (loading) {
-      return <LoadingArea />
+      return <LoadingArea />;
     }
 
     return (
       <form className='container text-light' onSubmit={this.updateVehicle}>
         <div className='form-group'>
-          <label htmlFor='plate'>Plate</label>
+          <label htmlFor='plate'>{lang.citizen.vehicle.enter_plate}</label>
           <input
             type='text'
             value={plate}
@@ -136,7 +145,7 @@ export default class EditRegisteredVehicle extends Component {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='plate'>Color</label>
+          <label htmlFor='plate'>{lang.citizen.vehicle.enter_color}</label>
           <input
             type='text'
             value={color}
@@ -147,7 +156,7 @@ export default class EditRegisteredVehicle extends Component {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='plate'>Status</label>
+          <label htmlFor='plate'>{lang.citizen.vehicle.select_status}</label>
           <input
             type='text'
             list='statuses'
@@ -171,7 +180,7 @@ export default class EditRegisteredVehicle extends Component {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='company'>Select Company</label>
+          <label htmlFor='company'>{lang.citizen.vehicle.enter_company}</label>
           <input
             disabled={
               status.toLowerCase() !== 'Company'.toLowerCase() ? true : false
@@ -199,10 +208,10 @@ export default class EditRegisteredVehicle extends Component {
         </div>
         <div className='form-group float-right'>
           <a href={'/citizen'} className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button className='btn btn-primary ml-2' type='submit'>
-            Update Vehicle
+            {lang.global.update}
           </button>
         </div>
       </form>

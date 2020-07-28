@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBolos, removeBolo } from '../actions/boloActions';
 import { setMessage } from '../actions/messageActions';
-import io from "socket.io-client";
+import io from 'socket.io-client';
 import { backendURL } from '../config/config';
+import language from '../language.json';
 const socket = io(backendURL);
 
 class ActiveBolos extends Component {
   removeBolo = (id) => {
     this.props.removeBolo(id);
-    this.props.setMessage('Successfully removed BOLO.');
+    this.props.setMessage(language.bolos.removed_bolo);
 
     setTimeout(() => this.props.getBolos(), 100);
   };
@@ -17,7 +18,7 @@ class ActiveBolos extends Component {
   componentDidMount() {
     this.props.getBolos();
 
-    socket.on("updateBolos", this.props.getBolos)
+    socket.on('updateBolos', this.props.getBolos);
   }
 
   render() {
@@ -27,11 +28,11 @@ class ActiveBolos extends Component {
         className='list-group mt-3 scroll-bar overflow-auto'
         style={{ maxHeight: '25rem' }}>
         <div className='list-group-item bg-secondary border-secondary'>
-          Active Bolos
+          {language.global.active_bolos}
         </div>
         {!bolos[0] ? (
           <li className='list-group-item bg-dark border-dark text-light'>
-            There are no active bolos
+            {language.global.no_bolos}
           </li>
         ) : (
           bolos.map((bolo, index) => {
@@ -44,16 +45,16 @@ class ActiveBolos extends Component {
                   {bolo.type === 'person' ? (
                     <p>
                       {bolo.description} <br />
-                      <span className='font-weight-bold'>Name: </span>
+                      <span className='font-weight-bold'>{language.global.name}: </span>
                       {bolo.name}
                     </p>
                   ) : bolo.type === 'vehicle' ? (
                     <p>
                       {bolo.description} <br />
-                      <span className='font-weight-bold'>Plate: </span>
+                      <span className='font-weight-bold'>{language.global.plate}: </span>
                       {bolo.plate}
                       <br />
-                      <span className='font-weight-bold'>Color: </span>
+                      <span className='font-weight-bold'>{language.global.color}: </span>
                       {bolo.color}
                     </p>
                   ) : (
@@ -68,7 +69,7 @@ class ActiveBolos extends Component {
                       this.removeBolo(bolo.id);
                     }}
                     className='btn btn-danger'>
-                    Remove Bolo
+                    {language.bolos.remove_bolo}
                   </button>
                 </div>
               </li>

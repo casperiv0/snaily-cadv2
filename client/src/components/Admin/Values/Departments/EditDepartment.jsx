@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
+import lang from '../../../../language.json';
 
 export default class EditDepartment extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export default class EditDepartment extends Component {
         if (res.data.msg === 'Updated') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Updated Department'
+            lang.admin.values.department.update_dept
           );
           return (window.location = '/admin/departments');
         }
@@ -83,7 +84,7 @@ export default class EditDepartment extends Component {
         {error ? <ErrorMessage message={error} /> : null}
 
         <div className='form-group'>
-          <label htmlFor='department'>Enter Department Name</label>
+          <label htmlFor='department'>{lang.admin.values.department.enter_name}</label>
           <input
             type='text'
             name='department'
@@ -95,10 +96,10 @@ export default class EditDepartment extends Component {
         </div>
         <div className='form-group float-right'>
           <a href='/admin/departments' className='btn btn-danger'>
-            Cancel
+            {lang.global.cancel}
           </a>
           <button className='btn btn-primary ml-2' type='submit'>
-            Update Department
+            {lang.global.update}
           </button>
         </div>
       </form>

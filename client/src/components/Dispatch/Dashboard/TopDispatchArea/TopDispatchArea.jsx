@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getAop } from '../../../../actions/otherActions';
 import io from 'socket.io-client';
 import { backendURL } from '../../../../config/config';
+import lang from '../../../../language.json';
 const socket = io(backendURL);
 
 class TopDispatchArea extends Component {
@@ -28,7 +29,7 @@ class TopDispatchArea extends Component {
       <div className='text-light'>
         <div className='mt-4 card bg-dark border-dark'>
           <div className='card-header d-flex justify-content-between'>
-            <h3>Utility Panel - AOP: {aop}</h3>
+            <h3>{lang.global.utility_panel} - AOP: {aop}</h3>
             <span id='time'></span>
           </div>
           <ModalButtons />

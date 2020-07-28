@@ -6,13 +6,14 @@ import {
 } from '../../../actions/officerActions';
 import { setMessage } from '../../../actions/messageActions';
 import Cookies from 'js-cookie';
+import lang from "../../../language.json"
 
 class LeoStatuses extends Component {
   updateStatus = (e) => {
     const officerId = Cookies.get('on-duty-officerId');
 
     this.props.setOfficerStatus(officerId, e.target.value);
-    this.props.setMessage(`Successfully changed status to: ${e.target.value}`);
+    this.props.setMessage(`${lang.global.changed_status} ${e.target.value}`);
   };
   
   componentDidMount() {

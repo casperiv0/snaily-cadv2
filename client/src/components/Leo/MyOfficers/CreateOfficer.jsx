@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { backendURL } from '../../../config/config';
 import Cookies from 'js-cookie';
+import lang from "../../../language.json"
 
 export default class CreateOfficer extends Component {
   constructor() {
@@ -58,7 +59,7 @@ export default class CreateOfficer extends Component {
       if (res.data.msg === 'Added') {
         sessionStorage.setItem(
           'leo-message',
-          'Successfully Added ' + this.state.officerName
+          `${lang.officers.create_officer_success} ${this.state.officerName}`
         );
         return (window.location = '/leo/myofficers');
       }
@@ -71,7 +72,7 @@ export default class CreateOfficer extends Component {
       <div className='container text-light mt-2'>
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label htmlFor='officerName'>Enter Officer Name</label>
+            <label htmlFor='officerName'>{lang.record.officer_name}</label>
             <input
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -83,7 +84,7 @@ export default class CreateOfficer extends Component {
           </div>
 
           <div className='form-group'>
-            <label htmlFor='department'>Select Department</label>
+            <label htmlFor='department'>{lang.officers.select_department}</label>
             <select
               className='form-control bg-secondary border-secondary text-light'
               type='text'
@@ -91,9 +92,9 @@ export default class CreateOfficer extends Component {
               id='department'
               value={department}
               onChange={this.onChange}>
-              <option>Select Department..</option>
+              <option>{lang.officers.select_department}..</option>
               {!departments[0] ? (
-                <option>There are no departments Found.</option>
+                <option>{lang.officers.no_departments}</option>
               ) : (
                 departments.map((department, index) => {
                   return (
@@ -107,10 +108,10 @@ export default class CreateOfficer extends Component {
           </div>
           <div className='form-group float-right'>
             <a className='btn btn-danger' href='/leo/myofficers'>
-              Cancel
+              {lang.global.cancel}
             </a>
             <button className='btn btn-primary ml-2' type='submit'>
-              Create Officer
+              {lang.officers.create_officer}
             </button>
           </div>
         </form>

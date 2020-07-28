@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BleetBox from './BleetBox';
 import LoadingArea from '../Partials/LoadingArea';
 import { handleRequest } from '../../functions';
+import lang from "../../language.json"
 
 export default class Bleeter extends Component {
   constructor() {
@@ -39,13 +40,13 @@ export default class Bleeter extends Component {
     return (
       <div className='container text-light'>
         <div className='pb-3 d-flex justify-content-between'>
-          <h3>Bleeter</h3>
+          <h3>{lang.nav.bleeter}</h3>
           <a href='/bleeter/create' className='btn btn-primary'>
-            Create Bleet
+            {lang.bleeter.create_bleet}
           </a>
         </div>
         {!bleets[0] ? (
-          <h5>No bleets found</h5>
+          <h5>{lang.bleeter.no_bleet}</h5>
         ) : (
           bleets.map((bleet, index) => (
             <BleetBox

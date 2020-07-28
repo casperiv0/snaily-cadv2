@@ -4,6 +4,7 @@ import { backendURL } from '../../../../config/config';
 import Cookies from 'js-cookie';
 import ErrorMessage from '../../../Partials/Messages/ErrorMessage';
 import SuccessMessage from '../../../Partials/Messages/SuccessMessage';
+import lang from '../../../../language.json';
 
 export default class Ethnicities extends Component {
   constructor() {
@@ -43,7 +44,7 @@ export default class Ethnicities extends Component {
         if (res.data.msg === 'Deleted') {
           sessionStorage.setItem(
             'admin-message',
-            'Successfully Deleted Ethnicity'
+            lang.admin.values.ethnicity.delete_eth
           );
           return (window.location = '/admin/ethnicities');
         }
@@ -72,12 +73,12 @@ export default class Ethnicities extends Component {
               message ? <SuccessMessage dismiss message={message} /> : null 
           }
         <h3>
-          Manage Ethnicities - <a href='/admin/ethnicities/add'>+</a>
+          {lang.admin.values.ethnicity.manage_eth} - <a href='/admin/ethnicities/add'>+</a>
         </h3>
 
         <ul className='list-group mt-3'>
           {!ethnicities[0] ? (
-            <ErrorMessage message="You Don't have any ethnicities, Add one by clicking the plus symbol above" />
+            <ErrorMessage message={lang.admin.values.ethnicity.no_eth} />
           ) : (
             ethnicities.map((ethnicity, index) => {
               return (
@@ -89,14 +90,14 @@ export default class Ethnicities extends Component {
                     <a
                       href={'/admin/ethnicities/edit/' + ethnicity.id}
                       className='btn btn-success mr-2'>
-                      Edit
+                      {lang.global.edit}
                     </a>
                     <button
                       onClick={() => {
                         this.deleteEthnicity(ethnicity.id);
                       }}
                       className='btn btn-danger'>
-                      Delete
+                      {lang.global.delete}
                     </button>
                   </div>
                 </li>

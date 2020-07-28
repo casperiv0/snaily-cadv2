@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoadingArea from '../../Partials/LoadingArea';
 import { handleRequest } from '../../../functions';
+import lang from "../../../language.json"
 
 export default class AuditLogs extends Component {
   constructor() {
@@ -39,13 +40,13 @@ export default class AuditLogs extends Component {
 
     return (
       <div className='col text-light'>
-        <h3>Audit Logs</h3>
+        <h3>{lang.admin.audit_logs}</h3>
         <table className='table table-dark mt-3'>
           <thead>
             <tr>
               <th scope='col'>#</th>
-              <th scope='col'>Title</th>
-              <th scope='col'>Timestamp</th>
+              <th scope='col'>{lang.global.title}</th>
+              <th scope='col'>{lang.global.timestamp}</th>
             </tr>
           </thead>
           <tbody>
