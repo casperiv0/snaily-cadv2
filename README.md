@@ -10,14 +10,6 @@ View Screenshots [here](https://github.com/Dev-CasperTheGhost/snaily-cadv2/blob/
 
 Video: [https://youtu.be/WxNhuUYpVN4](https://youtu.be/WxNhuUYpVN4)
 
-### Demo
-
-demo: [http://demo-cad.caspertheghost.me/](http://demo-cad.caspertheghost.me/)
-
-**username:** demo
-
-**password:** demo
-
 ## Requirements
 
 - [Node](https://nodejs.org/en/download/)
