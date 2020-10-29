@@ -1,0 +1,15 @@
+/*
+
+In VSCode add the following to settings.json
+
+{
+    "stylelint.enable": true,
+    "css.validate": false,
+    "scss.validate": false
+}
+
+ */
+
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;

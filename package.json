@@ -6,8 +6,9 @@
   "scripts": {
     "server": "npm start --prefix server",
     "client": "npm run serve --prefix client",
+    "frontend": "cd ./frontend && yarn dev",
     "build": "npm run build --prefix client",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run frontend\"",
     "create": "echo please read README.md to view updated installation guide."
   },
   "repository": {

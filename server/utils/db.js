@@ -7,6 +7,7 @@ const options = {
     user: databaseUser,
     password: databasePassword,
     database: database,
+    port: 3307,
     multipleStatements: true,
     timeout: 0
 }

@@ -44,8 +44,9 @@ const LoggedInSection = () => {
   return (
     <div className='container mt-3 text-light'>
       <h2>Welcome Back {username}!</h2>
+      <div className="w-1/2 h-40 bg-white">aaa</div>
       <Link
-        className='btn btn-primary mb-2'
+        className='mb-2 btn btn-primary'
         style={{ width: '100%' }}
         to='/citizen'>
         Citizens Page
@@ -67,8 +68,9 @@ const NotLoggedInSection = () => {
     <div className='container mt-3 text-light'>
       {message ? <SuccessMessage message={message} dismiss /> : null}
       <h2>{lang.auth.welcome}!</h2>
+      <div className="w-1/2 h-40 bg-white">aaa</div>
       <Link
-        className='btn btn-primary mb-2'
+        className='mb-2 btn btn-primary'
         style={{ width: '100%' }}
         to='/auth/login'>
         {lang.auth.login}
@@ -85,7 +87,7 @@ const NotLoggedInSection = () => {
 
 const Credits = () => {
   return (
-    <div className='fixed-bottom text-light bg-dark border-dark pl-2 pt-2'>
+    <div className='pt-2 pl-2 fixed-bottom text-light bg-dark border-dark'>
       <p>
         Feel Free to support me{' '}
         <a href='https://www.paypal.me/caspertheghosty'>here</a>

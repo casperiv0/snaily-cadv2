@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Provider } from "react-redux";
 
 import store from "./store"
+import './index.css'
 
 class App extends Component {
   render() {
